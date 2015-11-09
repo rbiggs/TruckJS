@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Center</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+  <style>
+    #dingo {
+      height: 30px;
+      width: 30px;
+      background-color: red;
+    }
+  </style>
+  <script>
+    $(function() {
+      // Truck Body - Center Elements
+      (function() {
+        "use strict";
+        $.fn.extend({
+          // Center an Element on Screen
+          //============================
+          Center : function ( position ) {
+            var position = position;
+            if (!this[0]) return;
+            var $this = $(this);
+            var parent = $this.parent();
+            if (position) {
+              $(this.css('position', position));
+            } else if ($this.css('position') === 'absolute') {
+              position = 'absolute';
+            } else {
+              position = 'relative';
+            }
+            var height, width, parentHeight, parentWidth;
+            if (position === 'absolute') {
+              height = $this[0].clientHeight;
+              width = $this[0].clientWidth;
+              parentHeight = parent[0].clientHeight;
+              parentWidth = parent[0].clientWidth;
+            } else {
+              height = parseInt($this.css('height'),10);
+              width = parseInt($this.css('width'),10);
+              parentHeight = parseInt(parent.css('height'),10);
+              parentWidth = parseInt(parent.css('width'),10);
+              $(this).css({'margin-left': 'auto', 'margin-right': 'auto'});
+            }
+            var tmpTop, tmpLeft;
+            if (parent[0].nodeName === 'body') {
+              tmpTop = ((window.innerHeight /2) + window.pageYOffset) - height /2 + 'px';
+              tmpLeft = ((window.innerWidth / 2) - (width / 2) + 'px');
+            } else {
+              tmpTop = (parentHeight /2) - (height /2) + 'px';
+              tmpLeft = (parentWidth / 2) - (width / 2) + 'px';
+            }
+            if (position !== 'absolute') tmpLeft = 0;
+            $this.css({left: tmpLeft, top: tmpTop});
+          }
+        });
+      })();
+      $('.busy').Center();
+
+    });
+  </script>
+</head>
+<body>
+  <screen id='main'>
+    <nav>
+      <h1>List</h1>
+    </nav>
+    <section>
+      <svg width='30px' height='30px' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid' class='busy'>  <g x='0' y='0' width='100' height='100' fill='none' class='bk'><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#00b2ff' transform='rotate(0 50 50) translate(0 -30)'><animate attributeName='opacity' from='1' to='0' dur='1s' begin='0s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#00b2ff' transform='rotate(45 50 50) translate(0 -30)'><animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.125s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#00b2ff' transform='rotate(90 50 50) translate(0 -30)'><animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.25s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#00b2ff' transform='rotate(135 50 50) translate(0 -30)'><animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.375s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#00b2ff' transform='rotate(180 50 50) translate(0 -30)'><animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.5s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#00b2ff' transform='rotate(225 50 50) translate(0 -30)'><animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.625s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#00b2ff' transform='rotate(270 50 50) translate(0 -30)'><animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.75s' repeatCount='indefinite'/></rect><rect  x='46.5' y='40' width='7' height='20' rx='5' ry='5' fill='#00b2ff' transform='rotate(315 50 50) translate(0 -30)'><animate attributeName='opacity' from='1' to='0' dur='1s' begin='0.875s' repeatCount='indefinite'/></rect></g></svg>
+      <ul class='list'>
+        <li>
+          <h3>People</h3>
+        </li>
+        <li>
+          <h3>Places</h3>
+        </li>
+        <li>
+          <h3>Things</h3>
+        </li>
+      </ul>
+    </section>
+  </screen>
+</body>
+</html>

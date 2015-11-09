@@ -1,0 +1,10 @@
+.DS_Store
+.svn
+._*
+.Spotlight-V100
+.Trashes
+npm-debug.log
+Thumbs.db
+node_modules
+!src/**
+src/**/.DS_Store

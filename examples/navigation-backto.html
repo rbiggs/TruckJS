@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Navigation BackTo</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+  <script>
+    $(function() {
+      $("#goToLast").on("tap", function() {
+         $.GoToScreen("screen3");
+       });
+       $('#backToMain').on('tap', function() {
+         $.GoBackToScreen('main');
+       });
+    });
+  </script>
+</head>
+<body>
+  <screen id='main' class='current'>
+    <nav>
+      <h1>Non-Linear Navigation</h1>
+    </nav>
+    <section>
+      <ul class='list' role='list'>
+        <li data-goto="screen2">
+          <h3>Item</h3>
+          <aside>
+            <disclosure></disclosure>
+          </aside>
+        </li>
+      </ul>
+      <br><br>
+      <button id='goToLast' href='javascript:void(null)' class="action">Straight to Detail screen</button>
+    </section>
+  </screen>
+  <screen id="screen2" class='next'>
+    <nav>
+      <button class="back">Back</button>
+      <h1>Second screen</h1>
+    </nav>
+    <section>
+      <ul class='list' role='list'>
+        <li data-goto="screen3">
+          <h3>Item</h3>
+          <h4>Item Subtitle</h4>
+          <aside>
+            <disclosure></disclosure>
+          </aside>
+        </li>
+      </ul>
+    </section>
+  </screen>
+  <screen id="screen3" class='next'>
+    <nav>
+      <button id='backToMain' class='backTo'>Back</button>
+      <h1>BackTo Button</h1>
+    </nav>
+    <section>
+      <ul class='list'>
+        <li>
+          <div>
+            <h3>Item</h3>
+            <h4>Item Subtitle</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </screen>
+</body>
+</html>

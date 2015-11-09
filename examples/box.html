@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+	<title>Truck Box</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+</head>
+<body>
+	<screen id="main" class='current'>
+		<nav>
+			<h1>Truck Box</h1>
+		</nav>
+		<section>
+			<h2>Put stuff in your Box:</h2>
+			<ul class="list">
+				<li>
+					<label for="key">key: </label>
+					<input type="text" name='key' id='key'>
+					<label for="value">value: </label>
+					<input type="text" name="value" id='value'>
+					<button id='boxit'>Box it!</button>
+				</li>
+			</ul>
+			<h2>What's in the Box</h2>
+			<ul class="list" id='boxList'></ul>
+		</section>
+	</screen>
+	<script>
+
+		// Configure Box:
+		//===============
+		$.Box.config({
+			boxName: 'box-example'
+		});
+
+		// Define Mediator to handle boxing model:
+		//========================================
+		var BoxMediator = $.Mediator('box-mediator');
+		BoxMediator.init(function(data) {
+			if (data && data.key) {
+				var key = data.key;
+				var value = data.value;
+				// Set a Box key/value pair:
+				$.Box.set(key, value).then(function(item) {
+					$('#boxList').empty();
+					$.Box.each(function(value, key) {
+						$('#boxList').append('<li>Key: ' + key + ', value: ' + value + '</li>');
+					});
+				});
+			}
+		});
+
+		// Handle event to trigger model agumentation:
+		//============================================
+		$('#boxit').on('click', function() {
+			var key = $('#key').val();
+			var value = $('#value').val();
+			if (!key || !value) return;
+			BoxMediator.run({key: key, value: value});
+    });
+
+		// Output contents of Box:
+		//========================
+		$.Box.each(function(value, key, idx) {
+			$('#boxList').append('<li>Key: ' + key + ', value: ' + value + '</li>');
+		});
+	</script>
+</body>
+</html>

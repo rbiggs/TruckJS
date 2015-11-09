@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Gestures</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+  <style>
+    #gestureResponse {
+      font-weight: bold;
+      text-transform: none;
+    }
+  </style>
+  <script>
+     $(function() {
+       $('#main').on('swipeleft', function() {
+        $('#gestureResponse').text('Swipe LEFT completed!');
+      });
+      $('#main').on("swiperight", function() {
+        $('#gestureResponse').text('You just swiped RIGHT!');
+      });
+      $('#main').on('swipeup', function() {
+        $('#gestureResponse').text('Woohoo! Swiping UP!');
+      });
+      $('#main').on('swipedown', function() {
+        $('#gestureResponse').text('We\'re going DOWN!');
+      });
+      $('#main').on('doubletap', function() {
+        $('#gestureResponse').text('That was a Double Tap!');
+      });
+      $('#main').on('longtap', function() {
+        $('#gestureResponse').text('This is a Looooong Tap!');
+      });
+      $('#main').on('tap', function() {
+        $('#gestureResponse').text('That was a Tap!');
+      });
+    });
+  </script>
+</head>
+<body>
+  <screen id='main'>
+    <nav>
+      <h1>Gestures</h1>
+    </nav>
+    <section>
+      <h2>Try:<br> 
+      tap, double tap, long tap,<br> 
+      swipe left, swipe right,<br> 
+      swipe up, swipe down</h2> 
+      <ul class='list'>
+        <li>
+          <h3>Gesture:</h3>
+          <br>
+          <br>
+          <br>
+          <br>
+          <h2 class='attentionGrapper' id='gestureResponse'></h2>
+        </li>
+      </ul>
+    </section>
+  </screen>
+</body>
+</html>

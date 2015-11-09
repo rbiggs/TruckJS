@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Sort Arrays</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+  <style>
+    #prices span {
+      display: inline-block;
+      text-align: right;
+      width: 50px;
+    }
+  </style>
+</head>
+<body>
+<screen id="main" class="current">
+  <nav>
+    <h1>Sorting</h1>
+  </nav>
+  <section>
+    <h2>Sort Array of Names</h2>
+    <ul id='names' class="list cloak">
+      <li>${ name.toUpperCase() }</li>
+    </ul>
+    <h2>Sort Array of Dates</h2>
+    <ul id="dates" class="list">
+      <li>
+        <h3>${ new Date(date).getFullYear() }, ${ $.getMonth(new Date(date).getMonth()) }</h3>
+      </li>
+    </ul>
+    <h2>Sort Array of Prices</h2>
+    <ul id='prices'class='list'>
+      <li>
+        <h3><span>${ $.currency(price) }</span></h3>
+      </li>
+    </ul>
+  </section>
+</screen>
+  
+  <script>
+  $(function(){
+
+      /////////////
+      // Sort Names
+      /////////////
+
+      var names = [
+        'Tom',
+        'Mary',
+        'Adam',
+        'Sherry',
+        'Paul',
+        'Betty',
+        'Mark',
+        'Bill',
+        'Ed',
+        'Jane',
+        'Carl'
+      ];
+
+
+      var namesModel = $.Model(names, 'names-model');
+      namesModel.reverse();
+      var namesView = $.View({element: '#names', model: namesModel, variable: 'name'});
+      namesView.render()
+
+
+      ///////////////////////
+      // First Example
+      // Sort array of dates:
+      ///////////////////////
+
+      $.getMonth = function(date) {
+        var months = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December'
+        ];
+        return months[date];
+      }
+
+      // Create dates:
+      var today = new Date();
+      var date_1999 = new Date('October 30, 1999');
+      var date_1949 = new Date('August 20, 1949');
+      var date_1980 = new Date('January 1, 1980');
+
+      var dates = [date_1949, date_1999, today, date_1980];
+
+      var dateModel = $.Model(dates, 'dates-model');
+      dateModel.sort($.sortDate);
+
+      var dateView = $.View({element: '#dates', model: dateModel, variable: 'date'});
+      dateView.render();
+
+      var prices = [
+        5,
+        4.25,
+        .98,
+        12.1,
+        42.98,
+        9.99,
+        1,
+        25,
+        22.22,
+        .02,
+        7.5
+      ];
+      var priceModel = $.Model(prices, 'price-model');
+      priceModel.sort($.sortNumbersDescending);
+      var priceView = $.View({element: '#prices', model: priceModel, variable: 'price'});
+      priceView.render();
+      })
+  </script>
+</body>
+</html>

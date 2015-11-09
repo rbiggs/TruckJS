@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Switches</title>
+  <link rel="stylesheet" href="../dist/styles/truck-windows.css">
+  <script src="../dist/truck.min.js"></script>
+</head>
+<body>
+  <screen class='current' id='select-example'>
+    <nav>
+      <h1>To Do</h1>
+    </nav>
+    <section>
+      <h2>Choose what to do</h2>
+      <ul class='list'>
+        <li class='comp'>
+          <div>
+            <h3>Sleep</h3>
+          </div>
+          <switch id='sleep-switch'></switch>
+        </li>
+      </ul>
+      <ul class='list'>
+        <li class='comp'>
+          <div>
+            <h3>Vacation</h3>
+          </div>
+          <switch id='vacation-switch'></switch>
+        </li>
+      </ul>
+      <ul class='list'>
+        <li class='comp'>
+          <div>
+            <h3>Breakfast</h3>
+          </div>
+          <switch id='breakfast-switch'></switch>
+        </li>
+      </ul>
+      <p>You're Choice : <strong><span id="response" class='attentionGrapper'></span></strong></p>
+    </section>
+  </screen>
+  <script>
+    $(function() {
+      $.sleepSwitch = $.Switch({
+        element: '#sleep-switch',
+        name: 'sleep',
+        value: 'get some sleep',
+        checked: false,
+        onCallback: function() {
+          console.log('Just turned this on!');
+          $('#response').text($.sleepSwitch.getValue().value);
+        },
+        offCallback: function() {
+          console.log('Turning this thing off!');
+          $('#response').empty();
+        }
+      });
+      $.vacationSwitch = $.Switch({
+        element: '#vacation-switch',
+        name: 'vacation',
+        value: 'take a vacation',
+        checked: false,
+        onCallback: function() {
+          console.log('Just turned this on!');
+          $('#response').text($.vacationSwitch.getValue().value);
+        },
+        offCallback: function() {
+          console.log('Turning this thing off!');
+          $('#response').empty();
+        }
+      });
+      $.breakfastSwitch = $.Switch({
+        element: '#breakfast-switch',
+        name: 'breakfast',
+        value: 'have some breakfast',
+        checked: false,
+        onCallback: function() {
+          console.log('Just turned this on!');
+          $('#response').text($.breakfastSwitch.getValue().value);
+        },
+        offCallback: function() {
+          console.log('Turning this thing off!');
+          $('#response').empty();
+        }
+      });
+
+
+    });
+  </script>
+</body>
+</html>

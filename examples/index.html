@@ -1,0 +1,122 @@
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Center</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+</head>
+<body>
+  <screen>
+    <nav>
+      <h1>Available Examples</h1>
+    </nav>
+    <section>
+      <h2>Layouts</h2>
+      <ul class="list" id='layouts'>
+        <li data-goto='${ data.destination }'>
+          <h3>${ data.name }</h3>
+          <aside>
+            <disclosure></disclosure>
+          </aside>
+        </li>
+      </ul>
+      <h2>Widgets</h2>
+      <ul class="list" id='widgets'>
+        <li data-goto='${ data.destination }'>
+          <h3>${ data.name }</h3>
+          <aside>
+            <disclosure></disclosure>
+          </aside>
+        </li>
+      </ul>
+    </section>
+  </screen>
+  <script>
+    $(function() {
+      var layouts = [
+        {name: 'List 1', destination: './layouts/list-1.html'},
+        {name: 'List 2', destination: './layouts/list-2.html'},
+        {name: 'List 3', destination: './layouts/list-3-a.html'},
+        {name: 'List 4', destination: './layouts/list-3-b.html'},
+        {name: 'List 5', destination: './layouts/list-4-a.html'},
+        {name: 'List 6', destination: './layouts/list-4-b.html'},
+        {name: 'List 7', destination: './layouts/list-5.html'},
+        {name: 'List 8', destination: './layouts/list-6-a.html'},
+        {name: 'List 9', destination: './layouts/list-6-b.html'},
+        {name: 'List 10', destination: './layouts/list-6-c.html'},
+        {name: 'List 11', destination: './layouts/list-7-a.html'},
+        {name: 'List 12', destination: './layouts/list-7-b.html'},
+        {name: 'List 13', destination: './layouts/list-8.html'},
+        {name: 'List 14', destination: './layouts/list-titled.html'},
+        {name: 'List 15', destination: './layouts/list-with-footer.html'},
+        {name: 'List 16', destination: './layouts/list-with-header-a.html'},
+        {name: 'List 17', destination: './layouts/list-with-header-b.html'},
+        {name: 'List 18', destination: './layouts/list-with-header-c.html'},
+        {name: 'List 19', destination: './layouts/layout-test.html'}
+      ];
+
+      var LayoutsView = $.View({
+        element: '#layouts'
+      });
+      LayoutsView.render(layouts);
+
+      var widgets = [
+        {name: 'Activity Indicator', destination: './activity-indicator.html'},
+        {name: 'Activity Indicator Modal', destination: './activity-indicator-modal.html'},
+        {name: '$.Box', destination: './box.html'},
+        {name: '$.Box Using Session', destination: './box-session.html'},
+        {name: 'Auto-boxing a Model', destination: './auto-box.html'},
+        {name: 'Center the Header for iOS', destination: './center.html'},
+        {name: 'Data Formatting', destination: './data-formatting.html'},
+        {name: 'Dispatcher', destination: './dispatcher.html'},
+        {name: 'Editable List', destination: './editable-list.html'},
+        {name: 'Auto-Boxing Editable List', destination: './editable-auto-box.html'},
+        {name: 'Form Validation & Serialization', destination: './form-1.html'},
+        {name: 'Gestures', destination: './gestures.html'},
+        {name: 'Centering Headers for iOS', destination: './header-centering.html'},
+        {name: 'Navigation List', destination: './navigation.html'},
+        {name: 'Navigation with Routing', destination: './navigation-routes.html'},
+        {name: 'Arbitrary Back Button', destination: './navigation-backto.html'},
+        {name: 'Paging', destination: './paging.html'},
+        {name: 'Popup', destination: './popup.html'},
+        {name: 'Popovers', destination: './popovers.html'},
+        {name: 'Range Input', destination: './range-control.html'},
+        {name: 'Scroll Panel', destination: './scroll-panel.html'},
+        {name: 'Segmented Buttons', destination: './segmented-button.html'},
+        {name: 'Select List', destination: './select-list.html'},
+        {name: 'Mediators', destination: './mediator.html'},
+        {name: 'Multi Select List', destination: './multi-select-list.html'},
+        {name: 'Sheet from Bottom', destination: './sheet-bottom.html'},
+        {name: 'Sheet from Top', destination: './sheet-top.html'},
+        {name: 'Slide Out Menu', destination: './slide-out-menu.html'},
+        {name: 'Slide Out with Routing', destination: './slide-out-menu-routes.html'},
+        {name: 'Slide Out with Navigation List', destination: './slide-out-menu-nav.html'},
+        {name: 'Sorting Arrays', destination: './sort-arrays.html'},
+        {name: 'Stepper', destination: './stepper.html'},
+        {name: 'Switches', destination: './switches.html'},
+        {name: 'Tab Bar', destination: './tabbar.html'},
+        {name: 'Tab Bar with Navigation List', destination: './tabbar-nav.html'},
+        {name: 'Tab Bar with Routing', destination: './tabbar-nav-routes.html'},
+        {name: 'Data Validators', destination: './validators.html'},
+        {name: 'Views - Simple Examples', destination: './views-1.html'},
+        {name: 'Views - Complex Examples', destination: './views-2.html'}
+      ];
+
+      var WidgetsView = $.View({
+        element: '#widgets'
+      });
+      WidgetsView.render(widgets);
+
+      $('.list').on('tap','li', function() {
+        var url = $(this).attr('data-goto');
+        window.location.href = url;
+      });
+    });
+  </script>
+</body>
+</html>

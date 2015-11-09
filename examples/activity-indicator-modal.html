@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Activity Indicator - Modal</title>
+  <link rel="stylesheet" href="../dist/styles/truck-android.css">
+  <script src="../dist/truck.js"></script>
+  <script>
+    $(function() {
+      $.Popup({empty: true, width: 100});
+      $('#showModalBusyIndicator').on('tap', function(e) {
+        if (!$('.popup').find('.busy')[0]) {
+          $('.popup').Busy({'color':'orange', 'size': 90});
+        }
+        $('.popup').find('.busy').Center();
+        $('.popup').ShowPopup();
+        setTimeout(function() {
+          $('.popup').ClosePopup();
+        },5000);
+      });
+    });
+  </script>
+  <style>
+    .popup > .panel {
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <screen id='main' class="current">
+    <nav>
+      <h1>Activity Indicator</h1>
+    </nav>
+    <section>
+      <ul class='list'>
+        <li>
+          <button id='showModalBusyIndicator' href='#'>Show Activity Indicator</button>
+        </li>
+      </ul>
+    </section>
+  </screen>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JSONP</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <script src="../js/truckjs.js"></script>
+  <script>
+  /// <reference path='../../typings/chocolatechipjs/chocolatechipjs.d.ts' />
+  $(function() {
+    $("#submit").on("click", function(e) {
+      $('#message_ajax').empty();
+      
+      $.jsonp('https://api.github.com/users/rbiggs/repos?name=chipper', {timeout: 10000})
+      .then($.json)
+      .then(function(obj) {
+        obj.data.forEach(function(repo) {
+          $('#message_ajax').append("<li>" + repo.name + "</li>");
+        });
+      })
+      .catch(function(error) {
+        $('#message_ajax').append("<li>" + error.message + "</li>")
+      });
+    });
+  });
+  </script>
+</head>
+<body>
+  <article>
+    <h1>Example of JSONP from Github</h1>
+    <p>&lt; <a href="../index.html">Back to index</a></p>
+    <h2>Send to Server</h2>
+    <p><input id='submit' type="submit" value="Get Data" /></p>
+    <h2>Returned by Server</h2>
+    <ol id="message_ajax"></ol>
+  </article>
+</body>
+</html>

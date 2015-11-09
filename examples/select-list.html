@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Select List</title>
+  <link rel="stylesheet" href="../dist/styles/truck-windows.css">
+  <script src="../dist/truck.js"></script>
+</head>
+<body>
+  <screen class='current' id='select-example'>
+    <nav>
+      <h1>To Do</h1>
+    </nav>
+    <section>
+      <h2>Choose what to do</h2>
+      <ul class="list" id="selectList">
+        <li data-select="${ data.type}">
+          <h3>${ data.value }</h3>
+        </li>
+      </ul>
+      <p>You are going to: <strong><span id="response" class='attentionGrapper'></span></strong></p>
+    </section>
+  </screen>
+  <script>
+    $(function() {
+      // ToDo data:
+      var ToDo = [
+        {type: "eat", value: "Go Eat Something"},
+        {type: "nap", value: "Take a nap"},
+        {type: "work", value: "Get some work done"},
+        {type: "play", value: "Play a game"}
+      ];
+
+      // Define and render view:
+      //========================
+      var ToDoView = $.View({
+        element: '#selectList'
+      });
+      ToDoView.render(ToDo);
+
+      // Set up Select List:
+      //====================
+      $.mySelectList = $.SelectList({
+        element: '#selectList',
+        selected: 2,
+        callback: function() {
+          renderSelection();
+        }
+      });
+
+      // Define callback for select list:
+      //=================================  
+      var renderSelection = function() {
+        $('#response').text($.mySelectList.getSelection().value);
+      }
+
+      // Render default selection:
+      renderSelection();
+    });
+  </script>
+</body>
+</html>

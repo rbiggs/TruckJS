@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fetch PUT</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <script src="../js/truckjs.js"></script>
+  <script>
+  /// <reference path='../../typings/chocolatechipjs/chocolatechipjs.d.ts' />
+  $(function() {
+    $("#submit").on("click", function(e) {
+
+      var data = $('#fileText').val();
+      if (!data) {
+        alert('Please type something in the textarea before submitting.');
+        return;
+      }
+      
+      fetch('../controllers/php-put.php', {
+        method: 'put',
+        headers: {  
+          "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
+        },
+        body: data
+      })
+      .then($.json) 
+      .then(function(data) {
+          $("#message_ajax").append('<p>' + data.result + '</p>');
+          $("#message_ajax").append('<p>The file name is: ' + data.fileName + '</p>');
+      })
+      .catch(function(error) {
+          console.log(error);
+          $("#message_ajax").html("<div class='errorMessage'>Sorry, put was not successful.</div>");
+      });
+    });
+  });
+  </script>
+</head>
+<body>
+  <article>
+    <h1>Example of PUT</h1>
+    <p>&lt; <a href="../index.html">Back to index</a></p>
+    <h2>Send to Server</h2>
+    <p><input id='submit' type="submit" value="Create File" /></p>
+    <form id="textForm">
+      <textarea name="fileText" id="fileText" cols="30" rows="10"></textarea>
+    </form>
+    <h2>Returned by Server</h2>
+    <div id="message_ajax"></div>
+  </article>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+    <title>Truck Box sessionStorage</title>
+    <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+    <script src="../dist/truck.js"></script>
+  </head>
+  <body>
+    <screen id="main" class="current">
+      <nav>
+        <h1>Box sessionStorage</h1>
+      </nav>
+      <section>
+        <h2>Results of Truck Box Session</h2>
+        <ul class="list" id='results'>
+        </ul>
+      </section>
+    </screen>
+    <script>
+
+      // Empty list first:
+      $('#results').empty();
+
+      // Helper to print session results:
+      function renderSession(msg) {
+        $('#results').append('<li>' + msg + '</li>');
+      }
+
+      // Define driver for $.Box:
+      $.Box.defineDriver(sessionStorageDriver).then(function() {
+        // Forcing sessionStorage:
+        $.Box.setDriver(sessionStorageDriver.__driver).then(function() {
+          var key = 'STORE_KEY';
+          var value = 'What we saved offline';
+          var UNKNOWN_KEY = 'unknown_key';
+
+          $.Box.get(key).then(function(readValue) {
+            if (readValue) {
+              renderSession(key + ' was already in ' + $.Box.driver() + ', with value: ' + readValue);
+            } else {
+              renderSession($.Box.driver() + ' did not contain ' + key);
+            }
+
+            $.Box.set(key, value, function() {
+              renderSession('Saved: ' + value);
+
+              $.Box.get(key, function(err, readValue) {
+                renderSession('Read: ' + readValue);
+              });
+
+              // Since this key hasn't been set yet, we'll get a null value:
+              $.Box.get(UNKNOWN_KEY, function(err, readValue) {
+                renderSession('Result of reading ' + UNKNOWN_KEY + ": " + readValue);
+              });
+            });
+          });
+        });
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Stepper</title>
+  <link rel="stylesheet" href="../dist/styles/truck-windows.css">
+  <script src="../dist/truck.js"></script>
+  <script type="text/javascript">
+    $(function() {
+    $('#digits').Stepper({  
+        start: 1,
+        end: 8,
+        defaultValue: 3
+      });
+    });
+  </script>
+</head>
+<body>
+  <screen id="main" class="current">
+    <nav>
+      <h1>Stepper</h1>
+    </nav>
+    <section>
+      <ul class='list'>
+        <li>
+          <div>
+            <h3>Choose a value:</h3>
+            <span class='stepper' id="digits"></span>
+          </div>
+        </li>
+      </ul>
+    </screen>
+  </article>
+</body>
+</html>

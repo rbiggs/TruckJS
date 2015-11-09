@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Truck Layout</title>
+  <link rel="stylesheet" href="../../dist/truck-ios.css">
+  <script src='../../dist/truck.js'></script>
+  <style>
+    #bingo {
+      height: 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      justify-content: stretch;
+    }
+    #bingo div {
+      background-color: red;
+      flex: 1;
+    }
+    #bingo div + div {
+      background-color: orange;
+    }
+    /*  Stuff */
+    img {
+      display: block;
+      height: 70px;
+      width: auto;
+    }
+    .fullRoute {
+      color: #007aff;
+    }
+  </style>
+</head>
+<body>
+
+<screen id='main' class='current'>
+  <nav>
+    <button>button long</button>
+    <h1>This is long</h1>
+  </nav>
+  <section>
+    <!-- centering -->
+    <div id="bingo">
+      <div></div>
+      <div></div>
+    </div>
+    <h2>Subtitle</h2>
+    <ul class="list" id='navList'>
+      <li data-goto='nextThing'>
+        <img src="../images/Wobba.jpg" alt="">
+        <div class='separator auto-width'>
+          <h3>Item One</h3>
+          <h4>Dingo babies</h4>
+        </div>
+        <div class='separator'>
+          <p>Something more</p>
+          <h3>More too</h3>
+          <p>Something more</p>
+        </div>
+        <aside>
+          <disclosure></disclosure>
+        </aside>
+      </li>
+      <li class='flush' data-goto='nextThing'>
+          <h3>Item Two is longer than three</h3>
+          <h4>Subtitle</h4>
+        <aside>
+          <disclosure></disclosure>
+        </aside>
+      </li>
+      <li class='flush' data-goto='nextThing'>
+        <h3 class='ellipsis'>Item Three and this is a very long piece of text to see what happens when it haves to wrap around. It appears to handle the longer text just fine</h3>
+        <h4 class='ellipsis'>Something Here</h4>
+        <aside>
+          <info></info>
+        </aside>
+      </li>
+      <li data-goto='nextThing' class='flush'>
+        <div>
+          <h3>Item Four</h3>
+          <h4>Item Four</h4>
+        </div>
+        <aside class='price'>
+          <span>$3.00</span>
+        </aside>
+      </li>
+      <li data-goto='nextThing' class='flush'>
+        <h3>Item Five</h3>
+        <aside class='number'>
+          <span>16</span>
+        </aside>
+      </li>
+      <li data-goto='nextThing'>
+        <h3>Item Six</h3>
+        <aside>
+          <disclosure></disclosure>
+        </aside>
+      </li>
+      <li data-goto='nextThing'>
+        <h3>Item Seven</h3>
+        <aside>
+          <disclosure></disclosure>
+        </aside>
+      </li>
+    </ul>
+    <summary>This is some text after the list</summary>
+  </section>
+  <footer>
+    <button>Button 1</button>
+  </footer>
+</screen>
+
+<screen class="next" id="nextThing">
+  <nav>
+    <button class='back' id='back'>Back to Home</button>
+    <h1>Next Page</h1>
+    <button>Bozo Ha Ha</button>
+  </nav>
+  <section>
+    <!-- centering -->
+    <div id="bingo">
+      <div></div>
+      <div></div>
+    </div>
+    <h2>Subtitle Number Two</h2>
+    <ul class="list">
+      <li>
+        <h3>Stuff One</h3>
+      </li>
+      <li>
+        <h3>Stuff Two</h3>
+      </li>
+      <li>
+        <h3>Stuff Three</h3>
+      </li>
+      <li>
+        <h3>Stuff Four</h3>
+      </li>
+      <li>
+        <h3>Stuff Five</h3>
+      </li>
+      <li>
+        <h3>Stuff Six</h3>
+      </li>
+      <li>
+        <h3>Stuff Seven</h3>
+      </li>
+    </ul>
+    <summary>This is some text after the list</summary>
+  </section>
+  <footer>
+    <button>Button 2</button>
+  </footer>
+</screen>
+  
+</body>
+</html>

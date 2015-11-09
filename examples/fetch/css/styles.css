@@ -1,0 +1,39 @@
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #ccc;
+  font: normal 12pt/1.1234 HelveticaNeue-Light, 'Helvetica Neue Light', Arial;
+}
+article {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  bottom: 10px;
+  right: 10px;
+  padding: 20px;
+  background-color: #fff;
+  border: solid 1px #888;
+  overflow-y: auto;
+}
+h1, h2 {
+  font-weight: 100;
+  border-bottom: solid 2px #ddd;
+}
+li {
+  margin: 0;
+  padding: 5px 10px;
+}
+li a {
+  border: solid 1px #ccc;
+  display: inline-block;
+  padding: 4px 12px;
+  text-decoration: none;
+  background-color: #eee;
+  color: #777;
+}
+li a:hover {
+  background-color: #aaa;
+  color: #fafafa;
+}

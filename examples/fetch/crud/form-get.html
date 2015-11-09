@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fetch GET</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <script src="../js/truckjs.js"></script>
+  <script>
+  /// <reference path='../../typings/chocolatechipjs/chocolatechipjs.d.ts' />
+  $(function() {
+    $("#submit").on("click", function(e) {
+      fetch('../data/wines.json')
+      .then($.json)
+      .then(function(obj) {
+        $('#message_ajax').empty();
+        obj.data.forEach(function(wine) {
+          $('#message_ajax').append('<li>' + wine.name + '</li>');
+        })
+      });
+    });
+  });
+  </script>
+</head>
+<body>
+  <article>
+    <h1>Example of GET</h1>
+    <p>&lt; <a href="../index.html">Back to index</a></p>
+    <h2>Send to Server</h2>
+    <p><input id='submit' type="submit" value="Get Wines" /></p>
+    <h2>Returned by Server</h2>
+    <ol id="message_ajax"></ol>
+  </article>
+</body>
+</html>

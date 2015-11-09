@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="82px" height="61px" viewBox="0 0 82 61" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12072) - http://www.bohemiancoding.com/sketch -->
+    <title>Camera Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0.657" y="0.982" width="10.091" height="10.092"></rect>
+        <rect id="path-3" x="0.663" y="0.982" width="10.092" height="10.092"></rect>
+        <rect id="path-5" x="0.743" y="0.62" width="13.456" height="40.365"></rect>
+        <rect id="path-7" x="0.747" y="0.62" width="13.452" height="40.365"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Camera" sketch:type="MSLayerGroup">
+            <path d="M54.571,33.802 C54.571,39.374 50.05,43.894 44.472,43.894 C38.901,43.894 34.382,39.374 34.382,33.802 C34.382,28.224 38.901,23.711 44.472,23.711 C50.051,23.711 54.571,28.224 54.571,33.802" id="Shape" fill="#007AFF" sketch:type="MSShapeGroup"></path>
+            <path d="M74.755,6.891 L34.382,6.891 C34.382,3.178 31.373,0.164 27.653,0.164 L20.925,0.164 C17.213,0.164 14.204,3.178 14.197,6.891 L7.476,6.891 C3.76,6.891 0.745,9.902 0.745,13.62 L7.469,13.62 C11.189,13.62 14.198,16.634 14.198,20.348 L14.198,47.259 C14.198,50.978 11.189,53.986 7.469,53.986 L0.747,53.986 C0.747,57.707 3.763,60.714 7.478,60.714 L74.755,60.714 C78.47,60.714 81.483,57.707 81.483,53.986 L81.483,13.62 C81.482,9.902 78.47,6.891 74.755,6.891 M44.479,50.622 C35.19,50.622 27.661,43.093 27.661,33.796 C27.661,24.504 35.19,16.977 44.479,16.977 C53.771,16.977 61.3,24.505 61.3,33.796 C61.3,43.093 53.771,50.622 44.479,50.622" id="Shape" fill="#007AFF" sketch:type="MSShapeGroup"></path>
+            <g id="Group" transform="translate(64.000000, 16.000000)">
+                <g id="Clipped">
+                    <g>
+                        <mask id="mask-2" sketch:name="SVGID_1_" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="SVGID_1_"></g>
+                        <g mask="url(#mask-2)">
+                            <mask id="mask-4" sketch:name="SVGID_3_" fill="white">
+                                <use xlink:href="#path-3"></use>
+                            </mask>
+                            <g id="SVGID_3_"></g>
+                            <path d="M5.709,0.982 C2.917,0.982 0.663,3.25 0.663,6.028 C0.663,8.814 2.917,11.074 5.709,11.074 C8.491,11.074 10.755,8.814 10.755,6.028 C10.755,3.25 8.491,0.982 5.709,0.982" id="Shape" fill="#D2D2D2" sketch:type="MSShapeGroup" mask="url(#mask-4)"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <path id="Shape" fill="#010101" sketch:type="MSShapeGroup" d="M0.747,53.984 L0.747,53.984 L0.747,13.62 L0.747,53.984 Z"></path>
+            <g id="Group" transform="translate(0.000000, 13.000000)">
+                <g id="Clipped">
+                    <g>
+                        <mask id="mask-6" sketch:name="SVGID_5_" fill="white">
+                            <use xlink:href="#path-5"></use>
+                        </mask>
+                        <g id="SVGID_5_"></g>
+                        <g mask="url(#mask-6)">
+                            <mask id="mask-8" sketch:name="SVGID_7_" fill="white">
+                                <use xlink:href="#path-7"></use>
+                            </mask>
+                            <g id="SVGID_7_"></g>
+                            <path d="M14.199,34.258 L14.199,7.347 C14.199,3.634 11.19,0.619 7.47,0.619 L0.747,0.619 L0.747,40.984 L7.471,40.984 C11.19,40.984 14.199,37.977 14.199,34.258" id="Shape" fill="#69B1FF" sketch:type="MSShapeGroup" mask="url(#mask-8)"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <path d="M69.709,27.075 C66.917,27.075 64.663,24.815 64.663,22.029 C64.663,19.25 66.917,16.983 69.709,16.983 C72.491,16.983 74.755,19.251 74.755,22.029 C74.755,24.814 72.491,27.075 69.709,27.075" id="Path" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

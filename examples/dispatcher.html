@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Dispatcher</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+</head>
+<body>
+  <screen class='current' id='main'>
+    <nav>
+      <h1>Dispatcher</h1>
+    </nav>
+    <section>
+      <ul class='list'>
+      </ul>
+    </section>
+  </screen>
+
+  <script>
+    // $(function() {
+      // Two methods to listen to:
+      var arrayListener = function( handle , data ) {
+        if (data instanceof Array) {
+          if (data[0] instanceof Object) {
+            data.forEach(function(ctx) {
+              if (ctx['news-flash']) {
+                $('.list').append('<li><h3>Array: ' + handle + "</h3><h4>" + ctx['news-flash'] + '</h4></li>');
+              } else {
+                $('.list').append('<li><h3>Array: ' + handle + "</h3><h4>" + ctx['update'] + '</h4></li>');
+              }
+            });
+          } else {
+            $('.list').append('<li><h3>Array: ' + handle + "</h3><h4>" + data.join(' ') + '.</h4></li>');
+          }
+        }
+      };
+      
+      var stringListener = function(handle, string) {
+        if (typeof string === 'string') {
+          $('.list').append('<li><h3>String: ' + handle + ': ' + string + '</h3></li>');
+        }
+      };
+
+      var arrayOfObjs = function(handle, obj) {
+        if (obj instanceof Array) {
+          obj.forEach(function(ctx) {
+            if (ctx.name && ctx.job) {
+              $('.list').append('<li><h3>My name is ' + ctx.name + ', and I am a ' + ctx.job + '.</h3></li>');
+            } else {
+              return;
+            }        
+          });
+        }
+      };
+      var stringDispatcher = $.receive('news/update', stringListener);
+      var arrayDispatcher = $.receive( 'news/update', arrayListener );  
+      var objDispatcher = $.receive( 'users/new', arrayOfObjs );
+      
+      $.dispatch( 'news/update', 'This is the latest news!' );
+      $.dispatch( 'news/update', ['Somebody','did','something','funny'] );
+      $.dispatch( 'news/update', [{'news-flash':'Not much has happened yet.'},{'update':'More of the same.'}] );
+      
+      $.cancelReceiver( stringDispatcher );
+      $.dispatch( 'news/update', 'We need piles of money now!' );
+      // This does get published:
+      $.dispatch('users/new', [{'name':'Wobba', 'job':'developer'}, {'name':'Bozo the Clown', 'job':'clown'}, {'name':'Joe','job':'just a regular guy'}]);
+    // });
+  </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Model</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+<style>
+  .isiOS input {
+    border: solid 1px #ccc;
+  }
+  #form > li {
+    display: flex;
+    flex-direction: row !important;
+  }
+  #fooAlert + button {
+    margin: 10px 0 0 10px;
+  }
+  #buttonContainer {
+    padding-left: 10px;
+  }
+  #sortList {
+    display: inline-block;
+  }
+</style>
+</head>
+<body>
+  <screen class="current" id="main">
+    <nav class="current">
+      <h1>$.Model</h1>
+    </nav>
+    <section>
+      <h2>Output from Model</h2>
+      <p id='buttonContainer'>
+        <button id='sortList'>Sort List</button> 
+          <label>
+            <input type="radio" name='sortOrder' value='ascending' checked> Ascending
+          </label>
+          <label>
+            <input type="radio" name='sortOrder' value='descending'> Descending
+          </label>&nbsp; - &nbsp;
+          <button id='uniqueAction'>Eliminate Duplicates</button>
+      </p>
+      <ul id="listView" class='list cloak'>
+        <li class='comp'>
+          <div>
+            <h3>${ data.firstName } ${ data.lastName }</h3>
+            <h4>Age: ${ data.age }</h4>
+          </div>
+        </li>
+      </ul>
+      <p>The view model has <span id='numberOfPeople'>${ data.count }</span> people.</p>
+      <br>
+      <h2>Add a new person to view model</h2>
+      <ul class="list" id="form">
+        <li>
+          <input type="text" id='firstName'>
+          <h2> First Name</h2>
+        </li>
+        <li>
+          <input type="text" id='lastName'>
+          <h2> Last Name</h2>
+        </li>
+        <li>
+          <input type="number" id='age'>
+          <h2> Age</h2>
+        </li>
+      </ul>
+      <p>
+        <label for="fooAlert"><input name='fooAlert' id='fooAlert' type="checkbox"> Publish to 'fooAlert'</label><br>
+        <button id='submitForm'>Submit</button>
+      </p>
+    </section>
+  </screen>
+  <script>
+    // Plain data object:
+    //===================
+    var people = [
+      {firstName: "Joe", lastName: "Bodoni", age: 28},
+      {firstName: "Sue", lastName: "Higgins", age: 22},
+      {firstName: "John", lastName: "Doe", age: 32},
+      {firstName: "Betty", lastName: "Bonnet", age: 26},
+      {firstName: "Steve", lastName: "Martin", age: 26}
+    ];
+
+
+    // Define model:
+    var foo = $.Model(people, 'people-model');
+
+    var peopleView = $.View({element: '#listView', model: foo});
+     peopleView.render();
+
+    $('#numberOfPeople').text(foo.size());
+
+    var fooCtrl = $.Mediator('people-model');
+
+    fooCtrl.init(function(data) {
+      peopleView.render();
+      $('#numberOfPeople').text(foo.size());
+    });
+
+
+    // Push something to view model with this flag: 'fooAlert':
+    var fooAlert = $.Mediator('fooAlert');
+    fooAlert.init(function(data) {
+      alert(data.firstName + ' ' + data.lastName);
+      peopleView.render();
+      $('#numberOfPeople').text(foo.size());
+    });
+
+    // Submit new person:
+    $('#submitForm').on('click', function() {
+      var firstName = $('#firstName');
+      var lastName = $('#lastName');
+      var age = $('#age');
+      if (!firstName[0].value || !lastName[0].value || !age[0].value) {
+        alert('Please enter a first name, last name and age before submitting.');
+        return;
+      }
+      var person = {};
+      person.firstName = $('#firstName').val();
+      person.lastName = $('#lastName').val();
+      person.age = $('#age').val();
+
+      // Push person to view model.
+      // 'true', means it gets published to subscribers.
+      if ($('#fooAlert').prop('checked')) {
+        alert('woohoo')
+        foo.push(person, 'fooAlert');
+      } else {
+        foo.push(person);
+      }
+
+      $('#numberOfPeople').text(foo.size());
+    });
+
+    $('#uniqueAction').on('tap', function() {
+      foo.unique();
+      peopleView.render();
+    });
+
+    // Capture any changes to  foo:
+    var dingo = $.Mediator('people-model');
+    dingo.init(function(data) {
+      console.log(data)
+    });
+
+    $('#sortList').on('tap', function() {
+      var firstName = 'firstName';
+      if ($('input[type=radio]').eq(1).prop('checked')) {
+        firstName = '-firstName';
+      }
+      // alert(firstName)
+      foo.run(function(model, data) {
+        model.sortBy(firstName);
+        peopleView.render();
+      })
+    }); 
+    
+
+  </script>
+</body>
+</html>

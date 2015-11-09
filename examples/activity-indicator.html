@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Activity Indicator</title>
+  <link rel="stylesheet" href="../dist/styles/truck-android.css">
+  <script src="../dist/truck.js"></script>
+  <style type="text/css">
+    body {
+      padding: 60px 10px 20px 20px;
+    }
+    .square {
+      width: 100%;
+      height: 150px;
+      margin: 20px 0;
+      color: #000;
+      background-color: #fff;
+      position: relative;
+    }
+  </style>    
+  <script>
+    $(function() {
+      $('#navBusy').Busy({color:'#007AFF', size: 28});
+      $('#navBusy').find('.busy').css('top','10px');
+      
+      $('#busy1').Busy({'color':'rgba(200,0,0,0.75)', 'size': 50});
+      $('#busy1').find('.busy').Center();
+      
+      $('#busy2').Busy({'color': 'gold', 'size': 100});
+      $('#busy2').find('.busy').Center();
+      
+      $('#busy3').Busy({'color': '#fff'});
+      $('#busy3').find('.busy').Center();
+      
+      $('#busy4').Busy({'color': 'blue', 'size': 36});
+      $('#busy4').find('.busy').Center();
+      
+      $('#busy5').Busy({'color': '#ddd', 'size': 150});
+      $('#busy5').find('.busy').Center();
+
+      
+    });
+  </script>
+</head>
+<body>
+  <screen id="main" ui-background-style="striped" ui-navigation-status="current">
+    <nav id='navBusy'>
+      <h1>Activity Indicator</h1>
+    </nav>
+    <section>
+      <div id="busy1" class="square"></div>
+      <div id="busy2" class="square" style="background:#7d88d3"></div>
+      <div id="busy3" class="square" style="background:#0059a6"></div>
+      <div id="busy4" class="square"></div>
+      <div id="busy5" class="square" style="background:#afafaf"></div>
+    </section>
+  </screen>
+</body>
+</html>

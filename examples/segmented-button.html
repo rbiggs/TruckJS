@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Segmented Buttons</title>
+  <link rel="stylesheet" href="../dist/styles/truck-windows.css">
+  <script src="../dist/truck.js"></script>
+  <script>
+    $(function() {
+      // Define options for segmented control:
+      var segmentedOptions = {
+        id: 'mySegmented',
+        labels : ['Radioactive','Hurt','Yeah, Yeah'],
+        selected: 2
+      };
+      // Define callback for Segmented Control:
+      var segmentedResponse = function(e) {
+        e.stopPropagation();
+        $('.attentionGrapper').text(($(this).index() + 1));
+      };
+
+      $.Segmented({
+        element: '#segmentedPanel',
+        id: 'mySegmented',
+        labels : ['Radioactive','Hurt','Yeah, Yeah'],
+        selected: 2,
+        callback: segmentedResponse
+      });
+      $('.attentionGrapper').text(segmentedOptions.selected +1);
+    });
+  </script>
+</head>
+<body>
+  <screen id="main" class="current">
+    <nav>
+      <h1>Segmented</h1>
+    </nav>
+    <section>
+      <div id='segmentedPanel' class='horizontal centered'>
+      </div>
+      <ul class='list' id='output'>
+        <li>
+          <h3>You selected panel: <span class='attentionGrapper'></span>.</h3>
+        </li>
+      </ul>
+    </section>
+  </screen>
+</body>
+</html>

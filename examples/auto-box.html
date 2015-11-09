@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+	<title>Truck Box</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+</head>
+<body>
+	<screen id="main" class='current'>
+		<nav>
+			<h1>Truck Box</h1>
+		</nav>
+		<section>
+			<h2>Push a name to PeopleModel:</h2>
+			<ul class="list">
+				<li>
+					<label for="value">value: </label>
+					<input type="text" name="value" id='value'>
+					<button id='boxit'>Box it!</button>
+				</li>
+			</ul>
+			<h2>What's in the Box</h2>
+			<ul class="list" id='boxList'>
+				<script type="text/x-template">
+					<li>${ person.name }</li>
+				</script>
+			</ul>
+		</section>
+	</screen>
+	<script>
+
+		//=================
+		// Setup namespace:
+		//=================
+		var app = {
+			PeopleModel: undefined,
+			PeopleView: undefined
+		};
+
+		// Helper to define view:
+		//=======================
+		function defineView() {
+			app.PeopleView = $.View({
+				element: '#boxList',
+				model: app.PeopleModel,
+				variable: 'person'
+			});
+			app.PeopleView.render();
+		}
+
+		// Handle box error:
+		//==================
+		function firstSetup() {
+			// First setup for PeopleModel:
+			//=============================
+			app.PeopleModel = $.Model([], 'people-model');
+			app.PeopleModel.push({name: 'This is Default Value'});
+
+			// Set model to auto-box:
+			//=======================
+			app.PeopleModel.box({key: 'auto-boxed-people', autobox: true});
+			
+			// Define People View:
+			//====================
+			defineView();
+		}
+
+		//=========================================
+		// Check the box to see if it has anything:
+		//=========================================
+		$.Box.get('auto-boxed-people').then(
+			function(persons) {
+
+				//=========================
+				// If the box has someting:
+				//=========================
+				if (persons.length) {
+
+					// setup empty Model:
+					//===================
+					app.PeopleModel = $.Model([], 'people-model');
+
+					// Define People View:
+					//====================
+					defineView();
+
+					//============================
+					// Iterate over the box items,
+					// and rehydrate the model.
+					// Because the view is bound
+					// to this model, the view 
+					// will update automatically.
+					//============================
+					persons.forEach(function(person) { 
+						app.PeopleModel.push({name: person.name});
+					});
+
+					// Set the model to auto-box:
+					//===========================
+					app.PeopleModel.box({key: 'auto-boxed-people', autobox: true});
+
+				//=====================================
+				// There was nothing in the Box.
+				// Setup default model and define view:
+				//=====================================
+				} else {
+					// First setup:
+					firstSetup();
+				}
+			})
+
+			//========================================
+			// There was a problem unboxing the model:
+			//========================================
+			.catch(function(err) {
+				// First setup:
+				firstSetup();
+			});
+
+		//===========================================
+		// Event to handle adding to the model.
+		// Because the model is set to auto-box, 
+		// both the view and the box will be updated.
+		//===========================================
+		$('#boxit').on('click', function() {
+			var value = $('#value').val();
+			app.PeopleModel.push({name: value});
+		});
+
+	</script>
+</body>
+</html>

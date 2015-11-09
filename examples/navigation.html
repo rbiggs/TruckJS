@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Navigation</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.min.js"></script>
+  <style>
+    .list > li  img {
+      height: 80px;
+      width: auto;
+      margin-right: 10px;
+    }
+    .list > li > div.no-flex {
+      display: flex;
+      max-width: 80px;
+      justify-content: flex-end;
+    }
+    .no-flex {
+      max-width: 200px !important;
+      margin-right: 10px;
+    }
+
+  </style>
+</head>
+<body class='isSafari'>
+  
+  <screen id='main' class='current'>
+    <nav id='nav1'>
+      <h1>Templates</h1>
+    </nav>
+    <section>
+      <h2>Single Object</h2>
+      
+      <h2>Arrays</h2>
+
+      <ul class="list cloak" id="arrayTemplate1">
+        <li data-goto='detail:${ data.guid }'>
+          <div class='no-flex'>
+            <img data-src='${ data.image }' alt="">
+          </div>
+          <h3>
+            ${ $.view.index }: ${ data.firstName } ${ data.lastName }
+          </h3>
+          <aside>
+            <disclosure></disclosure>
+          </aside>
+        </li>
+      </ul>
+      <p> The route is: <span class='fullRoute'></span></p>
+    </section>
+  </screen>
+  
+  <screen id="detail" class="next">
+    <nav>
+      <button class='back' id='back'>Back</button>
+      <h1>Next Page</h1>
+    </nav>
+    <section>
+      <!-- centering -->
+      <div id="bingo">
+        <div></div>
+        <div></div>
+      </div>
+      <h2 id='chosenPerson'>Subtitle Number Two</h2>
+      <h2 class='normal-case'>Here's your information:</h2>
+      <ul class="list" id='chosenPersonList'>
+        <li>
+          <h3>First Name: ${ data.firstName }</h3>
+        </li>
+        <li>
+          <h3>Last Name: ${ data.lastName }</h3>
+        </li>
+        <li>
+          <div class='no-flex'>
+            <h3>Your picture:</h3>
+          </div>
+          <img data-src='${ data.image }' alt="${ data.firstName} + ' ' + ${ data.lastName}">
+        </li>
+      </ul>
+      <p> The full route is: <span class='fullRoute'></span></p>
+    </section>
+    <toolbar>
+      <button>Button 2</button>
+    </toolbar>
+  </screen>
+
+  <script>
+    $(function() {
+      
+      // Array data:
+      //=============
+      var lums = [
+        {guid: 'N356f953-2c3c-4a72-b4e7-5955662ec80f', firstName: "Stephen", lastName: "Hawking", image: 'images/Hawking.jpg', age: 20},
+        {guid: 'Ca0fe1ed-afd8-4c98-8110-e863820ab35f', firstName: "Albert", lastName: "Einstein", image: 'images/Einstein.jpg', age: 31},
+        {guid: 'a51a1852-bcd1-44e3-9114-3c0c742b66f9', firstName: "Leonardo", lastName: "Da Vinci", image: 'images/DaVinci.jpg', age: 100},
+        {guid: 'k4657925-fdc3-45b0-8c12-6a31c4b83152', firstName: "Galileo", lastName: "Galilei", image: 'images/Galileo.jpg', age: 40},
+        {guid: 'F3b2bd1f-346b-4970-a272-11124927a6e6', firstName: "Nicholas", lastName: "Copernicus", image: 'images/Copernicus.jpg', age: 32}  
+      ];
+
+      var bums = [
+        {guid: 'S7dfa6a9-0c78-46ab-8256-c85664526cd5', firstName: "Wobba", lastName: "Dingo", image: 'images/avocado.png', age: 20},
+        {guid: 'Lde2e4bd-fa74-4cc7-94bc-de5838a3085f', firstName: "Josh", lastName: "Rutherford", image: 'images/apple.png', age: 31},
+        {guid: 'Qa7d4748-cd13-40f6-a972-d9d2d83e88f2', firstName: "Joe", lastName: "Bodoni", image: 'images/banana.png', age: 100},
+        {guid: 'h3c19fe8-3c05-475f-bd01-07b68f48d4bd', firstName: "John", lastName: "Doe", image: 'images/orange.png', age: 40} 
+      ];
+
+      // Create model:
+      //==============
+      var LumsModel = $.Model(lums, 'luminaries-handle');
+      var BumsModel = $.Model(bums, 'bums-handle');
+      
+      // Call Garbage Collector:
+      lums, bums = null;
+
+      // Init views:
+      //=============
+      var App = {
+        VIPView: $.View({
+          name: 'VIPView1',
+          element: '#arrayTemplate1', 
+          model: LumsModel,
+          startIndexFrom: 1,
+          events: [{
+            event: 'tap',
+            element: 'li',
+            callback: function() {
+              console.log($(this).text());
+            }
+          }]
+        }),
+        
+        chosenPersonView: $.View({
+          name: 'chosenPersonView',
+          element: '#chosenPersonList'
+        })
+      };
+
+      // Render views:
+      //==============
+      App.VIPView.render();
+
+
+      // Setup Router:
+      //==============
+      $.AppRoutes = $.Router();
+
+      // Define Routes:
+      //===============
+      $.AppRoutes.addRoute([
+        {
+          // Route for main screen:
+          route: 'main', 
+
+          callback: function() {
+            // Get current view model, and
+            // switch the view to the other:
+            if (App.VIPView.getModel().getHandle() === 'luminaries-handle') {
+              App.VIPView.bind(BumsModel);
+            } else {
+              App.VIPView.bind(LumsModel);
+            }
+            // Output current route:
+            $('.fullRoute').text($.TruckRoutes.getFullRoute());
+          }
+        },
+        {
+          // Route for detail screen:
+          route: 'detail',
+
+          // Capture id in callback:
+          callback: function(id) {
+            // Get current view model:
+            var model = App.VIPView.getModel().getData();
+            // Filter model with id passed in route:
+            var whichPerson = model.filter(function(person) {
+              return person.guid === id;
+            })[0];
+            // Output peron's name:
+            $('#chosenPerson').text('Welcome, ' + whichPerson.firstName + '.');
+            // Output full route:
+            $('.fullRoute').text($.TruckRoutes.getFullRoute());
+            App.chosenPersonView.empty();
+            App.chosenPersonView.render(whichPerson);
+          }
+        }
+      ]);
+
+      // Output current route:
+      $('.fullRoute').text($.AppRoutes.getFullRoute());
+
+    });
+  </script>  
+</body>

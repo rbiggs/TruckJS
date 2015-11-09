@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Mediator</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+</head>
+<body>
+  <screen id='main' class='current'>
+    <nav>
+      <h1>$.Mediator</h1>
+    </nav>
+    <section>
+      <h2 class='wrap'>Open console to see mediators</h2>
+      <h2 class='wrap normal-case'>You can use the following methods:</h2>
+      <ul class='list'>
+        <li>
+          <h3>fooMtor.run('Whatever')</h3>
+        </li>
+        <li>
+          <h3>barMtor.run('Same here')</h3>
+        </li>
+        <li>
+          <h3>fooMtor.stop()</h3>
+        </li>
+        <li>
+          <h3>fooMtor.stop(3)</h3>
+        </li>
+        <li>
+          <h3>fooMtor.restart()</h3>
+        </li>
+        <li>
+          <h3>fooMtor.restart(5)</h3>
+        </li>
+      </ul>
+    </section>
+  </screen>
+  <script>
+
+    // Define some mediators:
+    var  fooMtor= $.Mediator('baz-handle');
+    var  barMtor= $.Mediator('baz-handle');
+
+    fooMtor.init(function(data) {
+      console.log('1. Foo here.')
+      console.log(data);
+      console.log('')
+    });
+
+    barMtor.init(function(data){
+      console.log('2. Bar here.');
+      console.log(data);
+      console.log('')
+    });
+    
+    fooMtor.run('This is Godzilla!');
+
+    var get = function() {
+      return $.mediators['baz-handle'].getData();
+    }
+
+  </script>
+</body>
+</html>

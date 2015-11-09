@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Editable List</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+</head>
+<body>
+  <screen id='main' class='current'>
+    <nav>
+      <h1>Editable List</h1>
+    </nav>
+    <section>
+      <h2>People</h2>
+      <ul class='list' id="editList">
+        <script type='text/x-template'>
+          <li data-id="${ person.guid }">
+            <h3>${ person.name.first } ${ person.name.last }</h3>
+          </li>
+        </script>
+      </ul>
+    </section>
+</screen>
+
+<script>
+  $(function() {
+    var people = [   
+      {
+        "guid": "02cd3a66-2a4f-48b9-ac6b-e32c1868a8e8",
+        "name": {
+          "first": "Jeanie",
+          "last": "Nolan"
+        },
+        "company": "STREZZO",
+        "email": "jeanie.nolan@strezzo.ca",
+        "phone": "+1 (927) 553-3428",
+        "address": "185 Decatur Street, Greenbackville, Wisconsin, 2311"
+      },
+      {
+        "guid": "4cf0c7b3-2df1-42c8-99af-377955cd1690",
+        "name": {
+          "first": "Sean",
+          "last": "Daugherty"
+        },
+        "company": "GINK",
+        "email": "schneider.daugherty@gink.co.uk",
+        "phone": "+1 (907) 469-3791",
+        "address": "109 Varick Street, Faywood, North Dakota, 5887"
+      },
+      {
+        "guid": "0f17f9e0-fb41-4b8f-b3f7-9b0426c50066",
+        "name": {
+          "first": "Diane",
+          "last": "Foley"
+        },
+        "company": "EARWAX",
+        "email": "diane.foley@earwax.biz",
+        "phone": "+1 (925) 504-3700",
+        "address": "523 Bryant Street, Fresno, Alaska, 7005"
+      },
+      {
+        "guid": "e90dd256-4ee9-4681-a5fa-dd428d455c16",
+        "name": {
+          "first": "Paul",
+          "last": "Kirkland"
+        },
+        "company": "NETILITY",
+        "email": "kirkland.estrada@netility.us",
+        "phone": "+1 (993) 402-2134",
+        "address": "237 Blake Court, Gibbsville, Iowa, 233"
+      },
+      {
+        "guid": "ed17ad1c-1dfd-4d70-bbd2-56a96cc7fe02",
+        "name": {
+          "first": "Dan",
+          "last": "Finley"
+        },
+        "company": "VALREDA",
+        "email": "rivas.finley@valreda.info",
+        "phone": "+1 (817) 495-3850",
+        "address": "488 Williams Court, Sunnyside, Arkansas, 6302"
+      },
+      {
+        "guid": "d2867a0e-1ea1-408e-9450-0876804675db",
+        "name": {
+          "first": "Reynold",
+          "last": "Montoya"
+        },
+        "company": "KONNECT",
+        "email": "reynolds.montoya@konnect.tv",
+        "phone": "+1 (977) 572-3542",
+        "address": "239 Holly Street, Ivanhoe, South Carolina, 1146"
+      },
+      {
+        "guid": "cea10dc6-b63c-46b0-8e51-3081638275c2",
+        "name": {
+          "first": "Hallie",
+          "last": "Yang"
+        },
+        "company": "QUARMONY",
+        "email": "hallie.yang@quarmony.me",
+        "phone": "+1 (913) 556-3387",
+        "address": "798 Withers Street, Kula, Nebraska, 5470"
+      },
+      {
+        "guid": "4bac88a3-3afe-4df1-b0ce-8b6bde3dba6b",
+        "name": {
+          "first": "Carole",
+          "last": "Anthony"
+        },
+        "company": "NETBOOK",
+        "email": "carole.anthony@netbook.net",
+        "phone": "+1 (893) 486-2961",
+        "address": "175 Metropolitan Avenue, Disautel, Minnesota, 8916"
+      },
+      {
+        "guid": "6d6f5e3a-988c-48a6-ad62-d6741346102f",
+        "name": {
+          "first": "Paul",
+          "last": "Mckenzie"
+        },
+        "company": "COMTOURS",
+        "email": "paul.mckenzie@comtours.biz",
+        "phone": "+1 (873) 482-2220",
+        "address": "677 Denton Place, Sanborn, Indiana, 2527"
+      },
+      {
+        "guid": "4fcc9d85-5e9f-4f9c-8f45-5997e159707e",
+        "name": {
+          "first": "Kathrine",
+          "last": "Waller"
+        },
+        "company": "COMTRAK",
+        "email": "kathrine.waller@comtrak.ca",
+        "phone": "+1 (995) 451-2816",
+        "address": "848 Hanover Place, Lafferty, Federated States Of Micronesia, 640"
+      },
+      {
+        "guid": "905ce47a-cf92-42d7-94b8-95a497903154",
+        "name": {
+          "first": "Michelle",
+          "last": "Ochoa"
+        },
+        "company": "SLAMBDA",
+        "email": "michelle.ochoa@slambda.co.uk",
+        "phone": "+1 (935) 556-2679",
+        "address": "940 Wilson Street, Walker, Massachusetts, 2754"
+      },
+      {
+        "guid": "56615e29-7289-4a70-81a3-1075c2acb191",
+        "name": {
+          "first": "Marcy",
+          "last": "Jackson"
+        },
+        "company": "ENDICIL",
+        "email": "marcy.jackson@endicil.biz",
+        "phone": "+1 (938) 462-2659",
+        "address": "763 Congress Street, Moscow, Ohio, 6242"
+      },
+      {
+        "guid": "e0497613-15e0-446f-a596-b390935fe905",
+        "name": {
+          "first": "Shelia",
+          "last": "Stanley"
+        },
+        "company": "IDEALIS",
+        "email": "shelia.stanley@idealis.us",
+        "phone": "+1 (943) 479-3566",
+        "address": "181 Commercial Street, Tioga, Maryland, 9447"
+      },
+      {
+        "guid": "dff782d7-4ae5-437b-98c6-6b8d7516800b",
+        "name": {
+          "first": "Camacho",
+          "last": "Contreras"
+        },
+        "company": "EYEWAX",
+        "email": "camacho.contreras@eyewax.info",
+        "phone": "+1 (971) 517-2947",
+        "address": "604 Joval Court, Glenville, West Virginia, 2605"
+      },
+      {
+        "guid": "f3440ed5-e999-457d-bbeb-dfdbe44c8326",
+        "name": {
+          "first": "Holder",
+          "last": "Mosley"
+        },
+        "company": "FIBEROX",
+        "email": "holder.mosley@fiberox.io",
+        "phone": "+1 (855) 578-2009",
+        "address": "802 Kiely Place, Hilltop, Maine, 2224"
+      }
+    ];
+
+    // Configure Box for storage:
+    //===========================
+    $.Box.config({
+      boxName: 'editable-box'
+    });
+
+    // Variables for View and EditList:
+    //=================================
+    var myEditList;
+    var EditPeopleView;
+
+    // Define  model:
+    //===============
+    PeopleModel = $.Model(people, 'people-model');
+    EditPeopleView = $.View({
+      element: '#editList',
+      model: PeopleModel,
+      variable: 'person'
+    });
+
+    // Helper to initalize view:
+    //==========================
+    function initEditableList() {
+      myEditList = $.EditList({
+        deletable: true,
+        movable: true,
+        model: PeopleModel,
+        modelProp: 'guid',
+        element: '#editList',
+        view: EditPeopleView
+      });
+    }
+
+    // Handle box error:
+    //==================
+    function firstSetup() {
+      PeopleModel = $.Model([], 'people-model');
+      PeopleModel = $.Model(people, 'people-model');
+      // Set model to auto-box:
+      //=======================
+      app.PeopleModel.box({key: 'editable-list-people', autobox: true});
+      
+      // init People View:
+      //==================
+      defineView();
+
+    }
+    //=========================================
+    // Check the box to see if it has anything:
+    //=========================================
+    $.Box.get('editable-list-people').then(
+      function(persons) {
+
+        //=========================
+        // If the box has someting:
+        //=========================
+        if (persons.length) {
+
+          // Purge model before rehydrating it:
+          //===================================
+          PeopleModel.purge();
+
+          //============================
+          // Iterate over the box items,
+          // and rehydrate the model.
+          // Because the view is bound
+          // to this model, the view 
+          // will update automatically.
+          //============================
+          persons.forEach(function(person) { 
+            PeopleModel.push(person);
+          });
+
+          // Set the model to auto-box:
+          //===========================
+          PeopleModel.box({key: 'editable-list-people', autobox: true});
+          EditPeopleView.render();
+          // Init Editable List:
+          initEditableList();
+
+
+        //=====================================
+        // There was nothing in the Box.
+        // Setup default model and define view:
+        //=====================================
+        } else {
+          // First setup:
+          PeopleModel.box({key: 'editable-list-people', autobox: true});
+          EditPeopleView.render();
+          // Init Editable List:
+          initEditableList();
+        }
+    })
+    //========================================
+    // There was a problem unboxing the model:
+    //========================================
+    .catch(function(err) {
+      // First setup:
+      PeopleModel.box({key: 'editable-list-people', autobox: true});
+      EditPeopleView.render();
+      // Init Editable List:
+      initEditableList();
+    });
+
+  });
+</script>  
+</body>

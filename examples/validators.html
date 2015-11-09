@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Validators</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+  <style>
+    .isiOS input[type=text],
+    .isiOS input[type=number],
+    .isiOS input[type=password],
+    .isiOS input[type=email],
+    .isiOS input[type=phone],
+    .isiOS input[type=url] {
+      border: solid 1px #ccc;
+    }
+    input {
+      padding: 4px;
+    }
+    .isWindows input + label {
+      margin: 10px 0;
+    }
+    input.invalid {
+      box-shadow: 0 0 4px red;
+    }
+    input.valid {
+      box-shadow: 0 0 4px green;
+    }
+    select.invalid {
+      border-color: red !important;
+    }
+    select.valid {
+      border-color: green !important;
+    }
+    label.invalid {
+      color: red;
+    }
+    label.valid {
+      color: green;
+    }
+    input:invalid::-webkit-input-placeholder,
+    :invalid::-moz-input-placeholder,
+    :invalid::-ms-input-placeholder,
+    :invalid::input-placeholder {
+      color: #fff !important;
+    }
+    .isAndroid section > h2 + h2 {
+      margin-top: 0 !important;
+    }
+    .isAndroid label {
+      margin: 4px 0 !important;
+    }
+    label {
+      display: block;
+    }
+    label.invalid {
+      color: red !important;
+    }
+    label.valid {
+      color: green !important;
+    }
+  </style>
+</head>
+<body class='isiOS'>
+  <screen id='main' class='current'>
+    <nav>
+      <h1>Validators</h1>
+    </nav>
+    <section>
+      <h2 class='normal-case'>isNotEmpty</h2>
+      <ul class="list">
+        <li>
+          <div>
+            <label>If the input is not empty, this returns true, otherwise it returns false.</label>
+            <input placeholder='Enter text here' type="text" id='emptyTest' name='emptyTest'>
+            <label id='emptyTestLabel' for="emptyTest">&nbsp;</label>
+            <button id='emptyTestButton'>Verify if input is empty</button>
+          </div>
+        </li>
+      </ul>
+      <h2 class='normal-case'>Alphabetic</h2>
+      <ul class="list">
+        <li>
+          <div>
+            <label>Check to see that the input value is purely alphabetic, no numeric characters.</label>
+            <input placeholder='text only' type="text" id='alphabeticInput' name='alphabeticInput'>
+            <label id='alphabeticInputLabel' for="alphabeticInput">&nbsp;</label>
+            <button id='alphabeticButton'>Verify input is text only.</button>
+          </div>
+        </li>
+      </ul>
+      <h2 class='normal-case'>Numeric</h2>
+      <ul class="list">
+        <li>
+          <div>
+            <input placeholder='numbers only' type="text" id='numericInput'>
+            <label for="numericInput" id='numericInputLabel'>&nbsp;</label>
+            <button id='numericButton'>Verify is numeric value</button>
+          </div>
+        </li>
+      </ul>
+      <h2 class='normal-case'>Alpha-numeric</h2>
+      <ul class="list">
+        <li>
+          <div>
+            <input placeholder='enter data' type="text" id='alphanumeric' name='alphanumeric'>
+            <label for="alphanumeric" id='alphanumericLabel'>&nbsp;</label>
+            <button id='alphanumericButton'>Verify is alpha-numeric</button>
+          </div>
+        </li>
+      </ul>
+      <h2 class='normal-case'>Username</h2>
+      <h2 class='normal-case wrap'>Must contain at least 6 characters</h2>
+      <h2 class='normal-case wrap'>Must be alphabetic or alpha-numeric</h2>
+      <ul class="list">
+        <li>
+          <div>
+            <input placeholder='enter username' type="text" id='username' name='username'>
+            <label for="username" id='usernameLabel'>&nbsp;</label>
+            <button id='usernameButton'>Verify username</button>
+          </div>
+        </li>
+      </ul>
+      <h2 class='normal-case'>Matching Passwords</h2>
+      <h2 class='normal-case wrap'>Passwords must match and contain mixed, alpha-numeric characters and have at least 6 characters</h2>
+      <ul class="list">
+        <li>
+          <div>
+            <input placeholder='first password' type="password" id='password1' name='password1'>
+            <br><br>
+            <input placeholder='repeat password' type="password" id='password2' name='password2'>
+            <label id='passwordLabel'>&nbsp;</label>
+            <button id='passwordButton'>Verify Passwords</button>
+          </div>
+        </li>
+      </ul>
+      <h2 class='normal-case'>Email Address</h2>
+      <ul class="list">
+        <li>
+          <div>
+            <input placeholder='enter email address' type="email" id='email' name='email'>
+            <label for="email" id='emailLabel'>&nbsp;</label>
+            <button id='emailButton'>Verify email address</button>
+          </div>
+        </li>
+      </ul>
+      <h2 class='normal-case'>US/Canada Phone Number</h2>
+      <ul class="list">
+        <li>
+          <div>
+            <input  placeholder='enter phone number' type="phone" id='phone' name='phone'>
+            <label for="phone" id='phoneLabel'>&nbsp;</label>
+            <button id='phoneButton'>Verify phone number</button>
+          </div>
+        </li>
+      </ul>
+      <h2 class='normal-case'>International Phone Number</h2>
+      <ul class="list">
+        <li>
+          <div>
+            <input  placeholder='enter phone number' type="phone" id='phoneInt' name='phoneInt'>
+            <label for="phoneInt" id='phoneLabelInt'>&nbsp;</label>
+            <button id='phoneButtonInt'>Verify phone number</button>
+          </div>
+        </li>
+      </ul>
+      <h2 class='normal-case'>URL</h2>
+      <h2 class='normal-case wrap'>A valid url should being with http, https or ftp</h2>
+      <ul class="list">
+        <li>
+          <div>
+            <input placeholder='enter url' type="url" id='url' name='url'>
+            <label for="url" id='urlLabel'>&nbsp;</label>
+            <button id='urlButton'>Veritfy URL</button>
+          </div>
+        </li>
+      </ul>
+      <h2 class='normal-case'>Age</h2>
+      <h2 class='normal-case wrap'>Includes a minimum age requirement (18)</h2>
+      <ul class="list">
+        <li>
+          <div>
+            <input placeholder='enter your age' type="text" id='age' name='age'>
+            <label for="age" id='ageLabel'>&nbsp;</label>
+            <button id='ageButton'>Verify age</button>
+          </div>
+        </li>
+      </ul>
+      <h2 class='normal-case'>Checkbox</h2>
+      <h2 class='normal-case'>Should be selected</h2>
+      <ul class="list">
+        <li>
+          <div>
+            <input type="checkbox" id='checkbox' name='checkbox'><label  for="checkbox">Agree to terms</label>
+            <label id='checkboxLabel'>&nbsp;</label>
+            <button id='checkboxButton'>Verify checkbox selection</button>
+          </div>
+        </li>
+      </ul>
+      <h2 class='normal-case'>Radio Buttons</h2>
+      <h2 class='normal-case'>One should be selected</h2>
+      <ul class="list">
+        <li>
+          <div>
+            <label><input type="radio" name='myRadioButtons' value='Apples'> Apples</label>
+            <label><input type="radio" name='myRadioButtons' value='Oranges'> Oranges</label>
+            <label><input type="radio" name='myRadioButtons' value='Bananas'> Bananas</label>
+            <label id='radioLabel'>&nbsp;</label>
+            <button id='radioButton'>Verify checkbox selection</button>
+          </div>
+        </li>
+      </ul>
+      <h2 class='normal-case'>Select Box</h2>
+      <h2 class='normal-case'>Make a selection</h2>
+      <ul class="list">
+        <li>
+          <div>
+            <select name="selectbox" id="selectbox">
+              <option>Select a fruit...</option>
+              <option value='Apple'>Apple</option>
+              <option value='Orange'>Orange</option>
+              <option value='Banana'>Banana</option>
+            </select>
+            <label id='selectboxLabel' for="selectboxLabel">&nbsp;</label>
+            <button id='selectboxButton'>Validate select box</button>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </screen>
+  <script>
+    $(function() {
+
+      // isNotEmpty test:
+      //=================
+      var emptyTestInput = $('#emptyTest');
+      var emptyTestLabel = $('#emptyTestLabel');
+      var emptyTestButton = $('#emptyTestButton');
+      emptyTestButton.on('tap', function() {
+        if (emptyTestInput.isNotEmpty()) {
+          emptyTestLabel.text('The input is not empty.');
+          emptyTestLabel.removeClass('invalid').addClass('valid');
+        } else {
+          emptyTestLabel.text('The input is empty.');
+          emptyTestLabel.removeClass('valid').addClass('invalid');
+        }
+      });
+
+      // alphabetic test:
+      //=======================
+      var alphabeticTestInput = $('#alphabeticInput');
+      var alphabeticTestLabel = $('#alphabeticInputLabel');
+      var alphabeticButton = $('#alphabeticButton');
+      alphabeticButton.on('tap', function() {
+        if (alphabeticTestInput.validateAlphabetic()) {
+          alphabeticTestLabel.text('The input is alphabetic.');
+          alphabeticTestLabel.removeClass('invalid').addClass('valid');
+        } else {
+          alphabeticTestLabel.text('The input is not alphabetic.');
+          alphabeticTestLabel.removeClass('valid').addClass('invalid');
+        }
+      });
+
+      // numeric test:
+      //=======================
+      var numericInput = $('#numericInput');
+      var numericLabel = $('#numericInputLabel');
+      var numericButton = $('#numericButton');
+      numericButton.on('tap', function() {
+        if (numericInput.validateNumber()) {
+          numericLabel.text('The input is numeric.');
+          numericLabel.removeClass('invalid').addClass('valid');
+        } else {
+          numericLabel.text('The input is not numeric.');
+          numericLabel.removeClass('valid').addClass('invalid');
+        } 
+      });
+
+      // alpha-numeric test:
+      //=======================
+      var alphanumericInput = $('#alphanumeric');
+      var alphanumericLabel = $('#alphanumericLabel');
+      var alphanumericButton = $('#alphanumericButton');
+      alphanumericButton.on('tap', function() {
+        if (alphanumericInput.validateAlphaNumeric()) {
+          alphanumericLabel.text('The input is alpha-numeric.');
+          alphanumericLabel.removeClass('invalid').addClass('valid');
+        } else {
+          alphanumericLabel.text('The input is not alpha-numeric.');
+          alphanumericLabel.removeClass('valid').addClass('invalid');
+        } 
+      });
+
+      // username test:
+      //=======================
+      var usernameInput = $('#username');
+      var usernameLabel = $('#usernameLabel');
+      var usernameButton = $('#usernameButton');
+      usernameButton.on('tap', function() {
+        if (usernameInput.validateUserName(6)) {
+          usernameLabel.text('The username is valid.');
+          usernameLabel.removeClass('invalid').addClass('valid');
+        } else {
+          usernameLabel.text('The username is not valid.');
+          usernameLabel.removeClass('valid').addClass('invalid');
+        } 
+      });
+
+      // password test:
+      //=======================
+      var password1 = $('#password1');
+      var password2 = $('#password2');
+      var passwordLabel = $('#passwordLabel');
+      var passwordButton = $('#passwordButton');
+      passwordButton.on('tap', function() {
+        if ($.validatePassword(password1, password2, 6)) {
+          passwordLabel.text('The passwords are valid.');
+          passwordLabel.removeClass('invalid').addClass('valid');
+        } else {
+          passwordLabel.text('The passwords are not valid.');
+          passwordLabel.removeClass('valid').addClass('invalid');
+        } 
+      });
+
+      // email test:
+      //=======================
+      var emailInput = $('#email');
+      var emailLabel = $('#emailLabel');
+      var emailButton = $('#emailButton');
+      emailButton.on('tap', function() {
+        if (emailInput.validateEmail()) {
+          emailLabel.text('The email is valid.');
+          emailLabel.removeClass('invalid').addClass('valid');
+        } else {
+          emailLabel.text('The email is not valid.');
+          emailLabel.removeClass('valid').addClass('invalid');
+        } 
+      });
+
+      // US/Canada phone number test:
+      //=======================
+      var phoneInput = $('#phone');
+      var phoneLabel = $('#phoneLabel');
+      var phoneButton = $('#phoneButton');
+      phoneButton.on('tap', function() {
+        if (phoneInput.validatePhoneNumber()) {
+          phoneLabel.text('The phone number is valid.');
+          phoneLabel.removeClass('invalid').addClass('valid');
+        } else {
+          phoneLabel.text('The phone number is not valid.');
+          phoneLabel.removeClass('valid').addClass('invalid');
+        } 
+      });
+
+      // International phone number test:
+      //=================================
+      /*
+        Examples:
+        +27 76 858 7777
+        076 858 7777
+        0956 33 8881234
+        0027 765877777
+      */
+      var phoneInt = $('#phoneInt');
+      var phoneLabelInt = $('#phoneLabelInt');
+      var phoneButtonInt = $('#phoneButtonInt');
+      phoneButtonInt.on('tap', function() {
+        if (phoneInt.validatePhoneNumber('int')) {
+          phoneLabelInt.text('The phone number is valid.');
+          phoneLabelInt.removeClass('invalid').addClass('valid');
+        } else {
+          phoneLabelInt.text('The phone number is not valid.');
+          phoneLabelInt.removeClass('valid').addClass('invalid');
+        } 
+      });
+
+      // url test:
+      //=======================
+      var urlInput = $('#url');
+      var urlLabel = $('#urlLabel');
+      var urlButton = $('#urlButton');
+      urlButton.on('tap', function() {
+        if (urlInput.validateUrl()) {
+          urlLabel.text('The url is valid.');
+          urlLabel.removeClass('invalid').addClass('valid');
+        } else {
+          urlLabel.text('The url is not valid.');
+          urlLabel.removeClass('valid').addClass('invalid');
+        } 
+      });
+
+      // age test:
+      //=======================
+      var ageInput = $('#age');
+      var ageLabel = $('#ageLabel');
+      var ageButton = $('#ageButton');
+      ageButton.on('tap', function() {
+        if (ageInput.validateAge(18)) {
+          ageLabel.text('The age is valid.');
+          ageLabel.removeClass('invalid').addClass('valid');
+        } else {
+          ageLabel.text('The age is not valid.');
+          ageLabel.removeClass('valid').addClass('invalid');
+        } 
+      });
+
+      // checkbox test:
+      //=======================
+      var checkbox = $('#checkbox');
+      var checkboxLabel = $('#checkboxLabel');
+      var checkboxButton = $('#checkboxButton');
+      checkboxButton.on('tap', function() {
+        if (checkbox.validateCheckbox()) {
+          checkboxLabel.text('The checkbox is valid.');
+          checkboxLabel.removeClass('invalid').addClass('valid');
+        } else {
+          checkboxLabel.text('The checkbox is not valid.');
+          checkboxLabel.removeClass('valid').addClass('invalid');
+        } 
+      });
+
+      // checkbox test:
+      //=======================
+      var radioButtons = $('input[type=radio]');
+      var radioLabel = $('#radioLabel');
+      var radioButton = $('#radioButton');
+      radioButton.on('tap', function() {
+        if (radioButtons.validateRadioButtons()) {
+          radioLabel.text('A radio button is selected.');
+          radioLabel.removeClass('invalid').addClass('valid');
+        } else {
+          radioLabel.text('Please select a radio button.');
+          radioLabel.removeClass('valid').addClass('invalid');
+        } 
+      });
+
+      // select box test:
+      //=======================
+      var selectbox = $('#selectbox');
+      var selectboxLabel = $('#selectboxLabel');
+      var selectboxButton = $('#selectboxButton');
+      selectboxButton.on('tap', function() {
+        if (selectbox.validateSelectBox()) {
+          selectboxLabel.text('You have made a valid selection.');
+          selectboxLabel.removeClass('invalid').addClass('valid');
+        } else {
+          selectboxLabel.text('Please make a selection.');
+          selectboxLabel.removeClass('valid').addClass('invalid');
+        } 
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+    "type": "bestReds",
+    "data" : [
+     {
+     "id": "002",
+     "name": "Leonardini Merlot",
+     "winery": "Whitehall",
+     "year": "2010",
+     "location": "Whitehall+Lane+Winery+California"
+     },
+     {
+     "id": "005",
+     "name": "Cabernet Sauvignon",
+     "winery": "Benziger",
+     "year": "2011",
+     "location": "Benziger+Family+Winery+California"
+     },
+     {
+     "id": "009",
+     "name": "Signaterra Pinot Noir",
+     "winery": "Benziger",
+     "year": "2012",
+     "location": "Benziger+Family+Winery+California"
+     },
+     {
+     "id": "202",
+     "name": "Estate Pinot Noir",
+     "winery": "Monticello",
+     "year": "2011",
+     "location": "Monticello+Vineyards+California"
+     },
+     {
+     "id": "196",
+     "name": "Petite Sirah",
+     "winery": "Rutherford Grove",
+     "year": "2008",
+     "location": "Rutherford+Grove+Winery+California"
+     }
+    ]
+}

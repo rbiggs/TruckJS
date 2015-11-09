@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Scroll Panel</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+  <style>
+    .scroll-panel li > img {
+      height: 200px !important;
+    }
+    @media only screen and (max-device-width: 320px) {
+      .scroll-panel li {
+        height: 102px !important;
+        width: 125px !important;
+      }
+      .scroll-panel li > img {
+        height: 102px !important;
+        width: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <screen id="main" class="current">
+    <nav class="current">
+      <h1>Horizontal Scroll Panel</h1>
+    </nav>
+    <section>
+      <div class='scroll-panel'>
+        <ul id='firstPanel'>
+          <li><img data-src='${ image }'></li>
+        </ul>
+      </div> 
+      <br>
+      <div class='scroll-panel'>
+        <ul id='secondPanel'>
+          <li><img data-src='${ image }'></li>
+        </ul>
+      </div> 
+    </section>
+  </screen>
+  <script>
+    var firstPanelImages = [
+      'images/pics/pic-01.jpg',
+      'images/pics/pic-02.jpg',
+      'images/pics/pic-03.jpg',
+      'images/pics/pic-04.jpg',
+      'images/pics/pic-05.jpg',
+      'images/pics/pic-06.jpg',
+      'images/pics/pic-07.jpg',
+      'images/pics/pic-08.jpg',
+      'images/pics/pic-09.jpg',
+      'images/pics/pic-10.jpg',
+      'images/pics/pic-11.jpg',
+      'images/pics/pic-12.jpg',
+      'images/pics/pic-13.jpg',
+      'images/pics/pic-14.jpg',
+      'images/pics/pic-15.jpg',
+      'images/pics/pic-16.jpg',
+      'images/pics/pic-17.jpg',
+      'images/pics/pic-18.jpg',
+      'images/pics/pic-19.jpg',
+      'images/pics/pic-20.jpg',
+      'images/pics/pic-21.jpg',
+      'images/pics/pic-22.jpg',
+      'images/pics/pic-23.jpg',
+      'images/pics/pic-24.jpg',
+      'images/pics/pic-25.jpg',
+      'images/pics/pic-26.jpg',
+      'images/pics/pic-27.jpg'
+    ];
+    var secondPanelImages = [
+      'images/pics/pic-11.jpg',
+      'images/pics/pic-01.jpg',
+      'images/pics/pic-02.jpg',
+      'images/pics/pic-03.jpg',
+      'images/pics/pic-07.jpg',
+      'images/pics/pic-04.jpg',
+      'images/pics/pic-09.jpg',
+      'images/pics/pic-05.jpg',
+      'images/pics/pic-06.jpg',
+      'images/pics/pic-08.jpg',
+      'images/pics/pic-10.jpg',
+      'images/pics/pic-12.jpg'
+    ];
+
+    // Define views for panels:
+    //=========================
+    var FirstPanelView = $.View({
+      element: '#firstPanel',
+      variable: 'image'
+    });
+    FirstPanelView.render(firstPanelImages);
+
+    var SecondPanelView = $.View({
+      element: '#secondPanel',
+      variable: 'image'
+    });
+    SecondPanelView.render(secondPanelImages);
+
+  </script>
+</body>
+</html>

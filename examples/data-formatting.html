@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Data Formatter</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+<script>
+ $(function() {
+    var people = [
+      {"firstName": "John", "lastName": "Doe", "age": "21"},
+      {"firstName": "Tom", "lastName": "Zombie", "age": "27"},
+      {"firstName": "Suzzy", "lastName": "Cue", "age": "25"},
+      {"firstName": "Joe", "lastName": "Bodoni", "age": "35"},
+      {"firstName": "Mike", "lastName": "Miller", "age": "26"},
+      {"firstName": "Wobba", "lastName": "Phet", "age": "30"},
+      {"firstName": "Tom", "lastName": "Smith", "age": "27"}
+    ];
+    var printArray = function (a) {
+      a.forEach(function(ctx) {
+        $('#peeps').append('<li>' + ctx.firstName + " " + ctx.lastName + ", age: " + ctx.age + "</li>");
+      });
+    };
+
+    // Numbers:
+    $('#numbers').append('<li><h3>Without decimals</h3><h4>$.formatNumber(9123456789)</h4></li>');
+    $('#numbers').append('<li><h3><strong>' + $.formatNumber(9123456789) + '</strong></h4></li>');
+    $('#numbers').append('<li><h3>With decimals</h3><h4>$.formatNumber(9123456789.2382)</h4></li>');
+    $('#numbers').append('<li><h3><strong>' + $.formatNumber(9123456789.2382) + '</strong></h4></li>');
+    $('#numbers').append('<li><h3>Rounded to Two Deicmals</h3><h4>$.formatNumber(9123456789.2382, ",", 2)</h4></li>');
+    $('#numbers').append('<li><h3><strong>' + $.formatNumber(9123456789.2382, ',', 2) + '</strong></h3></li>');
+    $('#numbers').append('<li><h3>Round to Whole Number</h3><h4>$.formatNumber(9123456789.99, ",", 0)</h4></li>');
+    $('#numbers').append('<li><h3><strong>' + $.formatNumber(9123456789.99, ',', 0) + '</strong></h4></li>');
+
+    // Sum:
+    $('#sum').append('<li><h3>$.sum([1,2,3,4,5,6,7,8,9,10,11.2])</h3></li>');
+    $('#sum').append('<li><h3><strong>Sum: ' + $.sum([1,2,3,4,5,6,7,8,9,10,11.2]) + '</strong></h3></li>');
+    $('#sum').append('<li><h3>$.sum(1,2,3,4,5,6,7,8,9,10,11,12.4)</h3></li>');
+    $('#sum').append('<li><h3><strong>Sum: ' + $.sum(1,2,3,4,5,6,7,8,9,10,11,12.4) + '</strong></h3></li>');
+
+    // Currency:
+    $('#currency').append('<li><h3>$.currency(9123456789.2382, "$")</h3></li>');
+    $('#currency').append('<li><h3><strong>' + $.currency(9123456789.2382, 'RS ', ':') + '</strong></h3></li>');
+    $('#currency').append('<li><h3>Round Amount to Dollars Only</h3><h3>$.currency(9123456789.99, "$", ",", 0)</h3></li>');
+    $('#currency').append('<li><h3><strong>' + $.currency(9123456789.99, '$', ',', 0) + '</strong></h3></li>');
+
+    // Create Data and Time objects:
+    var date = new Date();
+    var time = date.toLocaleTimeString();
+
+    // Date:
+    $('#date').append('<li><h3>var date = new Date()</h3><h3>' + date + '</h3></li>');
+    $('#date').append('<li><h3>date.toLocaleDateString()</h3><h3><strong>' + date.toLocaleDateString() + '</strong></h3></li>');
+
+    // Time:
+    $('#time').append('<li><h3>date.toLocaleTimeString()</h3><h3><strong>' + date.toLocaleTimeString() + '</strong></h3></li>');
+    $('#time').append('<li><h3>$.formatTime(date.toLocaleTimeString())</h3><h3><strong>' + $.formatTime(date.toLocaleTimeString()) + '</strong></h3></li>');
+
+});
+  </script>
+</head>
+<body>
+<screen id="main" class="current">
+  <nav>
+      <h1>Data Formatting</h1>
+  </nav>
+  <section>
+    <h2>Numbers</h2>
+    <ul id='numbers' class="list">
+    </ul>
+    <h2>Sum of numbers</h2>
+    <ul id='sum'class='list'></ul>
+    <h2>Currency</h2>
+    <ul id='currency'class='list'></ul>
+    <h2>Date</h2>
+    <ul id='date'class='list'></ul>
+    <h2>Time</h2>
+    <ul id='time'class='list'></ul>
+  </section>
+</screen>
+  
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fetch POST</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <script src="../js/truckjs.js"></script>
+  <script>
+  /// <reference path='../../typings/chocolatechipjs/chocolatechipjs.d.ts' />
+  $(function() {
+    $("#submit").on("click", function(e) {
+      if (!document.getElementById('ajax_name').value && !document.getElementById('ajax_email').value) {
+        alert('Please provide a name and an email.');
+        return;
+      }
+      var data = $.serialize($('form')[0]);
+      
+      fetch('../controllers/php-post.php', {
+        method: 'post',
+        headers: {  
+          "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"  
+        },
+        body: data
+      })
+      .then($.json) 
+      .then(function(data) {
+        if(data.email_check == "valid"){
+            $("#message_ajax").html("<div class='successMessage'>" + data.email + " is a valid e-mail address. Thank you, " + data.name + ".</div>");
+            $("#message_ajax").append('<p>' + data.msg + '</p>');
+        } else {
+            $("#message_ajax").html("<div class='errorMessage'>Sorry " + data.name + ", " + data.email + " is NOT a valid e-mail address. Try again.</div>");
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+      
+    });
+  });
+  </script>
+</head>
+<body>
+  <article>
+    <h1>Example of POST</h1>
+    <p>&lt; <a href="../index.html">Back to index</a></p>
+    <h2>Send to Server</h2>
+    <form id="JqAjaxForm">
+      <fieldset>
+        <legend>jQuery.ajax Form Submit</legend>
+         
+        <p><label for="name_ajax">Name:</label><br />
+         
+        <input id="ajax_name" type="text" name="name_ajax" /></p>
+         
+        <p><label for="email_ajax">E-mail:</label><br />
+         
+        <input id="ajax_email" type="text" name="email_ajax"  /></p>
+         
+       
+      </fieldset>
+    </form>
+        <p><input id='submit' type="submit" value="Post Data" /></p>
+    <h2>Returned by Server</h2>
+    <div id="message_ajax"></div>
+  </article>
+</body>
+</html>

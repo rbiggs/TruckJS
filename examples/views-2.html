@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck View</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+<style>
+  .list > li > img {
+    height: 70px !important;
+    width: auto;
+  }
+  ol, li {
+    padding-left: 0;
+    margin-left: 0;
+  }
+  ol {
+    margin-left: 20px;
+  }
+</style>
+
+</head>
+<body>
+  <screen id='main' class='current'>
+    <nav>
+      <h1>Templates</h1>
+    </nav>
+    <section>
+
+      <h2 id='titles'><span>${ data }</span></h2>
+
+      <h2>Single Object Template</h2>
+
+      <ul class="list" id='defaultObjectTemplateScript'>
+        <script type='text/x-template'>
+          <li><h3>\{${ data.firstName }\} ${ $.helpers.bigName(data) }, age: \{${ data.age }\}</h3></li>
+        </script>
+      </ul>
+
+      <h2>Single Object Declarative Template</h2>
+
+      <ul class="list cloak" id='defaultObjectTemplate'>
+        <li>
+          <h3>'${ wobba.firstName }' "${ wobba.lastName }", age: ${ wobba.age }</h3>
+        </li>
+      </ul>
+
+      <h2>With HTML Encoding Enabled</h2>
+
+      <ul class="list cloak" id="basicRepeater">
+        <li>${ $.view.index }: ${ data.firstName }, ${ $.helpers.bigName(data) }</li>
+      </ul>
+
+      <h2>Images in Templates</h2>
+
+      <h2 class='normal-case wrap'>No encoding, so markup is processed.</h2>
+      <h2 class='normal-case wrap'>Using <em>data-src</em> for images.</h2>
+
+      <ul class="list cloak" id="repeaterWithImages">
+        <li class='comp'>
+          <img data-src='${ data.image }' alt="">
+          <div>
+            <h3>
+              ${ $.view.index }: ${ data.firstName } ${ data.lastName }
+            </h3>
+          </div>
+        </li>
+      </ul>
+
+      <h2>Automatic Data Binding</h2>
+
+      <ul id="dataBinding" class='list cloak'>
+        <li>
+          <h3>${ data.firstName }</h3>
+        </li>
+      </ul>
+
+      <ul id="beezle" class='list'>
+        <script type='text/x-template'>
+          <li class="nav"><h3>${ data }</h3></li>
+        </script>
+      </ul>
+
+      <h2>Example of nested repeater</h2>
+      <ul class='list' id="templ8">
+        <script id='tempie' type='text/x-template'>
+          <li>
+            <img data-src='${ somebody.image }'>
+            <div>
+              <h3>${ somebody.name }</h3>
+            </div>
+          </li>
+          {{ if (somebody.friends && somebody.friends.length) { }}
+          <li>
+            <div class='no-flex' style='max-width: 100px;'>
+              <h3>Friends:</h3>
+            </div>
+            <div>
+              <ol>
+                {{  somebody.friends.forEach(function(friend) {  }}
+                <li> ${ friend.name}: ${ friend.job }</li>
+                {{  });  }}
+              </ol>
+            </div>
+          </li>
+          {{ } }}
+        </script>
+      </ul>
+
+    </section>
+</screen>
+
+<script>
+  $(function() {
+
+      ///////////////////////////////////////////////////////////////
+      // IMPORTANT! Define any view helpers first, before using them:
+      ///////////////////////////////////////////////////////////////
+      $.defineHelper({
+        bigName: function(data) {
+          // console.log(data)
+          return data.lastName.toUpperCase();
+        }
+      })
+
+      var titles = ['This', ' ', 'is', ' ', 'a',' ', 'title', ' ', 'template!'];
+      var titlesModel = $.Model(titles, 'titles-handle');
+
+      // View: 1
+      // Define view for title:
+      var titleView = $.View({
+        element: '#titles', 
+        model: titlesModel,
+        name: 'titleView'
+      });
+      titleView.render();
+
+
+      var person = { 
+       "firstName":"<b>John</b>",
+       "lastName": "Doe",
+       "age": 32
+      };
+      var newPerson = {
+        firstName: 'Bongo',
+        lastName: 'Bozo',
+        age: 100
+      }
+      // Init models:
+      //=============
+      var PersonModel = $.Model(person, 'person-handle');
+      var NewPersonModel = $.Model(newPerson, 'new-person-handle')
+
+      // View: 2
+      // Init views:
+      //============
+      var personScriptView = $.View({
+        element: '#defaultObjectTemplateScript',
+        name: 'personScriptView'
+      });
+      // View: 3
+      var personDeclarativeView = $.View({
+        element: '#defaultObjectTemplate', 
+        model: PersonModel, 
+        variable: 'wobba',
+        name: 'personDeclarativeView'
+      });
+
+      // Render views:
+      //==============
+      personScriptView.render(person);
+      personDeclarativeView.render();
+
+
+
+      var fruits = [
+        {firstName: "Apple", image: 'images/apple.png'},
+        {firstName: "Banana", image: 'images/banana.png'},
+        {firstName: "Orange", image: 'images/orange.png'} ,
+        {firstName: "Mango", image: ''} 
+      ];
+      var fruitsModel = $.Model(fruits, 'fruits-model');
+
+      // Luminaries data:
+      //================
+      var luminaries = [
+          {firstName: "<b>Stephen</b>", lastName: "Hawking", image: 'images/Hawking.jpg', age: 20},
+          {firstName: "Albert", lastName: "<strong>Einstein</strong>", image: 'images/Einstein.jpg', age: 31},
+          {firstName: "Leonardo", lastName: "Da Vinci", image: 'images/DaVinci.jpg', age: 100},
+          {firstName: "Galileo", lastName: "Galilei", image: 'images/Galileo.jpg', age: 40},
+          {firstName: "Nicholas", lastName: "Copernicus", image: 'images/Copernicus.jpg', age: 32}  
+        ];
+
+      // Setup luminaries model:
+      //========================
+      var LuminariesModel = $.Model(luminaries, 'luminaries-handle');
+
+      var dingie = [
+        {firstName: 'Dingo', lastName: 'Bongo', image: 'images/apple.png'},
+        {firstName: 'Wobba', lastName: 'Dingo', image: 'images/orange.png'},
+        {firstName: 'Jeff', lastName: 'Ruther', image: 'images/banana.png'},
+        {firstName: 'Pete', lastName: 'Bozo', image: 'images/avocado.png'}
+      ];
+
+      // View: 4
+      // Define view for luminaries:
+     //============================= 
+      var vipView = $.View({
+        element: '#basicRepeater', 
+        model: LuminariesModel,
+        name: 'vipView',
+        startIndexFrom: 12,
+        escapeHTML: true,
+        events: [{
+          element: 'li',
+          event: 'tap',
+          callback: function() {
+            console.log($(this).text());
+          }
+        }]
+      });
+      vipView.render();
+
+      // View: 5
+      // Another use of luminaries model with images:
+      //=============================================
+      var luminariesView = $.View({
+        element: '#repeaterWithImages', 
+        model: LuminariesModel,
+        name: 'luminariesView'
+      });
+      luminariesView.render()
+
+
+      // Names data:
+      //=============
+      var names = [
+        {firstName: 'Dingo', lastName: 'Dingie'},
+        {firstName: 'Bongo'},
+        {firstName: 'Bozo', lastName: 'the Clown'},
+        {firstName: 'Wobba', lastName: 'the Phet'}
+      ];
+      // Names model:
+      //==============
+      var NamesModel = $.Model(names, 'names-handle');
+
+      // View: 6
+      // Inite names views:
+      //====================
+      var namesView = $.View({
+        element: '#dataBinding',
+        model: NamesModel,
+        name: 'namesView'
+      });
+      namesView.render();
+
+      // Simple Data Bingind Example:
+      // Define some data:
+      //=============================
+      var beezleNames = ['Beezle', 'Wobba', 'Bozo', 'Wakumba', 'Bezoobu'];
+
+      // Create a Model:
+      //================
+      var BeezleModel = $.Model(beezleNames, 'beezle-model');
+
+      // View: 7
+      // Init beezle view:
+      //==================
+      var beezleView = $.View({
+        element: '#beezle', 
+        model: BeezleModel,
+        name: 'beezleView'
+       });
+      beezleView.render();
+
+      // Another data object:
+      //=====================
+      var bozo = ['Bozo-1','Bozo-2', 'Bozo-3'];
+      var BozoModel = $.Model(bozo, 'bozo-model');
+
+
+      var peeps = [
+        {
+          "name": "Wobba",
+          "image": "images/Wobba.jpg",
+          "friends": [
+            {
+              "name": "Brennan", 
+              "job": "Installer"
+            },
+            {
+              "name": "Josh", 
+              "job": "Developer"
+            },
+            {
+              "name": "Pete", 
+              "job": "Grand Poobah"
+            }
+          ]
+        },
+        {
+          "name": "Bozo",
+          "image": "images/Bozo.jpg",
+          "friends": [
+            {
+              "name": "Dingo", 
+              "job": "Mad Scientist"
+            },
+            {
+              "name": "Bingo", 
+              "job": "Gambler"
+            },
+            {
+              "name": "Bango", 
+              "job": "Whatever"
+            }
+          ]
+        },
+        {
+          "name": "Dingo",
+          "image": "images/Dingo.jpg",
+          "friends": []
+        },
+        {
+          "name": "Apple",
+          "image": "images/apple.png",
+          "friends": [
+            {
+              "name": "orange",
+              "job": "juice"
+            },
+            {
+              "name": "banana",
+              "job": "eating"
+            }
+          ]
+        }
+      ];
+
+
+      var DingieModel = $.Model(peeps, 'peeps-model');
+      var peepsView = $.View({
+        element: '#templ8',
+        model: DingieModel,
+        variable: 'somebody',
+        name: 'peepsView'
+      });
+      peepsView.render()
+
+      if ($('[href*=ios]')[0]) {
+        console.log('You\'re using the iOS theme!');
+      } else if ($('[href*=android]')[0]) {
+        console.log('You\'re using the Android theme!');
+      } else if ($('[href*=windows]')[0]) {
+        console.log('You\'re using the Windows theme!');
+      }
+
+    });
+</script>  
+</body>

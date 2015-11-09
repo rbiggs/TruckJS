@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Form</title>
+  <link rel="stylesheet" href="../dist/styles/truck-android.css">
+  <script src="../dist/truck.js"></script>
+</head>
+<body>
+  <screen id='main' class="current">
+    <nav>
+      <h1>Form</h1>
+    </nav>
+    <section>
+      <h2>User Info</h2>
+      <ul class="list">
+        <li>
+          <label for="text">First Name: </label><input type="text" name='user_name_first' id='firstName'>
+        </li>
+        <li>
+          <label for="text">Last Name: </label><input type="text" name='user_name_last' id='lastName'>
+        </li>
+        <li>
+          <label for="text">Age: </label><input type="number" name='user_age' id='age'>
+        </li>
+      </ul>
+      <h2>Favorite Snacks</h2>
+      <ul class="list">
+        <li>
+          <label for="text">Hot Wings: </label><input type="checkbox" name='user_favorite_snack[]' value='Hot Wings' id='fav1'>
+        </li>
+        <li>
+          <label for="text">Potato Chips: </label><input type="checkbox" name='user_favorite_snack[]' value='Potato Chips' id='fav2'>
+        </li>
+        <li>
+          <label for="text">Doritos: </label><input type="checkbox" name='user_favorite_snack[]' value='Doritos' id='fav3'>
+        </li>
+      </ul>
+      <h2>Favorite Movies</h2>
+      <ul class="list">
+        <li>
+          <label for="text">Gone With the Wind: </label><input type="checkbox" name='user_favorite_movie[]' value='Gone With the Wind' id='fav4'>
+        </li>
+        <li>
+          <label for="text">The Empire Strikes Back: </label><input type="checkbox" name='user_favorite_movie[]' value='The Empire Strikes Back' id='fav5'>
+        </li>
+        <li>
+          <label for="text">Lord of the Rings: </label><input type="checkbox" name='user_favorite_movie[]' value='Lord of the Rings' id='fav6'>
+        </li>
+        <li><button id='validateName'>Validate</button></li>
+      </ul>
+    </section>
+  </screen>
+  <script>
+    $(function() {
+
+      $('#validateName').on('click', function() {
+        $.myForm = $.Form([
+          {
+            element: '#firstName',
+            type: 'text'
+          },
+          {
+            element: '#lastName',
+            type: 'text'
+          },
+          {
+            element: '#age',
+            type: 'age',
+            min: 20/*,
+            callback: function() {
+              alert("Please provide an proper age.")
+            }*/
+          },
+          {
+            element: '#fav1',
+            type: 'checkbox'
+          },
+          {
+            element: '#fav2',
+            type: 'checkbox'
+          },
+          {
+            element: '#fav3',
+            type: 'checkbox'
+          },
+          {
+            element: '#fav4',
+            type: 'checkbox'
+          },
+          {
+            element: '#fav5',
+            type: 'checkbox'
+          },
+          {
+            element: '#fav6',
+            type: 'checkbox'
+          }
+        ]);
+        if(!$.myForm.errors()) {
+          console.dir($.myForm.get())
+        }
+      });
+    });
+  </script>
+</body>
+</html>

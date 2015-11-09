@@ -1,0 +1,60 @@
+// Tank Body - Segmented Buttons
+(function() {
+  'use strict';
+  $(function() {
+    $.extend({
+      Segmented: function(options) {
+        if (!options || !options.element) return;
+        /* 
+          options = {
+            id : '#myId',
+            element: '#segmentHolder'
+            labels : ['first','second','third'],
+            selected: 0,
+            callback: function() { alert('Boring!'); }
+          }
+        */
+        var settings = {
+          id: $.uuid(),
+          selected: 0,
+          callback: $.noop
+        };
+        $.extend(settings, options);
+
+        var segmented;
+        var id = settings.id;
+        var labels = (settings.labels) ? settings.labels : [];
+        var selected = settings.selected;
+
+        function createSegmentedButton() {
+          var __segmented = ['<div class="segmented">'];
+          labels.forEach(function(ctx, idx) {
+            if (settings.selected === idx) {
+              __segmented.push('<button role="radio" aria-checked="true" class="selected">');
+            } else {
+              __segmented.push('<button role="radio">');
+            }
+
+            __segmented.push(ctx);
+            __segmented.push('</button>');
+          });
+          __segmented.push('</div>');
+          segmented = __segmented.join('');
+          $(settings.element).append(segmented);
+        }
+        createSegmentedButton();
+
+        var callback = settings.callback;
+        $(settings.element).on('tap', '.segmented > button', function(e) {
+          var $this = $(this);
+          if (this.parentNode.classList.contains('paging')) return;
+          $this.siblings('button').removeClass('selected');
+          $this.siblings('button').removeAttr('aria-checked');
+          $this.addClass('selected');
+          $this.attr('aria-checked', true);
+          callback.call(this, e);
+        });
+      }
+    });
+  });
+})();
