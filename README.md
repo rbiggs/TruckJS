@@ -8,6 +8,9 @@ Truck's design was inspired by the mechanics of trucks. Think of your app like a
 
 Truck has a standalone DOM library called Wheels, which is a light version of jQuery. It gives you 80% of the functionality of jQuery. Functions and properties that were esoteric or rarely used were left out. It accomplishes this in under 1,800 lines of code, compared to jQuery's 9,000 plus lines of code. What it lacks from jQuery's API, it makes up for with Models, Mediators, Views, automated data binding, plugins, Promises and Fetch. Truck reduces the amount of code you have to write to get things done. 
 
+To learn more about TruckJS, please visit the [TruckJS website](http://
+truckjs.io).
+
 ##Getting Started
 
 Everything you need is in the folder `dist`. The sub-folder `styles` holds the themes for Android, iOS and Windows.
@@ -746,3 +749,6 @@ Please see the example: `auto-box.html` in examples.
 Editable list can be set to auto-box. This means that when the user taps the `Done` button, the changes get boxed. Then, at load time, you can check Box and reload the list as the user left it, or use that for some configuration/setup of the app.
 
 Please look at `editable-auto-box.html` in examples.
+
+###To learn more about TruckJS, please visit the [TruckJS website](http://
+truckjs.io).
