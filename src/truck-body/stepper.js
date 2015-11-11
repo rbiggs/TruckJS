@@ -4,12 +4,12 @@
   $.fn.extend({
     Stepper: function(options) {
       if (!options) return $();
-      if (!options.start) return $();
-      if (!options.end) return $();
+      if (!options.min) return $();
+      if (!options.max) return $();
       var stepper = $(this);
-      var start = options.start;
-      var end = options.end;
-      var defaultValue = options.defaultValue ? options.defaultValue : options.start;
+      var min = options.min;
+      var max = options.max;
+      var defaultValue = options.defaultValue ? options.defaultValue : options.min;
       var increaseSymbol = '+';
       var decreaseSymbol = '-';
       if ($.isWin) {
@@ -21,24 +21,24 @@
       var increaseButton = '<button class="increase"><span>+</span></button>';
       stepper.append(decreaseButton + label + increaseButton);
       stepper.data('data-value', {
-        start: start,
-        end: end,
+        min: min,
+        max: max,
         defaultValue: defaultValue
       });
 
       var increaseStepperValue = function() {
         var currentValue = stepper.find('input').val();
         var value = stepper.data('data-value');
-        var end = value.end;
+        var max = value.max;
         var newValue;
-        if (currentValue >= end) {
+        if (currentValue >= max) {
           $(this).addClass('disabled');
         } else {
           newValue = Number(currentValue) + 1;
           stepper.find('button:first-of-type').removeClass('disabled');
           stepper.find('label').text(newValue);
           stepper.find('input')[0].value = newValue;
-          if (currentValue === end) {
+          if (currentValue === max) {
             $(this).addClass('disabled');
           }
         }
@@ -47,16 +47,16 @@
       var decreaseStepperValue = function() {
         var currentValue = stepper.find('input').val();
         var value = stepper.data('data-value');
-        var start = value.start;
+        var min = value.min;
         var newValue;
-        if (currentValue <= start) {
+        if (currentValue <= min) {
           $(this).addClass('disabled');
         } else {
           newValue = Number(currentValue) - 1;
           stepper.find('button:last-of-type').removeClass('disabled');
           stepper.find('label').text(newValue);
           stepper.find('input')[0].value = newValue;
-          if (currentValue === start) {
+          if (currentValue === min) {
             $(this).addClass('disabled');
           }
         }
