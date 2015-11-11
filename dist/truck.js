@@ -8867,14 +8867,12 @@
           }
         */
         var settings = {
-          id: $.uuid(),
           selected: 0,
           callback: $.noop
         };
         $.extend(settings, options);
 
         var segmented;
-        var id = settings.id;
         var labels = (settings.labels) ? settings.labels : [];
         var selected = settings.selected;
 

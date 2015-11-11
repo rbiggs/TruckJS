@@ -11,12 +11,7 @@
   <script src="../dist/truck.js"></script>
   <script>
     $(function() {
-      // Define options for segmented control:
-      var segmentedOptions = {
-        id: 'mySegmented',
-        labels : ['Radioactive','Hurt','Yeah, Yeah'],
-        selected: 2
-      };
+
       // Define callback for Segmented Control:
       var segmentedResponse = function(e) {
         e.stopPropagation();
@@ -25,12 +20,11 @@
 
       $.Segmented({
         element: '#segmentedPanel',
-        id: 'mySegmented',
         labels : ['Radioactive','Hurt','Yeah, Yeah'],
         selected: 2,
         callback: segmentedResponse
       });
-      $('.attentionGrapper').text(segmentedOptions.selected +1);
+      $('.attentionGrapper').text(2);
     });
   </script>
 </head>
