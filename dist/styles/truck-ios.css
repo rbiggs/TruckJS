@@ -221,6 +221,7 @@ ul.list > li > div {
 ul.list > li > div.no-flex {
   -webkit-flex: none !important;
   flex: none !important;
+  width: auto;
 }
 ul.list > li > div.auto-width {
   -webkit-flex: none;
