@@ -149,7 +149,7 @@ var Truck_Body_Files = [
 
 // Concat, minify and output JavaScript:
 gulp.task('js', function () {
-  if (gutils.env.wheel) {
+  if (gutils.env.wheels) {
     console.log('There\'s some Truck Wheels coming your way.');
 
     gulp.src(Truck_Wheel_Files)
@@ -196,49 +196,39 @@ gulp.task('js', function () {
     console.log(' ');
     console.log('Hold on tight. We\'re building your TruckJS now.');
 
-  // Define CSS paths:
-  typescriptDirectory = 'src/truck-chassis/';
-  var cssFiles = [
-    'truck-android.css',
-    'truck-ios.css',
-    'truck-windows.css'
-  ].map(function (f) {
-    return path.join(typescriptDirectory, f);
-  });
+    // Define CSS paths:
+    typescriptDirectory = 'src/truck-chassis/';
+    var cssFiles = [
+      'truck-android.css',
+      'truck-ios.css',
+      'truck-windows.css'
+    ].map(function (f) {
+      return path.join(typescriptDirectory, f);
+    });
 
-  gulp.src(Truck_Files)
-      .pipe(concat('truck.js'))
-      .pipe(beautify({indentSize: 2, braceStyle: "collapse", spaceBeforeConditional: true}))
-      .pipe(gulp.dest('dist/'))
-      .pipe(jsmin())
-      .pipe(rename("truck.min.js"))
-      .pipe(gulp.dest('dist/'));
+    gulp.src(Truck_Files)
+        .pipe(concat('truck.js'))
+        .pipe(beautify({indentSize: 2, braceStyle: "collapse", spaceBeforeConditional: true}))
+        .pipe(gulp.dest('dist/'))
+        .pipe(jsmin())
+        .pipe(rename("truck.min.js"))
+        .pipe(gulp.dest('dist/'));
 
-/*    gulp.src('src/truck-chassis/*.css')
-      .pipe(gulp.dest('dist/styles'))
-      .pipe(minifyCSS({}))
-      .pipe(rename('*.min.css'))
-      .pipe(gulp.dest('dist/styles'));*/
+    cssFiles.forEach(function(file, idx) {
+      console.log(file)
+      gulp.src(file)
+        .pipe(gulp.dest('dist/styles'))
+        .pipe(minifyCSS({}))
+        .pipe(rename(osTypes[idx] + '.min.css'))
+        .pipe(gulp.dest('dist/styles'));
+    });
   }
-
-  // gulp.src('src/truck-chassis/*.css')
-  //   .pipe(gulp.dest('dist/styles'));
-
-
-  cssFiles.forEach(function(file, idx) {
-    console.log(file)
-    gulp.src(file)
-      .pipe(gulp.dest('dist/styles'))
-      .pipe(minifyCSS({}))
-      .pipe(rename(osTypes[idx] + '.min.css'))
-      .pipe(gulp.dest('dist/styles'));
-  });
 });
 
 /* 
   Four ways to build. Default will build Truck with everything.
   Using gulp --mvc will build only the mvc parts.
-  Using gulp --wheel
+  Using gulp --wheels
   Using gulp --tank
   Using gulp --engine
  */

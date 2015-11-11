@@ -7,7 +7,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="msapplication-tap-highlight" content="no">
   <title>Truck Multi-Select</title>
-  <link rel="stylesheet" href="../dist/styles/truck-windows.css">
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
   <script src="../dist/truck.js"></script>
 </head>
 <body>
@@ -45,7 +45,7 @@
 
       // Set up Select List:
       // //====================
-      $.mySelectList = $.MultiSelectList({
+      $.myMulitSelectList = $.MultiSelectList({
         element: '#multiSelectList',
         selected: [1,2],
         callback: function() {
@@ -58,7 +58,7 @@
       //================================= 
       var renderSelection = function() {
         var temp = [];
-        $.mySelectList.getSelection().forEach(function(item){
+        $.myMulitSelectList.getSelection().forEach(function(item){
           temp.push(item.value);
         });
         temp = temp.join(', ');

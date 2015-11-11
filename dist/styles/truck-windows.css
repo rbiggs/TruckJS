@@ -622,9 +622,9 @@ button.slide-out-button {
   right: 10px;
   width: 35px;
   height: 35px;
-  background-image: -webkit-linear-gradient(left, #007aff, #007aff) !important;
-  background-image: -moz-linear-gradient(left, #007aff, #007aff) !important;
-  background-image: linear-gradient(left, #007aff, #007aff) !important;
+  background-image: -webkit-linear-gradient(left, #333, #333) !important;
+  background-image: -moz-linear-gradient(left, #333, #333) !important;
+  background-image: linear-gradient(left, #333, #333) !important;
   background-size: 26px 3px !important;
   background-repeat: no-repeat;
   background-position: 4px center;
@@ -633,16 +633,16 @@ button.slide-out-button {
   margin-left: 0;
   -webkit-transform-origin: center center;
   transform-origin: center center;
-  border-radius: 50%;
   transition: all 0.25s ease-out;
   box-shadow: none;
+  border: none;
 }
 button.slide-out-button::before {
   content: '';
   display: block;
   height: 3px;
   width: 26px;
-  background-color: #007aff;
+  background-color: #333;
   position: absolute;
   top: 8px;
   left: 4px;
@@ -655,7 +655,7 @@ button.slide-out-button::after {
   content: '';
   width: 26px;
   height: 3px;
-  background-color: #007aff;
+  background-color: #333;
   position: absolute;
   top: 24px;
   left: 4px;
