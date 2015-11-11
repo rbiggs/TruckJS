@@ -1525,7 +1525,6 @@ section.paging > article.next {
   position: absolute;
   padding-bottom: 40px;
   z-index: 111111;
-  overflow: hidden;
 }
 .popover::before {
   display: block;
@@ -1564,8 +1563,9 @@ section.paging > article.next {
   -webkit-overflow-scrolling: touch;
   padding-bottom: 60px;
   position: absolute;
+  height: 230px;
   top: 40px;
-  bottom: 20px !important;
+  bottom: 0;
   left: 0;
   right: 0;
 }

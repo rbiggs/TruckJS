@@ -9246,6 +9246,7 @@
       $.Unblock();
       $('.popover').css('visibility', 'hidden');
       setTimeout(function() {
+        $('.popover').off();
         $('.popover').remove();
       }, 10);
     }
