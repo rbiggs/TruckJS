@@ -582,10 +582,13 @@
     html: function(content) {
       if (!this.size()) return new DOMStack();
       if (content === '') {
-        this.array[0].innerHTML = '';
+        this.forEach(function(node) {
+          node.innerHTML = '';
+        });
       } else if (content) {
-        this.array[0].innerHTML = content;
-        return new DOMStack(this.array[0]);
+        this.forEach(function(node) {
+          node.innerHTML = content;
+        });
       } else if (!content) {
         return this.array[0].innerHTML.trim();
       }
@@ -769,7 +772,7 @@
 
     hide: function() {
       var display = this.css('display');
-      this.data('display_attr',display);
+      this.data('display_attr', display);
       this.css('display', 'none');
     },
 
