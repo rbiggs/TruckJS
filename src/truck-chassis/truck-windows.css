@@ -1527,6 +1527,16 @@ button.show-popover + button.show-popover {
   box-shadow: none !important;
 }
 
+@media only screen and (max-device-width: 480px) {
+  .scroll-panel {
+    height: 125px !important;
+    padding: 10px;
+  }
+  .scroll-panel > ul li{
+    height: 100px !important;
+    width: 100px !important;
+  }
+}
 /*======*/
 /* Busy */
 /*======*/
@@ -1544,6 +1554,49 @@ button.show-popover + button.show-popover {
 }
 nav > .busy {
   width: 80px;
+}
+
+/*===============*/
+/* Scroll Panels */
+/*===============*/
+.scroll-panel {
+  width: 100%;
+  height: 240px;
+  background-color: #ccc;
+  padding: 20px;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  overflow-y: hidden !important;
+  overflow-x: scroll;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+.scroll-panel > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  -webkit-padding-start: 0;
+  font-size: 0;
+  width: 100%;
+}
+.scroll-panel > ul li {
+  display: inline-block;
+  border: solid 1px #666;
+  box-shadow: 0 0 4px #666;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  margin-right: 20px;
+  font-size: 0;
+}
+.scroll-panel > ul li:first-of-type {
+  margin-left: 0 !important;
+}
+.scroll-panel > ul li:last-of-type {
+  margin-right: 20px !important;
+}
+body.isWindows .scroll-panel {
+  background-color: #333;
 }
 
 /*=======*/

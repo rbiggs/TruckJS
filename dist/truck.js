@@ -7599,8 +7599,11 @@
     // Initialize Back Buttons:
     ///////////////////////////
     $('body').on('tap', '.back', function() {
-      if (this.hasAttribute('disabled')) return;
-      $.GoBack();
+      if (this.hasAttribute('disabled')) {
+        return;
+      } else {
+        $.GoBack();
+      }
     });
 
     ////////////////////////////////
@@ -7863,15 +7866,20 @@
       // Handle Slide Out button events:
       slideOutBtn.on('tap', function() {
         $(this).toggleClass('focused');
-        slideout.toggleClass('open');
-        if (slideout.attr('aria-hidden') === "true") {
+        // slideout.toggleClass('open');
+        // if (slideout.attr('aria-hidden') === "true") {
+        if (slideout.hasClass('open')) {
+          slideout.removeClass('open');
+          console.log('gonna disable the damn back button!')
           slideout.attr('aria-hidden', "false");
-          $('button.back').removeProp('disabled');
-          $('button.backTo').removeProp('disabled');
+          $('button.back').removeClass('disabled').removeProp('disabled');
+          $('button.backTo').removeClass('disabled').removeProp('disabled');
         } else {
+          slideout.addClass('open')
+          console.log('gonna leave the back button alone.')
           slideout.attr('aria-hidden', true);
-          $('button.back').prop('disabled', true);
-          $('button.backTo').prop('disabled', true);
+          $('button.back').addClass('disabled').prop('disabled', true);
+          $('button.backTo').addClass('disabled').prop('disabled', true);
         }
       });
 
@@ -7879,6 +7887,7 @@
         var routes = $(this).attr('data-show').split('/');
         var fullRoute = $.TruckRoutes.getFullRoute();
         var menuItems = slideout.find('li[data-show]');
+        slideout.attr('aria-hidden', 'true')
 
         // Toggle Slide Out button:
         slideOutBtn.toggleClass('focused');

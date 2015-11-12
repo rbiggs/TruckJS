@@ -775,8 +775,8 @@ button.slide-out-button.focused::after {
 .list.editable > li.selected > button.delete,
 .list.deletable > li.selected > button.delete {
   -webkit-transform: translate3d(85px, 0, 0);
-  transform: translate3d(85px, 0, 0);
-  right: 100px;
+  transform: translate3d(90px, 0, 0);
+  right: 90px;
 }
 .list.editable > li.selected > .deletion-indicator,
 .list.deletable > li.selected > .deletion-indicator {
@@ -1075,7 +1075,7 @@ switch.checked > em {
   display: block;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  width: 320px;
+  width: 300px;
   padding: 1px;
   background-color: #ffffff;
   position: absolute;
@@ -1619,6 +1619,16 @@ svg.busy {
 }
 body.isWindows .scroll-panel {
   background-color: #333;
+}
+@media only screen and (max-device-width: 480px) {
+  .scroll-panel {
+    height: 125px !important;
+    padding: 10px;
+  }
+  .scroll-panel > ul li{
+    height: 100px !important;
+    width: 100px !important;
+  }
 }
 
 /*=======*/
