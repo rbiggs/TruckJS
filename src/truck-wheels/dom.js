@@ -151,23 +151,23 @@
     prevAll: function(selector) {
       if (!this.size()) return new DOMStack();
       var ret = new DOMStack();
-      var _siblings;
-      var _self = this[0];
-      var _sibs = Array.prototype.slice.apply(this[0].parentNode.children);
-      var pos = _sibs.indexOf(_self);
-      _sibs.splice(pos, _sibs.length - 1);
+      var __siblings;
+      var __self = this[0];
+      var __sibs = Array.prototype.slice.apply(this[0].parentNode.children);
+      var pos = __sibs.indexOf(__self);
+      __sibs.splice(pos, __sibs.length - 1);
       if (selector && typeof selector === 'string') {
-        _siblings = this.siblings(selector).array;
-        _sibs.forEach(function(element) {
-          if (_siblings.indexOf(element) > -1) {
+        __siblings = this.siblings(selector).array;
+        __sibs.forEach(function(element) {
+          if (__siblings.indexOf(element) > -1) {
             ret.push(element);
           }
         });
       } else {
-        _siblings = Array.prototype.slice.apply(this[0].parentNode.children);
-        pos = _siblings.indexOf(_self);
-        _siblings.splice(pos, _siblings.length - 1);
-        ret.concat(_siblings);
+        __siblings = Array.prototype.slice.apply(this[0].parentNode.children);
+        pos = __siblings.indexOf(__self);
+        __siblings.splice(pos, __siblings.length - 1);
+        ret.concat(__siblings);
       }
       return ret;
     },
@@ -191,26 +191,26 @@
     nextAll: function(selector) {
       if (!this.size()) return new DOMStack();
       var ret = new DOMStack();
-      var _siblings;
+      var __siblings;
       var _parent;
-      var _self = this[0];
-      var _sibs = Array.prototype.slice.apply(this[0].parentNode.children);
-      var pos = _sibs.indexOf(_self);
-      _sibs.splice(0, pos + 1);
+      var __self = this[0];
+      var __sibs = Array.prototype.slice.apply(this[0].parentNode.children);
+      var pos = __sibs.indexOf(__self);
+      __sibs.splice(0, pos + 1);
       if (selector && typeof selector === 'string') {
         _parent = this.array[0].parentNode;
-        _siblings = $(_parent).find(selector);
-        _sibs.splice(0, _sibs.indexOf(this.array[0]));
-        _sibs.forEach(function(element) {
-          if (_siblings.array.indexOf(element) > -1) {
+        __siblings = $(_parent).find(selector);
+        __sibs.splice(0, __sibs.indexOf(this.array[0]));
+        __sibs.forEach(function(element) {
+          if (__siblings.array.indexOf(element) > -1) {
             ret.push(element);
           }
         });
       } else {
-        _siblings = Array.prototype.slice.apply(this[0].parentNode.children);
-        pos = _siblings.indexOf(_self);
-        _siblings.splice(0, pos + 1);
-        ret.concat(_siblings);
+        __siblings = Array.prototype.slice.apply(this[0].parentNode.children);
+        pos = __siblings.indexOf(__self);
+        __siblings.splice(0, pos + 1);
+        ret.concat(__siblings);
       }
       return ret;
     },
@@ -267,7 +267,7 @@
     siblings: function(selector) {
       if (!this.size())
         return new DOMStack();
-      var _siblings;
+      var __siblings;
       var ret = new DOMStack();
       var $this = this;
       var parent;
@@ -280,9 +280,9 @@
       children.splice(children.indexOf(this.array[0]), 0);
       if (selector && typeof selector === 'string') {
         parent = this.array[0].parentNode;
-        _siblings = $(parent).find(selector);
-        _siblings.array.splice(_siblings.array.indexOf(this.array[0]), 0);
-        ret.concat(_siblings.array);
+        __siblings = $(parent).find(selector);
+        __siblings.array.splice(__siblings.array.indexOf(this.array[0]), 0);
+        ret.concat(__siblings.array);
       } else {
         ret.concat(children);
       }
