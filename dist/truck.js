@@ -7866,8 +7866,6 @@
       // Handle Slide Out button events:
       slideOutBtn.on('tap', function() {
         $(this).toggleClass('focused');
-        // slideout.toggleClass('open');
-        // if (slideout.attr('aria-hidden') === "true") {
         if (slideout.hasClass('open')) {
           slideout.removeClass('open');
           console.log('gonna disable the damn back button!')
