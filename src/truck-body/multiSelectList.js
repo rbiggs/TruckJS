@@ -63,15 +63,17 @@
           item.removeClass('selected').removeAttr('aria-checked');
           item.find('input').removeProp('checked');
           var whichItem = item.index();
-          var tempData = __selection.getData();
-          __selection.forEach(function(sel) {
-            if (sel && sel.index === whichItem) {
-              var pos = __selection.indexOf(sel);
-              tempData.splice(pos, 1);
+          var dataObj = {
+            index: item.index(),
+            value: item.attr('data-select')
+          }
+          var pos;
+          __selection.forEach(function(item, idx) {
+            if (item.index === dataObj.index && item.value === dataObj.value) {
+              pos = idx;
             }
           });
-          __selection.purge();
-          __selection.concat(tempData);
+          __selection.splice(pos, 1);
 
           settings.callback.apply(this, arguments);
         } else {

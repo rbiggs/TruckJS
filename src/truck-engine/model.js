@@ -7,6 +7,7 @@
       var __handle = handle || $.uuid();
       // Init private data:
       var __data = data || '';
+      data = null;
 
       // Used for boxing a model:
       var __name;
@@ -80,6 +81,16 @@
             propogateData(__handle, __data, doNotPropogate);
           }
           __lastModifiedTime = Date.now();
+        },
+
+        // Get a property on an object.
+        // This is for objects that are not iterable.
+        getProp: function(prop) {
+          if (!prop || (this.hasData() && this.isIterable())) {
+            return;
+          } else {
+            return __data[prop];
+          }
         },
 
         // Replace a single object with another.
@@ -396,9 +407,9 @@
         purge: function() {
           var self = this;
           if ($.type(__data) === 'array') {
-            __data = [];
+            __data.length = 0;
           } else if ($.type(__data) === 'object') {
-            __data = {};
+            for(k in __data) if(!(__data[k] instanceof Function)) delete __data[k];
           }
           if (__autobox) {
             self.box({

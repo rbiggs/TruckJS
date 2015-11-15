@@ -178,6 +178,9 @@
       } else if (collection.constructor.toString().match(/DOMStack/)) {
         temp = collection.getData();
         len = temp.length;
+      } else if (collection.constructor.toString().match(/HTMLBodyElementConstructor/)) {
+        temp = [collection];
+        len = 1;
       }
       while (++i < len) {
         this.array[this.array.length] = temp[i];
@@ -231,8 +234,7 @@
     };
 
     DOMStack.prototype.purge = function() {
-      this.array = [];
-      this.array[0] = undefined;
+      this.array.length = 0;
       this.length = 0;
     };
     return DOMStack;

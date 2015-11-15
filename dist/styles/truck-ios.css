@@ -221,7 +221,6 @@ ul.list > li > div {
 ul.list > li > div.no-flex {
   -webkit-flex: none !important;
   flex: none !important;
-  width: auto;
 }
 ul.list > li > div.auto-width {
   -webkit-flex: none;
@@ -1564,7 +1563,7 @@ section.paging > article.next {
   -webkit-overflow-scrolling: touch;
   padding-bottom: 60px;
   position: absolute;
-  height: 240px;
+  height: 230px;
   top: 40px;
   bottom: 0;
   left: 0;

@@ -72,7 +72,6 @@
         makeScreenNext(currentScreen);
         makeScreenCurrent(destinationScreen);
         if ($.TruckRoutes.size() === 1) return;
-        $.TruckRoutes.pop();
       },
 
       isNavigating: false,

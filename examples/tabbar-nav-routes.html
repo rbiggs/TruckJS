@@ -8,7 +8,6 @@
   <meta name="msapplication-tap-highlight" content="no">
   <title>Truck Tab Bar</title>
   <link rel="stylesheet" href="../dist/styles/truck-ios.css">
-  <link rel="stylesheet" href="styles/tabbar-styles.css">
   <script src="../dist/truck.js"></script>
   <script src="data/data.js"></script>
   <script src="data/fruits.js"></script>
@@ -213,8 +212,8 @@
 
       // Routes for fruits:
       //===================
-      var AppRoutes = $.Router();
-      AppRoutes.addRoute([
+      $.AppRoutes = $.Router();
+      $.AppRoutes.addRoute([
         {
           route: 'chosenFruit',
           callback: function(id) {

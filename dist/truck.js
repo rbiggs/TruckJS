@@ -204,6 +204,9 @@
       } else if (collection.constructor.toString().match(/DOMStack/)) {
         temp = collection.getData();
         len = temp.length;
+      } else if (collection.constructor.toString().match(/HTMLBodyElementConstructor/)) {
+        temp = [collection];
+        len = 1;
       }
       while (++i < len) {
         this.array[this.array.length] = temp[i];
@@ -257,8 +260,7 @@
     };
 
     DOMStack.prototype.purge = function() {
-      this.array = [];
-      this.array[0] = undefined;
+      this.array.length = 0;
       this.length = 0;
     };
     return DOMStack;
@@ -1559,7 +1561,7 @@
       },
 
       purge: function() {
-        __array = [];
+        __array.length = 0;
       },
     };
   };
@@ -2079,10 +2081,10 @@
 // Truck Engine - Gestures Module:
 (function() {
   "use strict";
-  //////////////////////////////////////////////////////
-  // Swipe Gestures for ChocolateChip-UI.
+  //===================================================
+  // Swipe Gestures for TruckJS.
   // Includes mouse gestures for desktop compatibility.
-  //////////////////////////////////////////////////////
+  //===================================================
   var touch = {};
   var touchTimeout;
   var swipeTimeout;
@@ -2127,6 +2129,9 @@
     touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null;
     touch = {};
   }
+
+  // Execute this after DOM loads:
+  //==============================
   $(function() {
     var now;
     var delta;
@@ -2156,6 +2161,7 @@
         touch.x1 = e.pageX;
         touch.y1 = e.pageY;
         twoTouches = false;
+
       } else {
         if ($.eventStart === 'mousedown') {
           touch.el = $(parentIfText(e.target));
@@ -2163,8 +2169,9 @@
           touch.x1 = e.pageX;
           touch.y1 = e.pageY;
           twoTouches = false;
+
+          // Detect two or more finger gestures:
         } else {
-          // User to detect two or more finger gestures:
           if (e.touches.length === 1) {
             touch.el = $(parentIfText(e.touches[0].target));
             touchTimeout && clearTimeout(touchTimeout); // jshint ignore:line
@@ -2199,6 +2206,7 @@
         cancelLongTap();
         touch.x2 = e.pageX;
         touch.y2 = e.pageY;
+
       } else {
         cancelLongTap();
         if ($.eventMove === 'mousemove') {
@@ -2224,6 +2232,7 @@
           if (!e.isPrimary) return;
         }
       }
+
       cancelLongTap();
       if (!!touch.el) {
         // Swipe detection:
@@ -2236,6 +2245,7 @@
               touch = {};
             }
           }, 0);
+
           // Normal tap:
         } else if ('last' in touch) {
           // Delay by one tick so we can cancel the 'tap' event if 'scroll' fires:
@@ -2246,6 +2256,7 @@
                 touch.el.trigger('doubletap');
                 touch = {};
               }
+
             } else {
               // Trigger tap after singleTapDelay:
               touchTimeout = setTimeout(function() {
@@ -2259,6 +2270,7 @@
             }
           }, 0);
         }
+
       } else {
         return;
       }
@@ -2268,7 +2280,7 @@
 
   // Register events:
   //=================
-  ['swipe', 'swipeleft', 'swiperight', 'swipeup', 'swipedown', 'tap', 'doubletap', 'longtap'].forEach(function(method) {
+  ['tap', 'doubletap', 'longtap', 'swipeleft', 'swiperight', 'swipeup', 'swipedown'].forEach(function(method) {
     $.fn.extend({
       method: function(callback) {
         return this.on(method, callback);
@@ -2750,8 +2762,38 @@
           __array.reverse.apply(__array, arguments);
         },
 
-        indexOf: function() {
-          return __array.indexOf.apply(__array, arguments);
+        indexOf: function(el, idx) {
+          var i = 0;
+          var len = __array.length;
+          var compareObjects = function(a, b) {
+            if (a === b)
+              return true;
+            for (var i in a) {
+              if (b.hasOwnProperty(i)) {
+                if (a[i] !== b[i]) return false;
+              } else {
+                return false;
+              }
+            }
+
+            for (var i in b) {
+              if (!a.hasOwnProperty(i)) {
+                return false;
+              }
+            }
+            return true;
+          };
+          for (; i < len; i++) {
+            if ($.type(el) === 'object') {
+              if (compareObjects(el, __array[i])) {
+                return i;
+              }
+            } else {
+              if (el === __array[i]) {
+                return i;
+              }
+            }
+          }
         },
 
         every: function() {
@@ -2800,6 +2842,7 @@
       var __handle = handle || $.uuid();
       // Init private data:
       var __data = data || '';
+      data = null;
 
       // Used for boxing a model:
       var __name;
@@ -2873,6 +2916,16 @@
             propogateData(__handle, __data, doNotPropogate);
           }
           __lastModifiedTime = Date.now();
+        },
+
+        // Get a property on an object.
+        // This is for objects that are not iterable.
+        getProp: function(prop) {
+          if (!prop || (this.hasData() && this.isIterable())) {
+            return;
+          } else {
+            return __data[prop];
+          }
         },
 
         // Replace a single object with another.
@@ -3189,9 +3242,10 @@
         purge: function() {
           var self = this;
           if ($.type(__data) === 'array') {
-            __data = [];
+            __data.length = 0;
           } else if ($.type(__data) === 'object') {
-            __data = {};
+            for (k in __data)
+              if (!(__data[k] instanceof Function)) delete __data[k];
           }
           if (__autobox) {
             self.box({
@@ -7440,8 +7494,8 @@
           amount = 0;
         }
         var props = {};
-        props[whichSide.toString()] = amount;
-        props[oppositeSide.toString()] = 0;
+        props[whichSide] = amount;
+        props[oppositeSide] = 0;
         var sibwidth = 0;
         if (siblings.size()) {
           siblings.forEach(function(item) {
@@ -7571,7 +7625,6 @@
         makeScreenNext(currentScreen);
         makeScreenCurrent(destinationScreen);
         if ($.TruckRoutes.size() === 1) return;
-        $.TruckRoutes.pop();
       },
 
       isNavigating: false,
@@ -7602,11 +7655,8 @@
     // Initialize Back Buttons:
     ///////////////////////////
     $('body').on('tap', '.back', function() {
-      if (this.hasAttribute('disabled')) {
-        return;
-      } else {
-        $.GoBack();
-      }
+      if (this.hasAttribute('disabled')) return;
+      $.GoBack();
     });
 
     ////////////////////////////////
@@ -8572,15 +8622,17 @@
           item.removeClass('selected').removeAttr('aria-checked');
           item.find('input').removeProp('checked');
           var whichItem = item.index();
-          var tempData = __selection.getData();
-          __selection.forEach(function(sel) {
-            if (sel && sel.index === whichItem) {
-              var pos = __selection.indexOf(sel);
-              tempData.splice(pos, 1);
+          var dataObj = {
+            index: item.index(),
+            value: item.attr('data-select')
+          }
+          var pos;
+          __selection.forEach(function(item, idx) {
+            if (item.index === dataObj.index && item.value === dataObj.value) {
+              pos = idx;
             }
           });
-          __selection.purge();
-          __selection.concat(tempData);
+          __selection.splice(pos, 1);
 
           settings.callback.apply(this, arguments);
         } else {
@@ -8869,7 +8921,6 @@
         if (!options || !options.element) return;
         /* 
           options = {
-            id : '#myId',
             element: '#segmentHolder'
             labels : ['first','second','third'],
             selected: 0,

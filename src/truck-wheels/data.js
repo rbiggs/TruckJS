@@ -98,7 +98,7 @@
       },
 
       purge: function() {
-        __array = [];
+        __array.length = 0;
       },
     };
   };

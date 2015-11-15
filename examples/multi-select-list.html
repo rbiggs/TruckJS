@@ -58,9 +58,11 @@
       //================================= 
       var renderSelection = function() {
         var temp = [];
+        // console.log($.myMulitSelectList.getSelection())
         $.myMulitSelectList.getSelection().forEach(function(item){
           temp.push(item.value);
         });
+        temp.sort()
         temp = temp.join(', ');
         if (temp.length) {
           $('#response').text(temp);

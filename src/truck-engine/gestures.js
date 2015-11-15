@@ -1,10 +1,10 @@
 // Truck Engine - Gestures Module:
 (function() {
   "use strict";
-  //////////////////////////////////////////////////////
-  // Swipe Gestures for ChocolateChip-UI.
+  //===================================================
+  // Swipe Gestures for TruckJS.
   // Includes mouse gestures for desktop compatibility.
-  //////////////////////////////////////////////////////
+  //===================================================
   var touch = {};
   var touchTimeout;
   var swipeTimeout;
@@ -49,6 +49,9 @@
     touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null;
     touch = {};
   }
+
+  // Execute this after DOM loads:
+  //==============================
   $(function() {
     var now;
     var delta;
@@ -78,6 +81,7 @@
         touch.x1 = e.pageX;
         touch.y1 = e.pageY;
         twoTouches = false;
+
       } else {
         if ($.eventStart === 'mousedown') {
           touch.el = $(parentIfText(e.target));
@@ -85,8 +89,9 @@
           touch.x1 = e.pageX;
           touch.y1 = e.pageY;
           twoTouches = false;
+
+        // Detect two or more finger gestures:
         } else {
-          // User to detect two or more finger gestures:
           if (e.touches.length === 1) {
             touch.el = $(parentIfText(e.touches[0].target));
             touchTimeout && clearTimeout(touchTimeout); // jshint ignore:line
@@ -121,6 +126,7 @@
         cancelLongTap();
         touch.x2 = e.pageX;
         touch.y2 = e.pageY;
+
       } else {
         cancelLongTap();
         if ($.eventMove === 'mousemove') {
@@ -146,6 +152,7 @@
           if (!e.isPrimary) return;
         }
       }
+
       cancelLongTap();
       if (!!touch.el) {
         // Swipe detection:
@@ -158,7 +165,8 @@
               touch = {};
             }
           }, 0);
-          // Normal tap:
+        
+        // Normal tap:
         } else if ('last' in touch) {
           // Delay by one tick so we can cancel the 'tap' event if 'scroll' fires:
           tapTimeout = setTimeout(function() {
@@ -168,6 +176,7 @@
                 touch.el.trigger('doubletap');
                 touch = {};
               }
+
             } else {
               // Trigger tap after singleTapDelay:
               touchTimeout = setTimeout(function() {
@@ -181,6 +190,7 @@
             }
           }, 0);
         }
+        
       } else {
         return;
       }
@@ -190,7 +200,7 @@
 
   // Register events:
   //=================
-  ['swipe', 'swipeleft', 'swiperight', 'swipeup', 'swipedown', 'tap', 'doubletap', 'longtap'].forEach(function(method) {
+  ['tap', 'doubletap', 'longtap', 'swipeleft', 'swiperight', 'swipeup', 'swipedown'].forEach(function(method) {
     $.fn.extend({
       method: function(callback) {
         return this.on(method, callback);

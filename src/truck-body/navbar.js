@@ -56,8 +56,8 @@
           amount = 0;
         }
         var props = {};
-        props[whichSide.toString()] = amount;
-        props[oppositeSide.toString()] = 0;
+        props[whichSide] = amount;
+        props[oppositeSide] = 0;
         var sibwidth = 0;
         if (siblings.size()) {
           siblings.forEach(function(item) {
