@@ -2,6 +2,10 @@
 (function() {
   'use strict';
   $.extend({
+    //===========================================
+    // Setup Form object to convert data to JSON,
+    // and to validate form values:
+    //===========================================
     Form: function(options) {
       if (!options || $.type(options) !== 'array') return;
 

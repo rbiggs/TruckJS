@@ -27,6 +27,9 @@
 // Truck Wheeles - DOM Stack Module:
 (function(self) {
   "use strict";
+  //=====================================
+  // Define DOMStack for selector engine:
+  //=====================================
   var DOMStack = (function() {
     function DOMStack(args) {
       this.array = [];
@@ -270,6 +273,9 @@
 // Truck Wheels - Selector Module:
 (function() {
   "use strict";
+  //======================================
+  // Define interface for selector engine:
+  //======================================
   if (typeof jQuery !== 'undefined') return;
   var temp;
 
@@ -473,6 +479,9 @@
 // Truck Wheels - Utilities Module:
 (function() {
   "use strict";
+  //==========================
+  // Define Utilities methods:
+  //==========================
   if (typeof jQuery !== 'undefined') return;
   var slice = function(elements) {
     return [].slice.apply(elements);
@@ -606,6 +615,9 @@
 // Truck Wheels - Types Module:
 (function() {
   "use strict";
+  //==================================
+  // Define method to determine types:
+  //==================================
   if (typeof jQuery !== 'undefined') return;
   $.extend({
     type: function(type) {
@@ -637,6 +649,9 @@
 // Truck Wheels - String Module:
 (function() {
   "use strict";
+  //=======================
+  // Define string methods:
+  //=======================
   if (typeof jQuery !== 'undefined') return;
   $.extend({
     camelize: function(string) {
@@ -680,6 +695,9 @@
 // Truck Wheels - DOM Methods Module:
 (function() {
   "use strict";
+  //====================
+  // Define DOM methods:
+  //====================
   if (typeof jQuery !== 'undefined') return;
   var slice = function(elements) {
     return new DOMStack([].slice.apply(elements));
@@ -1464,107 +1482,11 @@
 // Truck Wheels - Data Cache Module:
 (function() {
   "use strict";
+  //===========================================
+  // Define interface for element data storage:
+  //===========================================
   if (typeof jQuery !== 'undefined') return;
 
-  var TruckDataStack = function(array) {
-    var __array = [];
-    if (array && Array.isArray(array)) {
-      var i = -1;
-      var len = array.length;
-      while (++i < len) {
-        __array[i] = array[i];
-      }
-    } else if (array) {
-      var arr = Array.prototype.slice.apply(arguments);
-      arr.forEach(function(ctx, idx) {
-        __array[idx] = ctx;
-      });
-    }
-    return {
-
-      size: function() {
-        return __array.length;
-      },
-
-      push: function(data) {
-        __array.push(data);
-      },
-
-      pop: function() {
-        return __array.pop();
-      },
-
-      eq: function(index) {
-        if (index < 0) {
-          return __array[__array.length + index];
-        } else {
-          return __array[index];
-        }
-      },
-
-      forEach: function(callback) {
-        var value;
-        var i = -1;
-        var len = __array.length;
-        while (++i < len) {
-          value = callback.call(__array[i], __array[i], i);
-          if (value === false) {
-            break;
-          }
-        }
-      },
-
-      shift: function() {
-        return __array.shift.apply(__array, arguments);
-      },
-
-      unshift: function() {
-        __array.unshift.apply(__array, arguments);
-      },
-
-      splice: function() {
-        __array.splice.apply(__array, arguments);
-      },
-
-      filter: function(args) {
-        return __array.filter.apply(__array, arguments);
-      },
-
-      map: function() {
-        return __array.map.apply(__array, arguments);
-      },
-
-      indexOf: function() {
-        return __array.indexOf.apply(__array, arguments);
-      },
-
-      unique: function() {
-        var len = __array.length;
-        var ret = [];
-        var obj = {};
-
-        for (i = 0; i < len; i++) {
-          var arrayItem = JSON.stringify(__array[i]);
-          var arrayItemValue = __array[i];
-          if (obj[arrayItem] === undefined) {
-            ret.push(arrayItemValue);
-            obj[arrayItem] = 1;
-          } else {
-            obj[arrayItem]++;
-          }
-        }
-        __array = ret;
-      },
-
-      getData: function() {
-        return __array;
-      },
-
-      purge: function() {
-        __array.length = 0;
-      },
-    };
-  };
   var TruckDataCache = {
     elements: {}
   };
@@ -1626,6 +1548,9 @@
 // Truck Wheels - Form Serialization Module:
 (function() {
   "use strict";
+  //=========================================
+  // Methods to handle form data like jQuery:
+  //=========================================
   if (typeof jQuery !== 'undefined') return;
 
   // Serialize an object into name/value pairs 
@@ -1729,6 +1654,9 @@
 // Truck Wheels - Events Module:
 (function() {
   "use strict";
+  //======================================
+  // Define interface for handling events:
+  //======================================
   if (typeof jQuery !== 'undefined') return;
 
   var TruckEventStack = function(array) {
@@ -2500,7 +2428,6 @@
 // Truck Engine - Dispatcher Module:
 (function() {
   "use strict";
-
   var DispatchStack = function(array) {
     var __array = [];
     if (array && Array.isArray(array)) {
@@ -2626,6 +2553,9 @@
 (function() {
   "use strict";
   $.extend({
+    //==============
+    // Define Stack:
+    //==============
     Stack: function(array) {
       var __array = [];
       if (array && Array.isArray(array)) {
@@ -2837,6 +2767,9 @@
 (function() {
   "use strict";
   $.extend({
+    //==============
+    // Define Model:
+    //==============
     Model: function(data, handle) {
       // Define handle name:
       var __handle = handle || $.uuid();
@@ -3424,6 +3357,9 @@
   "use strict";
   $.extend({
     mediators: {},
+    //=================
+    // Define Mediator:
+    //=================
     Mediator: function(handle) {
       var __handle = handle;
       var __token = $.uuid();
@@ -3589,6 +3525,9 @@
 // Truck Engine - View Module:
 (function() {
   "use strict";
+  //=============
+  // Define View:
+  //=============
   $.extend({
     RegisteredViews: $.Stack([]),
   });
@@ -3726,12 +3665,6 @@
         return Template;
         /* jshint ignore:end */
       };
-      /* jshint ignore:start */
-      var escapeQuotes = function(template) {
-        var interpolate = /(['"])/img;
-        template.replace;
-      };
-      /* jshint ignore:end */
 
       // Binding any events provided in View options:
       var handleEvents = function() {
@@ -4209,6 +4142,9 @@
 (function() {
   "use strict";
   $(function() {
+    //=================================
+    // Interface for the app's screens:
+    //=================================
     $.extend({
       screens: $('screen')
     });
@@ -4232,6 +4168,9 @@
   "use strict";
   $(function() {
     $.extend({
+      //===============
+      // Define Router:
+      //===============
       TruckRoutes: $.Model([], 'Truck-Routes'),
 
       Router: function() {
@@ -4356,6 +4295,9 @@
 // Truck Engine - Promises Module:
 (function() {
   "use strict";
+  //==================================
+  // Define polyfill for ES6 Promises:
+  //==================================
   /*jshint validthis:true */
   var extend;
   var cycle;
@@ -4637,7 +4579,6 @@
 // Truck Engine - Fetch Module
 (function(self) {
   'use strict';
-
   if (self.fetch) {
     return;
   }
@@ -5087,9 +5028,9 @@
 // Truck Engine - Formatters Module:
 (function() {
   "use strict";
-  ////////////////////////////////
+  //==============================
   // Format Numbers for Thousands:
-  ////////////////////////////////
+  //==============================
   $.extend({
     formatNumber: function(amount, separator, decimal) {
       var sep = separator || ",";
@@ -5113,9 +5054,9 @@
       }
     },
 
-    /////////////////////////
+    //=======================
     // Return sum of numbers:
-    /////////////////////////
+    //=======================
     sum: function(arr) {
       var ret;
       if (Array.isArray(arr) && arr.length) {
@@ -5128,9 +5069,9 @@
       });
     },
 
-    ///////////////////
+    //=================
     // Format currency:
-    ///////////////////
+    //=================
     currency: function(amount, symbol, separator, decimal) {
       var sym = symbol || "$";
       var sep = separator || ",";
@@ -5157,9 +5098,9 @@
       return sym + formatNumber(amount, sep);
     },
 
-    ///////////////
+    //=============
     // Format Time:
-    ///////////////
+    //=============
     formatTime: function(time) {
       var temp = time.split(':');
       var temp2 = temp[0] + ':' + temp[1];
@@ -5171,9 +5112,9 @@
       return new Date(date1) - new Date(date2);
     },
 
-    ////////////////
+    //==============
     // Sort Numbers:
-    ////////////////
+    //==============
     sortNumbers: function(a, b) {
       return a - b;
     },
@@ -5187,6 +5128,10 @@
 // Truck Engine - Validators Module:
 (function() {
   "use strict";
+  //========================
+  // Define data validators:
+  //========================
+
   // Set validity state of form elements:
   var setValidityStatus = function(element, valid) {
     if (valid) {
@@ -7440,8 +7385,10 @@
 (function() {
   $(function() {
     "use strict";
+    //===============================
     // Method to center H1 in Navbar.
     // Check on widths of siblings:
+    //===============================
     $.extend({
       AdjustNavbarLayout: function(screen) {
         if (!$('link[href*=ios]')[0]) return;
@@ -7696,9 +7643,9 @@
 (function() {
   "use strict";
   $.extend({
-    ///////////////////////////////////////////
+    //=========================================
     // Creates a Tab Bar for Toggling Articles:
-    ///////////////////////////////////////////
+    //=========================================
     TabBar: function(options) {
       /*
       var options = {
@@ -7900,8 +7847,10 @@
 // Tank Body - Slide Out Menu
 (function() {
   'use strict';
-
   $.extend({
+    //========================
+    // Setup a slide out menu:
+    //========================
     SlideOut: function(options) {
       var slideOutButton = $('<button class="slide-out-button"></button>');
       var slideOut = '<slideout><section></section></slideout>';
@@ -7988,6 +7937,10 @@
 (function() {
   'use strict';
   $.extend({
+    //=================================
+    // Setup an editable list, enabling
+    // reording of items and deletion:
+    //=================================
     EditList: function(options) {
       /*
         options = {
@@ -8299,6 +8252,10 @@
 (function() {
   'use strict';
   $.extend({
+    //===========================================
+    // Setup Form object to convert data to JSON,
+    // and to validate form values:
+    //===========================================
     Form: function(options) {
       if (!options || $.type(options) !== 'array') return;
 
@@ -8496,6 +8453,9 @@
 (function() {
   'use strict';
   $.extend({
+    //=====================
+    // Setup a select list:
+    //=====================
     SelectList: function(options) {
       if (!options || !options.element) return;
       var settings = {
@@ -8561,6 +8521,9 @@
 (function() {
   'use strict';
   $.extend({
+    //===========================
+    // Setup a multi-select list:
+    //===========================
     MultiSelectList: function(options) {
       if (!options || !options.element) return;
       var settings = {
@@ -8662,6 +8625,9 @@
 (function() {
   "use strict";
   $.extend({
+    //=========================
+    // Create a switch control:
+    //=========================
     Switch: function(options) {
       var self = this;
       if (!options || !options.element) return;
@@ -8767,6 +8733,7 @@
   "use strict";
   $.extend({
 
+    //==============
     // Cover screen:
     //==============
     Block: function(opacity) {
@@ -8776,6 +8743,7 @@
       $('screen.current').attr('aria-hidden', true);
     },
 
+    //================
     // Uncover screen:
     //================
     Unblock: function() {
@@ -8788,6 +8756,9 @@
 (function() {
   'use strict';
   $.extend({
+    //=======================
+    // Setup  a popup dialog:
+    //=======================
     Popup: function(options) {
       /*
       options {
@@ -8917,6 +8888,9 @@
   'use strict';
   $(function() {
     $.extend({
+      //==========================
+      // Setup a segmented button:
+      //==========================
       Segmented: function(options) {
         if (!options || !options.element) return;
         /* 
@@ -8973,6 +8947,9 @@
 (function() {
   "use strict";
   $.fn.extend({
+    //=====================
+    // Setup a range input:
+    //=====================
     Range: function() {
       if ($('body').hasClass('isWindows')) return;
       if (this[0].nodeName !== 'INPUT') return;
@@ -9010,6 +8987,9 @@
 (function() {
   'use strict';
   $.extend({
+    //========================
+    // Create a sliding sheet:
+    //========================
     Sheet: function(options) {
       /*
         var options {
@@ -9068,6 +9048,9 @@
 (function() {
   "use strict";
   $.extend({
+    //========================
+    // Setup a paging control:
+    //========================
     Paging: function(options) {
       if (!options || !options.element) return;
       var screen = $(options.element);
@@ -9145,6 +9128,9 @@
 (function() {
   'use strict';
   $.extend({
+    //==================
+    // Create a stepper:
+    //==================
     Stepper: function(options) {
       if (!options) return $();
       if (!options.element) return;
@@ -9227,12 +9213,15 @@
 (function() {
   "use strict";
   $.extend({
-    /*
-      id: myUniqueID,
-      title: 'Great',
-      callback: myCallback,
-    */
+    //=================================
+    // Setup a popover (dropdown menu):
+    //=================================
     Popover: function(options) {
+      /*
+        id: myUniqueID,
+        title: 'Great',
+        callback: myCallback,
+      */
       options = options || {};
       var settings = {
         id: $.uuid(),
@@ -9343,6 +9332,7 @@
 (function() {
   "use strict";
   $.fn.extend({
+    //============================
     // Center an Element on Screen
     //============================
     Center: function(position) {
@@ -9392,6 +9382,9 @@
 (function() {
   "use strict";
   $.fn.extend({
+    //===========================
+    // Setup activitiy indicator:
+    //===========================
     Busy: function(options) {
       var settings = {
         size: 40,

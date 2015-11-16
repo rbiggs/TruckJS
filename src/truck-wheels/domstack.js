@@ -1,6 +1,9 @@
 // Truck Wheeles - DOM Stack Module:
 (function(self) {
   "use strict";
+  //=====================================
+  // Define DOMStack for selector engine:
+  //=====================================
   var DOMStack = (function() {
     function DOMStack(args) {
       this.array = [];

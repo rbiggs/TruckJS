@@ -1,6 +1,9 @@
 // Truck Wheels - Utilities Module:
 (function() {
   "use strict";
+  //==========================
+  // Define Utilities methods:
+  //==========================
   if (typeof jQuery !== 'undefined') return;
   var slice = function(elements) {
     return [].slice.apply(elements);

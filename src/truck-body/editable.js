@@ -2,6 +2,10 @@
 (function() {
   'use strict';
   $.extend({
+    //=================================
+    // Setup an editable list, enabling
+    // reording of items and deletion:
+    //=================================
     EditList: function(options) {
       /*
         options = {

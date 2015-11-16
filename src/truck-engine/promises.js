@@ -1,6 +1,9 @@
 // Truck Engine - Promises Module:
 (function() {
   "use strict";
+  //==================================
+  // Define polyfill for ES6 Promises:
+  //==================================
   /*jshint validthis:true */
   var extend;
   var cycle;

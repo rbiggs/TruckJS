@@ -1,6 +1,9 @@
 // Truck Wheels - Events Module:
 (function() {
   "use strict";
+  //======================================
+  // Define interface for handling events:
+  //======================================
   if (typeof jQuery !== 'undefined') return;
 
   var TruckEventStack = function(array) {

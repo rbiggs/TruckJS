@@ -1,8 +1,10 @@
 // Tank Body - Slide Out Menu
 (function() {
   'use strict';
-
   $.extend({
+    //========================
+    // Setup a slide out menu:
+    //========================
     SlideOut: function(options) {
       var slideOutButton = $('<button class="slide-out-button"></button>');
       var slideOut = '<slideout><section></section></slideout>';

@@ -2,6 +2,7 @@
 (function() {
   "use strict";
   $.fn.extend({
+    //============================
     // Center an Element on Screen
     //============================
     Center: function(position) {

@@ -2,6 +2,9 @@
 (function() {
   "use strict";
   $.extend({
+    //========================
+    // Setup a paging control:
+    //========================
     Paging: function(options) {
       if (!options || !options.element) return;
       var screen = $(options.element);

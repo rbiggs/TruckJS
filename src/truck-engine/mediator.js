@@ -3,6 +3,9 @@
   "use strict";
   $.extend({
     mediators: {},
+    //=================
+    // Define Mediator:
+    //=================
     Mediator: function(handle) {
       var __handle = handle;
       var __token = $.uuid();

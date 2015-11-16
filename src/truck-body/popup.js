@@ -2,6 +2,9 @@
 (function() {
   'use strict';
   $.extend({
+    //=======================
+    // Setup  a popup dialog:
+    //=======================
     Popup: function(options) {
       /*
       options {

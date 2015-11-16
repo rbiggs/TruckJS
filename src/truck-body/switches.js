@@ -2,6 +2,9 @@
 (function() {
   "use strict";
   $.extend({
+    //=========================
+    // Create a switch control:
+    //=========================
     Switch: function(options) {
       var self = this;
       if (!options || !options.element) return;

@@ -1,6 +1,9 @@
 // Truck Wheels - DOM Methods Module:
 (function() {
   "use strict";
+  //====================
+  // Define DOM methods:
+  //====================
   if (typeof jQuery !== 'undefined') return;
   var slice = function(elements) {
     return new DOMStack([].slice.apply(elements));

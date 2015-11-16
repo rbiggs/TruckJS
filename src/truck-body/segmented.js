@@ -3,6 +3,9 @@
   'use strict';
   $(function() {
     $.extend({
+      //==========================
+      // Setup a segmented button:
+      //==========================
       Segmented: function(options) {
         if (!options || !options.element) return;
         /* 

@@ -1,6 +1,9 @@
 // Truck Wheels - Selector Module:
 (function() {
   "use strict";
+  //======================================
+  // Define interface for selector engine:
+  //======================================
   if (typeof jQuery !== 'undefined') return;
   var temp;
 

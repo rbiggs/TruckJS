@@ -2,6 +2,9 @@
 (function() {
   'use strict';
   $.extend({
+    //===========================
+    // Setup a multi-select list:
+    //===========================
     MultiSelectList: function(options) {
       if (!options || !options.element) return;
       var settings = {

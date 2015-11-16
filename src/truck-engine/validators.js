@@ -1,6 +1,10 @@
 // Truck Engine - Validators Module:
 (function() {
   "use strict";
+  //========================
+  // Define data validators:
+  //========================
+  
   // Set validity state of form elements:
   var setValidityStatus = function(element, valid) {
     if (valid) {

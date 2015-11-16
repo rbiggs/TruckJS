@@ -1,7 +1,6 @@
 // Truck Engine - Dispatcher Module:
 (function() {
   "use strict";
-
   var DispatchStack = function(array) {
     var __array = [];
     if (array && Array.isArray(array)) {

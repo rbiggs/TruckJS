@@ -3,6 +3,7 @@
   "use strict";
   $.extend({
 
+    //==============
     // Cover screen:
     //==============
     Block: function(opacity) {
@@ -12,6 +13,7 @@
       $('screen.current').attr('aria-hidden', true);
     },
 
+    //================
     // Uncover screen:
     //================
     Unblock: function() {

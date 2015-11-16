@@ -2,6 +2,9 @@
 (function() {
   "use strict";
   $(function() {
+    //=================================
+    // Interface for the app's screens:
+    //=================================
     $.extend({
       screens: $('screen')
     });

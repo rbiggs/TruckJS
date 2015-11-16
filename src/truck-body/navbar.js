@@ -2,8 +2,10 @@
 (function() {
   $(function() {
     "use strict";
+    //===============================
     // Method to center H1 in Navbar.
     // Check on widths of siblings:
+    //===============================
     $.extend({
       AdjustNavbarLayout: function(screen) {
         if (!$('link[href*=ios]')[0]) return;

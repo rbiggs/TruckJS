@@ -2,6 +2,9 @@
 (function() {
   "use strict";
   $.extend({ 
+    //==============
+    // Define Stack:
+    //==============
     Stack: function(array) {
       var __array = [];
       if (array && Array.isArray(array)) {

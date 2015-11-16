@@ -1,7 +1,6 @@
 // Truck Engine - Fetch Module
 (function(self) {
   'use strict';
-
   if (self.fetch) {
     return;
   }

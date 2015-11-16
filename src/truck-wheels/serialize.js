@@ -1,6 +1,9 @@
 // Truck Wheels - Form Serialization Module:
 (function() {
   "use strict";
+  //=========================================
+  // Methods to handle form data like jQuery:
+  //=========================================
   if (typeof jQuery !== 'undefined') return;
 
   // Serialize an object into name/value pairs 

@@ -2,6 +2,9 @@
 (function() {
   "use strict";
   $.fn.extend({
+    //===========================
+    // Setup activitiy indicator:
+    //===========================
     Busy: function(options) {
       var settings = {
         size: 40,

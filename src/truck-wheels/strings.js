@@ -1,6 +1,9 @@
 // Truck Wheels - String Module:
 (function() {
   "use strict";
+  //=======================
+  // Define string methods:
+  //=======================
   if (typeof jQuery !== 'undefined') return;
   $.extend({
     camelize: function(string) {

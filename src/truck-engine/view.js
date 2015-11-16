@@ -1,6 +1,9 @@
 // Truck Engine - View Module:
 (function() {
   "use strict";
+  //=============
+  // Define View:
+  //=============
   $.extend({
     RegisteredViews: $.Stack([]),
   });
@@ -138,12 +141,6 @@
         return Template;
         /* jshint ignore:end */
       };
-      /* jshint ignore:start */
-      var escapeQuotes = function(template) {
-        var interpolate = /(['"])/img;
-        template.replace;
-      }; 
-      /* jshint ignore:end */
 
       // Binding any events provided in View options:
       var handleEvents = function() {

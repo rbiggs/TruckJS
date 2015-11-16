@@ -2,6 +2,9 @@
 (function() {
   'use strict';
   $.extend({
+    //==================
+    // Create a stepper:
+    //==================
     Stepper: function(options) {
       if (!options) return $();
       if (!options.element) return;

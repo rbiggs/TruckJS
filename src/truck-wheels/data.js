@@ -1,107 +1,11 @@
 // Truck Wheels - Data Cache Module:
 (function() {
   "use strict";
+  //===========================================
+  // Define interface for element data storage:
+  //===========================================
   if (typeof jQuery !== 'undefined') return;
 
-  var TruckDataStack = function(array) {
-    var __array = [];
-    if (array && Array.isArray(array)) {
-      var i = -1;
-      var len = array.length;
-      while (++i < len) {
-        __array[i] = array[i];
-      }
-    } else if (array) {
-      var arr = Array.prototype.slice.apply(arguments);
-      arr.forEach(function(ctx, idx) {
-        __array[idx] = ctx;
-      });
-    }
-    return {
-
-      size: function() {
-        return __array.length;
-      },
-
-      push: function(data) {
-        __array.push(data);
-      },
-
-      pop: function() {
-        return __array.pop();
-      },
-
-      eq: function(index) {
-        if (index < 0) {
-          return __array[__array.length + index];
-        } else {
-          return __array[index];
-        }
-      },
-
-      forEach: function(callback) {
-        var value;
-        var i = -1;
-        var len = __array.length;
-        while (++i < len) {
-          value = callback.call(__array[i], __array[i], i);
-          if (value === false) {
-            break;
-          }
-        }
-      },
-
-      shift: function() {
-        return __array.shift.apply(__array, arguments);
-      },
-
-      unshift: function() {
-        __array.unshift.apply(__array, arguments);
-      },
-
-      splice: function() {
-        __array.splice.apply(__array, arguments);
-      },
-
-      filter: function(args) {
-        return __array.filter.apply(__array, arguments);
-      },
-
-      map: function() {
-        return __array.map.apply(__array, arguments);
-      },
-
-      indexOf: function() {
-        return __array.indexOf.apply(__array, arguments);
-      },
-
-      unique: function() {
-        var len = __array.length;
-        var ret = [];
-        var obj = {};
-
-        for (i = 0; i < len; i++) {
-          var arrayItem = JSON.stringify(__array[i]);
-          var arrayItemValue = __array[i];
-          if (obj[arrayItem] === undefined) {
-            ret.push(arrayItemValue);
-            obj[arrayItem] = 1;
-          } else {
-            obj[arrayItem]++;
-          }
-        }
-        __array = ret;
-      },
-
-      getData: function() {
-        return __array;
-      },
-
-      purge: function() {
-        __array.length = 0;
-      },
-    };
-  };
   var TruckDataCache = {
     elements: {}
   };

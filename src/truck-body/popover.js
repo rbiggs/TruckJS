@@ -2,12 +2,15 @@
 (function() {
   "use strict";
   $.extend({
-    /*
-      id: myUniqueID,
-      title: 'Great',
-      callback: myCallback,
-    */
+    //=================================
+    // Setup a popover (dropdown menu):
+    //=================================
     Popover: function(options) {
+      /*
+        id: myUniqueID,
+        title: 'Great',
+        callback: myCallback,
+      */
       options = options || {};
       var settings = {
         id: $.uuid(),

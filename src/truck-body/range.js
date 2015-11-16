@@ -2,6 +2,9 @@
 (function() {
   "use strict";
   $.fn.extend({
+    //=====================
+    // Setup a range input:
+    //=====================
     Range: function() {
       if ($('body').hasClass('isWindows')) return;
       if (this[0].nodeName !== 'INPUT') return;

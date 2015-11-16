@@ -2,6 +2,9 @@
 (function() {
   "use strict";
   $.extend({
+    //==============
+    // Define Model:
+    //==============
     Model: function(data, handle) {
       // Define handle name:
       var __handle = handle || $.uuid();

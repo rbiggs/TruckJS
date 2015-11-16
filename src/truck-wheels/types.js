@@ -1,6 +1,9 @@
 // Truck Wheels - Types Module:
 (function() {
   "use strict";
+  //==================================
+  // Define method to determine types:
+  //==================================
   if (typeof jQuery !== 'undefined') return;
   $.extend({
     type: function (type) {

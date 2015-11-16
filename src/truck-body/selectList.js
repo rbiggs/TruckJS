@@ -2,6 +2,9 @@
 (function() {
   'use strict';
   $.extend({
+    //=====================
+    // Setup a select list:
+    //=====================
     SelectList: function(options) {
       if (!options || !options.element) return;
       var settings = {

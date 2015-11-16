@@ -1,9 +1,9 @@
 // Truck Engine - Formatters Module:
 (function() {
   "use strict";
-  ////////////////////////////////
+  //==============================
   // Format Numbers for Thousands:
-  ////////////////////////////////
+  //==============================
   $.extend({
     formatNumber: function(amount, separator, decimal) {
       var sep = separator || ",";
@@ -27,9 +27,9 @@
       }
     },
 
-    /////////////////////////
+    //=======================
     // Return sum of numbers:
-    /////////////////////////
+    //=======================
     sum: function(arr) {
       var ret;
       if (Array.isArray(arr) && arr.length) {
@@ -42,9 +42,9 @@
       });
     },
 
-    ///////////////////
+    //=================
     // Format currency:
-    ///////////////////
+    //=================
     currency: function(amount, symbol, separator, decimal) {
       var sym = symbol || "$";
       var sep = separator || ",";
@@ -71,9 +71,9 @@
       return sym + formatNumber(amount, sep);
     },
 
-    ///////////////
+    //=============
     // Format Time:
-    ///////////////
+    //=============
     formatTime: function(time) {
       var temp = time.split(':');
       var temp2 = temp[0] + ':' + temp[1];
@@ -85,9 +85,9 @@
       return new Date(date1) - new Date(date2);
     },
 
-    ////////////////
+    //==============
     // Sort Numbers:
-    ////////////////
+    //==============
     sortNumbers: function(a, b) {
       return a - b;
     },

@@ -2,6 +2,9 @@
 (function() {
   'use strict';
   $.extend({
+    //========================
+    // Create a sliding sheet:
+    //========================
     Sheet: function(options) {
       /*
         var options {

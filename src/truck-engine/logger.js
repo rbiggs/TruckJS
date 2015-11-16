@@ -2,6 +2,10 @@
 (function() {
   "use strict";
   $.extend({
+    //=========================
+    // Experimental logger,
+    // Use for getting reports:
+    //=========================
     Logger: function(options) {
       var __models;
       var __views;
