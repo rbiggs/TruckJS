@@ -3690,7 +3690,7 @@
       var parsedTemplate = function() {};
 
       // Get template from element:
-      var extractTemplate = function(args) {
+      var extractTemplate = function() {
         if (!__parent || !__parent.size()) return;
         if (__dontGetTemplate) return;
         if (!__template) {
@@ -3713,7 +3713,7 @@
           parseView(__template, __variable);
         }
       };
-      parsedTemplate = extractTemplate(args);
+      parsedTemplate = extractTemplate();
 
       if (__events) {
         handleEvents(__events);
