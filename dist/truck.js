@@ -3685,8 +3685,12 @@
         }
       };
 
+      // Shell for parsing templates.
+      // It will hold the function returned by extractTemplate:
+      var parsedTemplate = function() {};
+
       // Get template from element:
-      var extractTemplate = function() {
+      var extractTemplate = function(args) {
         if (!__parent || !__parent.size()) return;
         if (__dontGetTemplate) return;
         if (!__template) {
@@ -3709,14 +3713,15 @@
           parseView(__template, __variable);
         }
       };
-      var parsedTemplate = extractTemplate();
+      parsedTemplate = extractTemplate(args);
 
       if (__events) {
         handleEvents(__events);
       }
 
+      //==============================================
       // Return closure to encapsulate methods & data:
-
+      //==============================================
       return {
 
         render: function(data, append) {

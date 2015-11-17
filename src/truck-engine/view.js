@@ -27,8 +27,8 @@
   });
 
   $.extend({
-    
-      /* jshint, evil: false, validthis:true, unused:false, smarttabs: true, nonew false */
+
+    /* jshint, evil: false, validthis:true, unused:false, smarttabs: true, nonew false */
     view: {
       index: 0
     },
@@ -161,8 +161,12 @@
         }
       };
 
+      // Shell for parsing templates.
+      // It will hold the function returned by extractTemplate:
+      var parsedTemplate  = function(){};
+
       // Get template from element:
-      var extractTemplate = function() {
+      var extractTemplate = function(args) {
         if (!__parent || !__parent.size()) return;
         if (__dontGetTemplate) return;
         if (!__template) {
@@ -185,14 +189,15 @@
           parseView(__template, __variable);
         }
       };
-      var parsedTemplate = extractTemplate();
+      parsedTemplate = extractTemplate(args);
 
       if (__events) {
         handleEvents(__events);
       }
 
+      //==============================================
       // Return closure to encapsulate methods & data:
-
+      //==============================================
       return {
 
         render: function(data, append) {
@@ -243,14 +248,14 @@
                 __parent.append(parsedTemplate(item));
                 $.view.index += 1;
               } else if (__template) {
-                
+
               }
             });
             __lastRenderTime = Date.now();
             __rendered = true;
             $.view.index = 1;
           };
-           /* jshint ignore:start */
+          /* jshint ignore:start */
           // Render view with object of key/value pairs:
           var renderSingleObjectView = function(append) {
             __model.run(function(m, d) {
