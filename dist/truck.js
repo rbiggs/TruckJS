@@ -3693,10 +3693,10 @@
           if (__parent.children()[0] && __parent.children().eq(0).is('script')) {
             __template = __parent.children('script').html();
             __parent.empty();
-          } else if (!__parent.children()[0]) {
+          } else if (!__parent[0].childNodes) {
             return;
           } else {
-            if (__parent[0] && __parent.children().size()) {
+            if (__parent[0] && __parent[0].childNodes) {
               if (!__template) __template = __parent.html();
             }
             __parent.empty();
@@ -3708,7 +3708,6 @@
           __template = __template.replace(__re, 'src');
           parseView(__template, __variable);
         }
-
       };
       var parsedTemplate = extractTemplate();
 

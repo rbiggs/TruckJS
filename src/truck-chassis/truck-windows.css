@@ -10,6 +10,7 @@ html, body {
   font: normal 14px/18px SegoeWP, SegoeUI, HelveticaNeue, Sans-serif;
   -ms-touch-action: none;
   touch-action: none;
+  overflow: hidden;
 }
 body {
   display: flex;
