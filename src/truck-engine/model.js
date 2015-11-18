@@ -300,7 +300,7 @@
           return __data.sort.call(__data, args);
         },
 
-        reverse: function(args) {
+        reverse: function() {
           var self = this;
           __lastModifiedTime = Date.now();
           __data.reverse();
@@ -356,7 +356,7 @@
           }
         },
 
-        // Enable user to delete either and object property,
+        // Enable user to delete either an object property,
         // or an index of a collection;
         delete: function(data, doNotPropogate) {
           var pos;

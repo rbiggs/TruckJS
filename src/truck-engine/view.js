@@ -515,6 +515,7 @@
         setParent: function(element) {
           if (!element) return;
           __parent = $(element);
+          $(element).empty();
         },
 
         stop: function(after) {

@@ -172,10 +172,9 @@ var bums = [
         callback: function(id) {
           // Get current view model:
           var model = AppViews.VIPView.getModel().getData();
-          // Filter model with id passed in route:
-          var whichPerson = model.filter(function(person) {
+          var whichPerson = LumsModel.filter(function(person) {
             return person.guid === id;
-          })[0];
+          });
           // Output peron's name:
           $('#chosenPerson').text('Welcome, ' + whichPerson.firstName + '.');
           // Handle Navigation work:
