@@ -5,7 +5,11 @@
   $.fn.extend({
     decorateBackButton: function() {
       if ($(this).hasClass('back') || $(this).hasClass('backTo')) {
-        $(this).prepend(truckBackButtonSVG);
+        this.forEach(function(button) {
+          var temp = $(button).text();
+          $(button).html('<span>' + temp + '</span>');
+          $(button).prepend(truckBackButtonSVG);
+        });
       }
     }
   });

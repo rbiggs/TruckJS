@@ -316,7 +316,7 @@ li > aside:last-child > info {
   box-sizing: border-box;
   padding: 10px;
   float: right;
-  margin: 0 !important;
+  margin: 0 0 0 10px !important;
   position: relative;
 }
 info::after {

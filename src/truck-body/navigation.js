@@ -60,7 +60,8 @@
       GoBack: function() {
         var currentScreen = $.screens.getCurrent();
         $.TruckRoutes.pop();
-        var destination = $.TruckRoutes.eq(-1);
+        var fullDesintation = $.TruckRoutes.eq(-1);
+        var destination = $.TruckRoutes.eq(-1).split(':')[0];
         var destinationScreen = getScreen(destination);
         if ($.TruckRoutes.size() === 0) {
           destination = $.screens.eq(0);
@@ -68,7 +69,7 @@
         }
         if (currentScreen[0]) currentScreen[0].scrollTop = 0;
         if (destinationScreen[0]) destinationScreen[0].scrollTop = 0;
-        $.Router.dispatch(destination);
+        $.Router.dispatch(fullDesintation);
         makeScreenNext(currentScreen);
         makeScreenCurrent(destinationScreen);
         if ($.TruckRoutes.size() === 1) return;
@@ -83,6 +84,7 @@
         var currentScreen = $.screens.getCurrent();
         var position = $.TruckRoutes.index(destination);
         var destinationScreen = getScreen(destination);
+        $('screen.previous').removeClass('previous').addClass('next');
         makeScreenCurrent(destinationScreen);
         var temp;
         while ($.TruckRoutes.size() > position + 1) {

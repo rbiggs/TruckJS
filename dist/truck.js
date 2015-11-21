@@ -3189,7 +3189,7 @@
 
         // Determine if the model has any data:
         hasData: function() {
-          if (__data) {
+          if ($.type(__data) === 'array' && __data.length || $.type(__data) === 'object' && !$.isEmptyObject(__data)) {
             return true;
           } else {
             return false;
@@ -7494,7 +7494,11 @@
   $.fn.extend({
     decorateBackButton: function() {
       if ($(this).hasClass('back') || $(this).hasClass('backTo')) {
-        $(this).prepend(truckBackButtonSVG);
+        this.forEach(function(button) {
+          var temp = $(button).text();
+          $(button).html('<span>' + temp + '</span>');
+          $(button).prepend(truckBackButtonSVG);
+        });
       }
     }
   });
@@ -7565,7 +7569,8 @@
       GoBack: function() {
         var currentScreen = $.screens.getCurrent();
         $.TruckRoutes.pop();
-        var destination = $.TruckRoutes.eq(-1);
+        var fullDesintation = $.TruckRoutes.eq(-1);
+        var destination = $.TruckRoutes.eq(-1).split(':')[0];
         var destinationScreen = getScreen(destination);
         if ($.TruckRoutes.size() === 0) {
           destination = $.screens.eq(0);
@@ -7573,7 +7578,7 @@
         }
         if (currentScreen[0]) currentScreen[0].scrollTop = 0;
         if (destinationScreen[0]) destinationScreen[0].scrollTop = 0;
-        $.Router.dispatch(destination);
+        $.Router.dispatch(fullDesintation);
         makeScreenNext(currentScreen);
         makeScreenCurrent(destinationScreen);
         if ($.TruckRoutes.size() === 1) return;
@@ -7588,6 +7593,7 @@
         var currentScreen = $.screens.getCurrent();
         var position = $.TruckRoutes.index(destination);
         var destinationScreen = getScreen(destination);
+        $('screen.previous').removeClass('previous').addClass('next');
         makeScreenCurrent(destinationScreen);
         var temp;
         while ($.TruckRoutes.size() > position + 1) {

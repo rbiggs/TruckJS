@@ -412,7 +412,8 @@
           if ($.type(__data) === 'array') {
             __data.length = 0;
           } else if ($.type(__data) === 'object') {
-            for(k in __data) if(!(__data[k] instanceof Function)) delete __data[k];
+            for (k in __data)
+              if (!(__data[k] instanceof Function)) delete __data[k];
           }
           if (__autobox) {
             self.box({
@@ -423,7 +424,7 @@
 
         // Determine if the model has any data:
         hasData: function() {
-          if (__data) {
+          if ($.type(__data) === 'array' && __data.length || $.type(__data) === 'object' && !$.isEmptyObject(__data)) {
             return true;
           } else {
             return false;
