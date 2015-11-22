@@ -97,9 +97,7 @@
 
       return {
         getValue: function() {
-          if (__checked) {
-            return __selection;
-          }
+          return __selection;
         }
       };
     }
