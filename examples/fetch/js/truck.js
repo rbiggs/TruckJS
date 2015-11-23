@@ -27,6 +27,9 @@
 // Truck Wheeles - DOM Stack Module:
 (function(self) {
   "use strict";
+  //=====================================
+  // Define DOMStack for selector engine:
+  //=====================================
   var DOMStack = (function() {
     function DOMStack(args) {
       this.array = [];
@@ -204,6 +207,9 @@
       } else if (collection.constructor.toString().match(/DOMStack/)) {
         temp = collection.getData();
         len = temp.length;
+      } else if (collection.constructor.toString().match(/HTMLBodyElementConstructor/)) {
+        temp = [collection];
+        len = 1;
       }
       while (++i < len) {
         this.array[this.array.length] = temp[i];
@@ -257,8 +263,7 @@
     };
 
     DOMStack.prototype.purge = function() {
-      this.array = [];
-      this.array[0] = undefined;
+      this.array.length = 0;
       this.length = 0;
     };
     return DOMStack;
@@ -268,6 +273,9 @@
 // Truck Wheels - Selector Module:
 (function() {
   "use strict";
+  //======================================
+  // Define interface for selector engine:
+  //======================================
   if (typeof jQuery !== 'undefined') return;
   var temp;
 
@@ -471,6 +479,9 @@
 // Truck Wheels - Utilities Module:
 (function() {
   "use strict";
+  //==========================
+  // Define Utilities methods:
+  //==========================
   if (typeof jQuery !== 'undefined') return;
   var slice = function(elements) {
     return [].slice.apply(elements);
@@ -604,6 +615,9 @@
 // Truck Wheels - Types Module:
 (function() {
   "use strict";
+  //==================================
+  // Define method to determine types:
+  //==================================
   if (typeof jQuery !== 'undefined') return;
   $.extend({
     type: function(type) {
@@ -635,6 +649,9 @@
 // Truck Wheels - String Module:
 (function() {
   "use strict";
+  //=======================
+  // Define string methods:
+  //=======================
   if (typeof jQuery !== 'undefined') return;
   $.extend({
     camelize: function(string) {
@@ -678,6 +695,9 @@
 // Truck Wheels - DOM Methods Module:
 (function() {
   "use strict";
+  //====================
+  // Define DOM methods:
+  //====================
   if (typeof jQuery !== 'undefined') return;
   var slice = function(elements) {
     return new DOMStack([].slice.apply(elements));
@@ -828,23 +848,23 @@
     prevAll: function(selector) {
       if (!this.size()) return new DOMStack();
       var ret = new DOMStack();
-      var _siblings;
-      var _self = this[0];
-      var _sibs = Array.prototype.slice.apply(this[0].parentNode.children);
-      var pos = _sibs.indexOf(_self);
-      _sibs.splice(pos, _sibs.length - 1);
+      var __siblings;
+      var __self = this[0];
+      var __sibs = Array.prototype.slice.apply(this[0].parentNode.children);
+      var pos = __sibs.indexOf(__self);
+      __sibs.splice(pos, __sibs.length - 1);
       if (selector && typeof selector === 'string') {
-        _siblings = this.siblings(selector).array;
-        _sibs.forEach(function(element) {
-          if (_siblings.indexOf(element) > -1) {
+        __siblings = this.siblings(selector).array;
+        __sibs.forEach(function(element) {
+          if (__siblings.indexOf(element) > -1) {
             ret.push(element);
           }
         });
       } else {
-        _siblings = Array.prototype.slice.apply(this[0].parentNode.children);
-        pos = _siblings.indexOf(_self);
-        _siblings.splice(pos, _siblings.length - 1);
-        ret.concat(_siblings);
+        __siblings = Array.prototype.slice.apply(this[0].parentNode.children);
+        pos = __siblings.indexOf(__self);
+        __siblings.splice(pos, __siblings.length - 1);
+        ret.concat(__siblings);
       }
       return ret;
     },
@@ -868,26 +888,26 @@
     nextAll: function(selector) {
       if (!this.size()) return new DOMStack();
       var ret = new DOMStack();
-      var _siblings;
+      var __siblings;
       var _parent;
-      var _self = this[0];
-      var _sibs = Array.prototype.slice.apply(this[0].parentNode.children);
-      var pos = _sibs.indexOf(_self);
-      _sibs.splice(0, pos + 1);
+      var __self = this[0];
+      var __sibs = Array.prototype.slice.apply(this[0].parentNode.children);
+      var pos = __sibs.indexOf(__self);
+      __sibs.splice(0, pos + 1);
       if (selector && typeof selector === 'string') {
         _parent = this.array[0].parentNode;
-        _siblings = $(_parent).find(selector);
-        _sibs.splice(0, _sibs.indexOf(this.array[0]));
-        _sibs.forEach(function(element) {
-          if (_siblings.array.indexOf(element) > -1) {
+        __siblings = $(_parent).find(selector);
+        __sibs.splice(0, __sibs.indexOf(this.array[0]));
+        __sibs.forEach(function(element) {
+          if (__siblings.array.indexOf(element) > -1) {
             ret.push(element);
           }
         });
       } else {
-        _siblings = Array.prototype.slice.apply(this[0].parentNode.children);
-        pos = _siblings.indexOf(_self);
-        _siblings.splice(0, pos + 1);
-        ret.concat(_siblings);
+        __siblings = Array.prototype.slice.apply(this[0].parentNode.children);
+        pos = __siblings.indexOf(__self);
+        __siblings.splice(0, pos + 1);
+        ret.concat(__siblings);
       }
       return ret;
     },
@@ -944,7 +964,7 @@
     siblings: function(selector) {
       if (!this.size())
         return new DOMStack();
-      var _siblings;
+      var __siblings;
       var ret = new DOMStack();
       var $this = this;
       var parent;
@@ -957,9 +977,9 @@
       children.splice(children.indexOf(this.array[0]), 0);
       if (selector && typeof selector === 'string') {
         parent = this.array[0].parentNode;
-        _siblings = $(parent).find(selector);
-        _siblings.array.splice(_siblings.array.indexOf(this.array[0]), 0);
-        ret.concat(_siblings.array);
+        __siblings = $(parent).find(selector);
+        __siblings.array.splice(__siblings.array.indexOf(this.array[0]), 0);
+        ret.concat(__siblings.array);
       } else {
         ret.concat(children);
       }
@@ -1259,10 +1279,13 @@
     html: function(content) {
       if (!this.size()) return new DOMStack();
       if (content === '') {
-        this.array[0].innerHTML = '';
+        this.forEach(function(node) {
+          node.innerHTML = '';
+        });
       } else if (content) {
-        this.array[0].innerHTML = content;
-        return new DOMStack(this.array[0]);
+        this.forEach(function(node) {
+          node.innerHTML = content;
+        });
       } else if (!content) {
         return this.array[0].innerHTML.trim();
       }
@@ -1459,107 +1482,11 @@
 // Truck Wheels - Data Cache Module:
 (function() {
   "use strict";
+  //===========================================
+  // Define interface for element data storage:
+  //===========================================
   if (typeof jQuery !== 'undefined') return;
 
-  var TruckDataStack = function(array) {
-    var __array = [];
-    if (array && Array.isArray(array)) {
-      var i = -1;
-      var len = array.length;
-      while (++i < len) {
-        __array[i] = array[i];
-      }
-    } else if (array) {
-      var arr = Array.prototype.slice.apply(arguments);
-      arr.forEach(function(ctx, idx) {
-        __array[idx] = ctx;
-      });
-    }
-    return {
-
-      size: function() {
-        return __array.length;
-      },
-
-      push: function(data) {
-        __array.push(data);
-      },
-
-      pop: function() {
-        return __array.pop();
-      },
-
-      eq: function(index) {
-        if (index < 0) {
-          return __array[__array.length + index];
-        } else {
-          return __array[index];
-        }
-      },
-
-      forEach: function(callback) {
-        var value;
-        var i = -1;
-        var len = __array.length;
-        while (++i < len) {
-          value = callback.call(__array[i], __array[i], i);
-          if (value === false) {
-            break;
-          }
-        }
-      },
-
-      shift: function() {
-        return __array.shift.apply(__array, arguments);
-      },
-
-      unshift: function() {
-        __array.unshift.apply(__array, arguments);
-      },
-
-      splice: function() {
-        __array.splice.apply(__array, arguments);
-      },
-
-      filter: function(args) {
-        return __array.filter.apply(__array, arguments);
-      },
-
-      map: function() {
-        return __array.map.apply(__array, arguments);
-      },
-
-      indexOf: function() {
-        return __array.indexOf.apply(__array, arguments);
-      },
-
-      unique: function() {
-        var len = __array.length;
-        var ret = [];
-        var obj = {};
-
-        for (i = 0; i < len; i++) {
-          var arrayItem = JSON.stringify(__array[i]);
-          var arrayItemValue = __array[i];
-          if (obj[arrayItem] === undefined) {
-            ret.push(arrayItemValue);
-            obj[arrayItem] = 1;
-          } else {
-            obj[arrayItem]++;
-          }
-        }
-        __array = ret;
-      },
-
-      getData: function() {
-        return __array;
-      },
-
-      purge: function() {
-        __array = [];
-      },
-    };
-  };
   var TruckDataCache = {
     elements: {}
   };
@@ -1621,6 +1548,9 @@
 // Truck Wheels - Form Serialization Module:
 (function() {
   "use strict";
+  //=========================================
+  // Methods to handle form data like jQuery:
+  //=========================================
   if (typeof jQuery !== 'undefined') return;
 
   // Serialize an object into name/value pairs 
@@ -1724,6 +1654,9 @@
 // Truck Wheels - Events Module:
 (function() {
   "use strict";
+  //======================================
+  // Define interface for handling events:
+  //======================================
   if (typeof jQuery !== 'undefined') return;
 
   var TruckEventStack = function(array) {
@@ -2076,10 +2009,10 @@
 // Truck Engine - Gestures Module:
 (function() {
   "use strict";
-  //////////////////////////////////////////////////////
-  // Swipe Gestures for ChocolateChip-UI.
+  //===================================================
+  // Swipe Gestures for TruckJS.
   // Includes mouse gestures for desktop compatibility.
-  //////////////////////////////////////////////////////
+  //===================================================
   var touch = {};
   var touchTimeout;
   var swipeTimeout;
@@ -2124,6 +2057,9 @@
     touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null;
     touch = {};
   }
+
+  // Execute this after DOM loads:
+  //==============================
   $(function() {
     var now;
     var delta;
@@ -2153,6 +2089,7 @@
         touch.x1 = e.pageX;
         touch.y1 = e.pageY;
         twoTouches = false;
+
       } else {
         if ($.eventStart === 'mousedown') {
           touch.el = $(parentIfText(e.target));
@@ -2160,8 +2097,9 @@
           touch.x1 = e.pageX;
           touch.y1 = e.pageY;
           twoTouches = false;
+
+          // Detect two or more finger gestures:
         } else {
-          // User to detect two or more finger gestures:
           if (e.touches.length === 1) {
             touch.el = $(parentIfText(e.touches[0].target));
             touchTimeout && clearTimeout(touchTimeout); // jshint ignore:line
@@ -2196,6 +2134,7 @@
         cancelLongTap();
         touch.x2 = e.pageX;
         touch.y2 = e.pageY;
+
       } else {
         cancelLongTap();
         if ($.eventMove === 'mousemove') {
@@ -2221,6 +2160,7 @@
           if (!e.isPrimary) return;
         }
       }
+
       cancelLongTap();
       if (!!touch.el) {
         // Swipe detection:
@@ -2233,6 +2173,7 @@
               touch = {};
             }
           }, 0);
+
           // Normal tap:
         } else if ('last' in touch) {
           // Delay by one tick so we can cancel the 'tap' event if 'scroll' fires:
@@ -2243,6 +2184,7 @@
                 touch.el.trigger('doubletap');
                 touch = {};
               }
+
             } else {
               // Trigger tap after singleTapDelay:
               touchTimeout = setTimeout(function() {
@@ -2256,6 +2198,7 @@
             }
           }, 0);
         }
+
       } else {
         return;
       }
@@ -2265,7 +2208,7 @@
 
   // Register events:
   //=================
-  ['swipe', 'swipeleft', 'swiperight', 'swipeup', 'swipedown', 'tap', 'doubletap', 'longtap'].forEach(function(method) {
+  ['tap', 'doubletap', 'longtap', 'swipeleft', 'swiperight', 'swipeup', 'swipedown'].forEach(function(method) {
     $.fn.extend({
       method: function(callback) {
         return this.on(method, callback);
@@ -2485,7 +2428,6 @@
 // Truck Engine - Dispatcher Module:
 (function() {
   "use strict";
-
   var DispatchStack = function(array) {
     var __array = [];
     if (array && Array.isArray(array)) {
@@ -2611,6 +2553,9 @@
 (function() {
   "use strict";
   $.extend({
+    //==============
+    // Define Stack:
+    //==============
     Stack: function(array) {
       var __array = [];
       if (array && Array.isArray(array)) {
@@ -2747,8 +2692,38 @@
           __array.reverse.apply(__array, arguments);
         },
 
-        indexOf: function() {
-          return __array.indexOf.apply(__array, arguments);
+        indexOf: function(el, idx) {
+          var i = 0;
+          var len = __array.length;
+          var compareObjects = function(a, b) {
+            if (a === b)
+              return true;
+            for (var i in a) {
+              if (b.hasOwnProperty(i)) {
+                if (a[i] !== b[i]) return false;
+              } else {
+                return false;
+              }
+            }
+
+            for (var i in b) {
+              if (!a.hasOwnProperty(i)) {
+                return false;
+              }
+            }
+            return true;
+          };
+          for (; i < len; i++) {
+            if ($.type(el) === 'object') {
+              if (compareObjects(el, __array[i])) {
+                return i;
+              }
+            } else {
+              if (el === __array[i]) {
+                return i;
+              }
+            }
+          }
         },
 
         every: function() {
@@ -2792,11 +2767,15 @@
 (function() {
   "use strict";
   $.extend({
+    //==============
+    // Define Model:
+    //==============
     Model: function(data, handle) {
       // Define handle name:
       var __handle = handle || $.uuid();
       // Init private data:
       var __data = data || '';
+      data = null;
 
       // Used for boxing a model:
       var __name;
@@ -2870,6 +2849,16 @@
             propogateData(__handle, __data, doNotPropogate);
           }
           __lastModifiedTime = Date.now();
+        },
+
+        // Get a property on an object.
+        // This is for objects that are not iterable.
+        getProp: function(prop) {
+          if (!prop || (this.hasData() && this.isIterable())) {
+            return;
+          } else {
+            return __data[prop];
+          }
         },
 
         // Replace a single object with another.
@@ -3076,7 +3065,7 @@
           return __data.sort.call(__data, args);
         },
 
-        reverse: function(args) {
+        reverse: function() {
           var self = this;
           __lastModifiedTime = Date.now();
           __data.reverse();
@@ -3132,7 +3121,7 @@
           }
         },
 
-        // Enable user to delete either and object property,
+        // Enable user to delete either an object property,
         // or an index of a collection;
         delete: function(data, doNotPropogate) {
           var pos;
@@ -3186,9 +3175,10 @@
         purge: function() {
           var self = this;
           if ($.type(__data) === 'array') {
-            __data = [];
+            __data.length = 0;
           } else if ($.type(__data) === 'object') {
-            __data = {};
+            for (k in __data)
+              if (!(__data[k] instanceof Function)) delete __data[k];
           }
           if (__autobox) {
             self.box({
@@ -3199,7 +3189,7 @@
 
         // Determine if the model has any data:
         hasData: function() {
-          if (__data) {
+          if ($.type(__data) === 'array' && __data.length || $.type(__data) === 'object' && !$.isEmptyObject(__data)) {
             return true;
           } else {
             return false;
@@ -3367,6 +3357,9 @@
   "use strict";
   $.extend({
     mediators: {},
+    //=================
+    // Define Mediator:
+    //=================
     Mediator: function(handle) {
       var __handle = handle;
       var __token = $.uuid();
@@ -3532,6 +3525,9 @@
 // Truck Engine - View Module:
 (function() {
   "use strict";
+  //=============
+  // Define View:
+  //=============
   $.extend({
     RegisteredViews: $.Stack([]),
   });
@@ -3669,12 +3665,6 @@
         return Template;
         /* jshint ignore:end */
       };
-      /* jshint ignore:start */
-      var escapeQuotes = function(template) {
-        var interpolate = /(['"])/img;
-        template.replace;
-      };
-      /* jshint ignore:end */
 
       // Binding any events provided in View options:
       var handleEvents = function() {
@@ -3695,6 +3685,10 @@
         }
       };
 
+      // Shell for parsing templates.
+      // It will hold the function returned by extractTemplate:
+      var parsedTemplate = function() {};
+
       // Get template from element:
       var extractTemplate = function() {
         if (!__parent || !__parent.size()) return;
@@ -3703,10 +3697,10 @@
           if (__parent.children()[0] && __parent.children().eq(0).is('script')) {
             __template = __parent.children('script').html();
             __parent.empty();
-          } else if (!__parent.children()[0]) {
+          } else if (!__parent[0].childNodes) {
             return;
           } else {
-            if (__parent[0] && __parent.children().size()) {
+            if (__parent[0] && __parent[0].childNodes) {
               if (!__template) __template = __parent.html();
             }
             __parent.empty();
@@ -3718,16 +3712,16 @@
           __template = __template.replace(__re, 'src');
           parseView(__template, __variable);
         }
-
       };
-      var parsedTemplate = extractTemplate();
+      parsedTemplate = extractTemplate();
 
       if (__events) {
         handleEvents(__events);
       }
 
+      //==============================================
       // Return closure to encapsulate methods & data:
-
+      //==============================================
       return {
 
         render: function(data, append) {
@@ -4045,6 +4039,7 @@
         setParent: function(element) {
           if (!element) return;
           __parent = $(element);
+          $(element).empty();
         },
 
         stop: function(after) {
@@ -4152,6 +4147,9 @@
 (function() {
   "use strict";
   $(function() {
+    //=================================
+    // Interface for the app's screens:
+    //=================================
     $.extend({
       screens: $('screen')
     });
@@ -4175,6 +4173,9 @@
   "use strict";
   $(function() {
     $.extend({
+      //===============
+      // Define Router:
+      //===============
       TruckRoutes: $.Model([], 'Truck-Routes'),
 
       Router: function() {
@@ -4298,8 +4299,11 @@
 })();
 // Truck Engine - Promises Module:
 (function() {
-  "use strict";
   /*jshint validthis:true */
+  "use strict";
+  //==================================
+  // Define polyfill for ES6 Promises:
+  //==================================
   var extend;
   var cycle;
   var queue;
@@ -4376,7 +4380,7 @@
         }
         if (ret === chain.promise) {
           chain.reject(new TypeError("Promise-chain cycle"));
-        } else if (_then === isThenable(ret)) {
+        } else if (_then = isThenable(ret)) {
           _then.call(ret, chain.resolve, chain.reject);
         } else {
           chain.resolve(ret);
@@ -4397,7 +4401,7 @@
       self = self.deferred;
     }
     try {
-      if (_then = isThenable(msg)) { // jshint ignore:line
+      if (_then = isThenable(msg)) {
         schedule(function() {
           var deferred_wrapper = new MakeDeferred(self);
           try {
@@ -4479,20 +4483,20 @@
       };
       // `.then()` can be used against a different promise
       // constructor for making a chained promise.
-      obj.promise = new this.constructor(function extractChain(resolve, reject) {
+      obj['promise'] = new this.constructor(function extractChain(resolve, reject) {
         if (typeof resolve !== "function" || typeof reject !== "function") {
           throw new TypeError("Not a function");
         }
-        obj.resolve = resolve;
-        obj.reject = reject;
+        obj['resolve'] = resolve;
+        obj['reject'] = reject;
       });
       deferred.chain.push(obj);
       if (deferred.state !== 0) {
         schedule(notify, deferred);
       }
-      return obj.promise;
+      return obj['promise'];
     };
-    this.catch = function(failure) {
+    this["catch"] = function(failure) {
       return this.then(undefined, failure);
     };
     try {
@@ -4570,14 +4574,14 @@
     });
   });
   // If native Promise exists in window, do not use this.
-  if ("Promise" in window && "resolve" in window.Promise && "reject" in window.Promise && "all" in window.Promise && "race" in window.Promise) {
+  if ("Promise" in window && "resolve" in window['Promise'] && "reject" in window['Promise'] && "all" in window['Promise'] && "race" in window['Promise']) {
     return;
   } else {
     // Otherwise do use this:
-    return window.Promise = Promise;
+    return window['Promise'] = Promise;
   }
 })();
-// Truck Engine - Fetch Module
+// Truck Engine - Fetch Module:
 (function(self) {
   'use strict';
 
@@ -4696,7 +4700,8 @@
         return false;
       }
     })(),
-    formData: 'FormData' in self
+    formData: 'FormData' in self,
+    arrayBuffer: 'ArrayBuffer' in self
   };
 
   function Body() {
@@ -4713,6 +4718,9 @@
         this._bodyFormData = body;
       } else if (!body) {
         this._bodyText = '';
+      } else if (support.arrayBuffer && ArrayBuffer.prototype.isPrototypeOf(body)) {
+        // Only support ArrayBuffers for POST method.
+        // Receiving ArrayBuffers happens via Blobs, instead.
       } else {
         throw new Error('unsupported BodyInit type');
       }
@@ -4851,6 +4859,7 @@
     if (!options) {
       options = {};
     }
+
     this._initBody(bodyInit);
     this.type = 'default';
     this.status = options.status;
@@ -4894,6 +4903,7 @@
       }
     });
   };
+
   self.Headers = Headers;
   self.Request = Request;
   self.Response = Response;
@@ -4979,6 +4989,7 @@
       }
       // Method to create callback:
       function generateCallbackName() {
+        var base = 'callback';
         var callbackName = settings.callbackName + '_' + ($.JSONPCallbacks.length + 1);
         $.JSONPCallbacks.push(callbackName);
         return callbackName;
@@ -5030,9 +5041,9 @@
 // Truck Engine - Formatters Module:
 (function() {
   "use strict";
-  ////////////////////////////////
+  //==============================
   // Format Numbers for Thousands:
-  ////////////////////////////////
+  //==============================
   $.extend({
     formatNumber: function(amount, separator, decimal) {
       var sep = separator || ",";
@@ -5056,9 +5067,9 @@
       }
     },
 
-    /////////////////////////
+    //=======================
     // Return sum of numbers:
-    /////////////////////////
+    //=======================
     sum: function(arr) {
       var ret;
       if (Array.isArray(arr) && arr.length) {
@@ -5071,9 +5082,9 @@
       });
     },
 
-    ///////////////////
+    //=================
     // Format currency:
-    ///////////////////
+    //=================
     currency: function(amount, symbol, separator, decimal) {
       var sym = symbol || "$";
       var sep = separator || ",";
@@ -5100,9 +5111,9 @@
       return sym + formatNumber(amount, sep);
     },
 
-    ///////////////
+    //=============
     // Format Time:
-    ///////////////
+    //=============
     formatTime: function(time) {
       var temp = time.split(':');
       var temp2 = temp[0] + ':' + temp[1];
@@ -5114,9 +5125,9 @@
       return new Date(date1) - new Date(date2);
     },
 
-    ////////////////
+    //==============
     // Sort Numbers:
-    ////////////////
+    //==============
     sortNumbers: function(a, b) {
       return a - b;
     },
@@ -5130,6 +5141,10 @@
 // Truck Engine - Validators Module:
 (function() {
   "use strict";
+  //========================
+  // Define data validators:
+  //========================
+
   // Set validity state of form elements:
   var setValidityStatus = function(element, valid) {
     if (valid) {
@@ -7383,8 +7398,10 @@
 (function() {
   $(function() {
     "use strict";
+    //===============================
     // Method to center H1 in Navbar.
     // Check on widths of siblings:
+    //===============================
     $.extend({
       AdjustNavbarLayout: function(screen) {
         if (!$('link[href*=ios]')[0]) return;
@@ -7437,8 +7454,8 @@
           amount = 0;
         }
         var props = {};
-        props[whichSide.toString()] = amount;
-        props[oppositeSide.toString()] = 0;
+        props[whichSide] = amount;
+        props[oppositeSide] = 0;
         var sibwidth = 0;
         if (siblings.size()) {
           siblings.forEach(function(item) {
@@ -7485,7 +7502,11 @@
   $.fn.extend({
     decorateBackButton: function() {
       if ($(this).hasClass('back') || $(this).hasClass('backTo')) {
-        $(this).prepend(truckBackButtonSVG);
+        this.forEach(function(button) {
+          var temp = $(button).text();
+          $(button).html('<span>' + temp + '</span>');
+          $(button).prepend(truckBackButtonSVG);
+        });
       }
     }
   });
@@ -7556,7 +7577,8 @@
       GoBack: function() {
         var currentScreen = $.screens.getCurrent();
         $.TruckRoutes.pop();
-        var destination = $.TruckRoutes.eq(-1);
+        var fullDesintation = $.TruckRoutes.eq(-1);
+        var destination = $.TruckRoutes.eq(-1).split(':')[0];
         var destinationScreen = getScreen(destination);
         if ($.TruckRoutes.size() === 0) {
           destination = $.screens.eq(0);
@@ -7564,11 +7586,10 @@
         }
         if (currentScreen[0]) currentScreen[0].scrollTop = 0;
         if (destinationScreen[0]) destinationScreen[0].scrollTop = 0;
-        $.Router.dispatch(destination);
+        $.Router.dispatch(fullDesintation);
         makeScreenNext(currentScreen);
         makeScreenCurrent(destinationScreen);
         if ($.TruckRoutes.size() === 1) return;
-        $.TruckRoutes.pop();
       },
 
       isNavigating: false,
@@ -7580,6 +7601,7 @@
         var currentScreen = $.screens.getCurrent();
         var position = $.TruckRoutes.index(destination);
         var destinationScreen = getScreen(destination);
+        $('screen.previous').removeClass('previous').addClass('next');
         makeScreenCurrent(destinationScreen);
         var temp;
         while ($.TruckRoutes.size() > position + 1) {
@@ -7640,9 +7662,9 @@
 (function() {
   "use strict";
   $.extend({
-    ///////////////////////////////////////////
+    //=========================================
     // Creates a Tab Bar for Toggling Articles:
-    ///////////////////////////////////////////
+    //=========================================
     TabBar: function(options) {
       /*
       var options = {
@@ -7844,8 +7866,10 @@
 // Tank Body - Slide Out Menu
 (function() {
   'use strict';
-
   $.extend({
+    //========================
+    // Setup a slide out menu:
+    //========================
     SlideOut: function(options) {
       var slideOutButton = $('<button class="slide-out-button"></button>');
       var slideOut = '<slideout><section></section></slideout>';
@@ -7863,15 +7887,18 @@
       // Handle Slide Out button events:
       slideOutBtn.on('tap', function() {
         $(this).toggleClass('focused');
-        slideout.toggleClass('open');
-        if (slideout.attr('aria-hidden') === "true") {
+        if (slideout.hasClass('open')) {
+          slideout.removeClass('open');
+          console.log('gonna disable the damn back button!')
           slideout.attr('aria-hidden', "false");
-          $('button.back').removeProp('disabled');
-          $('button.backTo').removeProp('disabled');
+          $('button.back').removeClass('disabled').removeProp('disabled');
+          $('button.backTo').removeClass('disabled').removeProp('disabled');
         } else {
+          slideout.addClass('open')
+          console.log('gonna leave the back button alone.')
           slideout.attr('aria-hidden', true);
-          $('button.back').prop('disabled', true);
-          $('button.backTo').prop('disabled', true);
+          $('button.back').addClass('disabled').prop('disabled', true);
+          $('button.backTo').addClass('disabled').prop('disabled', true);
         }
       });
 
@@ -7879,6 +7906,7 @@
         var routes = $(this).attr('data-show').split('/');
         var fullRoute = $.TruckRoutes.getFullRoute();
         var menuItems = slideout.find('li[data-show]');
+        slideout.attr('aria-hidden', 'true')
 
         // Toggle Slide Out button:
         slideOutBtn.toggleClass('focused');
@@ -7928,6 +7956,10 @@
 (function() {
   'use strict';
   $.extend({
+    //=================================
+    // Setup an editable list, enabling
+    // reording of items and deletion:
+    //=================================
     EditList: function(options) {
       /*
         options = {
@@ -8239,6 +8271,10 @@
 (function() {
   'use strict';
   $.extend({
+    //===========================================
+    // Setup Form object to convert data to JSON,
+    // and to validate form values:
+    //===========================================
     Form: function(options) {
       if (!options || $.type(options) !== 'array') return;
 
@@ -8436,6 +8472,9 @@
 (function() {
   'use strict';
   $.extend({
+    //=====================
+    // Setup a select list:
+    //=====================
     SelectList: function(options) {
       if (!options || !options.element) return;
       var settings = {
@@ -8501,6 +8540,9 @@
 (function() {
   'use strict';
   $.extend({
+    //===========================
+    // Setup a multi-select list:
+    //===========================
     MultiSelectList: function(options) {
       if (!options || !options.element) return;
       var settings = {
@@ -8562,15 +8604,17 @@
           item.removeClass('selected').removeAttr('aria-checked');
           item.find('input').removeProp('checked');
           var whichItem = item.index();
-          var tempData = __selection.getData();
-          __selection.forEach(function(sel) {
-            if (sel && sel.index === whichItem) {
-              var pos = __selection.indexOf(sel);
-              tempData.splice(pos, 1);
+          var dataObj = {
+            index: item.index(),
+            value: item.attr('data-select')
+          }
+          var pos;
+          __selection.forEach(function(item, idx) {
+            if (item.index === dataObj.index && item.value === dataObj.value) {
+              pos = idx;
             }
           });
-          __selection.purge();
-          __selection.concat(tempData);
+          __selection.splice(pos, 1);
 
           settings.callback.apply(this, arguments);
         } else {
@@ -8600,6 +8644,9 @@
 (function() {
   "use strict";
   $.extend({
+    //=========================
+    // Create a switch control:
+    //=========================
     Switch: function(options) {
       var self = this;
       if (!options || !options.element) return;
@@ -8692,9 +8739,7 @@
 
       return {
         getValue: function() {
-          if (__checked) {
-            return __selection;
-          }
+          return __selection;
         }
       };
     }
@@ -8705,6 +8750,7 @@
   "use strict";
   $.extend({
 
+    //==============
     // Cover screen:
     //==============
     Block: function(opacity) {
@@ -8714,6 +8760,7 @@
       $('screen.current').attr('aria-hidden', true);
     },
 
+    //================
     // Uncover screen:
     //================
     Unblock: function() {
@@ -8726,6 +8773,9 @@
 (function() {
   'use strict';
   $.extend({
+    //=======================
+    // Setup  a popup dialog:
+    //=======================
     Popup: function(options) {
       /*
       options {
@@ -8855,11 +8905,13 @@
   'use strict';
   $(function() {
     $.extend({
+      //==========================
+      // Setup a segmented button:
+      //==========================
       Segmented: function(options) {
         if (!options || !options.element) return;
         /* 
           options = {
-            id : '#myId',
             element: '#segmentHolder'
             labels : ['first','second','third'],
             selected: 0,
@@ -8867,14 +8919,12 @@
           }
         */
         var settings = {
-          id: $.uuid(),
           selected: 0,
           callback: $.noop
         };
         $.extend(settings, options);
 
         var segmented;
-        var id = settings.id;
         var labels = (settings.labels) ? settings.labels : [];
         var selected = settings.selected;
 
@@ -8914,6 +8964,9 @@
 (function() {
   "use strict";
   $.fn.extend({
+    //=====================
+    // Setup a range input:
+    //=====================
     Range: function() {
       if ($('body').hasClass('isWindows')) return;
       if (this[0].nodeName !== 'INPUT') return;
@@ -8951,6 +9004,9 @@
 (function() {
   'use strict';
   $.extend({
+    //========================
+    // Create a sliding sheet:
+    //========================
     Sheet: function(options) {
       /*
         var options {
@@ -9009,6 +9065,9 @@
 (function() {
   "use strict";
   $.extend({
+    //========================
+    // Setup a paging control:
+    //========================
     Paging: function(options) {
       if (!options || !options.element) return;
       var screen = $(options.element);
@@ -9085,15 +9144,20 @@
 // Tank Body - Stepper
 (function() {
   'use strict';
-  $.fn.extend({
+  $.extend({
+    //==================
+    // Create a stepper:
+    //==================
     Stepper: function(options) {
       if (!options) return $();
-      if (!options.start) return $();
-      if (!options.end) return $();
-      var stepper = $(this);
-      var start = options.start;
-      var end = options.end;
-      var defaultValue = options.defaultValue ? options.defaultValue : options.start;
+      if (!options.element) return;
+      if (!options.min) return;
+      if (!options.max) return;
+
+      var stepper = $(options.element);
+      var min = options.min;
+      var max = options.max;
+      var defaultValue = options.defaultValue ? options.defaultValue : options.min;
       var increaseSymbol = '+';
       var decreaseSymbol = '-';
       if ($.isWin) {
@@ -9105,24 +9169,24 @@
       var increaseButton = '<button class="increase"><span>+</span></button>';
       stepper.append(decreaseButton + label + increaseButton);
       stepper.data('data-value', {
-        start: start,
-        end: end,
+        min: min,
+        max: max,
         defaultValue: defaultValue
       });
 
       var increaseStepperValue = function() {
         var currentValue = stepper.find('input').val();
         var value = stepper.data('data-value');
-        var end = value.end;
+        var max = value.max;
         var newValue;
-        if (currentValue >= end) {
+        if (currentValue >= max) {
           $(this).addClass('disabled');
         } else {
           newValue = Number(currentValue) + 1;
           stepper.find('button:first-of-type').removeClass('disabled');
           stepper.find('label').text(newValue);
           stepper.find('input')[0].value = newValue;
-          if (currentValue === end) {
+          if (currentValue === max) {
             $(this).addClass('disabled');
           }
         }
@@ -9131,16 +9195,16 @@
       var decreaseStepperValue = function() {
         var currentValue = stepper.find('input').val();
         var value = stepper.data('data-value');
-        var start = value.start;
+        var min = value.min;
         var newValue;
-        if (currentValue <= start) {
+        if (currentValue <= min) {
           $(this).addClass('disabled');
         } else {
           newValue = Number(currentValue) - 1;
           stepper.find('button:last-of-type').removeClass('disabled');
           stepper.find('label').text(newValue);
           stepper.find('input')[0].value = newValue;
-          if (currentValue === start) {
+          if (currentValue === min) {
             $(this).addClass('disabled');
           }
         }
@@ -9153,6 +9217,12 @@
       stepper.find('button:first-of-type').on('tap', function() {
         decreaseStepperValue.call(this, stepper);
       });
+
+      return {
+        getValue: function() {
+          return stepper.find('input').val();
+        }
+      }
     }
   });
 })();
@@ -9160,12 +9230,15 @@
 (function() {
   "use strict";
   $.extend({
-    /*
-      id: myUniqueID,
-      title: 'Great',
-      callback: myCallback,
-    */
+    //=================================
+    // Setup a popover (dropdown menu):
+    //=================================
     Popover: function(options) {
+      /*
+        id: myUniqueID,
+        title: 'Great',
+        callback: myCallback,
+      */
       options = options || {};
       var settings = {
         id: $.uuid(),
@@ -9248,6 +9321,7 @@
       $.Unblock();
       $('.popover').css('visibility', 'hidden');
       setTimeout(function() {
+        $('.popover').off();
         $('.popover').remove();
       }, 10);
     }
@@ -9275,6 +9349,7 @@
 (function() {
   "use strict";
   $.fn.extend({
+    //============================
     // Center an Element on Screen
     //============================
     Center: function(position) {
@@ -9324,6 +9399,9 @@
 (function() {
   "use strict";
   $.fn.extend({
+    //===========================
+    // Setup activitiy indicator:
+    //===========================
     Busy: function(options) {
       var settings = {
         size: 40,

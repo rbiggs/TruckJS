@@ -17,7 +17,6 @@
   };
   queue = (function() {
     var first, last, item;
-
     function Item(func, self) {
       this.func = func;
       this.self = self;
@@ -44,7 +43,6 @@
       }
     };
   })();
-
   function schedule(func, self) {
     queue.add(func, self);
     if (!cycle) {
@@ -60,14 +58,12 @@
     }
     return typeof _then === "function" ? _then : false;
   }
-
   function notify() {
     for (var i = 0; i < this.chain.length; i++) {
       notifyIsolated(this, (this.state === 1) ? this.chain[i].success : this.chain[i].failure, this.chain[i]);
     }
     this.chain.length = 0;
   }
-
   function notifyIsolated(self, callback, chain) {
     var ret, _then;
     try {
@@ -81,7 +77,7 @@
         }
         if (ret === chain.promise) {
           chain.reject(new TypeError("Promise-chain cycle"));
-        } else if (_then === isThenable(ret)) {
+        } else if (_then = isThenable(ret)) {
           _then.call(ret, chain.resolve, chain.reject);
         } else {
           chain.resolve(ret);
@@ -91,7 +87,6 @@
       chain.reject(err);
     }
   }
-
   function resolve(msg) {
     var _then, deferred, self = this;
     if (self.triggered) {
@@ -106,11 +101,7 @@
         schedule(function() {
           var deferred_wrapper = new MakeDeferred(self);
           try {
-            _then.call(msg, function() {
-              resolve.apply(deferred_wrapper, arguments);
-            }, function() {
-              reject.apply(deferred_wrapper, arguments);
-            });
+            _then.call(msg, function() { resolve.apply(deferred_wrapper, arguments); }, function() { reject.apply(deferred_wrapper, arguments); });
           } catch (err) {
             reject.call(deferred_wrapper, err);
           }
@@ -126,7 +117,6 @@
       reject.call(new MakeDeferred(self), err);
     }
   }
-
   function reject(msg) {
     var self = this;
     if (self.triggered) {
@@ -142,23 +132,20 @@
       schedule(notify, self);
     }
   }
-
   function iteratePromises(Constructor, arr, resolver, rejecter) {
     for (var idx = 0; idx < arr.length; idx++) {
       (function IIFE(idx) {
         Constructor.resolve(arr[idx])
           .then(function(msg) {
-            resolver(idx, msg);
-          }, rejecter);
+          resolver(idx, msg);
+        }, rejecter);
       })(idx);
     }
   }
-
   function MakeDeferred(self) {
     this.deferred = self;
     this.triggered = false;
   }
-
   function Deferred(self) {
     this.promise = self;
     this.state = 0;
@@ -166,7 +153,6 @@
     this.chain = [];
     this.msg = undefined;
   }
-
   function Promise(executor) {
     if (typeof executor !== "function") {
       throw new TypeError("Not a function");
@@ -212,10 +198,12 @@
   }
   var PromisePrototype = extend({}, "constructor", Promise, false);
   extend(Promise, "prototype", PromisePrototype, false);
+
   // Check if Promise is initialized:
   extend(PromisePrototype, "isValidPromise", 0, false);
   extend(Promise, "resolve", function(msg) {
     var Constructor = this;
+
     // Make sure it is a valide Promise:
     if (msg && typeof msg === "object" && msg.isValidPromise === 1) {
       return msg;
@@ -237,6 +225,7 @@
   });
   extend(Promise, "all", function(arr) {
     var Constructor = this;
+
     // Make sure argument is an array:
     if (Object.prototype.toString.call(arr) !== "[object Array]") {
       return Constructor.reject(new TypeError("Not an array"));
@@ -248,9 +237,9 @@
       if (typeof resolve !== "function" || typeof reject !== "function") {
         throw new TypeError("Not a function");
       }
-      var len = arr.length,
-        msgs = new Array(len),
-        count = 0;
+      var len = arr.length;
+      var msgs = new Array(len);
+      var count = 0;
       iteratePromises(Constructor, arr, function resolver(idx, msg) {
         msgs[idx] = msg;
         if (++count === len) {
@@ -261,6 +250,7 @@
   });
   extend(Promise, "race", function(arr) {
     var Constructor = this;
+
     // Make sure argument is an array:
     if (Object.prototype.toString.call(arr) !== "[object Array]") {
       return Constructor.reject(new TypeError("Not an array"));
@@ -274,10 +264,12 @@
       }, reject);
     });
   });
+
   // If native Promise exists in window, do not use this.
   if ("Promise" in window && "resolve" in window.Promise && "reject" in window.Promise && "all" in window.Promise && "race" in window.Promise) {
     return;
   } else {
+
     // Otherwise do use this:
     return window.Promise = Promise;
   }

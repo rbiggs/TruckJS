@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <title>Fetch GET</title>
   <link rel="stylesheet" href="../css/styles.css">
-  <script src="../js/truckjs.js"></script>
+  <script src="../js/truck.js"></script>
   <script>
-  /// <reference path='../../typings/chocolatechipjs/chocolatechipjs.d.ts' />
   $(function() {
     $("#submit").on("click", function(e) {
       fetch('../data/wines.json')
@@ -15,7 +14,7 @@
         $('#message_ajax').empty();
         obj.data.forEach(function(wine) {
           $('#message_ajax').append('<li>' + wine.name + '</li>');
-        })
+        });
       });
     });
   });

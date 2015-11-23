@@ -1,6 +1,7 @@
-// Truck Engine - Fetch Module
+// Truck Engine - Fetch Module:
 (function(self) {
   'use strict';
+
   if (self.fetch) {
     return;
   }
@@ -112,11 +113,12 @@
       try {
         new Blob();
         return true;
-      } catch (e) {
+      } catch(e) {
         return false;
       }
     })(),
-    formData: 'FormData' in self
+    formData: 'FormData' in self,
+    arrayBuffer: 'ArrayBuffer' in self
   };
 
   function Body() {
@@ -133,6 +135,9 @@
         this._bodyFormData = body;
       } else if (!body) {
         this._bodyText = '';
+      } else if (support.arrayBuffer && ArrayBuffer.prototype.isPrototypeOf(body)) {
+        // Only support ArrayBuffers for POST method.
+        // Receiving ArrayBuffers happens via Blobs, instead.
       } else {
         throw new Error('unsupported BodyInit type');
       }
@@ -271,6 +276,7 @@
     if (!options) {
       options = {};
     }
+
     this._initBody(bodyInit);
     this.type = 'default';
     this.status = options.status;
@@ -292,10 +298,7 @@
   };
 
   Response.error = function() {
-    var response = new Response(null, {
-      status: 0,
-      statusText: ''
-    });
+    var response = new Response(null, {status: 0, statusText: ''});
     response.type = 'error';
     return response;
   };
@@ -314,6 +317,7 @@
       }
     });
   };
+
   self.Headers = Headers;
   self.Request = Request;
   self.Response = Response;
@@ -380,6 +384,7 @@
     });
   };
   self.fetch.polyfill = true;
+
   /**
    *
    * JSONP with API like fetch.
@@ -399,6 +404,7 @@
       }
       // Method to create callback:
       function generateCallbackName() {
+        var base = 'callback';
         var callbackName = settings.callbackName + '_' + ($.JSONPCallbacks.length + 1);
         $.JSONPCallbacks.push(callbackName);
         return callbackName;

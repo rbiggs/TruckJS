@@ -4299,11 +4299,11 @@
 })();
 // Truck Engine - Promises Module:
 (function() {
+  /*jshint validthis:true */
   "use strict";
   //==================================
   // Define polyfill for ES6 Promises:
   //==================================
-  /*jshint validthis:true */
   var extend;
   var cycle;
   var queue;
@@ -4380,7 +4380,7 @@
         }
         if (ret === chain.promise) {
           chain.reject(new TypeError("Promise-chain cycle"));
-        } else if (_then === isThenable(ret)) {
+        } else if (_then = isThenable(ret)) {
           _then.call(ret, chain.resolve, chain.reject);
         } else {
           chain.resolve(ret);
@@ -4401,7 +4401,7 @@
       self = self.deferred;
     }
     try {
-      if (_then = isThenable(msg)) { // jshint ignore:line
+      if (_then = isThenable(msg)) {
         schedule(function() {
           var deferred_wrapper = new MakeDeferred(self);
           try {
@@ -4483,7 +4483,7 @@
       };
       // `.then()` can be used against a different promise
       // constructor for making a chained promise.
-      obj.promise = new this.constructor(function extractChain(resolve, reject) {
+      obj['promise'] = new this.constructor(function extractChain(resolve, reject) {
         if (typeof resolve !== "function" || typeof reject !== "function") {
           throw new TypeError("Not a function");
         }
@@ -4581,9 +4581,10 @@
     return window.Promise = Promise;
   }
 })();
-// Truck Engine - Fetch Module
+// Truck Engine - Fetch Module:
 (function(self) {
   'use strict';
+
   if (self.fetch) {
     return;
   }
@@ -4699,7 +4700,8 @@
         return false;
       }
     })(),
-    formData: 'FormData' in self
+    formData: 'FormData' in self,
+    arrayBuffer: 'ArrayBuffer' in self
   };
 
   function Body() {
@@ -4716,6 +4718,9 @@
         this._bodyFormData = body;
       } else if (!body) {
         this._bodyText = '';
+      } else if (support.arrayBuffer && ArrayBuffer.prototype.isPrototypeOf(body)) {
+        // Only support ArrayBuffers for POST method.
+        // Receiving ArrayBuffers happens via Blobs, instead.
       } else {
         throw new Error('unsupported BodyInit type');
       }
@@ -4854,6 +4859,7 @@
     if (!options) {
       options = {};
     }
+
     this._initBody(bodyInit);
     this.type = 'default';
     this.status = options.status;
@@ -4897,6 +4903,7 @@
       }
     });
   };
+
   self.Headers = Headers;
   self.Request = Request;
   self.Response = Response;
@@ -4963,6 +4970,7 @@
     });
   };
   self.fetch.polyfill = true;
+
   /**
    *
    * JSONP with API like fetch.
@@ -4982,6 +4990,7 @@
       }
       // Method to create callback:
       function generateCallbackName() {
+        var base = 'callback';
         var callbackName = settings.callbackName + '_' + ($.JSONPCallbacks.length + 1);
         $.JSONPCallbacks.push(callbackName);
         return callbackName;

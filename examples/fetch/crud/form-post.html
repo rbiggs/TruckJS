@@ -4,16 +4,15 @@
   <meta charset="UTF-8">
   <title>Fetch POST</title>
   <link rel="stylesheet" href="../css/styles.css">
-  <script src="../js/truckjs.js"></script>
+  <script src="../js/truck.js"></script>
   <script>
-  /// <reference path='../../typings/chocolatechipjs/chocolatechipjs.d.ts' />
   $(function() {
     $("#submit").on("click", function(e) {
       if (!document.getElementById('ajax_name').value && !document.getElementById('ajax_email').value) {
         alert('Please provide a name and an email.');
         return;
       }
-      var data = $.serialize($('form')[0]);
+      var data = $('form').serialize();
       
       fetch('../controllers/php-post.php', {
         method: 'post',
