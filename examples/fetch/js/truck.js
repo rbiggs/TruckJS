@@ -4487,16 +4487,16 @@
         if (typeof resolve !== "function" || typeof reject !== "function") {
           throw new TypeError("Not a function");
         }
-        obj['resolve'] = resolve;
-        obj['reject'] = reject;
+        obj.resolve = resolve;
+        obj.reject = reject;
       });
       deferred.chain.push(obj);
       if (deferred.state !== 0) {
         schedule(notify, deferred);
       }
-      return obj['promise'];
+      return obj.promise;
     };
-    this["catch"] = function(failure) {
+    this.catch = function(failure) {
       return this.then(undefined, failure);
     };
     try {
@@ -4574,11 +4574,11 @@
     });
   });
   // If native Promise exists in window, do not use this.
-  if ("Promise" in window && "resolve" in window['Promise'] && "reject" in window['Promise'] && "all" in window['Promise'] && "race" in window['Promise']) {
+  if ("Promise" in window && "resolve" in window.Promise && "reject" in window.Promise && "all" in window.Promise && "race" in window.Promise) {
     return;
   } else {
     // Otherwise do use this:
-    return window['Promise'] = Promise;
+    return window.Promise = Promise;
   }
 })();
 // Truck Engine - Fetch Module:
@@ -4970,6 +4970,7 @@
     });
   };
   self.fetch.polyfill = true;
+
   /**
    *
    * JSONP with API like fetch.
