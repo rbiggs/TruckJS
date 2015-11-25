@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" dir='rtl'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Tab Bar</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+  <script src="data/data.js"></script>
+  <script src="data/fruits.js"></script>
+  <script src='data/setup-2.js'></script>
+  <style>
+    /*
+      Styles for iOS tab bar.
+      By using the .isiOS and .isDesktopSafari classes,
+      we can style the tab bar icons just for Safari
+      without affecting the look of Android and Windows Phone 8.
+    */
+    tabbar > button {
+      background-color: #fafafa;
+    }
+    tabbar > button:hover,
+    tabbar > button.selected {
+      color: #007aff !important;
+      background-color: #f0f0f0;
+      opacity: 1 !important;
+    }
+    tabbar > button > .icon {
+      background-position: center center;
+      background-size: 100%;
+      background-repeat: no-repeat;
+    }
+    tabbar > button.music > .icon  {
+      background-image: url('images/icons/Head_phones.svg');
+    }
+    tabbar > button.pictures > .icon  {
+      background-image: url('images/icons/Camera.svg');
+    }
+    tabbar > button.docs > .icon {
+      background-image: url('images/icons/Documents.svg');
+    }
+    tabbar > button.dictionary > .icon  {
+      background-image: url('images/icons/Download.svg');
+    }
+    tabbar > button.top_rated > .icon {
+      background-image: url('images/icons/Favorite.svg');
+    }
+    /* Styles for Image Grid */
+    .grid {
+      /* Old Flex Box */
+      display: -webkit-flex;
+      -webkit-flex-direction: row;
+      -webkit-flex-wrap: wrap;
+      -webkit-justify-content: space-around;
+      /* New Flex Box */
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      background-color: #222;
+    }
+    .grid > .col {
+      height: 300px;
+      width: 300px;
+      max-height: 300px;
+      max-width: 300px;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: auto 300px;
+      background-color: #000;
+      -webkit-flex-grow: 1;
+      -webkit-flex-shrink: 0;
+      flex-grow: 1;
+      flex-shrink: 0;
+    }
+    @media only screen and (max-width: 320px) {
+      .grid > .col {
+        height: 200px;
+        width: 200px;
+        background-size: 100% 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <screen id="music" class="current">
+    <nav>
+      <h1>موسيقى</h1>
+    </nav>
+    <section>
+      <ul class='list' id='musicList'>
+        <li>
+          <img  data-src="${ music.image }" height="80px">
+          <div>
+            <h3>${ music.title }</h3>
+            <h4>${ music.album }</h4>
+            <p>${ music.description }</p>
+          </div>
+        </li>
+      </ul>  
+    </section>
+  </screen>
+
+  <screen id='pictures' class='next'>
+    <nav>
+      <h1>الصور</h1>
+    </nav>
+    <section id='imageGrid'>
+      <div class="grid" id='gridOfImages'>
+        <img class="col" data-src="${ image }">
+      </div>
+    </section>
+  </screen>
+
+  <screen id='documents' class='next'>
+    <nav>
+      <h1>الوثائق</h1>
+    </nav>
+    <section>
+      <ul class='list' id='docsList'>
+        <script type='text/x-template'>
+          <li class='center-vertical'>
+            <h3>${ doc.title }</h3>
+            <h4>${ doc.subtitle }</h4>
+            <aside>
+              <span class='counter'>${ doc.amount }</span>
+            </aside>
+          </li>
+        </script>
+      </ul>          
+    </section>
+  </screen>
+
+  <screen id='dictionary' class='next'>
+    <nav>
+      <h1>قاموس</h1>
+    </nav>
+    <section>
+      <h2>المعاني</h2>
+      <ul class='list' id='dictionaryList'>
+        <script type='text/x-template'>
+          <li>
+            <div>
+              <h3>${ dictionary.term }</h3>
+              <h4>المعاني</h4>
+              <ul>
+                {{ dictionary.meaning.forEach(function(ingredient) { }}
+                  <li>${ ingredient }</li>
+                {{ }); }}
+              </ul>
+            </div>
+          </li>
+        </script>
+      </ul>
+    </section>
+  </screen>
+
+  <screen role='article' id='fruits' class='next'>
+    <nav>
+      <h1>ثمار</h1>
+    </nav>
+    <section>
+      <h2>ثمار</h2>
+      <ul class='list' id='fruitsList'>
+        <script type='text/x-template'>
+          <li class='center-vertical' data-goto='chosenFruit:${ fruit.type }'>
+            <div>
+              <h3>${ fruit.name }</h3>
+            </div>
+            <aside>
+              <disclosure></disclosure>
+            </aside>
+          </li>
+        </script>
+       </ul>
+    </section>
+  </screen>
+
+  <screen role='article' id='chosenFruit' class='next'>
+    <nav>
+      <button class='back' id='back'><span>ارجع</span></button>
+      <h1>باستخدام الفاكهة</h1>
+    </nav>
+    <section>
+      <h2 id='chosenFruitTitle'>فاكهة</h2>
+      <ul class="list" id='chosenFruitList'>
+        <li>
+          <h3>${ fruit }</h3>
+        </li>
+      </ul>
+    </section>
+  </screen>
+
+  <script>
+    $(function() {
+      // Chosen Fruit View:
+      //==================
+      var chosenFruitView = $.View({
+        element: '#chosenFruitList',
+        variable: 'fruit'
+      });
+
+      // Routes for fruits:
+      //===================
+      $.AppRoutes = $.Router();
+      $.AppRoutes.addRoute([
+        {
+          route: 'chosenFruit',
+          callback: function(id) {
+            var renderChosenFruit = function(whichOne) {
+              chosenFruitView.setParent('#chosenFruitList');
+              chosenFruitView.render(fruits[whichOne].uses);
+              $('#chosenFruitTitle').text(fruits[whichOne].name);
+            };
+
+            switch (id) {
+              case 'apples':
+                renderChosenFruit(0);
+                break;
+              case 'oranges':
+                renderChosenFruit(1);
+                break;
+              case 'bananas':
+                renderChosenFruit(2);
+                break;
+              case 'peaches':
+                renderChosenFruit(3);
+                break;
+              case 'strawberries':
+                renderChosenFruit(4);
+                break;
+              case 'cherries':
+                renderChosenFruit(5);
+                break;
+            }
+          }
+        }
+      ]);
+    });
+  </script>
+</body>
+</html>

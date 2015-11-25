@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck View</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+<style>
+  .list > li > img {
+    height: 70px !important;
+    width: auto;
+  }
+  ol, li {
+    padding-left: 0;
+    margin-left: 0;
+  }
+  ol {
+    margin-left: 20px;
+  }
+</style>
+
+</head>
+<body>
+  <screen id='main' class='current'>
+    <nav>
+      <h1>قوالب</h1>
+    </nav>
+    <section>
+
+      <h2 id='titles'>${ data }</h2>
+
+      <h2>قالب كائن واحد</h2>
+
+      <ul class="list" id='defaultObjectTemplateScript'>
+        <script type='text/x-template'>
+          <li><h3>\{${ data.firstName }\} ${ $.helpers.bigName(data) }, سن: \{${ data.age }\}</h3></li>
+        </script>
+      </ul>
+
+      <h2>قالب كائن واحد</h2>
+
+      <ul class="list cloak" id='defaultObjectTemplate'>
+        <li>
+          <h3>'${ wobba.firstName }' "${ wobba.lastName }", سن: ${ wobba.age }</h3>
+        </li>
+      </ul>
+
+      <h2>ترميز HTML</h2>
+
+      <ul class="list cloak" id="basicRepeater">
+        <li>${ $.view.index }: ${ data.firstName }, ${ $.helpers.bigName(data) }</li>
+      </ul>
+
+      <h2>الصور في قوالب</h2>
+
+      <h2 class='normal-case wrap'>لا الترميز، بحيث يتم تقديم HTML.</h2>
+      <h2 class='normal-case wrap'>باستخدام "data-src" للصور.</h2>
+
+      <ul class="list cloak" id="repeaterWithImages">
+        <li class='comp'>
+          <img data-src='${ data.image }' alt="">
+          <div>
+            <h3>
+              ${ $.view.index }: ${ data.firstName } ${ data.lastName }
+            </h3>
+          </div>
+        </li>
+      </ul>
+
+      <h2>التلقائي للبيانات ملزم</h2>
+
+      <ul id="dataBinding" class='list cloak'>
+        <li>
+          <img data-src="${ data.image }" alt="">
+          <h3>${ data.firstName }</h3>
+        </li>
+      </ul>
+
+      <h2>مثال على قالب تكرار المتداخلة</h2>
+      <ul class='list' id="templ8">
+        <script id='tempie' type='text/x-template'>
+          <li>
+            <img data-src='${ somebody.image }'>
+            <div>
+              <h3>${ somebody.name }</h3>
+            </div>
+          </li>
+          {{ if (somebody.friends && somebody.friends.length) { }}
+          <li>
+            <div class='no-flex' style='max-width: 100px;'>
+              <h3>هل نبقى اصدقاء:</h3>
+            </div>
+            <div>
+              <ol>
+                {{  somebody.friends.forEach(function(friend) {  }}
+                <li> ${ friend.name}: ${ friend.job }</li>
+                {{  });  }}
+              </ol>
+            </div>
+          </li>
+          {{ } }}
+        </script>
+      </ul>
+
+    </section>
+</screen>
+
+<script>
+  $(function() {
+
+      ///////////////////////////////////////////////////////////////
+      // IMPORTANT! Define any view helpers first, before using them:
+      ///////////////////////////////////////////////////////////////
+      $.defineHelper({
+        bigName: function(data) {
+          // console.log(data)
+          return data.lastName.toUpperCase();
+        }
+      });
+
+      var titles = ['هذا', ' ', 'هو', ' ', 'قالب', ' ', 'عنوان!'];
+
+      var titlesModel = $.Model(titles, 'titles-handle');
+
+      // View: 1
+      // Define view for title:
+      var titleView = $.View({
+        element: '#titles', 
+        model: titlesModel,
+        name: 'titleView'
+      });
+      titleView.render();
+
+
+      var person = { 
+       "firstName":"<b>أحمد</b>",
+       "lastName": "مصطفى",
+       "age": 32
+      };
+      var newPerson = {
+        firstName: 'Bongo',
+        lastName: 'Bozo',
+        age: 100
+      }
+      // Init models:
+      //=============
+      var PersonModel = $.Model(person, 'person-handle');
+      var NewPersonModel = $.Model(newPerson, 'new-person-handle')
+
+      // View: 2
+      // Init views:
+      //============
+      var personScriptView = $.View({
+        element: '#defaultObjectTemplateScript',
+        name: 'personScriptView'
+      });
+      // View: 3
+      var personDeclarativeView = $.View({
+        element: '#defaultObjectTemplate', 
+        model: PersonModel, 
+        variable: 'wobba',
+        name: 'personDeclarativeView'
+      });
+
+      // Render views:
+      //==============
+      personScriptView.render(person);
+      personDeclarativeView.render();
+
+
+
+      var fruits = [
+        {firstName: "تفاحة", image: 'images/apple.png'},
+        {firstName: "موز", image: 'images/banana.png'},
+        {firstName: "البرتقالي", image: 'images/orange.png'} ,
+        {firstName: "مانجو", image: 'images/mango.png'} 
+      ];
+      var fruitsModel = $.Model(fruits, 'fruits-model');
+
+      // Luminaries data:
+      //================
+      var luminaries = [
+          {firstName: "<b>ستيفن</b>", lastName: "هوكينج", image: 'images/Hawking.jpg', age: 20},
+          {firstName: "البرت", lastName: "<strong>اينشتاين</strong>", image: 'images/Einstein.jpg', age: 31},
+          {firstName: "ليوناردو", lastName: "دافنشي", image: 'images/DaVinci.jpg', age: 100},
+          {firstName: "غاليليو", lastName: "غاليلي", image: 'images/Galileo.jpg', age: 40},
+          {firstName: "نيكولاس", lastName: "كوبرنيكوس", image: 'images/Copernicus.jpg', age: 32}  
+        ];
+
+      // Setup luminaries model:
+      //========================
+      var LuminariesModel = $.Model(luminaries, 'luminaries-handle');
+
+      var fruits2 = [
+        {fruit: 'تفاحة', image: 'images/apple.png'},
+        {fruit: 'البرتقالي', image: 'images/orange.png'},
+        {fruit: 'موز', image: 'images/banana.png'},
+        {fruit: 'أفوكادو', image: 'images/avocado.png'}
+      ];
+
+      // View: 4
+      // Define view for luminaries:
+     //============================= 
+      var vipView = $.View({
+        element: '#basicRepeater', 
+        model: LuminariesModel,
+        name: 'vipView',
+        startIndexFrom: 12,
+        escapeHTML: true,
+        events: [{
+          element: 'li',
+          event: 'tap',
+          callback: function() {
+            console.log($(this).text());
+          }
+        }]
+      });
+      vipView.render();
+
+      // View: 5
+      // Another use of luminaries model with images:
+      //=============================================
+      var luminariesView = $.View({
+        element: '#repeaterWithImages', 
+        model: LuminariesModel,
+        name: 'luminariesView'
+      });
+      luminariesView.render()
+
+
+      // Names data:
+      //=============
+      var names = [
+        {firstName: 'Dingo', lastName: 'Dingie'},
+        {firstName: 'Bongo'},
+        {firstName: 'Bozo', lastName: 'the Clown'},
+        {firstName: 'Wobba', lastName: 'the Phet'}
+      ];
+      // Names model:
+      //==============
+      var NamesModel = $.Model(names, 'names-handle');
+
+      // View: 6
+      // Inite names views:
+      //====================
+      var namesView = $.View({
+        element: '#dataBinding',
+        model: fruitsModel,
+        name: 'namesView'
+      });
+      namesView.render();
+
+
+      // Another data object:
+      //=====================
+      var bozo = ['Bozo-1','Bozo-2', 'Bozo-3'];
+      var BozoModel = $.Model(bozo, 'bozo-model');
+
+
+      var peeps = [
+        {
+          "name": "روبرت",
+          "image": "images/Wobba.jpg",
+          "friends": [
+            {
+              "name": "إبراهيم", 
+              "job": "المثبت"
+            },
+            {
+              "name": "يوسف", 
+              "job": "مطور"
+            },
+            {
+              "name": "عبد ال", 
+              "job": "رئيس"
+            }
+          ]
+        },
+        {
+          "name": "مهرج",
+          "image": "images/Bozo.jpg",
+          "friends": [
+            {
+              "name": "عَمر", 
+              "job": "طبيب مجنون"
+            },
+            {
+              "name": "رشدي", 
+              "job": "تاجر جمل"
+            },
+            {
+              "name": "بابا", 
+              "job": "ايا كان"
+            }
+          ]
+        },
+        {
+          "name": "تفاحة",
+          "image": "images/apple.png",
+          "friends": [
+            {
+              "name": "البرتقالي",
+              "job": "عصير"
+            },
+            {
+              "name": "موز",
+              "job": "أكل"
+            }
+          ]
+        }
+      ];
+
+
+      var DingieModel = $.Model(peeps, 'peeps-model');
+      var peepsView = $.View({
+        element: '#templ8',
+        model: DingieModel,
+        variable: 'somebody',
+        name: 'peepsView'
+      });
+      peepsView.render()
+
+      if ($('[href*=ios]')[0]) {
+        console.log('You\'re using the iOS theme!');
+      } else if ($('[href*=android]')[0]) {
+        console.log('You\'re using the Android theme!');
+      } else if ($('[href*=windows]')[0]) {
+        console.log('You\'re using the Windows theme!');
+      }
+
+    });
+</script>  
+</body>

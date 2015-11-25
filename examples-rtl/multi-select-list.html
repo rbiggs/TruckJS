@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir='rtl'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Multi-Select</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+</head>
+<body>
+  <screen class='current' id='multi-select-example'>
+    <nav>
+      <h1>قائمة الاختيار</h1>
+    </nav>
+    <section>
+      <h2>المهام للقيام</h2>
+      <ul class="list" id="multiSelectList">
+        <li data-select="${ data.type}">
+          <h3>${ data.value }</h3>
+        </li>
+      </ul>
+      <p>أنت ذاهب ل: <strong><span id="response" class='attentionGrapper'></span></strong></p>
+    </section>
+  </screen>
+  <script>
+
+    $(function() {
+      // ToDo data:
+      var ToDo = [
+        {type: "أكل", value: "يذهب يأكل شيئا."},
+        {type: "غفوة", value: "أخذ غفوة."},
+        {type: "عمل", value: "الحصول على بعض العمل المنجز."},
+        {type: "لعب", value: "تلعب لعبة."}
+      ];
+
+      // Define and render view:
+      //========================
+      var ToDoView = $.View({
+        element: '#multiSelectList'
+      });
+      ToDoView.render(ToDo);
+
+      // Set up Select List:
+      // //====================
+      $.myMulitSelectList = $.MultiSelectList({
+        element: '#multiSelectList',
+        selected: [1,2],
+        callback: function() {
+          renderSelection();
+        }
+      });
+
+
+      // Define callback for multi-select list:
+      //================================= 
+      var renderSelection = function() {
+        var temp = [];
+        // console.log($.myMulitSelectList.getSelection())
+        $.myMulitSelectList.getSelection().forEach(function(item){
+          temp.push(item.value);
+        });
+        temp.sort()
+        temp = temp.join(', ');
+        if (temp.length) {
+          $('#response').text(temp);
+        } else {
+          $('#response').empty()
+        }
+      };
+      
+      // Render any default selections:
+      renderSelection();
+      
+    });
+  </script>
+</body>
+</html>

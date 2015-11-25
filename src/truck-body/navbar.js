@@ -1,4 +1,3 @@
-// Truck Body - Navbar Auto Layout
 (function() {
   $(function() {
     "use strict";
@@ -13,6 +12,7 @@
         var siblings = screen.find('h1').siblings();
         var whichSide;
         var oppositeSide;
+        var rtl = ($('html').attr('dir') === 'rtl');
         var amount = 0;
         var padding = 20;
         var oppositeAmount = 25;
@@ -25,11 +25,19 @@
           if (widthB > widthA) {
             whichSide = 'margin-left';
             oppositeSide = 'margin-right';
-            amount = (widthB - widthA);
+            if (rtl) {
+              whichSide = 'margin-right';
+              oppositeSide = 'margin-left';
+            }
+            amount = (widthB - widthA) + 20;
           } else if (widthA > widthB) {
             whichSide = 'margin-right';
             oppositeSide = 'margin-left';
-            amount = (widthA - widthB);
+            if (rtl) {
+              whichSide = 'margin-left';
+              oppositeSide = 'margin-right';
+            }
+            amount = (widthA - widthB) + 20;
           } else {
             amount = 0;
           }
@@ -38,13 +46,21 @@
         // If one sibling:
         if (siblings.length === 1) {
           var sibling = h1.siblings().eq(0);
-          amount = sibling.width();
+          amount = sibling.width() + 20;
           if (siblings.is(':first-child')) {
             whichSide = 'margin-right';
             oppositeSide = 'margin-left';
+            if (rtl) {
+            whichSide = 'margin-left';
+            oppositeSide = 'margin-right';
+            }
           } else if (siblings.eq(0).is(':last-child')) {
             whichSide = 'margin-left';
             oppositeSide = 'margin-right';
+            if (rtl) {
+            whichSide = 'margin-right';
+            oppositeSide = 'margin-left';
+            }
           }
 
           // If two siblings:

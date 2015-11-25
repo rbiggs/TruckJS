@@ -24,13 +24,11 @@
         $(this).toggleClass('focused');
         if (slideout.hasClass('open')) {
           slideout.removeClass('open');
-          console.log('gonna disable the damn back button!')
-          slideout.attr('aria-hidden', "false");
+          slideout.removeAttr('aria-hidden');
           $('button.back').removeClass('disabled').removeProp('disabled');
           $('button.backTo').removeClass('disabled').removeProp('disabled');
         } else {
           slideout.addClass('open')
-          console.log('gonna leave the back button alone.')
           slideout.attr('aria-hidden', true);
           $('button.back').addClass('disabled').prop('disabled', true);
           $('button.backTo').addClass('disabled').prop('disabled', true);
@@ -45,6 +43,9 @@
 
         // Toggle Slide Out button:
         slideOutBtn.toggleClass('focused');
+        
+        $('button.back').removeClass('disabled').removeProp('disabled');
+        $('button.backTo').removeClass('disabled').removeProp('disabled');
 
         // This list item shows a single screen:
         menuItems.hazClass('selected').removeClass('selected');
@@ -55,8 +56,6 @@
         $('screen.previous').addClass('next').removeClass('previous');
         // Get route to dispatch:
         $.Router.dispatch(screenToShow);
-
-
 
         // Close slide out:
         slideout.removeClass('open');

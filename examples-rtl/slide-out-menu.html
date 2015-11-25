@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" dir='rtl'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Slide Out Menu</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+  <script src="data/data.js"></script>
+  <style>
+    /* Styles for Image Grid */
+    .grid {
+      /* Old Flex Box */
+      display: -webkit-flex;
+      -webkit-flex-direction: row;
+      -webkit-flex-wrap: wrap;
+      -webkit-justify-content: space-around;
+      /* New Flex Box */
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      background-color: #222;
+    }
+    .grid > .col {
+      height: 300px;
+      width: 300px;
+      max-height: 300px;
+      max-width: 300px;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: auto 300px;
+      background-color: #000;
+      -webkit-flex-grow: 1;
+      -webkit-flex-shrink: 0;
+      flex-grow: 1;
+      flex-shrink: 0;
+    }
+    @media only screen and (max-width: 320px) {
+      .grid > .col {
+        height: 200px;
+        width: 200px;
+        background-size: 100% 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<body>
+  <screen id="music" class='show'>
+    <nav>
+      <h1>موسيقى</h1>
+    </nav>
+    <section>
+      <h2>اختيار الحالي</h2>
+      <ul class='list' id='musicList'>
+        <li>
+          <img  data-src="${ music.image }" height="80px">
+          <div>
+            <h3>${ music.title }</h3>
+            <h4>${ music.album }</h4>
+            <p>${ music.description }</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </screen><screen role='article' id='pictures'>
+    <nav>
+      <h1>الصور</h1>
+    </nav>
+    <section id='imageGrid'>
+      <div class="grid" id='gridOfImages'>
+        <img class="col" data-src="${ image }">
+      </div>
+    </section>
+  </screen>
+
+  <screen role='article' id='documents'>
+    <nav>
+      <h1>الوثائق</h1>
+    </nav>
+    <section>
+      <ul class='list' id='docsList'>
+        <script type='text/x-template'>
+          <li class='center-vertical'>
+            <h3>${ doc.title }</h3>
+            <h4>${ doc.subtitle }</h4>
+            <aside>
+              <span class='counter'>${ doc.amount }</span>
+            </aside>
+          </li>
+        </script>
+      </ul>          
+    </section>
+  </screen>
+
+  <screen role='article' id='dictionary'>
+    <nav>
+      <h1>قاموس</h1>
+    </nav>
+    <section>
+      <h2>قاموس</h2>
+      <ul class='list' id='dictionaryList'>
+        <script type='text/x-template'>
+          <li>
+            <div>
+              <h3>${ dictionary.term }</h3>
+              <h4>المعاني</h4>
+              <ul>
+                {{ dictionary.meaning.forEach(function(ingredient) { }}
+                  <li>${ ingredient }</li>
+                {{ }); }}
+              </ul>
+            </div>
+          </li>
+        </script>
+      </ul>
+    </section>
+  </screen>
+
+  <screen role='article' id='favorites'>
+    <nav>
+      <h1>المفضلة</h1>
+    </nav>
+    <section>
+      <ul class='list' id='favoritesList'>
+        <li>
+           <h3>${ data }</h3>
+        </li>  
+       </ul>
+    </section>
+  </screen>
+
+  
+  <script>
+  $(function() {
+ 
+    // Init Tab Bar:
+    //==============
+    var musicView = $.View({
+      element: '#musicList',
+      variable: 'music'
+    });
+    musicView.render(music);
+
+
+    // Image Grid View:
+    //=================
+    var imageGridView = $.View({
+      element: '#gridOfImages',
+      variable: 'image'
+    });
+    imageGridView.render(imageCollection);
+
+    // Docs View:
+    //===============
+    var docsView = $.View({
+      element: '#docsList',
+      variable: 'doc'
+    });
+    docsView.render(docs);
+
+    // Dictionary View:
+    //==================
+    var dictionaryView = $.View({
+      element: '#dictionaryList',
+      variable: 'dictionary'
+    });
+    dictionaryView.render(dictionary);
+
+    // Favorites View:
+    //====================
+    favoritesView = $.View({
+      element: '#favoritesList'
+    });
+    favoritesView.render(favorites);
+
+    // Set up Slide Out Menu:
+    //=======================
+    var appSlideOut = $.SlideOut();
+    appSlideOut.populate([
+      { music: 'موسيقى' },
+      { pictures: 'الصور' },
+      { documents: 'الوثائق'},
+      { dictionary: 'المعاني' },
+      { favorites: 'أكثر' }
+    ]);
+  });
+  </script>
+</body>
+</html>

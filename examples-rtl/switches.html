@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" dir='rtl'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Switches</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+</head>
+<body>
+  <screen class='current' id='select-example'>
+    <nav>
+      <h1>مفتاح: ديناميكي</h1>
+    </nav>
+    <section>
+      <h2>اختيار ما يجب القيام به</h2>
+      <ul class='list'>
+        <li class='comp'>
+          <div>
+            <h3>نوم</h3>
+          </div>
+          <switch id='sleep-switch'></switch>
+        </li>
+      </ul>
+      <ul class='list'>
+        <li class='comp'>
+          <div>
+            <h3>عطلة</h3>
+          </div>
+          <switch id='vacation-switch'></switch>
+        </li>
+      </ul>
+      <ul class='list'>
+        <li class='comp'>
+          <div>
+            <h3>إفطار</h3>
+          </div>
+          <switch id='breakfast-switch'></switch>
+        </li>
+      </ul>
+      <p>إجابة : <strong><span id="response" class='attentionGrapper'></span></strong></p>
+    </section>
+  </screen>
+  <script>
+    $(function() {
+      $.sleepSwitch = $.Switch({
+        element: '#sleep-switch',
+        name: 'sleep',
+        value: 'نوم',
+        checked: false,
+        onCallback: function() {
+          console.log('فقط تحول هذا على!');
+          $('#response').text($.sleepSwitch.getValue().value);
+        },
+        offCallback: function() {
+          console.log('تحول هذا الشيء خارج!');
+          $('#response').empty();
+        }
+      });
+      $.vacationSwitch = $.Switch({
+        element: '#vacation-switch',
+        name: 'vacation',
+        value: 'عطلة',
+        checked: false,
+        onCallback: function() {
+          console.log('فقط تحول هذا على!');
+          $('#response').text($.vacationSwitch.getValue().value);
+        },
+        offCallback: function() {
+          console.log('تحول هذا الشيء خارج!');
+          $('#response').empty();
+        }
+      });
+      $.breakfastSwitch = $.Switch({
+        element: '#breakfast-switch',
+        name: 'breakfast',
+        value: 'إفطار',
+        checked: false,
+        onCallback: function() {
+          console.log('فقط تحول هذا على!');
+          $('#response').text($.breakfastSwitch.getValue().value);
+        },
+        offCallback: function() {
+          console.log('تحول هذا الشيء خارج!');
+          $('#response').empty();
+        }
+      });
+
+
+    });
+  </script>
+</body>
+</html>

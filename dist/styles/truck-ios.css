@@ -70,6 +70,10 @@ h4 {
 .attentionGrapper {
   color: #007AFF;
 }
+html[dir=rtl] h2 {
+  margin-left: 0;
+  margin-right: 10px;
+}
 
 /*=========*/
 /* Screens */
@@ -109,6 +113,17 @@ screen.previous {
   transform: translate3d(-100%, 0, 0);
   opacity: 1;
   visibility: visible;
+}
+html[dir=rtl] screen.current {
+  box-shadow: 10px 0 10px 1px rgba(0, 0, 0, .1);
+}
+html[dir=rtl] screen.next {
+  -webkit-transform: translate3d(-105%, 0, 0);
+  transform: translate3d(-105%, 0, 0);
+}
+html[dir=rtl] screen.previous {
+  -webkit-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
 }
 
 /*==============*/
@@ -254,6 +269,16 @@ ul.list > li > img:first-of-type {
   text-overflow: ellipsis;
   align-self: center;
 }
+html[dir=rtl] ul.list > li > div + div {
+  margin-right: 10px;
+}
+html[dir=rtl] ul.list > li > h4 {
+  text-align: left;
+}
+html[dir=rtl] ul.list > li > img:first-of-type {
+  margin-right: 0;
+  margin-left: 10px;
+}
 
 /*==============*/
 /* List Footers */
@@ -261,6 +286,10 @@ ul.list > li > img:first-of-type {
 summary,
 section > p {
   margin: 10px 0 0 10px;
+}
+html[dir=rtl] summary,
+html[dir=rtl] section > p {
+  margin: 10px 10px 0 0;
 }
 
 /*======================*/
@@ -277,7 +306,7 @@ aside {
   display: flex;
   justify-content: center !important;
   align-items: center !important;
-  width: 20px;
+  width: auto;
 }
 aside > disclosure {
   display: block;
@@ -290,11 +319,11 @@ aside > disclosure {
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-aside > span {
-  display: block;
-}
 aside > span + disclosure {
   margin-left: 10px;
+}
+aside > span {
+  display: block;
 }
 aside.price, aside.number, aside.date, aside.time {
   width: auto !important;
@@ -339,7 +368,35 @@ div:first-of-type.separator {
   border: none;
   padding-left: 0;
 }
-
+html[dir=rtl] aside {
+  margin: 0 15px 0 0;
+}
+html[dir=rtl] aside > disclosure {
+  -webkit-transform: rotate(-130deg);
+  transform: rotate(-130deg);
+}
+html[dir=rtl] aside > span + disclosure {
+  margin-left: 0;
+  margin-right: 10px;
+}
+html[dir=rtl] aside > span {
+  direction: ltr;
+}
+html[dir=rtl] .separator {
+  border-left: none;
+  border-right: solid 1px #ccc;
+  padding-left: 0;
+  padding-right: 10px;
+}
+html[dir=rtl] info::after {
+  left: 0;
+  right: 50%;
+  margin-right: -2px;
+}
+html[dir=rtl] li > aside:last-child > info {
+  float: none;
+  margin: 0 10px 0 0 !important;
+}
 /*===========================*/
 /* Footer and Bottom Toolbar */
 /*===========================*/
@@ -422,6 +479,11 @@ button.backTo svg {
 }
 path#back-arrow-shaft {
   display: none;
+}
+html[dir=rtl] button.back svg,
+html[dir=rtl] button.backTo svg { 
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 /*================*/
@@ -653,6 +715,10 @@ button.slide-out-button.focused::after {
   transform: rotate(-39deg);
   transform-origin: center left;
 }
+html[dir=rtl] button.slide-out-button {
+  right: auto;
+  left: 10px;
+}
 
 /*=================*/
 /* Editable Lists */
@@ -820,6 +886,63 @@ button.slide-out-button.focused::after {
   position: relative;
   right: 15px;
 }
+html[dir=rtl] .list.editable > li {
+  padding: 8px 30px 8px 20px;
+} 
+html[dir=rtl] .list li > .deletion-indicator {
+  margin-right: -50px;
+  margin-left: 10px;
+}
+html[dir=rtl] .list li > .move-up,
+html[dir=rtl] .list li > .move-down {
+  -webkit-transform: translate3d(-150px, 0, 0);
+  transform: translate3d(-150px, 0, 0);
+} 
+html[dir=rtl] .list li > .move-down {
+  margin-right: 0;
+  margin-left: 10px;
+  -webkit-transform: translate3d(-130px, 0, 0);
+  transform: translate3d(-130px, 0, 0);
+}
+html[dir=rtl] .list.showIndicators .move-up {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  margin-right: 0;
+  margin-left: 10px;
+}
+html[dir=rtl] .list.showIndicators .move-down {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+html[dir=rtl] .list.showIndicators > li.selected .move-up {
+  margin-right: 0;
+  margin-left: 80px;
+}
+html[dir=rtl] .list.showIndicators > li.selected .move-down {
+  margin-right: 0;
+  margin-left: 10px;
+} 
+html[dir=rtl] .list li > button.delete {
+  float: left;
+  right: auto;
+  left: -100px;
+}
+html[dir=rtl] .list.editable > li.selected > button.delete,
+html[dir=rtl] .list.deletable > li.selected > button.delete {
+  -webkit-transform: translate3d(-90px, 0, 0);
+  transform: translate3d(-90px, 0, 0);
+  right: auto;
+  left: 90px;
+} 
+html[dir=rtl] .list.editable > li.selected > .deletion-indicator,
+html[dir=rtl] .list.deletable > li.selected > .deletion-indicator {
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+html[dir=rtl] .list.showIndicators .deletion-indicator {
+  margin-left: 10px;
+  margin-right: -20px;
+}
 
 /*=======*/
 /* Forms */
@@ -902,6 +1025,10 @@ ul.multi-select-list > li {
 }
 .multi-select-list > li.selected path#mulit-select-checkmark {
   display: block;
+}
+html[dir=rtl] .multi-select-list > li > span.multi-selection-indicator { 
+  margin-right: 0;
+  margin-left: 10px;
 }
 
 /*==========*/
@@ -1053,6 +1180,10 @@ switch.checked > em {
     width: 27px;
   }
 }
+html[dir=rtl] switch.checked > em {
+  -webkit-transform: translate3d(-23px, 0, 0);
+  transform: translate3d(-23px, 0, 0);
+}
 
 /*==============*/
 /* Mask Control */
@@ -1173,6 +1304,10 @@ switch.checked > em {
 .popup footer > button + button {
   border-left: solid 1px #b5b5b5;
 }
+html[dir=rtl] .popup footer > button + button {
+  border-left: none;
+  border-right: solid 1px #b5b5b5;
+}
 
 /*===================*/
 /* Segmented Control */
@@ -1237,6 +1372,21 @@ div.horizontal.centered > .segmented {
   flex: 1;
   margin: 10px 15px;
 }
+html[dir=rtl] .segmented > button:first-of-type {
+  border-left: none;
+  border-right: solid 1px #007aff;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+} 
+html[dir=rtl] .segmented > button:last-of-type {
+  border-left: solid 1px #007aff;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
 
 /*===============*/
 /* Range Control */
@@ -1269,6 +1419,9 @@ input[type="range"]::-webkit-slider-thumb {
 }
 .isDesktop input[type="range"]::-webkit-slider-thumb:hover {
   background-color: #f9f9f9;
+}
+html[dir=rtl] input[type="range"] {
+  background-position: right center;
 }
 
 /*===============*/
@@ -1386,7 +1539,7 @@ screen.current.blurred.removeBlurSlow {
   box-sizing: border-box;
 }
 .isDesktop .pager > button:hover,
-.pager > button.selected{
+.pager > button.selected {
   opacity: .5 !important;
   color: #007aff;
   background-color: transparent !important;
@@ -1437,6 +1590,22 @@ section.paging > article.current {
 section.paging > article.next {
   -webkit-transform: translate3d(100%, 0, 0) scale(0, 1);
   transform: translate3d(100%, 0, 0) scale(0, 1);
+}
+html[dir=rtl] .pager > button.previous > svg  {
+  -webkit-transform: rotate(180deg) scale(.8);
+  transform: rotate(180deg) scale(.8);
+}
+html[dir=rtl] .pager > button.next > svg  {
+  -webkit-transform: rotate(180deg) scale(.8);
+  transform: rotate(180deg) scale(.8);
+}
+html[dir=rtl] section.paging > article.previous {
+  -webkit-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
+}
+html[dir=rtl] section.paging > article.next {
+  -webkit-transform: translate3d(-100%, 0, 0) scale(0, 1);
+  transform: translate3d(-100%, 0, 0) scale(0, 1);
 }
 
 /*=================*/
@@ -1514,6 +1683,24 @@ section.paging > article.next {
 }
 .stepper > button.disabled {
   opacity: .5 !important;
+}
+html[dir=rtl] .stepper > button:first-of-type {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-right: solid 1px #007aff;
+  border-left: none;
+  margin: 0;
+}
+html[dir=rtl] .stepper > button:last-of-type {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-left: solid 1px #007aff;
+  border-right: none;
+  margin: 0;
 }
 
 /*=================*/

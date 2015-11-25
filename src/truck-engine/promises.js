@@ -77,7 +77,7 @@
         }
         if (ret === chain.promise) {
           chain.reject(new TypeError("Promise-chain cycle"));
-        } else if (_then = isThenable(ret)) {
+        } else if (_then = isThenable(ret)) { // jshint ignore:line
           _then.call(ret, chain.resolve, chain.reject);
         } else {
           chain.resolve(ret);

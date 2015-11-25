@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" dir='rtl'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Range Input</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+  <style>
+    div {
+      width: 300px;
+      font:  bold 16pt/20pt Helvetica, sans-serif;
+      -webkit-user-select: none;
+    }
+    section label {
+      display: block;
+      margin-bottom: 6px;
+    }
+    section input[type=range] {
+      width: 200px
+    }
+  </style>
+  <script>
+    $(function() {
+      $('#rangeValue1').text($('#rangeControl1').val());
+      // Safari, Chrome and Firefox use "input",
+      // Windows responds to "change":
+      $('#rangeControl1').on('input change', function() {
+        $('#rangeValue1').text($(this).val());
+      });
+      
+      $('#rangeValue2').text($('#rangeControl2').val());
+      // Safari, Chrome and Firefox use "input",
+      // Windows responds to "change":
+      $('#rangeControl2').on('input change', function() {
+        $('#rangeValue2').text($(this).val());
+      });
+    });
+  </script>
+</head>
+<body>
+  <screen id="main" class="current">
+    <nav>
+      <h1>نطاق</h1>
+    </nav>
+    <section>
+      <h2>السيطرة على شريط التمرير</h2>
+      <ul class='list'>
+        <li>
+          <div>
+            <h3>زيادة نقطة بنقطة<span></span></h3>
+            <label>القيمة الحالية: <span id='rangeValue1' class='attentionGrapper'></span></label>
+            <input type="range" id="rangeControl1" value="10" min="0" max="40">
+          </div>
+        </li>
+      </ul>
+      <ul class='list' ui-li-order="stacked" ui-kind='grouped'>
+        <li>
+          <div>
+            <h3>زيادة كل 5 نقطة<span></span></h3>
+            <label>القيمة الحالية: <span id='rangeValue2' class='attentionGrapper'></span></label>
+            <input type="range" id="rangeControl2" step='5' value="20" min="0" max="40">    
+          </div>
+        </li>
+      </ul>
+    </section>
+  </screen>
+</body>
+</html>

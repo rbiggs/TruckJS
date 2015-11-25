@@ -62,7 +62,10 @@
         $.myForm = $.Form([
           {
             element: '#firstName',
-            type: 'text'
+            type: 'text',
+            callback: function() {
+              alert('The first name needs to be text!')
+            }
           },
           {
             element: '#lastName',
@@ -71,10 +74,10 @@
           {
             element: '#age',
             type: 'age',
-            min: 20/*,
+            min: 20,
             callback: function() {
-              alert("Please provide an proper age.")
-            }*/
+              alert("Please provide a proper age.")
+            }
           },
           {
             element: '#fav1',
@@ -102,7 +105,8 @@
           }
         ]);
         if(!$.myForm.errors()) {
-          console.dir($.myForm.get())
+          $.formData = $.myForm.get();
+          console.dir($.formData)
         }
       });
     });

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir='rtl'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Popup</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+  <script>
+    $(function() {
+      $.Popup({
+        id: "warning",
+          title: 'اهتمام!', 
+          message: 'شكرا لهذه القراءة.', 
+          cancelButton: 'إلغاء', 
+          continueButton: 'استمر', 
+        callback: function() {
+          var popupMessageTarget = document.querySelector('#popupMessageTarget');
+          popupMessageTarget.textContent = 'شكرا لمشاركة!';
+          popupMessageTarget.classList.remove("animatePopupMessage");
+          popupMessageTarget.classList.add("animatePopupMessage");
+          setTimeout(function() {
+            $('#popupMessageTarget').empty()
+          }, 2000);
+        }
+      });
+      $("#showPopup").on("tap", function() {
+        $('#warning').ShowPopup();
+      });
+    });
+  </script>
+</head>
+<body>
+  <screen id="main" class="current">
+    <nav>
+      <h1>قصة ممتعة</h1>
+      <button id="showPopup">فتح</button>
+    </nav>
+    <section>
+      <p id='popupMessageTarget' class='attentionGrapper'></p>
+      <h2>نوعية رحمة</h2>
+      <ul class='list'>
+        <li>
+          <div>
+            <h3>تنازع شخصان وذهبا إلى جحا * وكان قاضيا * فقال المدعي : لقد كان هذا الرجل يحمل حملا ثقيلا ، فوقع على الأرض ، فطلب مني أن أعاونه ، فسألته عن الأجر الذي يدفعه لي بدل مساعدتي له ، فقال ( لا شيء) فرضيت بها وحملت حمله . وهاأنذا أريد أن يدفع لي اللا شيء . فقال جحا : دعواك صحيحه يا بني ، اقترب مني وارفع هذا الكتاب . ولما رفعه قال له جحا : ماذا وجدت تحته ؟ قال : لا شيء . قال جحا : خذها وأنصرف
+</h3>
+          </div>
+        </li>
+      </ul>
+      <p>Portia's entreaty to Shylock to show mercy to Antonio.</p>
+    </section>
+  </screen>
+</body>
+</html>

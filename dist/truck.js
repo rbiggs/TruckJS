@@ -1976,9 +1976,9 @@
   });
 
   $(function() {
-    //////////////////////////
+    //=======================
     // Setup Event Variables:
-    //////////////////////////
+    //=======================
     // Pointer events for IE10 and WP8:
     if (window.navigator.pointerEnabled) {
       $.eventStart = 'pointerdown';
@@ -2080,6 +2080,7 @@
         } else {
           if (!e.isPrimary) return;
         }
+        // Handle event if jQuery sor not:
         e = e.originalEvent ? e.originalEvent : e;
         body.on('MSHoldVisual', function(e) {
           e.preventDefault();
@@ -4299,11 +4300,11 @@
 })();
 // Truck Engine - Promises Module:
 (function() {
-  /*jshint validthis:true */
   "use strict";
   //==================================
   // Define polyfill for ES6 Promises:
   //==================================
+  /*jshint validthis:true */
   var extend;
   var cycle;
   var queue;
@@ -4380,7 +4381,7 @@
         }
         if (ret === chain.promise) {
           chain.reject(new TypeError("Promise-chain cycle"));
-        } else if (_then = isThenable(ret)) {
+        } else if (_then = isThenable(ret)) { // jshint ignore:line
           _then.call(ret, chain.resolve, chain.reject);
         } else {
           chain.resolve(ret);
@@ -4401,7 +4402,7 @@
       self = self.deferred;
     }
     try {
-      if (_then = isThenable(msg)) {
+      if (_then = isThenable(msg)) { // jshint ignore:line
         schedule(function() {
           var deferred_wrapper = new MakeDeferred(self);
           try {
@@ -4483,7 +4484,7 @@
       };
       // `.then()` can be used against a different promise
       // constructor for making a chained promise.
-      obj['promise'] = new this.constructor(function extractChain(resolve, reject) {
+      obj.promise = new this.constructor(function extractChain(resolve, reject) {
         if (typeof resolve !== "function" || typeof reject !== "function") {
           throw new TypeError("Not a function");
         }
@@ -4511,10 +4512,12 @@
   }
   var PromisePrototype = extend({}, "constructor", Promise, false);
   extend(Promise, "prototype", PromisePrototype, false);
+
   // Check if Promise is initialized:
   extend(PromisePrototype, "isValidPromise", 0, false);
   extend(Promise, "resolve", function(msg) {
     var Constructor = this;
+
     // Make sure it is a valide Promise:
     if (msg && typeof msg === "object" && msg.isValidPromise === 1) {
       return msg;
@@ -4536,6 +4539,7 @@
   });
   extend(Promise, "all", function(arr) {
     var Constructor = this;
+
     // Make sure argument is an array:
     if (Object.prototype.toString.call(arr) !== "[object Array]") {
       return Constructor.reject(new TypeError("Not an array"));
@@ -4547,9 +4551,9 @@
       if (typeof resolve !== "function" || typeof reject !== "function") {
         throw new TypeError("Not a function");
       }
-      var len = arr.length,
-        msgs = new Array(len),
-        count = 0;
+      var len = arr.length;
+      var msgs = new Array(len);
+      var count = 0;
       iteratePromises(Constructor, arr, function resolver(idx, msg) {
         msgs[idx] = msg;
         if (++count === len) {
@@ -4560,6 +4564,7 @@
   });
   extend(Promise, "race", function(arr) {
     var Constructor = this;
+
     // Make sure argument is an array:
     if (Object.prototype.toString.call(arr) !== "[object Array]") {
       return Constructor.reject(new TypeError("Not an array"));
@@ -4573,10 +4578,12 @@
       }, reject);
     });
   });
+
   // If native Promise exists in window, do not use this.
   if ("Promise" in window && "resolve" in window.Promise && "reject" in window.Promise && "all" in window.Promise && "race" in window.Promise) {
     return;
   } else {
+
     // Otherwise do use this:
     return window.Promise = Promise;
   }
@@ -7395,7 +7402,6 @@
   Truck body parts. These modules are used by both Truck Engine and jQuery. They are a set of widgets for users to interact with.
 */
 
-// Truck Body - Navbar Auto Layout
 (function() {
   $(function() {
     "use strict";
@@ -7410,6 +7416,7 @@
         var siblings = screen.find('h1').siblings();
         var whichSide;
         var oppositeSide;
+        var rtl = ($('html').attr('dir') === 'rtl');
         var amount = 0;
         var padding = 20;
         var oppositeAmount = 25;
@@ -7422,11 +7429,19 @@
           if (widthB > widthA) {
             whichSide = 'margin-left';
             oppositeSide = 'margin-right';
-            amount = (widthB - widthA);
+            if (rtl) {
+              whichSide = 'margin-right';
+              oppositeSide = 'margin-left';
+            }
+            amount = (widthB - widthA) + 20;
           } else if (widthA > widthB) {
             whichSide = 'margin-right';
             oppositeSide = 'margin-left';
-            amount = (widthA - widthB);
+            if (rtl) {
+              whichSide = 'margin-left';
+              oppositeSide = 'margin-right';
+            }
+            amount = (widthA - widthB) + 20;
           } else {
             amount = 0;
           }
@@ -7435,13 +7450,21 @@
         // If one sibling:
         if (siblings.length === 1) {
           var sibling = h1.siblings().eq(0);
-          amount = sibling.width();
+          amount = sibling.width() + 20;
           if (siblings.is(':first-child')) {
             whichSide = 'margin-right';
             oppositeSide = 'margin-left';
+            if (rtl) {
+              whichSide = 'margin-left';
+              oppositeSide = 'margin-right';
+            }
           } else if (siblings.eq(0).is(':last-child')) {
             whichSide = 'margin-left';
             oppositeSide = 'margin-right';
+            if (rtl) {
+              whichSide = 'margin-right';
+              oppositeSide = 'margin-left';
+            }
           }
 
           // If two siblings:
@@ -7635,8 +7658,9 @@
       if ($.isNavigating) return;
       if (!element.hazAttr('data-goto')[0]) return;
       if (element.closest('ul').is('.deletable')) return;
-      element.addClass('selected');
       var destination = element.attr('data-goto');
+      if (!destination) return;
+      element.addClass('selected');
       setTimeout(function() {
         element.removeClass('selected');
       }, 1000);
@@ -7890,13 +7914,11 @@
         $(this).toggleClass('focused');
         if (slideout.hasClass('open')) {
           slideout.removeClass('open');
-          console.log('gonna disable the damn back button!')
-          slideout.attr('aria-hidden', "false");
+          slideout.removeAttr('aria-hidden');
           $('button.back').removeClass('disabled').removeProp('disabled');
           $('button.backTo').removeClass('disabled').removeProp('disabled');
         } else {
           slideout.addClass('open')
-          console.log('gonna leave the back button alone.')
           slideout.attr('aria-hidden', true);
           $('button.back').addClass('disabled').prop('disabled', true);
           $('button.backTo').addClass('disabled').prop('disabled', true);
@@ -7912,6 +7934,9 @@
         // Toggle Slide Out button:
         slideOutBtn.toggleClass('focused');
 
+        $('button.back').removeClass('disabled').removeProp('disabled');
+        $('button.backTo').removeClass('disabled').removeProp('disabled');
+
         // This list item shows a single screen:
         menuItems.hazClass('selected').removeClass('selected');
         $.screens.hazClass('show').removeClass('show').attr('aria-hidden', true);
@@ -7921,8 +7946,6 @@
         $('screen.previous').addClass('next').removeClass('previous');
         // Get route to dispatch:
         $.Router.dispatch(screenToShow);
-
-
 
         // Close slide out:
         slideout.removeClass('open');

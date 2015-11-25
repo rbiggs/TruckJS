@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck View</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+  <style>
+    .list > li > img {
+      height: 70px !important;
+      width: auto;
+    }
+  </style>
+
+</head>
+<body>
+  <screen id='main' class='current'>
+    <nav>
+      <h1>قوالب</h1>
+    </nav>
+    <section>
+      <h2>كائن واحد</h2>
+
+      <ul class="list cloak" id='objTemplate1'>
+        <li>
+          <h3>${ data.firstName } ${ data.lastName }, سن: ${ data.age }</h3>
+        </li>
+      </ul>
+
+      <ul class="list cloak" id='objTemplate2'>
+        <li>
+          <h3>${ data.firstName } ${ data.lastName }, سن: ${ data.age }</h3>
+        </li>
+      </ul>
+
+      
+      <h2>مجموعة</h2>
+
+      <ul class="list cloak" id="arrayTemplate1">
+        <li class='comp'>
+          <img data-src='${ data.image }' alt="">
+          <div>
+            <h3>
+              ${ $.view.index }: ${ data.firstName } ${ data.lastName }
+            </h3>
+          </div>
+        </li>
+      </ul>
+
+      <ul class="list cloak" id="arrayTemplate2">
+        <li>
+          <h3>
+            ${ $.view.index }: ${ data.firstName } ${ data.lastName }
+          </h3>
+        </li>
+      </ul>
+
+    </section>
+  </screen>
+
+<script>
+  // $(function() {
+
+      ///////////////////////////////////////////////////////////////
+      // IMPORTANT! Define any view helpers first, before using them:
+      ///////////////////////////////////////////////////////////////
+
+
+      // Simple object:
+      //===============
+      var person = { 
+       "firstName":"أحمد",
+       "lastName": "مصطفى",
+       "age": 32
+      };
+
+      // Create model:
+      //==============
+      var PersonModel = $.Model(person, 'person-handle');
+
+      // Init views:
+      //============
+      var personView1 = $.View({element: '#objTemplate1', model: PersonModel});
+      var personView2 = $.View({element: '#objTemplate2'});
+
+      // Render views:
+      //==============
+      // With Model:
+      personView1.render();
+      // with object:
+      personView2.render(person);
+
+      // Array data:
+      //=============
+      var lums = [
+          {firstName: "ستيفن", lastName: "هوكينج", image: 'images/Hawking.jpg', age: 20},
+          {firstName: "البرت", lastName: "اينشتاين", image: 'images/Einstein.jpg', age: 31},
+          {firstName: "ليوناردو", lastName: "دافنشي", image: 'images/DaVinci.jpg', age: 100},
+          {firstName: "غاليليو", lastName: "غاليلي", image: 'images/Galileo.jpg', age: 40},
+          {firstName: "نيكولاس", lastName: "كوبرنيكوس", image: 'images/Copernicus.jpg', age: 32}  
+        ];
+
+      // Create model:
+      //==============
+      var LumsModel = $.Model(lums, 'luminaries-handle');
+
+      // Init views:
+      //=============
+      var vipView1 = $.View({
+        element: '#arrayTemplate1', 
+        model: LumsModel,
+        startIndexFrom: 10,
+        events: [{
+          element: 'li',
+          startIndexFrom: 10,
+          event: 'tap',
+          callback: function() {
+            console.log($(this).text());
+          }
+        }]
+      });
+      var vipView2 = $.View({
+        element: '#arrayTemplate2'
+      });
+
+      // Render views:
+      vipView1.render();
+      vipView2.render(lums)
+
+
+    // });
+</script>  
+</body>

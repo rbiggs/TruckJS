@@ -117,8 +117,9 @@
       if ($.isNavigating) return;
       if (!element.hazAttr('data-goto')[0]) return;
       if (element.closest('ul').is('.deletable')) return;
-      element.addClass('selected');
       var destination = element.attr('data-goto');
+      if (!destination) return;
+      element.addClass('selected');
       setTimeout(function() {
         element.removeClass('selected');
       }, 1000);

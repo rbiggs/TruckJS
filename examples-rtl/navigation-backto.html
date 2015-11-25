@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir='rtl'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Navigation BackTo</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+  <script>
+    $(function() {
+      $("#goToLast").on("tap", function() {
+         $.GoToScreen("screen3");
+       });
+       $('#backToMain').on('tap', function() {
+         $.GoBackToScreen('main');
+       });
+    });
+  </script>
+</head>
+<body>
+  <screen id='main' class='current'>
+    <nav>
+      <h1>غير الخطي للملاحة</h1>
+    </nav>
+    <section>
+      <ul class='list' role='list'>
+        <li data-goto="screen2">
+          <h3>عنصر</h3>
+          <aside>
+            <disclosure></disclosure>
+          </aside>
+        </li>
+      </ul>
+      <br><br>
+      <button id='goToLast' href='javascript:void(null)' class="action">انتقل إلى القصة</button>
+    </section>
+  </screen>
+  <screen id="screen2" class='next'>
+    <nav>
+      <button class="back">رجوع</button>
+      <h1>المادة الثانية</h1>
+    </nav>
+    <section>
+      <ul class='list' role='list'>
+        <li data-goto="screen3">
+          <h3>عنصر</h3>
+          <h4>عنوان فرعي</h4>
+          <aside>
+            <disclosure></disclosure>
+          </aside>
+        </li>
+      </ul>
+    </section>
+  </screen>
+  <screen id="screen3" class='next'>
+    <nav>
+      <button id='backToMain' class='backTo'>رجوع</button>
+      <h1>زر الرجوع</h1>
+    </nav>
+    <section>
+      <ul class='list'>
+        <li>
+          <div>
+            <h3>عنصر</h3>
+            <h4>عنوان فرعي</h4>
+            <p>لى تم الإتحاد الهزائم الإكتفاء. لم فقامت ناجازاكي قام. وقد استمرار الخنادق و, ذلك الخاسرة اليابانية بـ. كما مرجع فرنسية في, أن لكل المحيط النمسا الساحلية.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </screen>
+</body>
+</html>

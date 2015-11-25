@@ -11,9 +11,9 @@
   });
 
   $(function() {
-    //////////////////////////
+    //=======================
     // Setup Event Variables:
-    //////////////////////////
+    //=======================
     // Pointer events for IE10 and WP8:
     if (window.navigator.pointerEnabled) {
       $.eventStart = 'pointerdown';
