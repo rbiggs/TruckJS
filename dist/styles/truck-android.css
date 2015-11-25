@@ -68,6 +68,10 @@ h4 {
   font-weight: 400 !important;
   color: #7f7f7f;
 }
+html[dir=rtl] h2 {
+  margin-left: 0;
+  margin-right: 10px;
+}
 
 /*=========*/
 /* Screens */
@@ -161,6 +165,14 @@ nav button.back + h1,
 nav button.backTo + h1 {
   margin-left: 10px;
 }
+html[dir=rtl] nav > h1 {
+  text-align: right;
+}
+html[dir=rtl] nav button.back + h1,
+html[dir=rtl] nav button.backTo + h1 {
+  margin-left: 0;
+  margin-right: 10px;
+}
 
 /*=======*/
 /* Lists */
@@ -248,6 +260,13 @@ ul.list > li > img:first-of-type {
   text-overflow: ellipsis;
   align-self: center;
 }
+html[dir=rtl] ul.list > li > h4 {
+  text-align: left;
+}
+html[dir=rtl] ul.list > li > img:first-of-type {
+  margin-right: 0;
+  margin-left: 10px;
+}
 
 /*==============*/
 /* List Footers */
@@ -255,6 +274,10 @@ ul.list > li > img:first-of-type {
 summary,
 section > p {
   margin: 10px 0 0 10px;
+}
+html[dir=rtl] summary,
+html[dir=rtl] section > p {
+  margin: 10px 10px 0 0;
 }
 
 /*======================*/
@@ -271,7 +294,7 @@ aside {
   display: flex;
   justify-content: center !important;
   align-items: center !important;
-  width: 20px;
+  width: auto;
 }
 aside > disclosure {
   display: block;
@@ -336,6 +359,43 @@ div:first-of-type.separator {
   border: none;
   padding-left: 0;
 }
+html[dir=rtl] aside > disclosure {
+  -webkit-transform: rotate(-130deg);
+  transform: rotate(-130deg);
+  margin-left: 0;
+  margin-right: 0;
+}
+html[dir=rtl] aside > span + disclosure {
+  margin-left: 0;
+  margin-right: 10px;
+}
+html[dir=rtl] .separator {
+  border-left: none;
+  border-right: solid 1px #ccc;
+  padding-left: 0;
+  padding-right: 10px;
+}
+html[dir=rtl] aside {
+  margin: 0 15px 0 0;
+  float: none;
+}
+html[dir=rtl] info::after {
+  left: 0;
+  right: 50%;
+  margin-right: -2px;
+  margin-left: 0;
+}
+html[dir=rtl] aside > span + disclosure {
+  margin-left: 0;
+  margin-right: 10px;
+}
+html[dir=rtl] aside > span {
+  direction: ltr;
+}
+html[dir=rtl] li > aside:last-child > info {
+  float: left;
+  margin: 0 10px 0 0 !important;
+}
 
 /*===========================*/
 /* Footer and Bottom Toolbar */
@@ -397,7 +457,6 @@ button {
   -moz-box-align: center;
   -webkit-align-items: center;
   align-items: center;
-  font-size: 12px;
   height: 40px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -412,6 +471,7 @@ button {
   padding: 12px 20px 10px;
   text-transform: uppercase;
   font-family: 'Roboto Regular', HeveticaNeue, Sans-serif;
+  font-size: 12px;
   border-radius: 2px;
   -webkit-transition: all 0.35s ease-out;
   -moz-transition: all 0.35s ease-out;
@@ -437,6 +497,9 @@ nav > button.selected,
 toolbar > button.selected,
 footer > button.selected {
   box-shadow: none !important;
+}
+html[dir=rtl] button {
+  font-size: 14px;
 }
 
 /*==============*/
@@ -503,6 +566,11 @@ nav > .back.selected #truck-back-arrow {
   100% {
     box-shadow: inset 0 0 0 rbga(0, 0, 0, 0), 0 0 0 rgba(0, 0, 0, 0);
   }
+}
+html[dir=rtl] button.back svg {
+  margin: 0px 12px 0px 0px;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 /*================*/
@@ -660,6 +728,9 @@ tabbar > button.more > .icon {
   align-items: center;
   justify-content: center;
 }
+html[dir=rtl] tabbar > button.more > label {
+  display: none;
+}
 
 /*================*/
 /* Slide Out Menu */
@@ -782,6 +853,25 @@ button.slide-out-button.focused::before {
 button.slide-out-button.focused::after {
   transform: rotate(-30deg) translate3d(5px, -7px, 0);
   transform-origin: center right;
+}
+html[dir=rtl] slideout  {
+  right: auto;
+  left: 0;
+  -webkit-transform: translate3d(-100%, 0, 0);
+  transform: translate3d(-100%, 0, 0);
+}
+html[dir=rtl] slideout.open {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  border-left: none;
+  border-right: solid 1px #c8c8c8;
+  box-shadow: 3px 0 6px rgba(0, 0, 0, 0.25);
+}
+html[dir=rtl] button.slide-out-button {
+  right: auto;
+  left: 10px;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 /*=================*/
@@ -965,6 +1055,63 @@ button.slide-out-button.focused::after {
   position: relative;
   right: 15px;
 }
+html[dir=rtl] .list.editable > li {
+  padding: 8px 30px 8px 20px;
+} 
+html[dir=rtl] .list li > .deletion-indicator {
+  margin-right: -50px;
+  margin-left: 10px;
+}
+html[dir=rtl] .list li > .move-up,
+html[dir=rtl] .list li > .move-down {
+  -webkit-transform: translate3d(-150px, 0, 0);
+  transform: translate3d(-150px, 0, 0);
+} 
+html[dir=rtl] .list li > .move-down {
+  margin-right: 0;
+  margin-left: 10px;
+  -webkit-transform: translate3d(-130px, 0, 0);
+  transform: translate3d(-130px, 0, 0);
+}
+html[dir=rtl] .list.showIndicators .move-up {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  margin-right: 0;
+  margin-left: 0;
+}
+html[dir=rtl] .list.showIndicators .move-down {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+html[dir=rtl] .list.showIndicators > li.selected .move-up {
+  margin-right: 0;
+  margin-left: 70px;
+}
+html[dir=rtl] .list.showIndicators > li.selected .move-down {
+  margin-right: 0;
+  margin-left: 10px;
+} 
+html[dir=rtl] .list li > button.delete {
+  float: left;
+  right: auto;
+  left: -100px;
+}
+html[dir=rtl] .list.editable > li.selected > button.delete,
+html[dir=rtl] .list.deletable > li.selected > button.delete {
+  -webkit-transform: translate3d(-100px, 0, 0);
+  transform: translate3d(-100px, 0, 0);
+  right: auto;
+  left: 90px;
+} 
+/*html[dir=rtl] .list.editable > li.selected > .deletion-indicator,
+html[dir=rtl] .list.deletable > li.selected > .deletion-indicator {
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}*/
+html[dir=rtl] .list.showIndicators .deletion-indicator {
+  margin-left: 10px;
+  margin-right: -20px;
+}
 
 /*=======*/
 /* Forms */
@@ -1053,6 +1200,13 @@ ul.multi-select-list > li {
 .multi-select-list > li.selected path#mulit-select-checkmark {
   display: block;
   stroke-width: 2px;
+}
+html[dir=rtl] .multi-select-list > li > span.multi-selection-indicator {
+  margin-right: 0;
+  margin-left: 10px;
+}
+html[dir=rtl] .multi-select-list > li > span.multi-selection-indicator > svg {
+  margin: -6px -5px 0 0;
 }
 
 /*==========*/
@@ -1168,6 +1322,11 @@ switch.traditional.checked > em {
 }
 switch > input {
   display: none;
+}
+html[dir=rtl] switch.checked > em {
+  -webkit-transform: translate3d(-20px, 0, 0);
+  -moz-transform: translate3d(-20px, 0, 0);
+  transform: translate3d(-20px, 0, 0);
 }
 
 /*==============*/
@@ -1471,6 +1630,9 @@ input[type="range"]:focus::-webkit-slider-thumb,
   -webkit-appearance: none;
   display: block;
 }
+html[dir=rtl] input[type="range"] {
+  background-position: right center;
+}
 
 /*===============*/
 /* Sheet Control */
@@ -1642,6 +1804,22 @@ section.paging > article.next {
   -webkit-transform: translate3d(100%, 0, 0) scale(0, 1);
   transform: translate3d(100%, 0, 0) scale(0, 1);
 }
+html[dir=rtl] .pager > button.previous > svg  {
+  -webkit-transform: rotate(180deg) scale(.8);
+  transform: rotate(180deg) scale(.8);
+}
+html[dir=rtl] .pager > button.next > svg  {
+  -webkit-transform: rotate(180deg) scale(.8);
+  transform: rotate(180deg) scale(.8);
+}
+html[dir=rtl] section.paging > article.previous {
+  -webkit-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0);
+}
+html[dir=rtl] section.paging > article.next {
+  -webkit-transform: translate3d(-100%, 0, 0) scale(0, 1);
+  transform: translate3d(-100%, 0, 0) scale(0, 1);
+}
 
 /*=================*/
 /* Popover Control */ 
@@ -1739,6 +1917,9 @@ nav > button.show-popover::after {
 nav > h1 + button.show-popover.align-flush {
   margin: 8px 0 0 0 !important;
 }
+html[dir=rtl] .popover {
+  right: auto;
+}
 html[dir=rtl] button.show-popover {
   padding: 6px 10px 2px 20px !important;
 }
@@ -1746,10 +1927,10 @@ html[dir=rtl] button.show-popover::after {
   left: 2px;
   right: auto;
   border: none;
-  border-left: solid 6px #000000;
-  border-bottom: solid 6px #000000;
-  border-top: solid 6px transparent;
-  border-right: solid 6px transparent;
+  border-left: solid 4px transparent;
+  border-bottom: solid 4px #000000;
+  border-top: solid 4px transparent;
+  border-right: solid 4px #000000;
 }
 html[dir=rtl] button.show-popover + button {
   -webkit-box-ordinal-group: 1;
@@ -1843,6 +2024,16 @@ html[dir=rtl] .isDesktop .button.show-popover:hover::after {
   border-left: none;
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
+}
+html[dir=rtl] .stepper > button:first-of-type {
+  border-right: solid 1px #cbcbcb;
+  border-left: none;
+  margin: 0;
+}
+html[dir=rtl] .stepper > button:last-of-type {
+  border-left: solid 1px #cbcbcb;
+  border-right: none;
+  margin: 0;
 }
 
 /*======*/
