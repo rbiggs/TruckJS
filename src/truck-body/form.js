@@ -52,6 +52,7 @@
               var namePart = nameParts[j];
               var arrName;
               if (namePart.indexOf('[]') > -1 && j === nameParts.length - 1) {
+
                 arrName = namePart.substr(0, namePart.indexOf('['));
                 if (!currResult[arrName]) {
                   currResult[arrName] = [];
@@ -172,6 +173,17 @@
             __passed = $(item.element).validateSelectList();
             if (__passed) {
               validateElement(item);
+            }
+          case 'multiselectlist':
+            __passed = $(item.element).validateMultiSelectList();
+            var inputs;
+            if (__passed) {
+              inputs = $(item.element).find('input[type=checkbox]');
+              inputs.forEach(function(item) {
+                if (item.checked) {
+                  convertToObject(item.name, item.value);
+                }
+              });
             }
         }
       });

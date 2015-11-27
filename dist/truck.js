@@ -5413,6 +5413,20 @@
       } else {
         return false;
       }
+    },
+    validateMultiSelectList: function() {
+      var checkboxes = this.find('input[type=checkbox]');
+      var checked = false;
+      checkboxes.forEach(function(item) {
+        if ($(item).prop('checked')) {
+          checked = true;
+        }
+      });
+      if (checked) {
+        return true;
+      } else {
+        return false;
+      }
     }
   });
 
@@ -8345,6 +8359,7 @@
               var namePart = nameParts[j];
               var arrName;
               if (namePart.indexOf('[]') > -1 && j === nameParts.length - 1) {
+
                 arrName = namePart.substr(0, namePart.indexOf('['));
                 if (!currResult[arrName]) {
                   currResult[arrName] = [];
@@ -8465,6 +8480,17 @@
             __passed = $(item.element).validateSelectList();
             if (__passed) {
               validateElement(item);
+            }
+          case 'multiselectlist':
+            __passed = $(item.element).validateMultiSelectList();
+            var inputs;
+            if (__passed) {
+              inputs = $(item.element).find('input[type=checkbox]');
+              inputs.forEach(function(item) {
+                if (item.checked) {
+                  convertToObject(item.name, item.value);
+                }
+              });
             }
         }
       });
@@ -8597,17 +8623,13 @@
         ctx.setAttribute('role', 'checkbox');
         $(ctx).removeClass('selected').find('input').removeAttr('checked');
         $(ctx).prepend('<span class="multi-selection-indicator"><svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="multi-select-icon" stroke="#979797"><g id="multi-select-circle-+-mulit-select-checkmark" transform="translate(2.000000, 2.000000)"><circle id="multi-select-circle" cx="13" cy="13" r="13"></circle><path d="M4.71521456,15.9877529 L13.0000002,20.7028494 L19.977049,5.70284941" id="mulit-select-checkmark"></path></g></g></g></svg></span>');
-
+        $(ctx).append('<input type="checkbox" name="' + name + '" value="' + value + '">');
         if (selections.length) {
           selections.forEach(function(sel) {
             if (sel === idx) {
               ctx.setAttribute('aria-checked', 'true');
               ctx.classList.add('selected');
-              if (!$(ctx).find('input')[0]) {
-                $(ctx).append('<input type="checkbox" checked="checked" name="' + name + '" value="' + value + '">');
-              } else {
-                $(ctx).find('input').prop('checked', true).attr('value', value);
-              }
+              $(ctx).find('input').prop('checked', true).attr('value', value);
               __selection.push({
                 index: sel,
                 value: value
@@ -8615,10 +8637,6 @@
             }
           });
 
-        } else {
-          if (!$(ctx).find('input')[0]) {
-            $(ctx).append('<input type="checkbox" name="' + name + '" value="' + value + '">');
-          }
         }
       });
 

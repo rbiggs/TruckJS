@@ -61,14 +61,7 @@
       <h2 class='normal-case wrap'>Using <em>data-src</em> for images.</h2>
 
       <ul class="list cloak" id="repeaterWithImages">
-        <li class='comp'>
-          <img data-src='${ data.image }' alt="">
-          <div>
-            <h3>
-              ${ $.view.index }: ${ data.firstName } ${ data.lastName }
-            </h3>
-          </div>
-        </li>
+        
       </ul>
 
       <h2>Automatic Data Binding</h2>
@@ -231,7 +224,25 @@
       var luminariesView = $.View({
         element: '#repeaterWithImages', 
         model: LuminariesModel,
-        name: 'luminariesView'
+        name: 'luminariesView',
+        variable: 'person',
+        template: "<li class='comp'>\
+          <img data-src='${ person.image }' alt=''>\
+          <div>\
+            <h3>\
+              ${ $.view.index }: ${ person.firstName } ${ person.lastName }\
+            </h3>\
+          </div>\
+        </li>",
+        events: [
+          {
+            element: 'li',
+            event: 'tap',
+            callback: function() {
+              console.log($(this).text());
+            }
+          }
+        ]
       });
       luminariesView.render()
 

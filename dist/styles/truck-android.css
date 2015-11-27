@@ -533,9 +533,7 @@ button.back svg {
   margin: 4px 4px 4px 8px;
   padding: 0 !important
 }
-button.back > span {
-  display: none;
-}
+
 #truck-back-arrow {
   stroke: #007aff;
   stroke-width: 10px;
@@ -570,9 +568,7 @@ nav > .back.selected #truck-back-arrow {
   }
 }
 html[dir=rtl] button.back svg {
-  position: absolute;
-  top: 0;
-  left: -4px;
+  margin: 0px 12px 0px 0px;
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
@@ -732,7 +728,7 @@ tabbar > button.more > .icon {
   align-items: center;
   justify-content: center;
 }
-tabbar > button.more > label {
+html[dir=rtl] tabbar > button.more > label {
   display: none;
 }
 

@@ -4,7 +4,7 @@
   //========================
   // Define data validators:
   //========================
-  
+
   // Set validity state of form elements:
   var setValidityStatus = function(element, valid) {
     if (valid) {
@@ -261,6 +261,20 @@
     validateSelectList: function() {
       var radio = this.find('input[type=radio]');
       if (radio.iz('[checked]')[0]) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    validateMultiSelectList: function() {
+      var checkboxes = this.find('input[type=checkbox]');
+      var checked = false;
+      checkboxes.forEach(function(item) {
+        if ($(item).prop('checked')) {
+          checked = true;
+        }
+      });
+      if (checked) {
         return true;
       } else {
         return false;

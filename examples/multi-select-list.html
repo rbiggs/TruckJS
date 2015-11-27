@@ -23,6 +23,9 @@
         </li>
       </ul>
       <p>You are going to: <strong><span id="response" class='attentionGrapper'></span></strong></p>
+      <p>
+        <button id='done' class="action">Validate</button>
+      </p>
     </section>
   </screen>
   <script>
@@ -48,6 +51,7 @@
       $.myMulitSelectList = $.MultiSelectList({
         element: '#multiSelectList',
         selected: [1,2],
+        name: 'personal_choice[]',
         callback: function() {
           renderSelection();
         }
@@ -73,6 +77,19 @@
       
       // Render any default selections:
       renderSelection();
+
+      $('#done').on('tap', function() {
+        var choice = $.Form([
+          {
+            element: '#multiSelectList',
+            type: 'multiselectlist'
+          }
+        ]);
+        if(!choice.errors()) {
+          $.formData = choice.get();
+          console.dir($.formData)
+        }
+      });
       
     });
   </script>

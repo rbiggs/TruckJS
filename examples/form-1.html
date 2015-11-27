@@ -51,14 +51,14 @@
         <li>
           <label for="text">Lord of the Rings: </label><input type="checkbox" name='user_favorite_movie[]' value='Lord of the Rings' id='fav6'>
         </li>
-        <li><button id='validateName'>Validate</button></li>
+        <li><button id='validateForm'>Validate</button></li>
       </ul>
     </section>
   </screen>
   <script>
     $(function() {
 
-      $('#validateName').on('click', function() {
+      $('#validateForm').on('click', function() {
         $.myForm = $.Form([
           {
             element: '#firstName',
