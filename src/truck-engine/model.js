@@ -32,7 +32,7 @@
         }
       };
 
-      var propogateData = function(__handle, data, doNotPropogate) {
+      var propagateData = function(__handle, data, doNotPropogate) {
         if (!doNotPropogate) {
           propagateDataLoop(__handle, data);
         } else if (doNotPropogate && checkPublicationName(doNotPropogate) === 'string') {
@@ -78,10 +78,10 @@
           if (!__data) {
             __data = {};
             __data[prop] = value;
-            propogateData(__handle, __data, doNotPropogate);
+            propagateData(__handle, __data, doNotPropogate);
           } else {
             __data[prop] = value;
-            propogateData(__handle, __data, doNotPropogate);
+            propagateData(__handle, __data, doNotPropogate);
           }
           __lastModifiedTime = Date.now();
         },
@@ -104,7 +104,7 @@
           }
           __data = obj;
           __lastModifiedTime = Date.now();
-          propogateData(__handle, __data, doNotPropogate);
+          propagateData(__handle, __data, doNotPropogate);
         },
 
         // Define push for collections.
@@ -115,7 +115,7 @@
           if (Array.isArray(__data)) {
             __data.push(data);
             __lastModifiedTime = Date.now();
-            propogateData(__handle, data, doNotPropogate);
+            propagateData(__handle, data, doNotPropogate);
             if (__autobox) {
               self.box({
                 key: __key
@@ -131,7 +131,7 @@
           if (this.hasData() && this.isIterable()) {
             var data = __data.pop();
             __lastModifiedTime = Date.now();
-            propogateData(__handle, data, doNotPropogate);
+            propagateData(__handle, data, doNotPropogate);
             if (__autobox) {
               self.box({
                 key: __key
@@ -149,7 +149,7 @@
           if (Array.isArray(__data)) {
             __data.unshift(data);
             __lastModifiedTime = Date.now();
-            propogateData(__handle, data, doNotPropogate);
+            propagateData(__handle, data, doNotPropogate);
             if (__autobox) {
               self.box({
                 key: __key
@@ -165,7 +165,7 @@
           if (this.hasData() && this.isIterable()) {
             var __d = __data.shift();
             __lastModifiedTime = Date.now();
-            propogateData(__handle, __d, doNotPropogate);
+            propagateData(__handle, __d, doNotPropogate);
             if (__autobox) {
               self.box({
                 key: __key
@@ -183,7 +183,7 @@
           if (Array.isArray(__data)) {
             __data = __data.concat(data);
             __lastModifiedTime = Date.now();
-            propogateData(__handle, __data, doNotPropogate);
+            propagateData(__handle, __data, doNotPropogate);
             if (__autobox) {
               self.box({
                 key: __key
@@ -201,11 +201,11 @@
             var len = data.length;
             __data.splice(position, 0, data);
             __lastModifiedTime = Date.now();
-            propogateData(__handle, data, doNotPropogate);
+            propagateData(__handle, data, doNotPropogate);
           } else {
             __data.splice(position, 0, data);
             __lastModifiedTime = Date.now();
-            propogateData(__handle, data, doNotPropogate);
+            propagateData(__handle, data, doNotPropogate);
           }
           if (__autobox) {
             self.box({
@@ -370,7 +370,7 @@
             __lastModifiedTime = Date.now();
             delete __data[data];
           }
-          propogateData(__handle, __data, doNotPropogate);
+          propagateData(__handle, __data, doNotPropogate);
           if (__autobox) {
             self.box({
               key: __key
@@ -481,17 +481,17 @@
             if (!isNaN(index) && value) {
               __data[index][prop] = value;
               __lastModifiedTime = Date.now();
-              propogateData(__handle, __data, doNotPropogate);
+              propagateData(__handle, __data, doNotPropogate);
             } else if (prop && !value) {
               // __data[index][prop];
               __data.splice(index, 1, prop);
               __lastModifiedTime = Date.now();
-              propogateData(__handle, __data, doNotPropogate);
+              propagateData(__handle, __data, doNotPropogate);
             }
           } else {
             __data[index] = prop;
             __lastModifiedTime = Date.now();
-            propogateData(__handle, __data, value);
+            propagateData(__handle, __data, value);
           }
           if (__autobox) {
             self.box({
@@ -522,15 +522,15 @@
             if (typeof prop === 'string') {
               __lastModifiedTime = Date.now();
               delete __data[index][prop];
-              propogateData(__handle, __data, doNotPropogate);
+              propagateData(__handle, __data, doNotPropogate);
             } else if (prop === true) {
               __lastModifiedTime = Date.now();
               __data.splice(index, 1);
-              propogateData(__handle, __data, prop);
+              propagateData(__handle, __data, prop);
             } else {
               __lastModifiedTime = Date.now();
               __data.splice(index, 1);
-              propogateData(__handle, __data, doNotPropogate);
+              propagateData(__handle, __data, doNotPropogate);
             }
           }
           if (__autobox) {
