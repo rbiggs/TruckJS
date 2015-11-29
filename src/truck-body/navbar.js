@@ -1,3 +1,4 @@
+// Truck Body - Adjust Navbar for iOS
 (function() {
   $(function() {
     "use strict";
@@ -51,15 +52,15 @@
             whichSide = 'margin-right';
             oppositeSide = 'margin-left';
             if (rtl) {
-            whichSide = 'margin-left';
-            oppositeSide = 'margin-right';
+              whichSide = 'margin-left';
+              oppositeSide = 'margin-right';
             }
           } else if (siblings.eq(0).is(':last-child')) {
             whichSide = 'margin-left';
             oppositeSide = 'margin-right';
             if (rtl) {
-            whichSide = 'margin-right';
-            oppositeSide = 'margin-left';
+              whichSide = 'margin-right';
+              oppositeSide = 'margin-left';
             }
           }
 

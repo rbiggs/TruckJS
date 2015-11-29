@@ -5156,13 +5156,13 @@
   // Set validity state of form elements:
   var setValidityStatus = function(element, valid) {
     if (valid) {
-      element[0].valid = true;
-      element[0].invalid = false;
-      element.addClass('valid').removeClass('invalid');
+      $(element).prop('valid', true);
+      $(element).prop('invalid', false);
+      $(element).addClass('valid').removeClass('invalid');
     } else {
-      element[0].valid = false;
-      element[0].invalid = true;
-      element.addClass('invalid').removeClass('valid');
+      $(element).prop('valid', false);
+      $(element).prop('invalid', true);
+      $(element).addClass('invalid').removeClass('valid');
     }
   };
 
@@ -5456,8 +5456,18 @@
         return;
       }
       var value = $(input).val();
-      var re = new RegExp(regex);
-      return checkValidity(this, value.match(re));
+      if (value) {
+        return checkValidity(input, value.match(regex));
+      }
+    },
+
+    customValidators: [],
+
+    registerCustomValidator: function(name, regex) {
+      this.customValidators.push({
+        name: name,
+        regex: regex
+      });
     }
   });
 })();
@@ -7416,6 +7426,7 @@
   Truck body parts. These modules are used by both Truck Engine and jQuery. They are a set of widgets for users to interact with.
 */
 
+// Truck Body - Adjust Navbar for iOS
 (function() {
   $(function() {
     "use strict";
@@ -8128,6 +8139,7 @@
                 $(list).addClass('showIndicators');
                 $($this).siblings('.back').hide();
                 $($this).siblings('.cancel').show();
+                $.AdjustNavbarLayout();
               });
 
               // When button is in "Done" state:
@@ -8143,6 +8155,8 @@
                 $($this).text(settings.editLabel);
                 $(list).removeClass('showIndicators');
                 $(list).find('li').removeClass('selected');
+                $($this).siblings('.cancel').hide();
+                $.AdjustNavbarLayout();
               });
               var movedItems = [];
               $(list).find('li').forEach(function(ctx, idx) {
@@ -8319,6 +8333,7 @@
       var __passed = false;
       var __errors = [];
       var __result = [];
+      var customValidation;
 
       // Helper to validate form elements:
       //==================================
@@ -8492,6 +8507,25 @@
                 }
               });
             }
+        }
+        if (item.type.match(/custom/)) {
+          customValidation = item.type.split('custom-')[1];
+          var cv = $.customValidators.filter(function(validator) {
+            return (validator.name) === customValidation;
+          });
+          if (cv) {
+            var result = $.validateWithRegex(item.element, cv[0].regex);
+            if (result) {
+              var el = $(item.element);
+              convertToObject(el[0].name, el[0].value);
+            } else {
+              __errors.push({
+                element: item.element,
+                type: item.type
+              });
+              if (item.callback) item.callback();
+            }
+          }
         }
       });
 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Form</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+</head>
+<body>
+  <screen id='main' class="current">
+    <nav>
+      <h1>Form</h1>
+    </nav>
+    <section>
+      <h2>Custom Validator</h2>
+      <ul class="list">
+        <li>
+          <label for="text">Name: </label><input type="text" name='person_name' id='name'>
+        </li>
+        <li>
+          <label for="age">age: </label><input type="number" name='person_age' id='age'>
+        </li>
+        <li><button id='validateForm'>Validate</button></li>
+      </ul>
+    </section>
+  </screen>
+  <script>
+    // $(function() {
+
+      $.registerCustomValidator('nameWithSpaces', /^[A-Za-z\W]+$/);
+
+      $('#validateForm').on('click', function() {
+        $.myForm = $.Form([
+          {
+            element: '#name',
+            type: 'custom-nameWithSpaces',
+            callback: function() {
+              alert('The first name needs to be text!')
+            }
+          },
+          {
+            element: '#age',
+            type: 'age',
+            min: 21,
+            callback: function() {
+              alert("Please provide a proper age.")
+            }
+          }
+        ]);
+        if(!$.myForm.errors()) {
+          $.formData = $.myForm.get();
+          console.dir($.formData)
+        } else {
+          $.myForm.getErrors().forEach(function(err){
+            console.log(err.type)
+          })
+        }
+      });
+    // });
+  </script>
+</body>
+</html>

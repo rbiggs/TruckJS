@@ -8,13 +8,13 @@
   // Set validity state of form elements:
   var setValidityStatus = function(element, valid) {
     if (valid) {
-      element[0].valid = true;
-      element[0].invalid = false;
-      element.addClass('valid').removeClass('invalid');
+      $(element).prop('valid', true);
+      $(element).prop('invalid', false);
+      $(element).addClass('valid').removeClass('invalid');
     } else {
-      element[0].valid = false;
-      element[0].invalid = true;
-      element.addClass('invalid').removeClass('valid');
+      $(element).prop('valid', false);
+      $(element).prop('invalid', true);
+      $(element).addClass('invalid').removeClass('valid');
     }
   };
 
@@ -308,8 +308,15 @@
         return;
       }
       var value = $(input).val();
-      var re = new RegExp(regex);
-      return checkValidity(this, value.match(re));
+      if (value) {
+        return checkValidity(input, value.match(regex));
+      }
+    },
+
+    customValidators: [],
+
+    registerCustomValidator: function(name, regex) {
+      this.customValidators.push({name: name, regex: regex});
     }
   });
 })();

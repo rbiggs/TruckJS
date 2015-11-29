@@ -136,6 +136,7 @@
                 $(list).addClass('showIndicators');
                 $($this).siblings('.back').hide();
                 $($this).siblings('.cancel').show();
+                $.AdjustNavbarLayout();
               });
 
               // When button is in "Done" state:
@@ -151,6 +152,8 @@
                 $($this).text(settings.editLabel);
                 $(list).removeClass('showIndicators');
                 $(list).find('li').removeClass('selected');
+                $($this).siblings('.cancel').hide();
+                $.AdjustNavbarLayout();
               });
               var movedItems = [];
               $(list).find('li').forEach(function(ctx, idx) {

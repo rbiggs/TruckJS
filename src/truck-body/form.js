@@ -12,6 +12,7 @@
       var __passed = false;
       var __errors = [];
       var __result = [];
+      var customValidation;
 
       // Helper to validate form elements:
       //==================================
@@ -185,6 +186,25 @@
                 }
               });
             }
+        }
+        if (item.type.match(/custom/)) {
+          customValidation = item.type.split('custom-')[1];
+          var cv = $.customValidators.filter(function(validator) {
+            return (validator.name) === customValidation;
+          });
+          if (cv) {
+            var result = $.validateWithRegex(item.element, cv[0].regex);
+            if (result) {
+              var el = $(item.element);
+              convertToObject(el[0].name, el[0].value);
+            } else {
+              __errors.push({
+                element: item.element,
+                type: item.type
+              });
+              if (item.callback) item.callback();
+            }
+          }
         }
       });
 
