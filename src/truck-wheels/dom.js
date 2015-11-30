@@ -781,6 +781,9 @@
 
     show: function() {
       var display = this.data('display_attr');
+      if (display === 'none' || !display) {
+        display = 'block';
+      }
       this.css('display', display);
     }
   });

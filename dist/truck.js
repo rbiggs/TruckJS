@@ -1475,6 +1475,9 @@
 
     show: function() {
       var display = this.data('display_attr');
+      if (display === 'none' || !display) {
+        display = 'block';
+      }
       this.css('display', display);
     }
   });
@@ -7447,10 +7450,30 @@
         var oppositeAmount = 25;
         var h1 = screen.find('h1');
         var navWidth = screen.find('nav').width();
+        var hidden = false;
+        var visibleSibling;
 
         var calculateLongest = function(a, b) {
           var widthA = a[0].clientWidth;
           var widthB = b[0].clientWidth;
+          if (!widthA) {
+            widthA = 0;
+            whichSide = 'margin-right';
+            oppositeSide = 'margin-left';
+            if (rtl) {
+              whichSide = 'margin-left';
+              oppositeSide = 'margin-right';
+            }
+          }
+          if (!widthB) {
+            widthB = 0;
+            whichSide = 'margin-left';
+            oppositeSide = 'margin-right';
+            if (rtl) {
+              whichSide = 'margin-right';
+              oppositeSide = 'margin-left';
+            }
+          }
           if (widthB > widthA) {
             whichSide = 'margin-left';
             oppositeSide = 'margin-right';
@@ -7458,7 +7481,7 @@
               whichSide = 'margin-right';
               oppositeSide = 'margin-left';
             }
-            amount = (widthB - widthA) + 20;
+            amount = (widthB - widthA);
           } else if (widthA > widthB) {
             whichSide = 'margin-right';
             oppositeSide = 'margin-left';
@@ -7466,24 +7489,23 @@
               whichSide = 'margin-left';
               oppositeSide = 'margin-right';
             }
-            amount = (widthA - widthB) + 20;
+            amount = (widthA - widthB);
           } else {
             amount = 0;
           }
         };
 
-        // If one sibling:
-        if (siblings.length === 1) {
-          var sibling = h1.siblings().eq(0);
-          amount = sibling.width() + 20;
-          if (siblings.is(':first-child')) {
+        function handleOneSibling(sib) {
+          var sibling = sib || h1.siblings().eq(0);
+          amount = sibling.width();
+          if (sibling.is(':first-child')) {
             whichSide = 'margin-right';
             oppositeSide = 'margin-left';
             if (rtl) {
               whichSide = 'margin-left';
               oppositeSide = 'margin-right';
             }
-          } else if (siblings.eq(0).is(':last-child')) {
+          } else if (sibling.is(':last-child')) {
             whichSide = 'margin-left';
             oppositeSide = 'margin-right';
             if (rtl) {
@@ -7491,10 +7513,25 @@
               oppositeSide = 'margin-left';
             }
           }
+        }
+        // If one sibling:
+        if (siblings.length === 1) {
+          handleOneSibling();
 
           // If two siblings:
         } else if (siblings.length === 2) {
-          calculateLongest(siblings.eq(0), siblings.eq(1));
+          siblings.forEach(function(item) {
+            if ($(item).css('display') === 'none') {
+              hidden = true;
+            } else {
+              visibleSibling = $(item);
+            }
+          });
+          if (hidden) {
+            handleOneSibling(visibleSibling);
+          } else {
+            calculateLongest(siblings.eq(0), siblings.eq(1));
+          }
 
           // H1 is alone:
         } else {
@@ -8001,7 +8038,6 @@
     }
   });
 })();
-// Tank Body - Editable List
 (function() {
   'use strict';
   $.extend({
@@ -8021,7 +8057,6 @@
           movable: false (no movables),
           model: myModel,
           modelProp: 'id',
-          autobox: true,
           view: myView
         }
       */
@@ -8035,7 +8070,6 @@
         movable: true,
         model: undefined,
         modelProp: 'id',
-        autobox: false,
         view: undefined
       };
 
@@ -8139,7 +8173,6 @@
                 $(list).addClass('showIndicators');
                 $($this).siblings('.back').hide();
                 $($this).siblings('.cancel').show();
-                $.AdjustNavbarLayout();
               });
 
               // When button is in "Done" state:
@@ -8156,7 +8189,6 @@
                 $(list).removeClass('showIndicators');
                 $(list).find('li').removeClass('selected');
                 $($this).siblings('.cancel').hide();
-                $.AdjustNavbarLayout();
               });
               var movedItems = [];
               $(list).find('li').forEach(function(ctx, idx) {
@@ -8176,12 +8208,11 @@
                 __model.purge();
                 __model.concat(__newarray, true);
                 __newarray = [];
-                if (settings.autobox) {
-                  // console.log('gonna box this!')
-
-                }
               }
             }
+            setTimeout(function() {
+              $.AdjustNavbarLayout($(element).closest('screen'));
+            })
           });
 
           // Handle deletion indicators:

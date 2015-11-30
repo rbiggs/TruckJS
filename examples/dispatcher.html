@@ -29,13 +29,13 @@
           if (data[0] instanceof Object) {
             data.forEach(function(ctx) {
               if (ctx['news-flash']) {
-                $('.list').append('<li><h3>Array: ' + handle + "</h3><h4>" + ctx['news-flash'] + '</h4></li>');
+                $('.list').append('<li><div><h3>Array: ' + handle + "</h3><h4>" + ctx['news-flash'] + '</h4></div></li>');
               } else {
-                $('.list').append('<li><h3>Array: ' + handle + "</h3><h4>" + ctx['update'] + '</h4></li>');
+                $('.list').append('<li><div><h3>Array: ' + handle + "</h3><h4>" + ctx['update'] + '</h4></div></li>');
               }
             });
           } else {
-            $('.list').append('<li><h3>Array: ' + handle + "</h3><h4>" + data.join(' ') + '.</h4></li>');
+            $('.list').append('<li><div><h3>Array: ' + handle + "</h3><h4>" + data.join(' ') + '.</h4></div></li>');
           }
         }
       };

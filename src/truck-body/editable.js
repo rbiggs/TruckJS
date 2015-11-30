@@ -1,4 +1,3 @@
-// Tank Body - Editable List
 (function() {
   'use strict';
   $.extend({
@@ -18,7 +17,6 @@
           movable: false (no movables),
           model: myModel,
           modelProp: 'id',
-          autobox: true,
           view: myView
         }
       */
@@ -32,7 +30,6 @@
         movable: true,
         model: undefined,
         modelProp: 'id',
-        autobox: false,
         view: undefined
       };
 
@@ -136,7 +133,6 @@
                 $(list).addClass('showIndicators');
                 $($this).siblings('.back').hide();
                 $($this).siblings('.cancel').show();
-                $.AdjustNavbarLayout();
               });
 
               // When button is in "Done" state:
@@ -153,7 +149,6 @@
                 $(list).removeClass('showIndicators');
                 $(list).find('li').removeClass('selected');
                 $($this).siblings('.cancel').hide();
-                $.AdjustNavbarLayout();
               });
               var movedItems = [];
               $(list).find('li').forEach(function(ctx, idx) {
@@ -173,12 +168,11 @@
                 __model.purge();
                 __model.concat(__newarray, true);
                 __newarray = [];
-                if (settings.autobox) {
-                  // console.log('gonna box this!')
-
-                }
               }
             }
+            setTimeout(function() {
+              $.AdjustNavbarLayout($(element).closest('screen'));
+            })
           });
 
           // Handle deletion indicators:
