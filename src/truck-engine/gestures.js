@@ -72,7 +72,7 @@
         } else {
           if (!e.isPrimary) return;
         }
-        // Handle event if jQuery sor not:
+        // Handle event if jQuery or not:
         e = e.originalEvent ? e.originalEvent : e;
         body.on('MSHoldVisual', function(e) {
           e.preventDefault();

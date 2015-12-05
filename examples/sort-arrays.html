@@ -98,8 +98,10 @@
       var date_1999 = new Date('October 30, 1999');
       var date_1949 = new Date('August 20, 1949');
       var date_1980 = new Date('January 1, 1980');
+      var date_2001 = new Date('July 4, 2001');
+      var date_1968 = new Date('December, 25, 1968')
 
-      var dates = [date_1949, date_1999, today, date_1980];
+      var dates = [date_1949, date_1999, today, date_1980, date_2001, date_1968];
 
       var dateModel = $.Model(dates, 'dates-model');
       dateModel.sort($.sortDate);

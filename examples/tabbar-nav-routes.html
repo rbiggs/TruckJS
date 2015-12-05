@@ -217,8 +217,8 @@
         {
           route: 'chosenFruit',
           callback: function(id) {
+            // Render chosen fruit:
             var renderChosenFruit = function(whichOne) {
-              chosenFruitView.setParent('#chosenFruitList');
               chosenFruitView.render(fruits[whichOne].uses);
               $('#chosenFruitTitle').text(fruits[whichOne].name);
             };

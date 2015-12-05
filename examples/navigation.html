@@ -8,7 +8,7 @@
   <meta name="msapplication-tap-highlight" content="no">
   <title>Truck Navigation</title>
   <link rel="stylesheet" href="../dist/styles/truck-ios.css">
-  <script src="../dist/truck.min.js"></script>
+  <script src="../dist/truck.js"></script>
   <style>
     .list > li  img {
       height: 80px;
@@ -82,6 +82,7 @@
           <img data-src='${ data.image }' alt="${ data.firstName} + ' ' + ${ data.lastName}">
         </li>
       </ul>
+      <button id='backToMain' class='backTo'>Back</button>
       <p> The full route is: <span class='fullRoute'></span></p>
     </section>
     <toolbar>
@@ -91,6 +92,9 @@
 
   <script>
     $(function() {
+        $('#backToMain').on('tap', function() {
+         $.GoBackToScreen('main');
+       });
       
       // Array data:
       //=============

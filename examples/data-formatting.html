@@ -27,14 +27,14 @@
     };
 
     // Numbers:
-    $('#numbers').append('<li><h3>Without decimals</h3><h4>$.formatNumber(9123456789)</h4></li>');
+    $('#numbers').append('<li><div><h3>Without decimals</h3><h4>$.formatNumber(9123456789)</h4></div></li>');
     $('#numbers').append('<li><h3><strong>' + $.formatNumber(9123456789) + '</strong></h4></li>');
-    $('#numbers').append('<li><h3>With decimals</h3><h4>$.formatNumber(9123456789.2382)</h4></li>');
-    $('#numbers').append('<li><h3><strong>' + $.formatNumber(9123456789.2382) + '</strong></h4></li>');
-    $('#numbers').append('<li><h3>Rounded to Two Deicmals</h3><h4>$.formatNumber(9123456789.2382, ",", 2)</h4></li>');
+    $('#numbers').append('<li><div><h3>With decimals</h3><h4>$.formatNumber(9123456789.2382)</h4></div></li>');
+    $('#numbers').append('<li><div><h3><strong>' + $.formatNumber(9123456789.2382) + '</strong></h4></div></li>');
+    $('#numbers').append('<li><div><h3>Rounded to Two Deicmals</h3><h4>$.formatNumber(9123456789.2382, ",", 2)</h4></div></li>');
     $('#numbers').append('<li><h3><strong>' + $.formatNumber(9123456789.2382, ',', 2) + '</strong></h3></li>');
-    $('#numbers').append('<li><h3>Round to Whole Number</h3><h4>$.formatNumber(9123456789.99, ",", 0)</h4></li>');
-    $('#numbers').append('<li><h3><strong>' + $.formatNumber(9123456789.99, ',', 0) + '</strong></h4></li>');
+    $('#numbers').append('<li><div><h3>Round to Whole Number</h3><h4>$.formatNumber(9123456789.99, ",", 0)</h4></div></li>');
+    $('#numbers').append('<li><div><h3><strong>' + $.formatNumber(9123456789.99, ',', 0) + '</strong></h4></div></li>');
 
     // Sum:
     $('#sum').append('<li><h3>$.sum([1,2,3,4,5,6,7,8,9,10,11.2])</h3></li>');
@@ -45,7 +45,7 @@
     // Currency:
     $('#currency').append('<li><h3>$.currency(9123456789.2382, "$")</h3></li>');
     $('#currency').append('<li><h3><strong>' + $.currency(9123456789.2382, 'RS ', ':') + '</strong></h3></li>');
-    $('#currency').append('<li><h3>Round Amount to Dollars Only</h3><h3>$.currency(9123456789.99, "$", ",", 0)</h3></li>');
+    $('#currency').append('<li><div><h3>Round Amount to Dollars Only</h3><h4>$.currency(9123456789.99, "$", ",", 0)</h4></div></li>');
     $('#currency').append('<li><h3><strong>' + $.currency(9123456789.99, '$', ',', 0) + '</strong></h3></li>');
 
     // Create Data and Time objects:
@@ -53,12 +53,12 @@
     var time = date.toLocaleTimeString();
 
     // Date:
-    $('#date').append('<li><h3>var date = new Date()</h3><h3>' + date + '</h3></li>');
-    $('#date').append('<li><h3>date.toLocaleDateString()</h3><h3><strong>' + date.toLocaleDateString() + '</strong></h3></li>');
+    $('#date').append('<li><div><h3>var date = new Date()</h3><h4>' + date + '</h4></div></li>');
+    $('#date').append('<li><div><h3>date.toLocaleDateString()</h3><h4><strong>' + date.toLocaleDateString() + '</strong></h4><div></li>');
 
     // Time:
-    $('#time').append('<li><h3>date.toLocaleTimeString()</h3><h3><strong>' + date.toLocaleTimeString() + '</strong></h3></li>');
-    $('#time').append('<li><h3>$.formatTime(date.toLocaleTimeString())</h3><h3><strong>' + $.formatTime(date.toLocaleTimeString()) + '</strong></h3></li>');
+    $('#time').append('<li><div><h3>date.toLocaleTimeString()</h3><h4><strong>' + date.toLocaleTimeString() + '</strong></h4><div></li>');
+    $('#time').append('<li><div><h3>$.formatTime(date.toLocaleTimeString())</h3><h4><strong>' + $.formatTime(date.toLocaleTimeString()) + '</strong></h4><div></li>');
 
 });
   </script>

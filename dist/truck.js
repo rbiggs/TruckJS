@@ -2083,7 +2083,7 @@
         } else {
           if (!e.isPrimary) return;
         }
-        // Handle event if jQuery sor not:
+        // Handle event if jQuery or not:
         e = e.originalEvent ? e.originalEvent : e;
         body.on('MSHoldVisual', function(e) {
           e.preventDefault();
@@ -7663,16 +7663,16 @@
       GoBack: function() {
         var currentScreen = $.screens.getCurrent();
         $.TruckRoutes.pop();
-        var fullDesintation = $.TruckRoutes.eq(-1);
-        var destination = $.TruckRoutes.eq(-1).split(':')[0];
-        var destinationScreen = getScreen(destination);
+        var desintation = $.TruckRoutes.eq(-1);
+        var dest = $.TruckRoutes.eq(-1).split(':')[0];
+        var destinationScreen = getScreen(dest);
         if ($.TruckRoutes.size() === 0) {
-          destination = $.screens.eq(0);
-          $.TruckRoutes.push(destination[0].id);
+          dest = $.screens.eq(0);
+          $.TruckRoutes.push(dest[0].id);
         }
         if (currentScreen[0]) currentScreen[0].scrollTop = 0;
         if (destinationScreen[0]) destinationScreen[0].scrollTop = 0;
-        $.Router.dispatch(fullDesintation);
+        $.Router.dispatch(desintation);
         makeScreenNext(currentScreen);
         makeScreenCurrent(destinationScreen);
         if ($.TruckRoutes.size() === 1) return;
@@ -7695,7 +7695,7 @@
           temp = getScreen(temp);
           makeScreenNext(temp);
         }
-      },
+      }
     });
 
 
