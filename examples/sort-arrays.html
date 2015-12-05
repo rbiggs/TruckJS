@@ -48,7 +48,6 @@
       /////////////
       // Sort Names
       /////////////
-
       var names = [
         'Tom',
         'Mary',
@@ -63,18 +62,15 @@
         'Carl'
       ];
 
-
       var namesModel = $.Model(names, 'names-model');
       namesModel.reverse();
       var namesView = $.View({element: '#names', model: namesModel, variable: 'name'});
       namesView.render()
 
-
       ///////////////////////
       // First Example
       // Sort array of dates:
       ///////////////////////
-
       $.getMonth = function(date) {
         var months = [
           'January',
@@ -93,7 +89,7 @@
         return months[date];
       }
 
-      // Create dates:
+      // Create dates and sort:
       var today = new Date();
       var date_1999 = new Date('October 30, 1999');
       var date_1949 = new Date('August 20, 1949');
@@ -109,6 +105,7 @@
       var dateView = $.View({element: '#dates', model: dateModel, variable: 'date'});
       dateView.render();
 
+      // Create and sort prices:
       var prices = [
         5,
         4.25,
@@ -126,7 +123,7 @@
       priceModel.sort($.sortNumbersDescending);
       var priceView = $.View({element: '#prices', model: priceModel, variable: 'price'});
       priceView.render();
-      })
+    });
   </script>
 </body>
 </html>

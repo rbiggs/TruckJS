@@ -98,6 +98,7 @@
           return __parent.closest('screen')[0].id;
         }
       })();
+      
       var pluck = function(stack, property) {
         var ret = [];
         if (stack.size()) {

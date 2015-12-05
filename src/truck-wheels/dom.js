@@ -614,6 +614,19 @@
       }
     },
 
+    replaceWith: function(content) {
+      var parent = this.parentNode;
+      if (content && content.nodeType && content.nodeType === 1) {
+        $(content).off();
+      } else if(content.constructor.toString().match(/DOMStack/)) {
+        content.off();
+      }
+      this.forEach(function(node) {
+        $(node).off();
+        $.replace($(content), node);
+      });
+    },
+
     remove: function() {
       if (!this.size()) return new DOMStack();
       this.forEach(function(node) {
