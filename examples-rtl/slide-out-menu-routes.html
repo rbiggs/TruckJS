@@ -124,8 +124,8 @@
       templates[3] = $('#dictionary-template').html();
       templates[4] = $('#favorites-template').html();
    
-      // Init Tab Bar:
-      //==============
+      // Define initial state of View:
+      //==============================
       var listView = $.View({name: 'listView'});
       listView.setTemplate(templates[0]);
       listView.setParent('#myList');
