@@ -4270,10 +4270,6 @@
             }
           },
 
-          replace: function(oldRoute, newRoute) {
-
-          },
-
           eq: function(number) {
             return $.TruckRoutes.eq(number);
           },
