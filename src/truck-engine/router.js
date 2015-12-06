@@ -82,6 +82,10 @@
             }
           },
 
+          replace: function(oldRoute, newRoute) {
+
+          },
+
           eq: function(number) {
             return $.TruckRoutes.eq(number);
           },
@@ -90,10 +94,18 @@
             return $.TruckRoutes.indexOf(route);
           },
 
-          delete: function(route) {
-            $.TruckRoutes.delete(route);
+          delete: function(route, baseRouteOnly) {
+            if (baseRouteOnly) {
+              $.TruckRoutes.delete(route);
+            } else {
+              $.TruckRoutes.forEach(function(r) {
+                console.log(r)
+                if (r && route === r.split(':')[0]) {
+                  $.TruckRoutes.delete(r);
+                }
+              });
+            }
           }
-
         };
       }
     });

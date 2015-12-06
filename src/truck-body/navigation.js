@@ -84,14 +84,14 @@
         var currentScreen = $.screens.getCurrent();
         var position = $.TruckRoutes.index(destination);
         var destinationScreen = getScreen(destination);
-        $('screen.previous').removeClass('previous').addClass('next');
-        makeScreenCurrent(destinationScreen);
         var temp;
         while ($.TruckRoutes.size() > position + 1) {
           temp = $.TruckRoutes.pop();
           temp = getScreen(temp);
           makeScreenNext(temp);
         }
+        makeScreenCurrent(destinationScreen);
+        $.Router.dispatch(destination);
       }
     });
 

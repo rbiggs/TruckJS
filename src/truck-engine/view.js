@@ -344,8 +344,8 @@
               }
             }
 
-            // Is view was stoped with render limit:
-            // Check if set to stop after x times
+            // If view was stoped with render limit,
+            // check if set to stop after x times:
             if (__stopAfter > 0) {
 
               // If the limit not reached, render:

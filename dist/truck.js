@@ -3885,8 +3885,8 @@
               }
             }
 
-            // Is view was stoped with render limit:
-            // Check if set to stop after x times
+            // If view was stoped with render limit,
+            // check if set to stop after x times:
             if (__stopAfter > 0) {
 
               // If the limit not reached, render:
@@ -4270,6 +4270,10 @@
             }
           },
 
+          replace: function(oldRoute, newRoute) {
+
+          },
+
           eq: function(number) {
             return $.TruckRoutes.eq(number);
           },
@@ -4278,10 +4282,18 @@
             return $.TruckRoutes.indexOf(route);
           },
 
-          delete: function(route) {
-            $.TruckRoutes.delete(route);
+          delete: function(route, baseRouteOnly) {
+            if (baseRouteOnly) {
+              $.TruckRoutes.delete(route);
+            } else {
+              $.TruckRoutes.forEach(function(r) {
+                console.log(r)
+                if (r && route === r.split(':')[0]) {
+                  $.TruckRoutes.delete(r);
+                }
+              });
+            }
           }
-
         };
       }
     });
@@ -7701,14 +7713,14 @@
         var currentScreen = $.screens.getCurrent();
         var position = $.TruckRoutes.index(destination);
         var destinationScreen = getScreen(destination);
-        $('screen.previous').removeClass('previous').addClass('next');
-        makeScreenCurrent(destinationScreen);
         var temp;
         while ($.TruckRoutes.size() > position + 1) {
           temp = $.TruckRoutes.pop();
           temp = getScreen(temp);
           makeScreenNext(temp);
         }
+        makeScreenCurrent(destinationScreen);
+        $.Router.dispatch(destination);
       }
     });
 
