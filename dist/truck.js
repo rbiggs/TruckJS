@@ -2889,6 +2889,16 @@
           propagateData(__handle, __data, doNotPropogate);
         },
 
+        // Merge new object into existing object.
+        // New properties will be added,
+        // existing properties will be updated.
+        mergeObject: function(obj, doNotPropogate) {
+          if (!obj || $.type(obj) !== 'object') return;
+          var temp = this.getData();
+          $.extend(temp, obj);
+          this.setObject(temp, doNotPropogate);
+        },
+
         // Define push for collections.
         // Add item to end of collection:
         push: function(data, doNotPropogate) {
