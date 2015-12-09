@@ -8,8 +8,7 @@ Truck's design was inspired by the mechanics of trucks. Think of your app like a
 
 Truck has a standalone DOM library called Wheels, which is a light version of jQuery. It gives you 80% of the functionality of jQuery. Functions and properties that were esoteric or rarely used were left out. It accomplishes this in under 1,800 lines of code, compared to jQuery's 9,000 plus lines of code. What it lacks from jQuery's API, it makes up for with Models, Mediators, Views, automated data binding, plugins, Promises and Fetch. Truck reduces the amount of code you have to write to get things done. 
 
-To learn more about TruckJS, please visit the [TruckJS website](http://
-truckjs.io).
+To learn more about TruckJS, please visit the [TruckJS website](http://truckjs.io).
 
 ##Getting Started
 
