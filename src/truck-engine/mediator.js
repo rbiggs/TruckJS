@@ -69,7 +69,7 @@
                       break;
                     }
 
-                    // Handle start after desinated time:
+                  // Handle start after desinated time:
                   } else if (item.time && item.time > 0) {
                     if (item.time <= Date.now()) {
                       item.exec = true;
@@ -82,7 +82,7 @@
                       break;
                     }
 
-                    // Otherwise just run it:
+                  // Otherwise just run it:
                   } else {
                     if (item.exec && __exec) {
                       if (!__stopCount) item.count++;
@@ -165,6 +165,57 @@
           });
         },
       };
+    }
+  });
+
+  //==================================
+  // Define dipatcher to run mediators
+  // using the provided handle:
+  //==================================
+  $.extend($.Mediator, {
+    dispatch: function(handle, data) {
+      var len = $.mediators[handle].size();
+      for (var k = 0; k < len; k++) {
+        var item = $.mediators[handle].eq(k);
+        if (item.exec === false && !item.time) {
+          continue;
+        } else {
+          // Handle stop after designated number of times:
+          if (item.stopAfter > 0 && item.exec) {
+            if (item.startFrom < item.stopAfter) {
+              item.count++;
+              item.startFrom++;
+              item.callback(data);
+              if (item.startFrom >= item.stopAfter) {
+                item.exec = false;
+                item.startFrom = 0;
+                item.stopAfter = 0;
+              }
+              break;
+            } else if (item.startFrom >= item.stopAfter) {
+              item.exec = false;
+              item.startFrom = 0;
+              item.stopAfter = 0;
+              break;
+            }
+
+            // Handle start after desinated time:
+          } else if (item.time && item.time > 0) {
+            if (item.time <= Date.now()) {
+              item.exec = true;
+            } else {
+              break;
+            }
+
+            // Otherwise just run it:
+          } else {
+            if (item.exec) {
+              item.count++;
+              item.callback(data);
+            }
+          }
+        }
+      }
     }
   });
 })();
