@@ -3152,7 +3152,7 @@
         // or an index of a collection;
         delete: function(data, doNotPropogate) {
           var pos;
-          if (!data) return;
+          if (data !== 0 && !data) return;
           var self = this;
           if (this.hasData() && this.isIterable()) {
             pos = __data.indexOf(data);
