@@ -78,6 +78,9 @@
       // Render any default selections:
       renderSelection();
 
+      // Validate and return JSON object from list,
+      // view results in browser console:
+      //===========================================
       $('#done').on('tap', function() {
         var choice = $.Form([
           {
@@ -85,6 +88,7 @@
             type: 'multiselectlist'
           }
         ]);
+        // If validation passed, output results:
         if(!choice.errors()) {
           $.formData = choice.get();
           console.dir($.formData)
