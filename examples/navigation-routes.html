@@ -49,7 +49,7 @@
       <h1>Next Page</h1>
     </nav>
     <section>
-      <h2 id='chosenPerson'>Subtitle Number Two</h2>
+      <h2 id='chosenPerson'><span>Welcome, ${ personsName }.</span></h2>
       <h2 class='normal-case'>Here's your information:</h2>
       <!-- Target for chosenPersonView View -->
       <ul class="list" id='chosenPersonList'></ul>
@@ -129,6 +129,11 @@ var bums = [
         </div>\
         <img data-src='${ data.image }' alt=\"${ data.firstName} + ' ' + ${ data.lastName}\">\
       </li>"
+    }),
+
+    chosenPersonNameView: $.View({
+      element: '#chosenPerson',
+      variable: 'personsName'
     })
   };
 
@@ -172,7 +177,7 @@ var bums = [
             return person.guid === id;
           })[0];
           // Output peron's name:
-          $('#chosenPerson').text('Welcome, ' + whichPerson.firstName + '.');
+          AppViews.chosenPersonNameView.render(whichPerson.firstName);
           // Handle Navigation work:
           $('.fullRoute').text($.AppRoutes.getFullRoute());
           // Output full route:

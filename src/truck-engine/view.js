@@ -314,7 +314,7 @@
             return;
 
             // Else if it is an object:
-          } else if ($.type(data) === 'object') {
+          } else if ($.type(data) === 'object' || $.type(data) === 'string' || $.type(data) === 'number') {
             $.view.index = __startIndexFrom || 1;
             __parent.empty();
             __parent.append(parsedTemplate(data)); // jshint ignore:line
