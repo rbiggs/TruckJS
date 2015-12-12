@@ -49,7 +49,7 @@
 
       // Set up Select List:
       // //====================
-      $.myMulitSelectList = $.MultiSelectList({
+      var myMulitSelectList = $.MultiSelectList({
         element: '#multiSelectList',
         selected: [1,2],
         name: 'personal_choice[]',
@@ -63,8 +63,7 @@
       //================================= 
       var renderSelection = function() {
         var temp = [];
-        // console.log($.myMulitSelectList.getSelection())
-        $.myMulitSelectList.getSelection().forEach(function(item){
+        myMulitSelectList.getSelection().forEach(function(item){
           temp.push(item.value);
         });
         temp.sort()

@@ -25,12 +25,14 @@
         var segmented;
         var labels = (settings.labels) ? settings.labels : [];
         var selected = settings.selected;
+        var __selection;
 
         function createSegmentedButton() {
           var __segmented = ['<div class="segmented">'];
           labels.forEach(function(ctx, idx) {
             if (settings.selected === idx) {
               __segmented.push('<button role="radio" aria-checked="true" class="selected">');
+              __selection = idx + 1;
             } else {
               __segmented.push('<button role="radio">');
             }
@@ -51,9 +53,16 @@
           $this.siblings('button').removeClass('selected');
           $this.siblings('button').removeAttr('aria-checked');
           $this.addClass('selected');
+          __selection = $this.index();
           $this.attr('aria-checked', true);
           callback.call(this, e);
         });
+
+        return {
+          getSelection: function() {
+            return __selection
+          }
+        }
       }
     });
   });

@@ -18,13 +18,13 @@
         $('.attentionGrapper').text(($(this).index() + 1));
       };
 
-      $.Segmented({
+      var segCtrl = $.Segmented({
         element: '#segmentedPanel',
         labels : ['Radioactive','Hurt','Yeah, Yeah'],
         selected: 2,
         callback: segmentedResponse
       });
-      $('.attentionGrapper').text(2);
+      $('.attentionGrapper').text(segCtrl.getSelection());
     });
   </script>
 </head>
