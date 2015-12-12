@@ -15,7 +15,7 @@
       // Define callback for Segmented Control:
       var segmentedResponse = function(e) {
         e.stopPropagation();
-        $('.attentionGrapper').text(($(this).index() + 1));
+        $('.attentionGrapper').text(segCtrl.getSelection() + 1);
       };
 
       var segCtrl = $.Segmented({
@@ -24,7 +24,7 @@
         selected: 2,
         callback: segmentedResponse
       });
-      $('.attentionGrapper').text(segCtrl.getSelection());
+      $('.attentionGrapper').text(segCtrl.getSelection() + 1);
     });
   </script>
 </head>

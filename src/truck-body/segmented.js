@@ -32,7 +32,7 @@
           labels.forEach(function(ctx, idx) {
             if (settings.selected === idx) {
               __segmented.push('<button role="radio" aria-checked="true" class="selected">');
-              __selection = idx + 1;
+              __selection = idx;
             } else {
               __segmented.push('<button role="radio">');
             }
