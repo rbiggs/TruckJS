@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Filter</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+  <style>
+    .sortButtons button svg {
+      transition: all .25s ease-out;
+      margin-left: 5px;
+    }
+    .sortButtons button.descending svg {
+      transform: rotate(-180deg);
+    }
+    input {
+      padding: 4px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <screen id='main' class="current">
+    <nav>
+      <h1>Filter and Sort</h1>
+    </nav>
+    <section>
+      <h2>Sort by Name:</h2>
+      <p><input id='filterByName' type="text" placeholder='first or last name'></p>
+      <p class='sortButtons'>
+        <button id='sortByName'>Name<svg width="10px" height="6px" viewBox="0 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="SortOrderArrow" fill="#3A8BDC">
+            <path d="M10,3.94703249e-15 L5,6 L0,0 L10,3.94703249e-15 Z" id="Triangle-1"></path>
+        </g>
+    </g>
+</svg></button>
+        <button id='sortByAge'>Age<svg width="10px" height="6px" viewBox="0 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="SortOrderArrow" fill="#3A8BDC">
+            <path d="M10,3.94703249e-15 L5,6 L0,0 L10,3.94703249e-15 Z" id="Triangle-1"></path>
+        </g>
+    </g>
+</svg></button>
+      </p>
+      <ul id="listView" class='list cloak'>
+        <li class='comp'>
+          <div>
+            <h3>${ data.firstName } ${ data.lastName }</h3>
+            <h4>${ data.age }</h4>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </screen>
+
+  <script>
+
+    // Plain data object:
+    //===================
+    var people = [
+      {firstName: "Joe", lastName: "Bodoni", age: 28},
+      {firstName: "Sue", lastName: "Higgins", age: 22},
+      {firstName: "John", lastName: "Doe", age: 32},
+      {firstName: "Betty", lastName: "Bonnet", age: 26},
+      {firstName: "Steve", lastName: "Martin", age: 25},
+      {firstName: "Sam", lastName: "Taylor", age: 31}
+    ];
+    var PeopleModel = $.Model(people, 'people-model');
+    var PeopleView = $.View({
+      element: '#listView', 
+      model: PeopleModel
+    });
+    PeopleView.render();
+
+    // Setup for sorting - ascendeing and descending:
+    //===============================================
+    var sortOrder = true;
+    $('#sortByName').on('tap', function() {
+      var hyphen = '-';
+      sortOrder = !sortOrder;
+      hyphen = sortOrder ? '' : '-';
+      PeopleModel.sortBy(hyphen + 'firstName');
+      PeopleView.render();
+      $(this).toggleClass('descending');
+    });
+    $('#sortByAge').on('tap', function() {
+      var hyphen = '-';
+      sortOrder = !sortOrder;
+      hyphen = sortOrder ? '' : '-';
+      PeopleModel.sortBy(hyphen + 'age');
+      PeopleView.render();
+      $(this).toggleClass('descending');
+    });
+
+    // Filter by name:
+    //================
+    $('#filterByName').on('input', function() {
+      var val = this.value.toLowerCase();
+      var persons = PeopleModel.filter(function(person) {
+        var name = person.firstName.toLowerCase() + ' ' + person.lastName.toLowerCase()
+        return name.match(val);
+      });
+      PeopleView.render(persons);
+    });
+
+  </script>
+</body>
+</html>
