@@ -13,18 +13,27 @@
     $(function() {
 
       // Define callback for Segmented Control:
+      //======================================
       var segmentedResponse = function() {
-        e.stopPropagation();
-        $('.attentionGrapper').text(segCtrl.getSelection() + 1);
+        SegmentValueView.render(segCtrl.getSelection() + 1);
       };
 
+      // View for chosen segment value:
+      //===============================
+      var SegmentValueView = $.View({
+        element: '.attentionGrapper',
+        variable: 'value'
+      })
+
+      // Setup segmented control:
+      //=========================
       var segCtrl = $.Segmented({
         element: '#segmentedPanel',
         labels : ['Radioactive','Hurt','Yeah, Yeah'],
         selected: 2,
         callback: segmentedResponse
       });
-      $('.attentionGrapper').text(segCtrl.getSelection() + 1);
+      SegmentValueView.render(segCtrl.getSelection() + 1);
     });
   </script>
 </head>
@@ -38,7 +47,7 @@
       </div>
       <ul class='list' id='output'>
         <li>
-          <h3>You selected panel: <span class='attentionGrapper'></span>.</h3>
+          <h3>You selected panel: <span class='attentionGrapper'>${ value }</span>.</h3>
         </li>
       </ul>
     </section>

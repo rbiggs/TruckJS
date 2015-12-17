@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Anim</title>
+  <link rel="stylesheet" href="../../dist/styles/truck-ios.css">
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      body {
+        background-image: url(mario/background.png);
+        background-position: top left;
+        background-size: auto 100%;
+        background-repeat: repeat-x;
+
+      }
+      screen {
+        background: none;
+      }
+      nav {
+        background-color: #FD182B;
+      }
+      nav > h1 {
+        color: #fafafa;
+      }
+      #player {
+        position: fixed;
+        bottom: 100px;
+        left: 20px;
+        width: 120px;
+        height: 150px;
+        background-image: url(mario/Mario-Walk-Right-1.png);
+        background-size: auto 100%;
+        background-position: center center;
+        background-repeat: no-repeat;
+      }
+    </style>
+    <script src="../../dist/truck.js"></script>
+  </head>
+
+  <body>
+    <screen id="main" class="current">
+      <nav>
+        <h1>Use Arrow Keys to Navigate</h1>
+      </nav>
+      <section>
+        <section>
+          
+          <div id="player"></div>
+          <div id="ground"></div>
+        </section>
+      </section>
+    </screen>
+    <script>
+      $(function() {
+        var walkRightInterval;
+        var walkLeftInterval;
+        var jumpUpInterval;
+        var jumpUp1;
+        var walkRight1;
+        var walkRight2;
+
+        var walkInit = 0;
+        var walkRight = function() {
+          // Check if even:
+          if (walkInit % 2) {
+            // Do even walk:
+            $('#player').css({'background-image': 'url(mario/Mario-Walk-Right-2.png)',
+                'background-size': 'auto 100%'
+            });
+            walkRight1 = setTimeout(function() {
+              $('#player').css({'background-image': 'url(mario/Mario-Walk-Right-3.png)',
+                  'background-size': 'auto 100%'
+              });
+            }, 250);
+          // Otherwise do odd walk:
+          } else {
+
+            $('#player').css({'background-image': 'url(mario/Mario-Walk-Right-4.png)',
+                'background-size': 'auto 100%'
+            });
+            walkRight2 = setTimeout(function() {
+              $('#player').css({'background-image': 'url(mario/Mario-Walk-Right-1.png)',
+                  'background-size': 'auto 100%'
+              });
+            }, 250);
+          }
+          walkInit++;
+        };
+        var walkLeft = function() {
+          // Check if even:
+          if (walkInit % 2) {
+            // Do even walk:
+            $('#player').css({'background-image': 'url(mario/Mario-Walk-Left-2.png)',
+                'background-size': 'auto 100%'
+            });
+            walkLeft1 = setTimeout(function() {
+              $('#player').css({'background-image': 'url(mario/Mario-Walk-Left-3.png)',
+                  'background-size': 'auto 100%'
+              });
+            }, 250);
+          // Otherwise do odd walk:
+          } else {
+
+            $('#player').css({'background-image': 'url(mario/Mario-Walk-Left-4.png)',
+                'background-size': 'auto 100%'
+            });
+            walkLeft2 = setTimeout(function() {
+              $('#player').css({'background-image': 'url(mario/Mario-Walk-Left-1.png)',
+                  'background-size': 'auto 100%'
+              });
+            }, 250);
+          }
+          walkInit++;
+        };
+
+        // Do jump up animation:
+        var jumpUp = function() {
+          $('#player').css({'background-image': 'url(mario/Mario-Up-1.png)',
+              'background-size': 'auto 100%'
+          });
+          jumpUp1 = setTimeout(function() {
+            $('#player').css({'background-image': 'url(mario/Mario-Up-2.png)',
+                'background-size': 'auto 100%'
+            });
+          }, 500);
+        };
+
+        // Capture arrow keys:
+        $('body').on('keydown', function(e) {
+
+          var bkgnd = $.anim('body')
+            .duration(300);
+
+          var player = $.anim('#player')
+            .duration(300)
+            .ease('out');
+
+          switch (e.keyCode) {
+
+            // Jump Up:
+            //=========
+            case 38:
+              $('#player').css({
+                'background-image': 'url(mario/Mario-Up.png)',
+                'background-size': 'auto 100%'
+              });
+              clearInterval(walkLeftInterval);
+              clearInterval(walkRightInterval);
+              jumpUpInterval = setInterval(jumpUp(), 1000);
+              player.add('bottom', 100)
+              .set('height', '160px')
+              .duration(200)
+              .then()
+                .sub('bottom', 100)
+                .pop()
+              .run();
+              break;
+
+            // Walk Left:
+            //===========
+            case 37:
+              clearInterval(walkRightInterval);
+              clearInterval(jumpUpInterval);
+              walkRightInterval = setInterval(walkLeft(), 1000);
+              player.sub('left', 100)
+              .set('height', '150px')
+              .run();
+
+              bkgnd.add('background-position', 50)
+                .run();
+              break;
+
+            // Walk Right:
+            //============
+            case 39:
+              clearInterval(walkLeftInterval);
+              clearInterval(jumpUpInterval);
+              walkRightInterval = setInterval(walkRight(), 1000);
+              player.add('left', 100)
+              .set('height', '150px')
+              .run();
+              bkgnd.sub('background-position', 50)
+              .run();
+              break;
+
+            // Jump Down:
+            //===========
+            case 40:
+              clearInterval(walkLeftInterval);
+              clearInterval(walkRightInterval);
+              clearInterval(jumpUpInterval);
+              $('#player').css({
+                'background-image': 'url(mario/Mario-Down.png)',
+                'background-size': 'auto 100%'
+              });
+              player.sub('bottom', 110)
+              .set('height', '140px')
+              .duration(200)
+              .then()
+                .add('bottom', 110)
+                .pop()
+              .run();
+              break;
+          }
+        });
+
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Anim</title>
+  <link rel="stylesheet" href="../../dist/styles/truck-ios.css">
+    <style>
+      #square {
+        display: -webkit-flex;
+        -webkit-align-items: center;
+        -webkit-justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid #888;
+        width: 100px;
+        height: 100px;
+        position: relative;
+        left: 20px;
+        background-color: white;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 10px;
+        font: bold 12pt/1.2345'Gill Sans', Arial, Sans-serif;
+      }
+    </style>
+    <script src="../../dist/truck.js"></script>
+  </head>
+
+  <body>
+    <screen id="main" class="current">
+      <nav>
+        <h1>Truck Animation</h1>
+      </nav>
+      <section>
+        <div id="square"><span>TruckJS<br>Anim<span></div>
+      </section>
+    </screen>
+    <script>
+      $(function() {
+            
+        $.anim('#square')
+        .x(500)
+        .y(200)
+        .delay(500)
+        .ease('in-out')
+        .then()
+          .delay(0)
+          .x(-500)
+        .then()
+          .y(-200)
+          .duration('2s')
+          .delay('.5s')
+          .rotate(180)
+        .then()
+          .ease('ease-out-in-circ')
+          .duration('1s')
+          .delay('.5s')
+          .set('background-color', 'red')
+          .set('color', '#fff')
+          .set('border-color', 'blue')
+          .set('border-width', '6px')
+          .scale(.5)
+          .skew(30)
+        .then()
+          .ease('linear')
+          .duration('1s') 
+          .skew(-60)
+        .then()
+          .duration('1s')
+          .rotate(-180)
+        .then()
+          .ease('ease-out-in-back')
+          .scale(2)
+          .skew(49.5)
+          .pop()
+          .pop()
+          .pop()
+          .pop()
+          .pop()
+        .pop()
+        .run();
+      });
+    </script>
+  </body>
+</html>

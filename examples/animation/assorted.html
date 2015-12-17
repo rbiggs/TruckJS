@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Anim</title>
+  <link rel="stylesheet" href="../../dist/styles/truck-ios.css">
+  <style>
+    h2 {
+      font-size: 30pt;
+      color: green;
+    }
+    #myList {
+      height: 0%;
+      overflow-y: hidden;
+    }
+  </style>
+  <script src="../../dist/truck.js"></script>
+</head>
+<body>
+  <screen id="main" class="current">
+    <nav>
+      <h1>
+        Truck Animation
+      </h1>
+    </nav>
+    <section>
+      <h2>Hello, World</h2>
+      <ul id='myList' class="list">
+        <li>
+          <h3>Item One</h3>
+        </li>
+        <li>
+          <h3>Item Two</h3>
+        </li>
+        <li>
+          <h3>Item Three</h3>
+        </li>
+        <li>
+          <h3>Item Four</h3>
+        </li>
+        <li>
+          <h3>Item Five</h3>
+        </li>
+      </ul>
+    </section>
+  </screen>
+<script>
+  $(function() {
+    // Popup for after aniation ends:
+    $.Popup({
+      id: "alert",
+      title: 'Hey There!', 
+      message: 'This was fired after the animation ended. Whatever...', 
+      continueButton: 'OK'
+    });
+
+    // Define Animation:
+    $.anim('h2')
+      .set('color', 'red')
+      .delay(500)
+      .duration('5s')
+      .then()
+        .set('color', 'orange')
+        .set('font-size', '30pt')
+        // .duration('2s')
+      .then()
+        .set('color','blue')
+        .set('font-size','80px')
+        // .duration('2s')
+        .delay('1s')
+      .then()
+        .anim('#myList')
+        .set('height', '200px')
+        // .duration('2s')
+      // Execute this when the animation ends:
+      .then(function() {
+        // Set the list height to auto:
+        $('#myList').css({'transtion': 'none', height:'auto'});
+        // Show Popup alert:
+        $('#alert').ShowPopup();
+      })
+      .pop()
+      .pop()
+      .pop()
+    .run();
+  });
+</script>
+</body>
+</html>

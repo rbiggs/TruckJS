@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+	<title>Truck Tween</title>
+  <link rel="stylesheet" href="../../dist/styles/truck-ios.css">
+  <script src="../../dist/truck.js"></script>
+  <style type="text/css">
+    section {
+      color: #FFFFFF;
+      background-color: #000000;
+      padding: 20px;
+    }
+    #notice {
+    	color: #fff !important;
+    	margin-bottom: 40px;
+    }
+    #dingo {
+    	height: 40px;
+    	width: 40px;
+    	display: block;
+    	background-color: red;
+    	position: relative;
+    }
+  </style>
+  <script src="../../dist/truck.js"></script>
+  <script>
+  $(function() {
+
+	  var randomNum = function(num) {
+		  return Math.floor(num * (Math.random() % 1));
+	  };
+
+	  var randomRange = function(min, max) {
+		  return min/2 + randomNum(max - min + 1);
+	  };
+
+  	var span = $('#dingo');
+
+  	var randomAnim = function() {
+  		$('#notice').text('Running...');
+  		$.anim('#dingo')
+			.ease('cubic-bezier(0.175, 0.885, 0.320, 1.275)')
+			.duration(randomRange(500, 3000))
+			.x(randomRange(150, 200))
+			.y(randomRange(150, 100))
+			.then(function() {
+				$('#dingo').css('border-radius', randomRange(0,20) + 'px')
+			})
+				.x(randomRange(200, 200))
+				.y(randomRange(200, 200))
+				.set('background-color', 'orange')
+			.then()
+				.x(randomRange(-100, 300))
+				.y(randomRange(-100, 100))
+			.then()
+				.x(randomRange(140, 300))
+				.y(randomRange(150, 180))
+				.set('background-color', 'red')
+			.pop()
+			.pop()
+			.run();
+  	}
+  	$('#launchAnim').on('tap', function() {
+  		randomAnim();
+  		var count = 0;
+  		var loop = setInterval(function() {
+  			if (count >= 3) {
+  				clearInterval(loop);
+  				setTimeout(function() {
+  					$('#notice').text('Done!');
+  					setTimeout(function() {
+  						$('#notice').text('Click Button to Start');
+  					}, 1000)
+  				}, 500);
+  			} else {
+  				count++;
+  				randomAnim();
+  			}
+  		}, 2000);
+  		
+  	});
+  })
+  </script>
+</head>
+<body>
+	<screen class="current" id="main">
+		<nav>
+			<button id='launchAnim'>Click</button>
+			<h1>Truck - Tween</h1>
+		</nav>
+		<section>
+		  <h2 id="notice">Click Button to Start</h2>
+			<span id="dingo"></span>
+		</section>
+	</screen>
+</body>
+</html>

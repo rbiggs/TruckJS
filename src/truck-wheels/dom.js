@@ -34,8 +34,8 @@
     is: function(arg) {
       var ret = false;
       if (!this.size() || !arg) return;
-      if (!this.size())
-        return;
+      if (!this.size()) return;
+      var that = this;
       var __is = function(node, arg) {
         if (typeof arg === 'string') {
           var elements = Array.prototype.slice.apply(node.parentNode.querySelectorAll(arg));
@@ -45,7 +45,7 @@
             }
           }
         } else if (typeof arg === 'function') {
-          if (arg.call(this)) {
+          if (arg.call(that)) {
             ret = true;
           }
         } else if (arg && arg.length) {
@@ -391,7 +391,7 @@
         return new DOMStack();
       }
       var __before = function(node, content) {
-        if (typeof content === 'string') {
+        if (typeof content === 'string' || typeof content === 'number') {
           content = $.make(content);
         }
         if (content && content.constructor.toString().match(/DOMStack/)) {
@@ -416,7 +416,7 @@
       if (!this.size()) return new DOMStack();
       var __after = function(node, content) {
         var parent = node.parentNode;
-        if (typeof content === 'string') {
+        if (typeof content === 'string' || typeof content === 'number') {
           content = $.make(content);
         }
         if (content && content.constructor.toString().match(/DOMStack/)) {
@@ -444,7 +444,7 @@
     prepend: function(content) {
       if (!this.size()) return new DOMStack();
 
-      if (typeof content === 'string') {
+      if (typeof content === 'string' || typeof content === 'number') {
         this.forEach(function(element) {
           element.insertAdjacentHTML('afterbegin', content);
         });
@@ -465,7 +465,7 @@
     append: function(content) {
       if (!this.size()) return new DOMStack();
 
-      if (typeof content === 'string') {
+      if (typeof content === 'string' || typeof content === 'number') {
         this.forEach(function(element) {
           element.insertAdjacentHTML('beforeend', content);
         });
@@ -588,10 +588,12 @@
         this.forEach(function(node) {
           node.innerHTML = '';
         });
+        return this;
       } else if (content) {
         this.forEach(function(node) {
           node.innerHTML = content;
         });
+        return this;
       } else if (!content) {
         return this.array[0].innerHTML.trim();
       }
@@ -623,7 +625,11 @@
       }
       this.forEach(function(node) {
         $(node).off();
-        $.replace($(content), node);
+        if (typeof content === 'string') {
+          $.replace($(content), node);
+        } else {
+          $.replace($(content), node);
+        }
       });
     },
 

@@ -127,7 +127,7 @@
       // Private Functions:
       ///////////////////
       var parseView = function(template, variable) {
-        var interpolate = /\$\{[^\\{]([\s\S]+?)\}/g;
+        var interpolate = /\$\{([\s\S]+?)\}/img;
         variable = variable || 'data';
         template.replace("'", "\'");
         /* jshint ignore:start */
@@ -136,6 +136,7 @@
           .replace(/[\r\t\n]/g, " ")
           .split("'").join("\\'")
           .replace(interpolate, "',$1,'")
+          // Executable:
           .split('{{').join("');")
           .split('}}').join("p.push('") + "');" +
           "return p.join('');");

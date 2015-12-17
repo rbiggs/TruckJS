@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Model</title>
+  <link rel="stylesheet" href="../dist/styles/truck-ios.css">
+  <script src="../dist/truck.js"></script>
+  <style>
+    body {
+      font-family: Helvetica Neue, Arial, sans-serif;
+    }
+
+    polygon {
+      fill: red;
+    }
+
+    circle {
+      fill: transparent;
+      stroke: red;
+      stroke-width: 2;
+    }
+    input[type=range] {
+      width: 200px;
+    }
+  </style>
+  <script src="../dist/truck.js"></script>
+  <script>
+    $(function() {
+
+      // Define Point Calculator:
+      //=========================
+      function valueToPoint (value, index, total) {
+        var x     = 0
+        var y     = -value * 0.8
+        var angle = Math.PI * 2 / total * index
+        var cos   = Math.cos(angle)
+        var sin   = Math.sin(angle)
+        var tx    = x * cos - y * sin + 100
+        var ty    = x * sin + y * cos + 100
+        return {
+          x: tx,
+          y: ty
+        }
+      }
+
+      // Create matrix of points:
+      //========================
+      function calculatePoints(val) {
+        var ret = [];
+        var pointsArray = [];
+        var points = '';
+        for (var i = 0; i < val; i++) {
+          ret.push({value: 100});
+          ret.push({value: 50});
+        }
+        ret.forEach(function(ctx, idx) {
+          pointsArray.push(valueToPoint(ctx.value, idx, val));
+        });
+        pointsArray.forEach(function(ctx) {
+          points += ctx.x + ',' + ctx.y + ' ';
+        });
+        points.trim();
+        return points
+      };
+
+      // Define Polygon View:
+      //=====================
+      var PolygonView = $.View({
+        element: '#polygon',
+        variable: 'points',
+        model: $.PolygonModel
+      });
+      PolygonView.render(calculatePoints(6));
+
+      // Define view to print number of points:
+      //=======================================
+      var NumberOfPointsView = $.View({
+        element: '#numberOfPoints',
+        variable: 'points'
+      });
+      NumberOfPointsView.render(3);
+
+      // Define view for Hue value:
+      //===========================
+      var HueValueView = $.View({
+        element: '#hueValue',
+        variable: 'hue'
+      });
+      HueValueView.render(0);
+
+      // Define dispatch receiver:
+      //==========================
+      $.receive('update-polygon', function(handle, points) {
+        var hue = $('#updateHue').val();
+        PolygonView.render(points);
+        $('polygon').css('fill', 'hsl(' + hue +', 100%, 50%)');
+        $('circle').css('stroke', 'hsl(' + hue +', 100%, 50%)');
+      });
+
+      // Update polygon with slider:
+      //============================
+      $('#updatePoints').on('input', function() {
+        var val = this.value;
+        var points = calculatePoints(val);
+
+        // Dispatch the new points for polygon:
+        $.dispatch('update-polygon', points)
+        NumberOfPointsView.render(val/2);
+      });
+
+      // Update the SVG's hsl hue:
+      //==========================
+      $('#updateHue').on('input', function() {
+        var val = this.value;
+        $('polygon').css('fill', 'hsl(' + val +', 100%, 50%)');
+        $('circle').css('stroke', 'hsl(' + val +', 100%, 50%)');
+        HueValueView.render(val);
+      });
+    });
+  </script>
+</head>
+<body>
+  <screen id='main' class='current'>
+    <nav>
+      <h1>SVG Template</h1>
+    </nav>
+    <section>
+      <h2 class='normal-case'>Update the number of points on the polygon with the slider</h2>
+      <p>This example uses a view and a dispatcher to update the SVG image in real time.</p>
+      <!-- SVG template -->
+      <ul class="list" id='squares'>
+        <li id='polygon'>
+          <script type='text/x-template'>
+            <svg width="200" height="200">
+                <g>
+                <polygon points="${ points }"></polygon>
+                <circle cx="100" cy="100" r="80"></circle>
+              </g>
+            </svg>
+            </script>
+        </li>
+      </ul>
+      <p>
+        <label for="pointsRange">Drag slider to change number of points on polygon </label><input id='updatePoints' type='range' name="pointsRange" min='6' max='200' value='6' step='2'>
+        <p>Number of points: <span id='numberOfPoints'>${ points }</span></p>
+      </p>
+      <p>
+        <label for="hueRange">Drag slider to change the polygon's hue </label><input id='updateHue' type='range' name="hueRange" min='0' max='360' value='0'>
+        <p>HSL hue value: <span id='hueValue'>${ hue }</span></p>
+      </p>
+      <summary>This SVG image is rendered by a view and mediator.</summary>
+    </section>
+  </screen>
+</body>
+</html>

@@ -49,6 +49,7 @@ var Truck_Files = [
   'truck-engine/formatters.js',
   'truck-engine/validators.js',
   'truck-engine/box.js',
+  'truck-engine/anim.js',
 
   /* Truck Body Components */
   'truck-body/body-comments.js',

@@ -26,27 +26,79 @@
       });
     };
 
-    // Numbers:
-    $('#numbers').append('<li><div><h3>Without decimals</h3><h4>$.formatNumber(9123456789)</h4></div></li>');
-    $('#numbers').append('<li><h3><strong>' + $.formatNumber(9123456789) + '</strong></h4></li>');
-    $('#numbers').append('<li><div><h3>With decimals</h3><h4>$.formatNumber(9123456789.2382)</h4></div></li>');
-    $('#numbers').append('<li><div><h3><strong>' + $.formatNumber(9123456789.2382) + '</strong></h4></div></li>');
-    $('#numbers').append('<li><div><h3>Rounded to Two Deicmals</h3><h4>$.formatNumber(9123456789.2382, ",", 2)</h4></div></li>');
-    $('#numbers').append('<li><h3><strong>' + $.formatNumber(9123456789.2382, ',', 2) + '</strong></h3></li>');
-    $('#numbers').append('<li><div><h3>Round to Whole Number</h3><h4>$.formatNumber(9123456789.99, ",", 0)</h4></div></li>');
-    $('#numbers').append('<li><div><h3><strong>' + $.formatNumber(9123456789.99, ',', 0) + '</strong></h4></div></li>');
+    var numberData = {
+      n1: { 
+        description: 'Without decimals',
+        formula: '$.formatNumber(9123456789)',
+        value: 9123456789
+      },
+      
+      n2: { 
+        description: 'With decimals',
+        formula: '$.formatNumber(9123456789.2382)',
+        value: 9123456789.2382
+      },
+      
+      n3: { 
+        description: 'Rounded to Two Deicmals',
+        formula: '$.formatNumber(9123456789.2382, ",", 2)',
+        value: 9123456789.2382
+      },
+      
+      n4: { 
+        description: 'Round to Whole Number',
+        formula: '$.formatNumber(9123456789.99, ",", 0)',
+        value: 9123456789.99
+      }
+    };
 
-    // Sum:
-    $('#sum').append('<li><h3>$.sum([1,2,3,4,5,6,7,8,9,10,11.2])</h3></li>');
-    $('#sum').append('<li><h3><strong>Sum: ' + $.sum([1,2,3,4,5,6,7,8,9,10,11.2]) + '</strong></h3></li>');
-    $('#sum').append('<li><h3>$.sum(1,2,3,4,5,6,7,8,9,10,11,12.4)</h3></li>');
-    $('#sum').append('<li><h3><strong>Sum: ' + $.sum(1,2,3,4,5,6,7,8,9,10,11,12.4) + '</strong></h3></li>');
+    // Define Numbers View:
+    var NumbersView = $.View({
+      element: '#numbers',
+      variable: 'number'
+    });
 
-    // Currency:
-    $('#currency').append('<li><h3>$.currency(9123456789.2382, "$")</h3></li>');
-    $('#currency').append('<li><h3><strong>' + $.currency(9123456789.2382, 'RS ', ':') + '</strong></h3></li>');
-    $('#currency').append('<li><div><h3>Round Amount to Dollars Only</h3><h4>$.currency(9123456789.99, "$", ",", 0)</h4></div></li>');
-    $('#currency').append('<li><h3><strong>' + $.currency(9123456789.99, '$', ',', 0) + '</strong></h3></li>');
+    NumbersView.render(numberData);
+
+    var sumData = {
+      n1: {
+        description: 'Sum an array of numbers',
+        formula: '$.sum([1,2,3,4,5,6,7,8,9,10,11.2])',
+        value: [1,2,3,4,5,6,7,8,9,10,11.2]
+      },
+      n2: {
+        description: 'Sum of comma separated arguments',
+        formula: '$.sum(1,2,3,4,5,6,7,8,9,10,11,12.4)',
+        // This is a place holder.
+        // Real value is inline in template:
+        value: "1,2,3,4,5,6,7,8,9,10,11,12.4"
+      }
+    };
+
+    // Define Sum View:
+    var SumView = $.View({
+      element: '#sum',
+      variable: 'sum'
+    });
+
+    SumView.render(sumData);
+
+    var currencyData = {
+      n1: {
+        description: '$.currency(9123456789.2382, "€")',
+        value: 9123456789.2382
+      },
+      n2: {
+        description: '$.currency(9123456789.99, "$", ",", 0)',
+        value: 9123456789.2382
+      }
+    };
+
+    $.CurrencyView = $.View({
+      element: '#currency',
+      variable: 'currency'
+    });
+    $.CurrencyView.render(currencyData);
 
     // Create Data and Time objects:
     var date = new Date();
@@ -71,11 +123,67 @@
   <section>
     <h2>Numbers</h2>
     <ul id='numbers' class="list">
+      <li>
+        <div>
+          <h3>${ number.n1.description }</h3>
+          <h4>${ number.n1.formula }</h4>
+          <p>${ $.formatNumber(number.n1.value) }</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>${ number.n2.description }</h3>
+          <h4>${ number.n2.formula }</h4>
+          <p>${ $.formatNumber(number.n2.value) }</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>${ number.n3.description }</h3>
+          <h4>${ number.n3.formula }</h4>
+          <p>${ $.formatNumber(number.n3.value, ",", 2) }</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>${ number.n4.description }</h3>
+          <h4>${ number.n4.formula }</h4>
+          <p>${ $.formatNumber(number.n4.value, ",", 0) }</p>
+        </div>
+      </li>
     </ul>
     <h2>Sum of numbers</h2>
-    <ul id='sum'class='list'></ul>
+    <ul id='sum'class='list'>
+      <li>
+        <div>
+          <h3>${ sum.n1.description }</h3>
+          <h4>${ sum.n1.formula }</h4>
+          <p>${ $.sum(sum.n1.value) }</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>${ sum.n2.description }</h3>
+          <h4>${ sum.n2.formula }</h4>
+          <p>${ $.sum(1,2,3,4,5,6,7,8,9,10,11,12.4) }</p>
+        </div>
+      </li>
+    </ul>
     <h2>Currency</h2>
-    <ul id='currency'class='list'></ul>
+    <ul id='currency'class='list'>
+      <li>
+        <div>
+          <h3>${ currency.n1.description }</h3>
+          <h4>${ $.currency(currency.n1.value, "€") }</h4>
+        </div>
+      </li>
+      <li>
+        <div>
+          <h3>${ currency.n2.description }</h3>
+          <h4>${ $.currency(currency.n2.value, "$", ",", 0) }</h4>
+        </div>
+      </li>
+    </ul>
     <h2>Date</h2>
     <ul id='date'class='list'></ul>
     <h2>Time</h2>

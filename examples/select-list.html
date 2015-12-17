@@ -22,13 +22,14 @@
           <h3>${ data.value }</h3>
         </li>
       </ul>
-      <p>You are going to: <strong><span id="response" class='attentionGrapper'></span></strong></p>
+      <p>You are going to: <strong><span id="response" class='attentionGrapper'>${ value }</span></strong></p>
     </section>
   </screen>
   <script>
     $(function() {
-      // ToDo data:
-      var ToDo = [
+
+      // TODO data:
+      var TODO = [
         {type: "eat", value: "Go Eat Something"},
         {type: "nap", value: "Take a nap"},
         {type: "work", value: "Get some work done"},
@@ -37,14 +38,14 @@
 
       // Define and render view:
       //========================
-      var ToDoView = $.View({
+      var TODOView = $.View({
         element: '#selectList'
       });
-      ToDoView.render(ToDo);
+      TODOView.render(TODO);
 
       // Set up Select List:
       //====================
-      $.mySelectList = $.SelectList({
+      var MySelectList = $.SelectList({
         element: '#selectList',
         selected: 2,
         callback: function() {
@@ -52,13 +53,22 @@
         }
       });
 
+      // View for chosen segment value:
+      //===============================
+      var SelectListView = $.View({
+        element: '.attentionGrapper',
+        variable: 'value'
+      })
+
       // Define callback for select list:
       //=================================  
       var renderSelection = function() {
-        $('#response').text($.mySelectList.getSelection().value);
+        var value = MySelectList.getSelection().value;
+        SelectListView.render(value);
       }
 
       // Render default selection:
+      //==========================
       renderSelection();
     });
   </script>

@@ -15,10 +15,14 @@
           this.array[i] = args[i];
         }
       } else if (args) {
-        var array = Array.prototype.slice.apply(arguments);
-        array.forEach(function(ctx, idx) {
-          this.array[idx] = ctx;
-        });
+        if (args === document) {
+          this.array[0] = document;
+        } else {
+          var array = Array.prototype.slice.apply(arguments);
+          array.forEach(function(ctx, idx) {
+            this.array[idx] = ctx;
+          });
+        }
       }
     }
 

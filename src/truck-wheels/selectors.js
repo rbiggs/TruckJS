@@ -108,7 +108,7 @@
     }
 
     if (selector === document) {
-      return [document];
+      return new DOMStack(document);
     }
 
     if (selector === null) {
@@ -175,16 +175,16 @@
     return new DOMStack();
   }
   (function(Truck) {
-    Truck.extend = function(obj, prop, enumerable) {
+    Truck.extend = function(obj1, obj2, enumerable) {
       enumerable = enumerable || false;
-      if (!prop) {
-        prop = obj;
-        obj = Truck;
+      if (!obj2) {
+        obj2 = obj1;
+        obj1 = Truck;
       }
-      Object.keys(prop).forEach(function(p) {
-        if (prop.hasOwnProperty(p)) {
-          Object.defineProperty(obj, p, {
-            value: prop[p],
+      Object.keys(obj2).forEach(function(p) {
+        if (obj2.hasOwnProperty(p)) {
+          Object.defineProperty(obj1, p, {
+            value: obj2[p],
             writable: true,
             enumerable: enumerable,
             configurable: true

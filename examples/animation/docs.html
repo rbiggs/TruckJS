@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Anim</title>
+  <link rel="stylesheet" href="../../dist/styles/truck-ios.css">
+    <style>
+      #examples {
+        padding: 0 10px;
+      }
+      .box {
+        margin: 5px;
+        border: 1px solid #ddd;
+        font-size: 11px;
+        text-align: center;
+        line-height: 50px;
+      }
+      .small {
+        width: 50px;
+        height: 50px;
+      }
+      a {
+        color: #00B5E2;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .sandbox {
+        margin: 10px 0;
+        padding: 5px;
+        border: 1px solid #ddd;
+      }
+      .source {
+        font-family: monaco, monospace;
+        font-size: 12px;
+        color: #000;
+        border: solid 1px #ddd;
+        padding: 10px;
+      }
+      .example p {
+        color: #333;
+      }
+      .example p code {
+        color: #000;
+        background-color: #eee;
+        padding: 2px 5px;
+        border: 1px solid #eee;
+      }
+      .box {
+        background-color: #ccc;
+      }
+      #example-1 .box,
+      #example-2 .box,
+      #example-3 .box {
+        margin-left: 50px;
+      }
+    </style>
+    <script src="../../dist/truck.js"></script>
+  </head>
+  <body>
+    <screen id="main" class="current">
+      <nav>
+        <h1>Truck Anim</h1>
+      </nav>
+      <section>
+
+    <p>Truck Anim is a JavaScript module for making simple and elegant animations with CSS3 effects.</p>
+
+    <h2>Examples</h2>
+
+    <div id="examples">
+      <div id="example-1" class="example">
+        <h3>$.set(prop, val)</h3>
+        <p>Set <em>prop</em> to <em>val</em>.</p>
+        <button class="play">Play</button>
+        <div class="sandbox">
+          <div class="box small"></div>
+        </div>
+        <pre class="source">
+          <code>
+$.anim('#example-1 .box')
+.set('margin-left', '200px')
+.run();
+          </code>
+        </pre>
+      </div>
+
+      <div id="example-2" class="example">
+        <h3>$.add(prop, val)</h3>
+        <p>Increment <em>prop</em> by <em>val</em>, where <em>val</em>
+          is a Number (click several times).</p>
+        <button class="play">Play</button>
+        <div class="sandbox">
+          <div class="box small"></div>
+        </div>
+        <pre class="source">
+          <code>
+$.anim('#example-2 .box')
+.add('margin-left', 200)
+.run();
+          </code>
+        </pre>
+      </div>
+
+      <div id="example-3" class="example">
+        <h3>$.sub(prop, val)</h3>
+        <p>Decrement <em>prop</em> by <em>val</em>, where <em>val</em>
+          is a Number (click several times).</p>
+        <button class="play">Play</button>
+        <div class="sandbox">
+          <div class="box small"></div>
+        </div>
+        <pre class="source">
+          <code>
+$.anim('#example-3 .box')
+.sub('margin-left', 100)
+.run();
+          </code>
+        </pre>
+      </div>
+
+      <div id="example-4" class="example">
+        <h3>$.rotate(deg)</h3>
+        <p>Rotate by <em>deg</em>.</p>
+        <button class="play">Play</button>
+        <div class="sandbox">
+          <div class="box small"></div>
+        </div>
+        <pre class="source">
+          <code>
+$.anim('#example-4 .box')
+.rotate(140)
+.run();
+          </code>
+        </pre>
+      </div>
+
+      <div id="example-5" class="example">
+        <h3>$.duration(n)</h3>
+        <p>Set animation duration to <em>n</em> which is a
+          Number or a string such as "4s".</p>
+        <button class="play">Play</button>
+        <div class="sandbox">
+          <div class="box small"></div>
+        </div>
+        <pre class="source">
+          <code>
+$.anim('#example-5 .box')
+.set('background-color', 'blue')
+.duration('2s')
+.run();
+          </code>
+        </pre>
+      </div>
+
+      <div id="example-6" class="example">
+        <h3>$.translate(x[, y])</h3>
+        <p>Translate <em>x</em> and optionally <em>y</em> axis. Aliased as <code>anim.to(x[, y])</code>.</p>
+        <button class="play">Play</button>
+        <div class="sandbox">
+          <div class="box small"></div>
+        </div>
+        <pre class="source">
+          <code>
+$.anim('#example-6 .box')
+.translate(300, 80)
+.run();
+          </code>
+        </pre>
+      </div>
+
+      <div id="example-7" class="example">
+        <h3>$.x(n) / anim.y(n)</h3>
+        <p>Translate <em>x</em> or <em>y</em> axis. Aliased by <code>anim.translateX(n)</code> and <code>anim.translateY(n)</code>.</p>
+        <button class="play">Play</button>
+        <div class="sandbox">
+          <div class="box small"></div>
+        </div>
+        <pre class="source">
+          <code>
+$.anim('#example-7 .box')
+.x(300)
+.y(20)
+.run();
+          </code>
+        </pre>
+      </div>
+
+      <div id="example-8" class="example">
+        <h3>$.skew(x[, y])</h3>
+        <p>Skew <em>x</em>, and optionally <em>y</em>. <code>anim.skewX(n)</code> and <code>anim.skewY(n)</code> are also available.</p>
+        <button class="play">Play</button>
+        <div class="sandbox">
+          <div class="box small"></div>
+        </div>
+        <pre class="source">
+          <code>
+$.anim('#example-8 .box')
+.x(300)
+.skew(50)
+.set('height', 20)
+.run();
+          </code>
+        </pre>
+      </div>
+
+      <div id="example-9" class="example">
+        <h3>$.scale(x[, y])</h3>
+        <p>Scale the <em>x</em>, and optionally <em>y</em> axis. <code>anim.scaleX(n)</code> and <code>anim.scaleY(n)</code> are also available.</p>
+        <button class="play">Play</button>
+        <div class="sandbox">
+          <div class="box small"></div>
+        </div>
+        <pre class="source">
+          <code>
+$.anim('#example-9 .box')
+.scale(3)
+.run();
+          </code>
+        </pre>
+      </div>
+
+      <div id="example-10" class="example">
+        <h3>$.ease(fn)</h3>
+        <p>Use the given easing <code>fn</code>.</p>
+        <button class="play">Play</button>
+        <div class="sandbox">
+          <div class="box box1 small">default</div>
+          <div class="box box2 small">in</div>
+          <div class="box box3 small">out</div>
+          <div class="box box4 small">in-out</div>
+          <div class="box box5 small">snap</div>
+          <div class="box box6 small">(0,1,1,0)</div>
+        </div>
+        <pre class="source">
+          <code>
+$.anim('#example-10 .box1').x(400).run();
+$.anim('#example-10 .box2').ease('in').x(400).run();
+$.anim('#example-10 .box3').ease('out').x(400).run();
+$.anim('#example-10 .box4').ease('in-out').x(400).run();
+$.anim('#example-10 .box5').ease('snap').x(400).run();
+$.anim('#example-10 .box6').ease('cubic-bezier(0,1,1,0)').x(400).run();
+
+setTimeout(function(){
+  $.anim('#example-10 .box1').x(0).run();
+  $.anim('#example-10 .box2').x(0).run();
+  $.anim('#example-10 .box3').x(0).run();
+  $.anim('#example-10 .box4').x(0).run();
+  $.anim('#example-10 .box5').x(0).run();
+  $.anim('#example-10 .box6').x(0).run();
+}, 1200);
+          </code>
+        </pre>
+      </div>
+
+      <div id="example-11" class="example">
+        <h3>$.run([fn])</h3>
+        <p>The <code>end()</code> method triggers the animation
+          to play, optionally invoking the callback <em>fn</em> when complete.</p>
+        <button class="play">Play</button>
+        <div class="sandbox">
+          <div class="box small"></div>
+        </div>
+        <pre class="source">
+          <code>
+$.anim('#example-11 .box')
+.set('background-color', 'red')
+.duration(1000)
+.run(function(){
+  $.anim('#example-11 .box')
+  .set('background-color', 'white')
+  .run();
+});
+          </code>
+        </pre>
+      </div>
+
+      <div id="example-12" class="example">
+        <h3>$.delay(n)</h3>
+        <p>Set animation delay to <em>n</em> which is a
+          Number or a string such as "4s".</p>
+        <button class="play">Play</button>
+        <div class="sandbox">
+          <div class="box small"></div>
+        </div>
+        <pre class="source">
+          <code>
+$.anim('#example-12 .box')
+.set('background-color', 'blue')
+.delay('2s')
+.run();
+          </code>
+        </pre>
+      </div>
+
+      <div id="example-13" class="example">
+        <h3>$.then([fn])</h3>
+        <p>Defer an action such as invoking a <em>fn</em>,
+          <code>end()</code>ing the given <code>Anim</code> instance,
+          or returning a clone for chaining. The <code>anim.pop()</code> method is used to return the current <code>Anim</code> instance's parent in the chain.</p>
+        <button class="play">Play</button>
+        <div class="sandbox">
+          <div class="box small"></div>
+          <div class="box box2 small"></div>
+        </div>
+        <pre class="source">
+          <code>
+var moveBack = $.anim('#example-13 .box')
+.set('background-color', 'white')
+.x(0);
+
+$.anim('#example-13 .box')
+.set('background-color', 'red')
+.x(500)
+.then(moveBack)
+.run();
+
+$.anim('#example-13 .box2')
+.set('background-color', 'red')
+.x(500)
+.scale(.5)
+.rotate(60)
+.then()
+  .rotate(30)
+  .scale(1.5)
+  .set('border-radius', 5)
+  .set('background-color', 'white')
+.then()
+  .set('opacity', 0)
+.pop()
+.pop()
+.run();
+          </code>
+        </pre>
+      </div>
+
+      <div class="example">
+        <h3>$.select(selector)</h3>
+        <p>This function is used throughout anim to select elements. For
+          example if we wanted to utilize jQuery, we could re-define
+          this function as shown below.</p>
+        <pre class="source">
+          <code>
+$.anim.select = function(selector){
+  return $(selector).get(0);
+};
+          </code>
+        </pre>
+      </div>
+
+      <div class="example">
+        <h3>$.defaults</h3>
+        <p>Defaults used throughout Anim, simply re-define to apply a new default.</p>
+        <pre class="source">
+          <code>
+$.anim.defaults = {
+  duration: 500
+};
+          </code>
+        </pre>
+      </div>
+
+      </section>
+    </screen>
+
+    <script>
+      $(function() {
+
+        function play(example, fn) {
+          var button = '#example-' + example + ' .play';
+          $(button).on('tap', function(e){
+            e.preventDefault();
+            fn();
+          });
+        }
+
+        // example 1
+        play(1, function(){
+          $.anim('#example-1 .box')
+          .set('margin-left', '200px')
+          .run();
+        });
+
+        // example 2
+        play(2, function(){
+          $.anim('#example-2 .box')
+          .add('margin-left', 200)
+          .run();
+        });
+
+        // example 3
+        play(3, function(){
+          $.anim('#example-3 .box')
+          .sub('margin-left', 100)
+          .run();
+        });
+
+        // example 4
+        var e4 = $.anim('#example-4 .box');
+        play(4, function(){
+          e4.rotate(140).run();
+        });
+
+        // example 5
+        play(5, function(){
+          $.anim('#example-5 .box')
+          .set('background-color', 'blue')
+          .duration(2000)
+          .run();
+        });
+
+        // example 6
+        play(6, function(){
+          $.anim('#example-6 .box')
+          .translate(300, 80)
+          .run();
+        });
+
+        // example 7
+        play(7, function(){
+          $.anim('#example-7 .box')
+          .x(300)
+          .y(20)
+          .run();
+        });
+
+        // example 8
+        play(8, function(){
+          $.anim('#example-8 .box')
+          .x(300)
+          .skew(50)
+          .set('height', 20)
+          .run();
+        });
+
+        // example 9
+        play(9, function(){
+          $.anim('#example-9 .box')
+          .scale(2)
+          .x(10)
+          .run();
+        });
+
+        // example 10
+        play(10, function(){
+          $.anim('#example-10 .box1').x(400).run();
+          $.anim('#example-10 .box2').ease('in').x(400).run();
+          $.anim('#example-10 .box3').ease('out').x(400).run();
+          $.anim('#example-10 .box4').ease('in-out').x(400).run();
+          $.anim('#example-10 .box5').ease('snap').x(400).run();
+          $.anim('#example-10 .box6').ease('cubic-bezier(0,1,1,0)').x(400).run();
+
+          setTimeout(function(){
+            $.anim('#example-10 .box1').x(0).run();
+            $.anim('#example-10 .box2').x(0).run();
+            $.anim('#example-10 .box3').x(0).run();
+            $.anim('#example-10 .box4').x(0).run();
+            $.anim('#example-10 .box5').x(0).run();
+            $.anim('#example-10 .box6').x(0).run();
+          }, 1200);
+        });
+
+        play(11, function(){
+          $.anim('#example-11 .box')
+          .set('background-color', 'red')
+          .duration(1000)
+          .run(function(){
+            $.anim('#example-11 .box')
+            .set('background-color', 'white')
+            .run();
+          });
+        });
+
+        // example 12
+        play(12, function(){
+          $.anim('#example-12 .box')
+          .set('background-color', 'blue')
+          .delay('2s')
+          .run();
+        });
+
+        // example 13
+        play(13, function(){
+          var moveBack = $.anim('#example-13 .box')
+          .set('background-color', 'white')
+          .x(0);
+
+          $.anim('#example-13 .box')
+          .set('background-color', 'red')
+          .x(500)
+          .then(moveBack)
+          .run();
+
+          $.anim('#example-13 .box2')
+          .set('background-color', 'red')
+          .x(500)
+          .scale(.5)
+          .rotate(60)
+          .then()
+            .rotate(30)
+            .scale(1.5)
+            .set('border-radius', '5px')
+            .set('background-color', 'white')
+          .then()
+            .set('opacity', 0)
+          .pop()
+          .pop()
+          .run();
+        });
+
+      });
+    </script>
+    </div>
+  </body>
+</html>

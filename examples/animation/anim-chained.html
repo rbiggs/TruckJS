@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Anim</title>
+  <link rel="stylesheet" href="../../dist/styles/truck-ios.css">
+    <style>
+      #truck {
+        position: absolute;
+        left: 100px;
+        opacity: 0;
+      }
+      #chassis {
+        position: absolute;
+        top: 140px;
+        left: 600px;
+        opacity: 0;
+      }
+      #front {
+        position: absolute;
+        top: 300px;
+        left: 600px;
+        opacity: 0;
+      }
+    </style>
+    <script src="../../dist/truck.js"></script>
+  </head>
+
+  <body>
+    <screen id="main" class="current">
+      <nav>
+        <h1>Chained Animation</h1>
+      </nav>
+      <section>
+        <img id="truck" src="images/truck.png">
+        <img id="chassis" src="images/chassis.png">
+        <img id="front" src="images/truck-front.png">
+      </section>
+    </screen>
+
+    <script>
+      $(function(){
+        $.anim('#truck')
+        .duration(1000)
+        .set('opacity', 1)
+        .add('left', 500)
+        .run();
+        
+        $.anim('#front')
+        .sub('left', 600)
+        .set('opacity', 1)
+        .duration(1200)
+        .delay(500)
+        .run();
+
+        $.anim('#chassis')
+        .ease('cubic-bezier(0.135, 0.885, 0.860, 0.140)')
+        .sub('left', 500)
+        .set('opacity', 1)
+        .duration(1200)
+        .delay(500)
+        .then()
+          .anim('#front')
+          .set('left', 200)
+        .then()
+          .add('left', 600)
+          .scale(.5)
+          .duration(1200)
+          .delay(500)
+        .then()
+          .duration(500)
+          .delay(1200)
+          .add('top', 100)
+          .rotate(180)
+          .set('opacity', .5)
+        .then()
+          .duration(1000)
+          .delay(1000)
+          .set('opacity', 1)
+          .rotate(180)
+          .scale(2)
+          .sub('top', 100)
+        .pop()
+        .pop()
+        .pop()
+        .pop()
+        .run();
+      });
+    </script>
+  </body>
+</html>

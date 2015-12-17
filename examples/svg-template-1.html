@@ -11,26 +11,31 @@
   <script src="../dist/truck.js"></script>
   <script>
     $(function() {
+
+      // Data for SVG rectangles:
+      //=========================
       var data = [
         {color: "#ff0000", stroke: "#00ff00", height: "20"},
         {color: "#00ffff", stroke: "#ff0000", height: "20"},
         {color: "#ff00ff", stroke: "#00ffff", height: "20"},
         {color: "#f0990f", stroke: "#0ff00f", height: "20"},
       ];
-      var squaresView = $.View({
-        element: '#squares'
-      });
-      squaresView.render(data)
 
+      // Define view for SVG rectangles:
+      //================================
+      var RectView = $.View({
+        element: '#rectangles'
+      });
+      RectView.render(data)
+
+      // Get new height and width for rectangles:
+      //=========================================
       $('#updateSVG').on('input', function() {
         var val = this.value;
         data.forEach(function(item) {
           item.height = val;
         });
-        setTimeout(function() {
-          squaresView.render(data);
-          console.log(data)
-        });
+        RectView.render(data);
       })
     });
   </script>
@@ -42,10 +47,15 @@
     </nav>
     <section>
       <h2 class='normal-case'>Update the dimensions of these SVG images with the slider</h2>
-      <ul class="list" id='squares'>
-        <li><svg  width="${ data.height * 2.5 }px" height="${ data.height }px" viewBox="0 0 ${ data.height * 2.5 } ${ data.height }" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-miterlimit:1.41421;">
-    <rect id="Rectangle-1" x="0" y="0" width="${ data.height * 2.5 }" height="${ data.height }" style="fill:${ data.color };stroke-width:4px;stroke:${ data.stroke };"/>${ data.height }
-</svg></li>
+      <!-- SVG template -->
+      <ul class="list" id='rectangles'>
+        <script type='text/x-template'>
+          <li>
+            <svg width="${ data.height * 2.5 }px" height="${ data.height }px" viewBox="0 0 ${ data.height * 2.5 } ${ data.height }" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-miterlimit:1.41421;">
+              <rect id="Rectangle-1" x="0" y="0" width="${ data.height * 2.5 }" height="${ data.height }" style="fill:${ data.color };stroke-width:4px;stroke:${ data.stroke };"/>${ data.height }
+            </svg>
+          </li>
+        </script>
       </ul>
       <p>
         <label for="range">Drag slider to update SVG size </label><input id='updateSVG' type="range" min='0' max='100'>

@@ -1890,3 +1890,8 @@ html[dir=rtl] .grid {
   -ms-flex-direction: row;
   flex-direction: row;
 }
+@media only screen and (max-width: 480px) {
+  .grid.responsive {
+    display: block !important;
+  }
+}
