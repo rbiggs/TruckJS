@@ -554,7 +554,7 @@
     },
 
     html: function(HTMLString) {
-      return $.make(HTMLString);
+      return $.html(HTMLString);
     },
 
     require: function(src, callback) {
@@ -1086,7 +1086,7 @@
       }
       var __before = function(node, content) {
         if (typeof content === 'string') {
-          content = $.make(content);
+          content = $.html(content);
         }
         if (content && content.constructor.toString().match(/DOMStack/)) {
           var len = content.size();
@@ -1111,7 +1111,7 @@
       var __after = function(node, content) {
         var parent = node.parentNode;
         if (typeof content === 'string') {
-          content = $.make(content);
+          content = $.html(content);
         }
         if (content && content.constructor.toString().match(/DOMStack/)) {
           var i = 0,
@@ -1214,7 +1214,7 @@
       var empNode;
       var whichClone;
       this.forEach(function(ctx) {
-        tempNode = $.make(string);
+        tempNode = $.html(string);
         empNode = tempNode.array[0];
         whichClone = $(ctx).clone(true);
         tempNode.append(whichClone);

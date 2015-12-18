@@ -28,6 +28,7 @@
 </screen>
 
 <script>
+
   $(function() {
     var people = [
       
@@ -199,9 +200,10 @@
     ];
 
     // Define  model:
-    $.PeopleModel = $.Model(people, 'people-model');
-
-    $.editListView = $.View({
+    var PeopleModel = $.Model(people, 'people-model');
+    var dingo = $.Model([1,2,3], 'my-handle');
+    dingo.push(3);
+    var editListView = $.View({
       element: '#editList',
       model: $.PeopleModel,
       variable: 'person',
@@ -209,19 +211,19 @@
     });
     $.editListView.render();
 
-    $.myEditList = $.EditList({
+    var myEditList = $.EditList({
       deletable: true,
       movable: true,
-      model: $.PeopleModel,
+      model: PeopleModel,
       modelProp: 'guid',
       element: '#editList',
-      view: $.editListView
+      view: editListView
     });
 
     $.Box.config({
       boxName: 'editable-list-box'
     });
-    $.PeopleModel.box({key: 'editable-list-people', autobox: true});
+    PeopleModel.box({key: 'editable-list-people', autobox: true});
 
 
   });

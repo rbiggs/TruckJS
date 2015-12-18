@@ -95,7 +95,6 @@
               $.TruckRoutes.delete(route);
             } else {
               $.TruckRoutes.forEach(function(r) {
-                console.log(r)
                 if (r && route === r.split(':')[0]) {
                   $.TruckRoutes.delete(r);
                 }

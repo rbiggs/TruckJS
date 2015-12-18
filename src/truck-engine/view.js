@@ -402,12 +402,6 @@
           }
         },
 
-        beginFromIndex: function(yes) {
-          if (yes && !isNaN(yes)) {
-            $.view.index = yes;
-          }
-        },
-
         getTemplate: function() {
           return __template;
         },
@@ -471,9 +465,9 @@
           __model = undefined;
         },
 
-        addEvent: function(events, dontReplace) {
+        addEvent: function(events, replace) {
           var eventsTemp;
-          if (!dontReplace) {
+          if (replace) {
             __events = events;
           } else {
             if (events && events.length) {

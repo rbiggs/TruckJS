@@ -5,7 +5,7 @@
     //========================
     // Setup a slide out menu:
     //========================
-    SlideOut: function(options) {
+    SlideOut: function() {
       var slideOutButton = $('<button class="slide-out-button"></button>');
       var slideOut = '<slideout><section></section></slideout>';
       $('body').prepend(slideOut);

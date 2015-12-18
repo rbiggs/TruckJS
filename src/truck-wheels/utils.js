@@ -26,7 +26,7 @@
       });
     },
 
-    make: function(HTMLString) {
+    html: function(HTMLString) {
       var ret = new DOMStack();
       var temp;
 
@@ -73,10 +73,6 @@
       }
 
       return ret;
-    },
-
-    html: function(HTMLString) {
-      return $.make(HTMLString);
     },
 
     require: function(src, callback) {

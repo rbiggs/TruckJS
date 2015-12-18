@@ -1,0 +1,1 @@
+/// <reference path="truckjs/truckjs.d.ts" />

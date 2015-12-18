@@ -508,7 +508,7 @@
       });
     },
 
-    make: function(HTMLString) {
+    html: function(HTMLString) {
       var ret = new DOMStack();
       var temp;
 
@@ -555,10 +555,6 @@
       }
 
       return ret;
-    },
-
-    html: function(HTMLString) {
-      return $.make(HTMLString);
     },
 
     require: function(src, callback) {
@@ -744,6 +740,10 @@
           }
         } else if (typeof arg === 'function') {
           if (arg.call(that)) {
+            ret = true;
+          }
+        } else if (arg.constructor.toString().match(/DOMStack/)) {
+          if (node === arg[0]) {
             ret = true;
           }
         } else if (arg && arg.length) {
@@ -1090,7 +1090,7 @@
       }
       var __before = function(node, content) {
         if (typeof content === 'string' || typeof content === 'number') {
-          content = $.make(content);
+          content = $.html(content);
         }
         if (content && content.constructor.toString().match(/DOMStack/)) {
           var len = content.size();
@@ -1115,7 +1115,7 @@
       var __after = function(node, content) {
         var parent = node.parentNode;
         if (typeof content === 'string' || typeof content === 'number') {
-          content = $.make(content);
+          content = $.html(content);
         }
         if (content && content.constructor.toString().match(/DOMStack/)) {
           var i = 0,
@@ -1218,7 +1218,7 @@
       var empNode;
       var whichClone;
       this.forEach(function(ctx) {
-        tempNode = $.make(string);
+        tempNode = $.html(string);
         empNode = tempNode.array[0];
         whichClone = $(ctx).clone(true);
         tempNode.append(whichClone);
@@ -1961,8 +1961,6 @@
     isiOS: /ip(hone|od|ad)/img.test(navigator.userAgent),
 
     isAndroid: (/android/img.test(navigator.userAgent) && !/trident/img.test(navigator.userAgent)),
-
-    isWebOS: /webos/img.test(navigator.userAgent),
 
     isBlackberry: /blackberry/img.test(navigator.userAgent),
 
@@ -2719,38 +2717,8 @@
           __array.reverse.apply(__array, arguments);
         },
 
-        indexOf: function(el, idx) {
-          var i = 0;
-          var len = __array.length;
-          var compareObjects = function(a, b) {
-            if (a === b)
-              return true;
-            for (var i in a) {
-              if (b.hasOwnProperty(i)) {
-                if (a[i] !== b[i]) return false;
-              } else {
-                return false;
-              }
-            }
-
-            for (var i in b) {
-              if (!a.hasOwnProperty(i)) {
-                return false;
-              }
-            }
-            return true;
-          };
-          for (; i < len; i++) {
-            if ($.type(el) === 'object') {
-              if (compareObjects(el, __array[i])) {
-                return i;
-              }
-            } else {
-              if (el === __array[i]) {
-                return i;
-              }
-            }
-          }
+        indexOf: function() {
+          return __array.indexOf.apply(this.array, arguments);
         },
 
         every: function() {
@@ -3001,13 +2969,18 @@
           var self = this;
           if (this.hasData() && this.isIterable()) {
             var len = data.length;
-            __data.splice(position, 0, data);
-            __lastModifiedTime = Date.now();
-            propagateData(__handle, data, doNotPropogate);
-          } else {
-            __data.splice(position, 0, data);
-            __lastModifiedTime = Date.now();
-            propagateData(__handle, data, doNotPropogate);
+            // The position is greater than the collection,
+            // so add to end of collection:
+            if (position >= len - 1) {
+              __data.push(data);
+              __lastModifiedTime = Date.now();
+              propagateData(__handle, data, doNotPropogate);
+              // Otherwise insert it at the position:
+            } else {
+              __data.splice(position, 0, data);
+              __lastModifiedTime = Date.now();
+              propagateData(__handle, data, doNotPropogate);
+            }
           }
           if (__autobox) {
             self.box({
@@ -3350,8 +3323,7 @@
           /*
             options = {
               key: key,
-              boxName: name,
-              autosync: true
+              boxName: name
             }
           */
 
@@ -4014,12 +3986,6 @@
           }
         },
 
-        beginFromIndex: function(yes) {
-          if (yes && !isNaN(yes)) {
-            $.view.index = yes;
-          }
-        },
-
         getTemplate: function() {
           return __template;
         },
@@ -4083,9 +4049,9 @@
           __model = undefined;
         },
 
-        addEvent: function(events, dontReplace) {
+        addEvent: function(events, replace) {
           var eventsTemp;
-          if (!dontReplace) {
+          if (replace) {
             __events = events;
           } else {
             if (events && events.length) {
@@ -4355,7 +4321,6 @@
               $.TruckRoutes.delete(route);
             } else {
               $.TruckRoutes.forEach(function(r) {
-                console.log(r)
                 if (r && route === r.split(':')[0]) {
                   $.TruckRoutes.delete(r);
                 }

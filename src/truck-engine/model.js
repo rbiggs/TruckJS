@@ -209,13 +209,18 @@
           var self = this;
           if (this.hasData() && this.isIterable()) {
             var len = data.length;
-            __data.splice(position, 0, data);
-            __lastModifiedTime = Date.now();
-            propagateData(__handle, data, doNotPropogate);
-          } else {
-            __data.splice(position, 0, data);
-            __lastModifiedTime = Date.now();
-            propagateData(__handle, data, doNotPropogate);
+            // The position is greater than the collection,
+            // so add to end of collection:
+            if (position >= len -1) {
+              __data.push(data);
+              __lastModifiedTime = Date.now();
+              propagateData(__handle, data, doNotPropogate);
+            // Otherwise insert it at the position:
+            } else {
+              __data.splice(position, 0, data);
+              __lastModifiedTime = Date.now();
+              propagateData(__handle, data, doNotPropogate);
+            }
           }
           if (__autobox) {
             self.box({
@@ -558,8 +563,7 @@
           /*
             options = {
               key: key,
-              boxName: name,
-              autosync: true
+              boxName: name
             }
           */
 

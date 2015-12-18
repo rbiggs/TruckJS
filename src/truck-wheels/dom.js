@@ -48,6 +48,10 @@
           if (arg.call(that)) {
             ret = true;
           }
+        } else if (arg.constructor.toString().match(/DOMStack/)) {
+          if (node === arg[0]) {
+            ret = true;
+          }
         } else if (arg && arg.length) {
           if (this.slice.apply(arg).indexOf(node) !== -1) {
             ret = true;
@@ -392,7 +396,7 @@
       }
       var __before = function(node, content) {
         if (typeof content === 'string' || typeof content === 'number') {
-          content = $.make(content);
+          content = $.html(content);
         }
         if (content && content.constructor.toString().match(/DOMStack/)) {
           var len = content.size();
@@ -417,7 +421,7 @@
       var __after = function(node, content) {
         var parent = node.parentNode;
         if (typeof content === 'string' || typeof content === 'number') {
-          content = $.make(content);
+          content = $.html(content);
         }
         if (content && content.constructor.toString().match(/DOMStack/)) {
           var i = 0,
@@ -520,7 +524,7 @@
       var empNode;
       var whichClone;
       this.forEach(function(ctx) {
-        tempNode = $.make(string);
+        tempNode = $.html(string);
         empNode = tempNode.array[0];
         whichClone = $(ctx).clone(true);
         tempNode.append(whichClone);

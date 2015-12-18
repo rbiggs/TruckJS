@@ -45,8 +45,9 @@
     </section>
   </screen>
   <script>
+
     $(function() {
-      $.sleepSwitch = $.Switch({
+      var sleepSwitch = $.Switch({
         element: '#sleep-switch',
         name: 'sleep',
         value: 'get some sleep',
@@ -60,7 +61,7 @@
           $('#response').empty();
         }
       });
-      $.vacationSwitch = $.Switch({
+      var vacationSwitch = $.Switch({
         element: '#vacation-switch',
         name: 'vacation',
         value: 'take a vacation',
@@ -74,7 +75,7 @@
           $('#response').empty();
         }
       });
-      $.breakfastSwitch = $.Switch({
+      var breakfastSwitch = $.Switch({
         element: '#breakfast-switch',
         name: 'breakfast',
         value: 'have some breakfast',
@@ -88,7 +89,6 @@
           $('#response').empty();
         }
       });
-
 
     });
   </script>

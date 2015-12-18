@@ -141,38 +141,8 @@
           __array.reverse.apply(__array, arguments);
         },
 
-        indexOf: function(el, idx) {
-          var i = 0;
-          var len = __array.length;
-          var compareObjects = function(a, b) {
-            if (a === b)
-              return true;
-            for (var i in a) {
-              if (b.hasOwnProperty(i)) {
-                if (a[i] !== b[i]) return false;
-              } else {
-                return false;
-              }
-            }
-
-            for (var i in b) {
-              if (!a.hasOwnProperty(i)) {
-                return false;
-              }
-            }
-            return true;
-          };
-          for(;i<len; i++) {
-            if ($.type(el) === 'object') {
-              if (compareObjects(el, __array[i])) {
-                return i;
-              }
-            } else {
-              if (el === __array[i]) {
-                return i;
-              }
-            }
-          }
+        indexOf: function() {
+          return __array.indexOf.apply(this.array, arguments);
         },
 
         every: function() {

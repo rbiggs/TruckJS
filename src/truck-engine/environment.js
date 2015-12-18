@@ -12,8 +12,6 @@
 
     isAndroid: (/android/img.test(navigator.userAgent) && !/trident/img.test(navigator.userAgent)),
 
-    isWebOS: /webos/img.test(navigator.userAgent),
-
     isBlackberry: /blackberry/img.test(navigator.userAgent),
 
     isTouchEnabled: !/trident/img.test(navigator.userAgent) && !/edge/img.test(navigator.userAgent) && 'createTouch' in document,

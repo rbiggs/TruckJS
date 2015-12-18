@@ -63,7 +63,7 @@
       //================================= 
       var renderSelection = function() {
         var temp = [];
-        myMulitSelectList.getSelection().forEach(function(item){
+        myMulitSelectList.getSelection().forEach(function(item) {
           temp.push(item.value);
         });
         temp.sort()
@@ -90,8 +90,8 @@
         ]);
         // If validation passed, output results:
         if(!choice.errors()) {
-          $.formData = choice.get();
-          console.dir($.formData)
+          var formData = choice.get();
+          console.dir(formData)
         }
       });
       

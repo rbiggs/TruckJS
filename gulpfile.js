@@ -69,7 +69,6 @@ var Truck_Files = [
   'truck-body/segmented.js',
   'truck-body/range.js',
   'truck-body/sheets.js',
-  'truck-body/slide-out.js',
   'truck-body/paging.js',
   'truck-body/stepper.js',
   'truck-body/popover.js',

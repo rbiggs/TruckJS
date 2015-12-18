@@ -35,7 +35,7 @@
       $.registerCustomValidator('nameWithSpaces', /^[A-Za-z\W]+$/);
 
       $('#validateForm').on('click', function() {
-        $.myForm = $.Form([
+        var myForm = $.Form([
           {
             element: '#name',
             type: 'custom-nameWithSpaces',
@@ -52,11 +52,11 @@
             }
           }
         ]);
-        if(!$.myForm.errors()) {
-          $.formData = $.myForm.get();
-          console.dir($.formData)
+        if(!myForm.errors()) {
+          formData = myForm.get();
+          console.dir(formData)
         } else {
-          $.myForm.getErrors().forEach(function(err) {
+          myForm.getErrors().forEach(function(err) {
             console.log(err.type)
           })
         }
