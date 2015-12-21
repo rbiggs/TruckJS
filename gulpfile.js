@@ -7,11 +7,12 @@ var gutils = require('gulp-util');
 var ts = require('gulp-typescript');
 var beautify = require('gulp-jsbeautifier');
 var jshint = require('gulp-jshint');
-var jsmin = require('gulp-jsmin');
+var uglify = require('gulp-uglify');
 var minifyCSS = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var colors = require('colors');
 var combiner = require('stream-combiner2');
+var gzip = require('gulp-gzip');
 
 var filePathStart = 'src/';
 var osTypes = ['truck-android','truck-ios','truck-windows']
@@ -50,6 +51,7 @@ var Truck_Files = [
   'truck-engine/validators.js',
   'truck-engine/box.js',
   'truck-engine/anim.js',
+  'truck-engine/oop.js',
 
   /* Truck Body Components */
   'truck-body/body-comments.js',
@@ -156,7 +158,7 @@ gulp.task('js', function () {
     .pipe(concat('truck-wheels.js'))
     .pipe(beautify({indentSize: 2, braceStyle: "collapse", spaceBeforeConditional: true}))
     .pipe(gulp.dest('dist/'))
-    .pipe(jsmin())
+    .pipe(uglify({ mangle: false }))
     .pipe(rename("truck-wheels.min.js"))
     .pipe(gulp.dest('dist/'));
 
@@ -167,7 +169,7 @@ gulp.task('js', function () {
     .pipe(concat('truck-engine.js'))
     .pipe(beautify({indentSize: 2, braceStyle: "collapse", spaceBeforeConditional: true}))
     .pipe(gulp.dest('dist/'))
-    .pipe(jsmin())
+    .pipe(uglify({ mangle: false }))
     .pipe(rename("truck-engine.min.js"))
     .pipe(gulp.dest('dist/'));
 
@@ -177,7 +179,7 @@ gulp.task('js', function () {
       .pipe(concat('truck-tank.js'))
       .pipe(beautify({indentSize: 2, braceStyle: "collapse", spaceBeforeConditional: true}))
       .pipe(gulp.dest('dist/'))
-      .pipe(jsmin())
+      .pipe(uglify({ mangle: false }))
       .pipe(rename("truck-tank.min.js"))
       .pipe(gulp.dest('dist/'));
   } else {
@@ -207,15 +209,19 @@ gulp.task('js', function () {
     });
 
     gulp.src(Truck_Files)
-        .pipe(concat('truck.js'))
-        .pipe(beautify({indentSize: 2, braceStyle: "collapse", spaceBeforeConditional: true}))
-        .pipe(gulp.dest('dist/'))
-        .pipe(jsmin())
-        .pipe(rename("truck.min.js"))
-        .pipe(gulp.dest('dist/'));
+      .pipe(concat('truck.js'))
+      .pipe(beautify({indentSize: 2, braceStyle: "collapse", spaceBeforeConditional: true}))
+      .pipe(gulp.dest('dist/'))
+      .pipe(uglify({ mangle: false }))
+      .pipe(rename("truck.min.js"))
+      .pipe(gulp.dest('dist/'));
+
+    gulp.src(Truck_Files)
+      .pipe(concat('truck.js'))
+      .pipe(gzip({append: true}))
+      .pipe(gulp.dest('dist/'))
 
     cssFiles.forEach(function(file, idx) {
-      console.log(file)
       gulp.src(file)
         .pipe(gulp.dest('dist/styles'))
         .pipe(minifyCSS({}))

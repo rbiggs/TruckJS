@@ -63,7 +63,7 @@
       return JSON.parse(str);
     },
 
-    concat : function ( args ) {
+    concat: function (args) {
       return (args instanceof Array) ? args.join('') : [].slice.apply(arguments).join('');
     }
   });

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Object Module</title>
+  <link rel="stylesheet" href="../../dist/styles/truck-ios.css">
+    <script src="../../dist/truck.js"></script>
+    <script>
+    $(function() {
+
+      //bar1
+      $.Modules.add( "foo", function() {
+        function hello(who) {
+          return "Let me introduce: " + who;
+        }
+        // Make this method public:
+        return {
+          hello: hello
+        };
+      });
+
+      $.Modules.add( "bar", function() {
+        function announce(who) {
+          console.log('Announcement: ' + who + "!");
+        }
+        // Make this method public:
+        return {
+          announce: announce
+        };
+      });
+
+      // Define module with two dependencies - bar & baz.
+      // The dependencies are defined in an array,
+      // then passed as arguments to the implementation:
+      //=================================================
+      $.Modules.add("baz", ["foo", "bar"], function(foo, bar) {
+        
+        var name = "Charlie";
+
+        function upperCase(str) {
+          return str.toUpperCase();
+        }
+
+        function message() {
+          // Use the "bar" module:
+          var msg = upperCase(foo.hello(name));
+          console.log(msg);
+          // Use the "baz" module:
+          bar.announce(name);
+        }
+        var inform = function(msg) {
+          console.log('For your information: ' + msg);
+        }
+        // Make these methods public:
+        return {
+          message: message,
+          inform: inform
+        };
+      });
+
+
+      $.Modules.run("baz").message();
+      $.Modules.run("bar").announce('Bozo the Clown');
+      $.Modules.run("baz").inform('Wobba is here!');
+
+    });
+    </script>
+  </head>
+
+  <body>
+    <screen id="main" class="current">
+      <nav>
+        <h1>Truck Object Module</h1>
+      </nav>
+      <section>
+        <h2 class='normal-case'>Define three modules, the last of which consumes the first two.</h2>
+        <ul class="list">
+          <li>
+            <pre>$.Modules.add( "foo", function() {
+  function hello(who) {
+    return "Let me introduce: " + who;
+  }
+  // Make this method public:
+  return {
+    hello: hello
+  };
+});</pre>
+          </li>
+          <li>
+            <pre>$.Modules.add( "bar", function() {
+  function announce(who) {
+    console.log('Announcement: ' + who + "!");
+  }
+  // Make this method public:
+  return {
+    announce: announce
+  };
+});</pre>
+          </li>
+          <li>
+            <pre>// Add module with two dependencies - bar &amp; baz.
+// The dependencies are added in an array,
+// then passed as arguments to the implementation:
+//=================================================
+$.Modules.add("baz", ["foo", "bar"], function(bar, baz) {
+  
+  var name = "Charlie";
+
+  function upperCase(str) {
+    return str.toUpperCase();
+  }
+
+  function message() {
+    // Use the "foo" module:
+    var msg = upperCase(foo.hello(name));
+    console.log(msg);
+    // Use the "bar" module:
+    bar.announce(name);
+  }
+  var inform = function(msg) {
+    console.log('For your information: ' + msg);
+  }
+  // Make these methods public:
+  return {
+    message: message,
+    inform: inform
+  };
+});</pre>
+          </li>
+        </ul>
+
+        <h2 class='normal-case'>Now we can use these modules with $.Modules.run(moduleName)</h2>
+        <ul class="list">
+          <li>
+            <pre>
+$.Modules.run("baz").message();
+$.Modules.run("bar").announce('Bozo the Clown');
+$.Modules.run("baz").inform('Wobba is here!');</pre>
+          </li>
+        </ul>
+        <h2 class="normal-case">The results</h2>
+        <ul class="list">
+          <li>
+            <pre>// baz.message invoking bar and baz:
+1. LET ME INTRODUCE: CHARLIE
+2. Announcement: Charlie!
+// bar.announce:
+1. Announcement: Bozo the Clown!
+// baz.inform:
+1. For your information: Wobba is here!</pre>
+          </li>
+        </ul>
+        <summary>Open the browser console to see the results.</summary>
+      </section>
+    </screen>
+  </body>
+</html>

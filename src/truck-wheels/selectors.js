@@ -71,7 +71,7 @@
         return selector;
       if (!context && typeof selector === 'string') {
         if (/<\/?[^>]+>/.test(selector)) {
-          return __this.make(selector);
+          return __this.html(selector);
         }
 
         if (tagRE.test(selector)) {
@@ -144,7 +144,7 @@
     } else if (typeof selector === 'string') {
       if (selector === '') return new DOMStack();
       if (/<\/?[^>]+>/.test(selector)) {
-        return Truck.make(selector);
+        return Truck.html(selector);
       } else {
         try {
           return getNode(selector) ? getNode(selector) : new DOMStack();

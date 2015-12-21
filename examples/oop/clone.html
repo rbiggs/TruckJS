@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Truck Object Clone</title>
+  <link rel="stylesheet" href="../../dist/styles/truck-ios.css">
+  <script src="../../dist/truck.js"></script>
+  <script>
+  $(function() {
+
+    // Define an Object literal:
+    //==========================
+    var nameObj = {
+      name: 'Whatever',
+
+      setName: function(name) {
+        this.name = name;
+      },
+
+      getName: function() {
+        return this.name
+      }
+    };
+
+    // Create clone of nameObj:
+    //=========================
+    var person = $.clone(nameObj);
+
+    // Add new method to person:
+    person.speak = function() {
+    // Access private var this.name:
+      console.log('My name is: ' + this.name);
+    };
+
+    person.speak(); // returns 'My name is: Whatver'
+    person.setName('Wobba');
+    person.speak(); // returns 'My name is: Wobba'
+
+    // Create a clone of person.
+    // Will include all its properties:
+    var person2 = $.clone(person);
+    person2.speak(); // returns 'My name is: Wobba'
+    person2.setName('John Doe');
+    person2.speak(); // returns 'My name is: John Doe'
+
+    // Override the speak method:
+    person2.speak = function(msg) { console.log('New version of speak:' + msg)};
+    person2.speak('A new message.');
+
+    // Create a clone of person2:
+    var person3 = $.clone(person2);
+    person3.speak('Sam was here!');
+
+
+    // Define a revealing module:
+    //===========================
+    var foo = (function() {
+        var ask = function(msg) {
+          console.log(msg + ": Tell me something good...");
+        }
+
+        // Define method to extend this module:
+        function extend(method, args) {
+          this[method] = args;
+        }
+
+        // Make these public:
+        return {
+          ask: ask,
+          extend: extend
+        }
+    })();
+
+    // Make clones of foo:
+    var bar = $.clone(foo);
+    var baz = $.clone(foo);
+    
+    // Define method on baz.
+    // This only exists on baz: 
+    baz.extend('clownAlert', function() {
+      console.log('baz.clownAlert: Bozo the Clown was here!');
+    });
+
+    bar.ask('bar.ask');
+    baz.clownAlert();
+    baz.ask('baz.ask');
+
+    // Override private talk method:
+    baz.extend('ask', function(msg) {
+      console.log(msg + ': I\'m doing someting else now.')
+    });
+    baz.ask('baz.ask');
+
+
+
+    // Define Widget object:
+    var Widget = {
+      init: function(width,height){
+        this.width = width || 50;
+        this.height = height || 50;
+        this.$elem = null;
+      },
+      insert: function($where){
+        if (this.$elem) {
+          this.$elem.css( {
+            width: this.width + "px",
+            height: this.height + "px"
+          }).appendTo( $where );
+        }
+      }
+    };
+
+    // Create a clone of Widget:
+    var Button = $.clone( Widget );
+
+    // Extend Button object:
+    $.extend(Button, {
+      setup: function(width,height,label) {
+        this.init( width, height );
+        this.label = label || "Default";
+
+        this.$elem = $("<button id='my-button'></button>").text(this.label);
+      },
+      render: function($where) {
+        $($where).append(this.$elem);
+        $('#my-button').on('click', function() {
+          console.log( "Button '" + $(this).text() + "' clicked!" );
+        });
+      },
+    });
+    var btn = $.clone(Button);
+    btn.setup('100', '50', 'Click Me');
+    btn.render('section')
+  });
+  </script>
+  </head>
+  <body>
+    <screen id="main" class="current">
+      <nav>
+        <h1>Truck Object Clone</h1>
+      </nav>
+      <section>
+        <h2 class="normal-case">Create and Clone an Object Literal</h2>
+        <ul class="list">
+          <li>
+            <div>
+            <h3>Define an Object Literal</h3>
+            <pre>// Define an Object literal:
+//==========================
+var nameObj = {
+  name: 'Whatever',
+
+  setName: function(name) {
+    this.name = name;
+  },
+
+  getName: function() {
+    return this.name
+  }
+};</pre>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Create Clones And Extend Them:</h3>
+              <pre>// Create clone of nameObj:
+//=========================
+var person = $.clone(nameObj);
+
+// Add new method to person:
+person.speak = function() {
+// Access private var this.name:
+  console.log('My name is: ' + this.name);
+};
+
+person.speak(); // returns 'My name is: Whatever'
+person.setName('Wobba');
+person.speak(); // returns 'My name is: Wobba'
+
+// Create a clone of person.
+// Will include all its properties:
+var person2 = $.clone(person);
+person2.speak(); // returns 'My name is: Wobba'
+person2.setName('John Doe');
+person2.speak(); // returns 'My name is: John Doe'
+
+// Override the speak method:
+person2.speak = function(msg) { console.log('New version of speak:' + msg)};
+person2.speak('A new message.');
+
+// Create a clone of person2:
+var person3 = $.clone(person2);
+person3.speak('Sam was here!');</pre>
+            </div>
+          </li>
+        </ul>
+
+        <h2 class="normal-case">Create and Clone a Realing Module</h2>
+        <ul class="list">
+          <li>
+            <div>
+              <h3>Define a Revealing Module</h3>
+              <pre>// Define a revealing module:
+//===========================
+var foo = (function() {
+  var ask = function(msg) {
+    console.log(msg + ": Tell me something good...");
+  }
+
+  // Define method to extend this module:
+  function extend(method, args) {
+    this[method] = args;
+  }
+
+  // Make these public:
+  return {
+    ask: ask,
+    extend: extend
+  }
+})();</pre>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h3>Make Copies and Extend Them</h3>
+              <pre>// Make clones of foo:
+var bar = $.clone(foo);
+var baz = $.clone(foo);
+
+// Define method on baz.
+// This only exists on baz: 
+baz.extend('clownAlert', function() {
+  console.log('baz.clownAlert: Bozo the Clown was here!');
+});
+
+bar.ask('bar.ask');
+baz.clownAlert();
+baz.ask('baz.ask');
+
+// Override private talk method:
+baz.extend('ask', function(msg) {
+  console.log(msg + ': I\'m doing someting else now.')
+});
+baz.ask('baz.ask');</pre>
+            </div>
+          </li>
+        </ul>
+        <summary>Open the browser console to see the results.</summary>
+      </section>
+    </screen>
+  </body>
+</html>
