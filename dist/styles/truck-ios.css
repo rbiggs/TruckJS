@@ -412,7 +412,7 @@ screen > footer, screen > toolbar {
   -webkit-justify-content: start;
   display: flex;
   flex-direction: row;
-  align-items: flex-center;
+  align-items: center;
   justify-content: flex-start;
   position: relative;
 }

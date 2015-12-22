@@ -24,7 +24,7 @@
   <script>
     // $(function() {
       // Two methods to listen to:
-      var arrayListener = function( handle , data ) {
+      var arrayHandler = function( handle , data ) {
         if (data instanceof Array) {
           if (data[0] instanceof Object) {
             data.forEach(function(ctx) {
@@ -40,13 +40,13 @@
         }
       };
       
-      var stringListener = function(handle, string) {
+      var stringHandler = function(handle, string) {
         if (typeof string === 'string') {
           $('.list').append('<li><h3>String: ' + handle + ': ' + string + '</h3></li>');
         }
       };
 
-      var arrayOfObjs = function(handle, obj) {
+      var objArrayHandler = function(handle, obj) {
         if (obj instanceof Array) {
           obj.forEach(function(ctx) {
             if (ctx.name && ctx.job) {
@@ -57,9 +57,9 @@
           });
         }
       };
-      var stringDispatcher = $.receive('news/update', stringListener);
-      var arrayDispatcher = $.receive( 'news/update', arrayListener );  
-      var objDispatcher = $.receive( 'users/new', arrayOfObjs );
+      var stringDispatcher = $.receive('news/update', stringHandler);
+      var arrayDispatcher = $.receive( 'news/update', arrayHandler );  
+      var objDispatcher = $.receive( 'users/new', objArrayHandler );
       
       $.dispatch( 'news/update', 'This is the latest news!' );
       $.dispatch( 'news/update', ['Somebody','did','something','funny'] );

@@ -3886,12 +3886,16 @@
           // If the user supplied data to render:
           // If it's an array:
           if ($.type(data) === 'array') {
+            $.view.index = __startIndexFrom || 1;
             if (!__canRender) return;
             __parent.empty();
             data.forEach(function(item) {
+              if (__escapeHTML) {
+                item = $.escapeHTML(item);
+              }
+              __parent.append(parsedTemplate(item)); // jshint ignore:line
               $.view.index += 1;
               __index += 1;
-              __parent.append(parsedTemplate(item)); // jshint ignore:line
             });
             __rendered = true;
             $.view.index = 0;
