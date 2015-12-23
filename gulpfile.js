@@ -43,6 +43,7 @@ var Truck_Files = [
   'truck-engine/model.js',
   'truck-engine/mediator.js',
   'truck-engine/view.js',
+  'truck-engine/component.js',
   'truck-engine/screens.js',
   'truck-engine/router.js',
   'truck-engine/promises.js',

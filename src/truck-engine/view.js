@@ -66,10 +66,10 @@
       //////////////////////
       // Private Properties:
       //////////////////////
-      var __parent;
+      var __element;
       if (!options) options = {};
       if (options && options.element) {
-        __parent = $(options.element) || $();
+        __element = $(options.element) || $();
       }
       var $this = this;
       var __template = options.template;
@@ -94,8 +94,8 @@
       var __renderCount = 0;
 
       var parentScreen = (function() {
-        if (__parent && __parent.closest('screen').size()) {
-          return __parent.closest('screen')[0].id;
+        if (__element && __element.closest('screen').size()) {
+          return __element.closest('screen')[0].id;
         }
       })();
 
@@ -146,13 +146,13 @@
 
       // Binding any events provided in View options:
       var handleEvents = function() {
-        if (!__parent) return;
+        if (!__element) return;
         if (__events.length) {
           __events.forEach(function(item) {
             if (item && item.element === 'self' || item && !item.element) {
-              __parent.on(item.event, item.callback);
+              __element.on(item.event, item.callback);
             } else {
-              __parent.on(item.event, item.element, item.callback);
+              __element.on(item.event, item.element, item.callback);
             }
           });
         }
@@ -164,19 +164,19 @@
 
       // Get template from element:
       var extractTemplate = function() {
-        if (!__parent || !__parent.size()) return;
+        if (!__element || !__element.size()) return;
         if (__dontGetTemplate) return;
         if (!__template) {
-          if (__parent.children()[0] && __parent.children().eq(0).is('script')) {
-            __template = __parent.children('script').html();
-            __parent.empty();
-          } else if (!__parent[0].childNodes) {
+          if (__element.children()[0] && __element.children().eq(0).is('script')) {
+            __template = __element.children('script').html();
+            __element.empty();
+          } else if (!__element[0].childNodes) {
             return;
           } else {
-            if (__parent[0] && __parent[0].childNodes) {
-              if (!__template) __template = __parent.html();
+            if (__element[0] && __element[0].childNodes) {
+              if (!__template) __template = __element.html();
             }
-            __parent.empty();
+            __element.empty();
           }
           if (__template) __template = __template.replace(__re, 'src');
 
@@ -198,7 +198,7 @@
       return {
 
         render: function(data, append) {
-          if (!__parent) return;
+          if (!__element) return;
           var $this = this;
           var __data = data;
 
@@ -218,10 +218,10 @@
           var renderIterableData = function(data) {
             if ($.type(data) === 'boolean') return;
             var Data = data ? data : __model;
-            __parent.removeClass('cloak');
-            if (__parent.data('index')) {
-              __index = Number(__parent.data('index'));
-              $.view.index = Number(__parent.data('index'));
+            __element.removeClass('cloak');
+            if (__element.data('index')) {
+              __index = Number(__element.data('index'));
+              $.view.index = Number(__element.data('index'));
             } else {
               __index = 1;
               $.view.index = 1;
@@ -234,7 +234,7 @@
           // Loops over data to render template.
           // Handles index value as well.
           var interateModelToTemplate = function(Data) {
-            __parent.empty();
+            __element.empty();
             if (__startIndexFrom) $.view.index = __startIndexFrom;
             Data.forEach(function(item) {
               __index += 1;
@@ -242,7 +242,7 @@
                 item = $.escapeHTML(item);
               }
               if (parsedTemplate) {
-                __parent.append(parsedTemplate(item));
+                __element.append(parsedTemplate(item));
                 $.view.index += 1;
               } else if (__template) {
 
@@ -257,13 +257,13 @@
           var renderSingleObjectView = function(append) {
             __model.run(function(m, d) {
               if (!append) {
-                __parent.empty();
+                __element.empty();
               }
               if (__escapeHTML) {
                 d = $.escapeHTML(d);
               }
-              __parent.append(parsedTemplate(d)); // jshint ignore:line
-              __parent.removeClass('cloak');
+              __element.append(parsedTemplate(d)); // jshint ignore:line
+              __element.removeClass('cloak');
               __lastRenderTime = Date.now();
               __rendered = true;
               __renderCount++;
@@ -299,26 +299,26 @@
           if ($.type(data) === 'array') {
             $.view.index = __startIndexFrom || 1;
             if (!__canRender) return;
-            __parent.empty();
+            __element.empty();
             data.forEach(function(item) {
               if (__escapeHTML) {
                 item = $.escapeHTML(item);
               }
-              __parent.append(parsedTemplate(item)); // jshint ignore:line
+              __element.append(parsedTemplate(item)); // jshint ignore:line
               $.view.index += 1;
               __index += 1;
             });
             __rendered = true;
             $.view.index = 0;
-            __parent.removeClass('cloak');
+            __element.removeClass('cloak');
             return;
 
             // Else if it is an object:
           } else if ($.type(data) === 'object' || $.type(data) === 'string' || $.type(data) === 'number') {
             $.view.index = __startIndexFrom || 1;
-            __parent.empty();
-            __parent.append(parsedTemplate(data)); // jshint ignore:line
-            __parent.removeClass('cloak');
+            __element.empty();
+            __element.append(parsedTemplate(data)); // jshint ignore:line
+            __element.removeClass('cloak');
             __rendered = true;
             return;
           }
@@ -381,19 +381,19 @@
         },
 
         empty: function() {
-          if (!__parent) return;
-          __parent.empty();
+          if (!__element) return;
+          __element.empty();
         },
 
         resetIndex: function() {
-          if (!__parent) return;
+          if (!__element) return;
           __index = 0;
-          __parent.data('index', 0);
+          __element.data('index', 0);
           $.view.index = 0;
         },
 
         startIndexFrom: function(number) {
-          if (!__parent) return;
+          if (!__element) return;
           if (number === 0 || (number && !isNaN(number))) {
             __startIndexFrom = number;
             $.view.index = number;
@@ -435,10 +435,10 @@
         },
 
         isEmpty: function() {
-          if (!__parent) return;
-          if (typeof jQuery === 'undefined' && /DOMStack/img.test(__parent.constructor)) {
-            if (__parent.array[0].children.length) return false;
-          } else if (__parent[0].children.length) {
+          if (!__element) return;
+          if (typeof jQuery === 'undefined' && /DOMStack/img.test(__element.constructor)) {
+            if (__element.array[0].children.length) return false;
+          } else if (__element[0].children.length) {
             return false;
           } else {
             return true;
@@ -452,10 +452,10 @@
           var __v = this;
           __model = model;
           mediator.run(function(data) {
-            if (!__parent) return;
+            if (!__element) return;
             __v.render();
           });
-          if (!__parent) return;
+          if (!__element) return;
           this.render();
         },
 
@@ -483,19 +483,35 @@
           options: event, element (for a delegated event), callback
         */
         off: function(event, element, callback) {
-          __parent.off(event, element, callback);
+          __element.off(event, element, callback);
         },
 
+        getElement: function() {
+          return __element;
+        },
+
+        setElement: function(element) {
+          if (!element) return;
+          __element = $(element);
+          $(element).empty();
+          handleEvents();
+        },
+
+        // Old methods:
         getParent: function() {
-          return __parent;
+          return __element;
         },
 
         setParent: function(element) {
           if (!element) return;
-          __parent = $(element);
+          __element = $(element);
           $(element).empty();
           handleEvents();
         },
+
+        // Aliases for old names:
+        setParent: this.setElement,
+        getParent: this.getParent,
 
         stop: function(after) {
           // Stop after x number of times:
