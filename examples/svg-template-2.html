@@ -54,8 +54,8 @@
         var pointsArray = [];
         var points = '';
         for (var i = 0; i < val; i++) {
-          ret.push({value: 100});
-          ret.push({value: 50});
+          ret.push({value: 94});
+          ret.push({value: 46});
         }
         ret.forEach(function(ctx, idx) {
           pointsArray.push(valueToPoint(ctx.value, idx, val));
@@ -71,8 +71,7 @@
       //=====================
       var PolygonView = $.View({
         element: '#polygon',
-        variable: 'points',
-        model: $.PolygonModel
+        variable: 'points'
       });
       PolygonView.render(calculatePoints(6));
 

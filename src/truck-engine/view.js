@@ -79,7 +79,7 @@
       var __index = options.index || 1;
       var __rendered = false;
       var __variable = options.variable || 'data';
-      var __events = options.events;
+      var __events = options.events || [];
       var __isBoundTo = options.model;
       var __dontGetTemplate = options.noTemplate || false;
       var __startIndexFrom = options.startIndexFrom || false;
@@ -146,15 +146,10 @@
 
       // Binding any events provided in View options:
       var handleEvents = function() {
-        if (!__events.length) {
-          if (__events.element === 'self' || !__events.element) {
-            __parent.on(options.events.event, __events.callback);
-          } else {
-            __parent.on(__events.event, __events.element, __events.callback);
-          }
-        } else {
+        if (!__parent) return;
+        if (__events.length) {
           __events.forEach(function(item) {
-            if (item.element === 'self' || !item.element) {
+            if (item && item.element === 'self' || item && !item.element) {
               __parent.on(item.event, item.callback);
             } else {
               __parent.on(item.event, item.element, item.callback);
@@ -306,9 +301,9 @@
             if (!__canRender) return;
             __parent.empty();
             data.forEach(function(item) {
-            if (__escapeHTML) {
-              item = $.escapeHTML(item);
-            }
+              if (__escapeHTML) {
+                item = $.escapeHTML(item);
+              }
               __parent.append(parsedTemplate(item)); // jshint ignore:line
               $.view.index += 1;
               __index += 1;
@@ -470,32 +465,15 @@
         },
 
         addEvent: function(events, replace) {
-          var eventsTemp;
           if (replace) {
-            __events = events;
+            __events = events & events.length ? events : [events];
           } else {
-            if (events && events.length) {
-              if (__events && __events.length) {
-                events.forEach(function(event) {
-                  __events.push(event);
-                });
-              } else {
-                eventsTemp = [];
-                eventsTemp.push(__events);
-                events.forEach(function(event) {
-                  eventsTemp.push(event);
-                });
-                __events = eventsTemp;
-              }
-            } else {
-              if (__events && __events.length) {
-                __events.push(events);
-              } else {
-                eventsTemp = [];
-                eventsTemp.push(__events);
-                eventsTemp.push(event);
-                __events = eventsTemp;
-              }
+            if (events && events.length){
+              events.forEach(function(event) {
+                __events.push(event)
+              });
+            } else if (events) {
+              __events.push(events);
             }
           }
           handleEvents();
@@ -516,6 +494,7 @@
           if (!element) return;
           __parent = $(element);
           $(element).empty();
+          handleEvents();
         },
 
         stop: function(after) {
