@@ -540,6 +540,20 @@ interface TruckStatic {
   }): View;
 
   /**
+   * This method sets up a component. This is a reusable view factory. It takes the same arguments as a view, minus the element property.
+   *
+   * @param 
+   * @return View
+   */
+  Component(options: {
+    template?: string;
+    variable?: string;
+    events?: any[];
+    startIndexFrom?: number;
+    escapeHTML?: boolean;
+   }): View;
+
+  /**
    * Get the current screen.
    */
   getCurrent(): Truck;
