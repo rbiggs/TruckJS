@@ -60,25 +60,48 @@
           </li>
         </ul>
 
+        <h2>Output</h2>
+        <ul class="list" id="output"></ul>
+
       </section>
     </screen>
     <script>
     (function() {
+      var OutputView = $.View({
+        element: "#output",
+        template: "<li><code>${data}</code></li>"
+      });
+
       var sam = {
-        name: 'Sam',
-        job: 'developer',
-        hobby: 'twiddling thumbs',
-        address: '1234 Lane, SomeWhereVille',
+        "name": "Sam",
+        "job": "developer",
+        "hobby": "twiddling thumbs",
+        "address": "1234 Lane, SomeWhereVille",
       }
-      console.dir(sam);
+
       var newProps = {
-        job: 'cook',
-        address: '000 DeadEnd, NoPlace',
-        age: 1000
+        "job": "cook",
+        "address": "000 DeadEnd, NoPlace",
+        "age": 1000
       };
-      console.dir(newProps);
+
+      OutputView.render("sam object:", true);
+      OutputView.render(JSON.stringify(sam), true);
+      OutputView.render("newProps object:", true);
+      OutputView.render(JSON.stringify(newProps), true);
+
+      // Extend sam object:
       $.extend(sam, newProps);
-      console.dir(sam);
+      OutputView.render("extended sam object:", true);
+      OutputView.render(JSON.stringify({
+        "name": "Sam",
+        "job": "developer",
+        "hobby": "twiddling thumbs",
+        "address": "1234 Lane, SomeWhereVille",
+        "age": 1000
+      }), true);
+ 
+      // console.dir(sam);
 
     })();
     </script>

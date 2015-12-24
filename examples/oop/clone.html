@@ -109,7 +109,8 @@
           this.$elem.css( {
             width: this.width + "px",
             height: this.height + "px"
-          }).appendTo( $where );
+          });
+          $($where).append(this.$elem)
         }
       }
     };

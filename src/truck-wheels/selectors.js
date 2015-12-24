@@ -175,16 +175,16 @@
     return new DOMStack();
   }
   (function(Truck) {
-    Truck.extend = function(obj1, obj2, enumerable) {
+    Truck.extend = function(targetObject, sourceObject, enumerable) {
       enumerable = enumerable || false;
-      if (!obj2) {
-        obj2 = obj1;
-        obj1 = Truck;
+      if (!sourceObject) {
+        sourceObject = targetObject;
+        targetObject = Truck;
       }
-      Object.keys(obj2).forEach(function(p) {
-        if (obj2.hasOwnProperty(p)) {
-          Object.defineProperty(obj1, p, {
-            value: obj2[p],
+      Object.keys(sourceObject).forEach(function(p) {
+        if (sourceObject.hasOwnProperty(p)) {
+          Object.defineProperty(targetObject, p, {
+            value: sourceObject[p],
             writable: true,
             enumerable: enumerable,
             configurable: true
