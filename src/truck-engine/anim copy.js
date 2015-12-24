@@ -5,13 +5,11 @@
     function require(name) {
       var module = require.modules[name];
       if (!module) throw new Error('failed to require "' + name + '"');
-
       if (!('exports' in module) && typeof module.definition === 'function') {
         module.client = module.component = true;
         module.definition.call(this, module.exports = {}, module);
         delete module.definition;
       }
-
       return module.exports;
     }
 
@@ -28,16 +26,15 @@
         exports: exports
       };
     };
-    
-    require.register("transformProperty", function(exports, module) {
 
+    require.register("transformProperty", function(exports, module) {
       var styles = [
         'webkitTransform',
         'MozTransform',
         'msTransform',
+        'OTransform',
         'transform'
       ];
-
       var el = document.createElement('p');
       var style;
 
@@ -51,10 +48,10 @@
     });
 
     require.register("hasTranslate3d", function(exports, module) {
-
       var prop = require('transformProperty');
       var map = {
         webkitTransform: '-webkit-transform',
+        OTransform: '-o-transform',
         msTransform: '-ms-transform',
         MozTransform: '-moz-transform',
         transform: 'transform'
@@ -69,7 +66,6 @@
     });
 
     require.register("hasTransitions", function(exports, module) {
-
       exports = module.exports = function(el) {
         switch (arguments.length) {
           case 0:
@@ -107,13 +103,11 @@
     });
 
     require.register("cssEmitter", function(exports, module) {
-
       var events = require('componentEvents');
 
       // CSS events:
-
       var watch = [
-        'transitionend', 'webkitTransitionEnd', 'MSTransitionEnd', 'animationend', 'webkitAnimationEnd', 'MSAnimationEnd'
+        'transitionend', 'webkitTransitionEnd', 'oTransitionEnd', 'MSTransitionEnd', 'animationend', 'webkitAnimationEnd', 'oAnimationEnd', 'MSAnimationEnd'
       ];
 
       module.exports = CssEmitter;
@@ -154,6 +148,7 @@
       var global = (function() {
         return this;
       })();
+
       module.exports = function(fn) {
         var id = n++;
 
@@ -183,11 +178,13 @@
         once = require('once');
       var supported = has();
       module.exports = after;
+
       function after(el, fn) {
         if (!supported || !has(el)) return fn();
         emitter(el).bind(fn);
         return fn;
       }
+
       after.once = function(el, fn) {
         var callback = once(fn);
         after(el, fn = function() {
@@ -198,11 +195,56 @@
 
     });
 
-    require.register("emitter", function(exports, module) {
-      module.exports = Emitter;
+    require.register("cssEase", function(exports, module) {
+      module.exports = {
+        'in': 'ease-in',
+        'out': 'ease-out',
+        'in-out': 'ease-in-out',
+        'snap': 'cubic-bezier(0,1,.5,1)',
+        'linear': 'cubic-bezier(0.250, 0.250, 0.750, 0.750)',
+
+        'ease-in-quad': 'cubic-bezier(0.550, 0.085, 0.680, 0.530)',
+        'ease-out-quad': 'cubic-bezier(0.250, 0.460, 0.450, 0.940)',
+        'ease-in-out-quad': 'cubic-bezier(0.455, 0.030, 0.515, 0.955)',
+
+        'ease-in-cubic': 'cubic-bezier(0.550, 0.055, 0.675, 0.190)',
+        'ease-out-cubic': 'cubic-bezier(0.215, 0.610, 0.355, 1.000)',
+        'ease-in-out-cubic': 'cubic-bezier(0.645, 0.045, 0.355, 1.000)',
+
+        'ease-in-quart': 'cubic-bezier(0.895, 0.030, 0.685, 0.220)',
+        'ease-out-quart': 'cubic-bezier(0.165, 0.840, 0.440, 1.000)',
+        'ease-in-out-quart': 'cubic-bezier(0.770, 0.000, 0.175, 1.000)',
+
+        'ease-in-quint': 'cubic-bezier(0.755, 0.050, 0.855, 0.060)',
+        'ease-out-quint': 'cubic-bezier(0.230, 1.000, 0.320, 1.000)',
+        'ease-in-out-quint': 'cubic-bezier(0.860, 0.000, 0.070, 1.000)',
+
+        'ease-in-sine': 'cubic-bezier(0.470, 0.000, 0.745, 0.715)',
+        'ease-out-sine': 'cubic-bezier(0.390, 0.575, 0.565, 1.000)',
+        'ease-in-out-sine': 'cubic-bezier(0.445, 0.050, 0.550, 0.950)',
+
+        'ease-in-expo': 'cubic-bezier(0.950, 0.050, 0.795, 0.035)',
+        'ease-out-expo': 'cubic-bezier(0.190, 1.000, 0.220, 1.000)',
+        'ease-in-out-expo': 'cubic-bezier(1.000, 0.000, 0.000, 1.000)',
+        'ease-out-in-back': 'cubic-bezier(0,1,1,0)',
+
+        'ease-in-circ': 'cubic-bezier(0.600, 0.040, 0.980, 0.335)',
+        'ease-out-circ': 'cubic-bezier(0.075, 0.820, 0.165, 1.000)',
+        'ease-in-out-circ': 'cubic-bezier(0.785, 0.135, 0.150, 0.860)',
+        'ease-out-in-circ': 'cubic-bezier((0.135, 0.885, 0.860, 0.140)',
+
+        'ease-in-back': 'cubic-bezier(0.600, -0.280, 0.735, 0.045)',
+        'ease-out-back': 'cubic-bezier(0.175, 0.885, 0.320, 1.275)',
+        'ease-in-out-back': 'cubic-bezier(0.680, -0.550, 0.265, 1.550)'
+      };
+    });
+
+    require.register("anim", function(exports, module) {
+
       function Emitter(obj) {
         if (obj) return mixin(obj);
       }
+
       function mixin(obj) {
         for (var key in Emitter.prototype) {
           obj[key] = Emitter.prototype[key];
@@ -287,62 +329,6 @@
         return !!this.listeners(event).length;
       };
 
-    });
-
-    require.register("cssEase", function(exports, module) {
-      module.exports = {
-        'in': 'ease-in',
-        'out': 'ease-out',
-        'in-out': 'ease-in-out',
-        'snap': 'cubic-bezier(0,1,.5,1)',
-        'linear': 'cubic-bezier(0.250, 0.250, 0.750, 0.750)',
-
-        'ease-in-quad': 'cubic-bezier(0.550, 0.085, 0.680, 0.530)',
-        'ease-out-quad': 'cubic-bezier(0.250, 0.460, 0.450, 0.940)',
-        'ease-in-out-quad': 'cubic-bezier(0.455, 0.030, 0.515, 0.955)',
-
-        'ease-in-cubic': 'cubic-bezier(0.550, 0.055, 0.675, 0.190)',
-        'ease-out-cubic': 'cubic-bezier(0.215, 0.610, 0.355, 1.000)',
-        'ease-in-out-cubic': 'cubic-bezier(0.645, 0.045, 0.355, 1.000)',
-
-        'ease-in-quart': 'cubic-bezier(0.895, 0.030, 0.685, 0.220)',
-        'ease-out-quart': 'cubic-bezier(0.165, 0.840, 0.440, 1.000)',
-        'ease-in-out-quart': 'cubic-bezier(0.770, 0.000, 0.175, 1.000)',
-
-        'ease-in-quint': 'cubic-bezier(0.755, 0.050, 0.855, 0.060)',
-        'ease-out-quint': 'cubic-bezier(0.230, 1.000, 0.320, 1.000)',
-        'ease-in-out-quint': 'cubic-bezier(0.860, 0.000, 0.070, 1.000)',
-
-        'ease-in-sine': 'cubic-bezier(0.470, 0.000, 0.745, 0.715)',
-        'ease-out-sine': 'cubic-bezier(0.390, 0.575, 0.565, 1.000)',
-        'ease-in-out-sine': 'cubic-bezier(0.445, 0.050, 0.550, 0.950)',
-
-        'ease-in-expo': 'cubic-bezier(0.950, 0.050, 0.795, 0.035)',
-        'ease-out-expo': 'cubic-bezier(0.190, 1.000, 0.220, 1.000)',
-        'ease-in-out-expo': 'cubic-bezier(1.000, 0.000, 0.000, 1.000)',
-        'ease-out-in-back': 'cubic-bezier(0,1,1,0)',
-
-        'ease-in-circ': 'cubic-bezier(0.600, 0.040, 0.980, 0.335)',
-        'ease-out-circ': 'cubic-bezier(0.075, 0.820, 0.165, 1.000)',
-        'ease-in-out-circ': 'cubic-bezier(0.785, 0.135, 0.150, 0.860)',
-        'ease-out-in-circ': 'cubic-bezier((0.135, 0.885, 0.860, 0.140)',
-
-        'ease-in-back': 'cubic-bezier(0.600, -0.280, 0.735, 0.045)',
-        'ease-out-back': 'cubic-bezier(0.175, 0.885, 0.320, 1.275)',
-        'ease-in-out-back': 'cubic-bezier(0.680, -0.550, 0.265, 1.550)'
-
-      };
-
-    });
-
-    require.register("anim", function(exports, module) {
-
-      var Emitter = require('emitter');
-
-      var query = function(selector) {
-        return document.querySelector(selector);
-      };
-
       var after = require('yieldsAafterTransition');
       var has3d = require('hasTranslate3d');
       var ease = require('cssEase');
@@ -361,10 +347,10 @@
         return $(selector)[0];
       };
 
-      // Initialize a new Anim with the given element:
+      // Initialize a new `Anim` with the given element:
       function Anim(el) {
         if (!(this instanceof Anim)) return new Anim(el);
-        if ('string' == typeof el) el = query(el);
+        if ('string' == typeof el) el = $(el)[0];
         if (!el) throw new TypeError('Anim must be initialized with element or selector');
         this.el = el;
         this._props = {};
@@ -443,7 +429,7 @@
         return this.transform('rotate(' + n + 'deg)');
       };
 
-      // Set transition easing function to fn string.
+      // Set transition easing function to `fn` string.
       // Following shortcuts available:
       // no argument - "ease" is used
       // "in" - "ease-in" is used
@@ -541,7 +527,7 @@
         return this;
       };
 
-      // Re-select element via selector, replacing
+      // Select element via `selector`, replacing
       // the current element:
       Anim.prototype.anim =
         Anim.prototype.select = function(selector) {
@@ -549,14 +535,14 @@
           return this;
         };
 
-      // Defer the given fn until the animation
+      // Defer the given `fn` until the animation
       // is complete:
       Anim.prototype.then = function(fn) {
 
         // Invoke .end():
         if (fn instanceof Anim) {
           this.on('end', function() {
-            fn.run();
+            fn.end();
           });
 
           // Callback
@@ -617,9 +603,9 @@
       };
 
     });
-
+    
     $.extend({
-      anim: require('anim')
+      anim: require("anim")
     })
   });
 })(window);
