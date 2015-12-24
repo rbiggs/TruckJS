@@ -12,7 +12,13 @@
     <script>
     $(function() {
 
-      //bar1
+      var OutputView = $.View({
+        element: '#output',
+        variable: 'output',
+        append: 'true',
+        template: '<li><h3>${ output }</h3></li>'
+      });
+
       $.Modules.add( "foo", function() {
         function hello(who) {
           return "Let me introduce: " + who;
@@ -25,7 +31,8 @@
 
       $.Modules.add( "bar", function() {
         function announce(who) {
-          console.log('Announcement: ' + who + "!");
+          OutputView.render('bar.annouce:', true);
+          OutputView.render('Announcement: ' + who + "!", true);
         }
         // Make this method public:
         return {
@@ -48,12 +55,15 @@
         function message() {
           // Use the "bar" module:
           var msg = upperCase(foo.hello(name));
-          console.log(msg);
+          OutputView.render('baz - foo.hello:', true);
+          OutputView.render(msg, true);
           // Use the "baz" module:
           bar.announce(name);
         }
         var inform = function(msg) {
-          console.log('For your information: ' + msg);
+          OutputView.render('baz.inform:', true);
+          OutputView.render('For your information: ' + msg, true);
+
         }
         // Make these methods public:
         return {
@@ -61,7 +71,6 @@
           inform: inform
         };
       });
-
 
       $.Modules.run("baz").message();
       $.Modules.run("bar").announce('Bozo the Clown');
@@ -142,19 +151,9 @@ $.Modules.run("bar").announce('Bozo the Clown');
 $.Modules.run("baz").inform('Wobba is here!');</pre>
           </li>
         </ul>
-        <h2 class="normal-case">The results</h2>
-        <ul class="list">
-          <li>
-            <pre>// baz.message invoking bar and baz:
-1. LET ME INTRODUCE: CHARLIE
-2. Announcement: Charlie!
-// bar.announce:
-1. Announcement: Bozo the Clown!
-// baz.inform:
-1. For your information: Wobba is here!</pre>
-          </li>
-        </ul>
-        <summary>Open the browser console to see the results.</summary>
+
+        <h2>Output</h2>
+        <ul id='output' class="list"></ul>
       </section>
     </screen>
   </body>

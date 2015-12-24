@@ -233,8 +233,10 @@
           // Used by renderIterableData.
           // Loops over data to render template.
           // Handles index value as well.
-          var interateModelToTemplate = function(Data) {
-            __element.empty();
+          var interateModelToTemplate = function(Data, append) {
+            if (!append) {
+              __element.empty();
+            }
             if (__startIndexFrom) $.view.index = __startIndexFrom;
             Data.forEach(function(item) {
               __index += 1;
@@ -299,7 +301,9 @@
           if ($.type(data) === 'array') {
             $.view.index = __startIndexFrom || 1;
             if (!__canRender) return;
-            __element.empty();
+            if (!append) {
+              __element.empty();
+            }
             data.forEach(function(item) {
               if (__escapeHTML) {
                 item = $.escapeHTML(item);
@@ -316,7 +320,9 @@
             // Else if it is an object:
           } else if ($.type(data) === 'object' || $.type(data) === 'string' || $.type(data) === 'number') {
             $.view.index = __startIndexFrom || 1;
-            __element.empty();
+            if (!append) {
+              __element.empty();
+            }
             __element.append(parsedTemplate(data)); // jshint ignore:line
             __element.removeClass('cloak');
             __rendered = true;
@@ -468,7 +474,7 @@
           if (replace) {
             __events = events & events.length ? events : [events];
           } else {
-            if (events && events.length){
+            if (events && events.length) {
               events.forEach(function(event) {
                 __events.push(event)
               });
