@@ -26,13 +26,22 @@
         </li>
         <li><button id='validateForm'>Validate</button></li>
       </ul>
-      <summary>Open the browser console to see the result of validation.</summary>
+
+      <h2>Results</h2>
+      <ul class="list">
+        <li id="results"></li>
+      </ul>
     </section>
   </screen>
   <script>
     // $(function() {
 
       $.registerCustomValidator('nameWithSpaces', /^[A-Za-z\W]+$/);
+
+      var ResultsView = $.View({
+        element: '#results',
+        template: '${ data }'
+      });
 
       $('#validateForm').on('click', function() {
         var myForm = $.Form([
@@ -54,10 +63,12 @@
         ]);
         if(!myForm.errors()) {
           formData = myForm.get();
-          console.dir(formData)
+          // console.dir(formData)
+          ResultsView.render(JSON.stringify(formData));
         } else {
           myForm.getErrors().forEach(function(err) {
-            console.log(err.type)
+            // console.log(err.type);
+            ResultsView.render('Error: ' + err.type);
           })
         }
       });

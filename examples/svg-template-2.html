@@ -107,6 +107,7 @@
         var points = calculatePoints(val);
 
         // Dispatch the new points for polygon:
+        //=====================================
         $.dispatch('update-polygon', points)
         NumberOfPointsView.render(val/2);
       });
