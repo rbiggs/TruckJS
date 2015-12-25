@@ -451,24 +451,19 @@
     return new DOMStack();
   }
   (function(Truck) {
-    Truck.extend = function(obj1, obj2, enumerable) {
-      enumerable = enumerable || false;
-      if (!obj2) {
-        obj2 = obj1;
-        obj1 = Truck;
+    Truck.extend = function(targetObject, sourceObject) {
+      if (!sourceObject) {
+        sourceObject = targetObject;
+        targetObject = Truck;
       }
-      Object.keys(obj2).forEach(function(p) {
-        if (obj2.hasOwnProperty(p)) {
-          Object.defineProperty(obj1, p, {
-            value: obj2[p],
-            writable: true,
-            enumerable: enumerable,
-            configurable: true
-          });
-        }
-      });
+      var keys = Object.keys(sourceObject);
+      var len = keys.length;
+      while (len--) {
+        targetObject[keys[len]] = sourceObject[keys[len]];
+      }
       return Truck;
     };
+
     Truck.fn = {
       extend: function(object) {
         return Truck.extend(DOMStack.prototype, object);
@@ -3647,9 +3642,9 @@
       }
       */
 
-      //////////////////////
+      //====================
       // Private Properties:
-      //////////////////////
+      //====================
       var __element;
       if (!options) options = {};
       if (options && options.element) {
@@ -3683,6 +3678,11 @@
         }
       })();
 
+
+      //===================
+      // Private Functions:
+      //===================
+
       var pluck = function(stack, property) {
         var ret = [];
         if (stack.size()) {
@@ -3707,9 +3707,6 @@
         });
       }
 
-      ///////////////////
-      // Private Functions:
-      ///////////////////
       var parseView = function(template, variable) {
         var interpolate = /\$\{([\s\S]+?)\}/img;
         variable = variable || 'data';

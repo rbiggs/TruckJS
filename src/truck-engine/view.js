@@ -63,9 +63,9 @@
       }
       */
 
-      //////////////////////
+      //====================
       // Private Properties:
-      //////////////////////
+      //====================
       var __element;
       if (!options) options = {};
       if (options && options.element) {
@@ -99,6 +99,11 @@
         }
       })();
 
+
+      //===================
+      // Private Functions:
+      //===================
+
       var pluck = function(stack, property) {
         var ret = [];
         if (stack.size()) {
@@ -123,9 +128,6 @@
         });
       }
 
-      ///////////////////
-      // Private Functions:
-      ///////////////////
       var parseView = function(template, variable) {
         var interpolate = /\$\{([\s\S]+?)\}/img;
         variable = variable || 'data';

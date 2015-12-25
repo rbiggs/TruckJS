@@ -175,24 +175,19 @@
     return new DOMStack();
   }
   (function(Truck) {
-    Truck.extend = function(targetObject, sourceObject, enumerable) {
-      enumerable = enumerable || false;
+    Truck.extend = function(targetObject, sourceObject) {
       if (!sourceObject) {
         sourceObject = targetObject;
         targetObject = Truck;
       }
-      Object.keys(sourceObject).forEach(function(p) {
-        if (sourceObject.hasOwnProperty(p)) {
-          Object.defineProperty(targetObject, p, {
-            value: sourceObject[p],
-            writable: true,
-            enumerable: enumerable,
-            configurable: true
-          });
-        }
-      });
+      var keys = Object.keys(sourceObject);
+      var len = keys.length;
+      while (len--) {
+        targetObject[keys[len]] = sourceObject[keys[len]];
+      }
       return Truck;
     };
+    
     Truck.fn = {
       extend: function(object) {
         return Truck.extend(DOMStack.prototype, object);

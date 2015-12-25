@@ -11,13 +11,29 @@
   <script src="../dist/truck.js"></script>
   <script type="text/javascript">
     $(function() {
-       $.Paging({element: '#main'});
+       $.Paging({element: '#paging'});
     });
   </script>
 </head>
 <body>
   <screen id="main" class="current">
     <nav>
+      <h1>Paging</h1>
+    </nav>
+    <section>
+      <ul class="list">
+        <li data-goto='paging'>
+          <h3>See paging example</h3>
+          <aside>
+            <disclosure></disclosure>
+          </aside>
+        </li>
+      </ul>
+    </section>
+  </screen>
+  <screen id="paging" class='next'>
+    <nav>
+      <button class="back">Home</button>
       <h1>Paging</h1>
     </nav>
     <section class='paging'>

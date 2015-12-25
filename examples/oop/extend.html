@@ -93,16 +93,7 @@
       // Extend sam object:
       $.extend(sam, newProps);
       OutputView.render("extended sam object:", true);
-      OutputView.render(JSON.stringify({
-        "name": "Sam",
-        "job": "developer",
-        "hobby": "twiddling thumbs",
-        "address": "1234 Lane, SomeWhereVille",
-        "age": 1000
-      }), true);
- 
-      // console.dir(sam);
-
+      OutputView.render(JSON.stringify(sam), true);
     })();
     </script>
   </body>
