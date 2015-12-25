@@ -205,11 +205,11 @@
     dingo.push(3);
     var editListView = $.View({
       element: '#editList',
-      model: $.PeopleModel,
+      model: PeopleModel,
       variable: 'person',
       autobox: true
     });
-    $.editListView.render();
+    editListView.render();
 
     var myEditList = $.EditList({
       deletable: true,
