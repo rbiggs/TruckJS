@@ -139,7 +139,7 @@
       //==============================
       var listView = $.View({name: 'listView'});
       listView.setTemplate(templates[0]);
-      listView.setParent('#myList');
+      listView.setElement('#myList');
       listView.render(music)
 
       // Setup Slide Out:
@@ -171,7 +171,7 @@
             // Method to render templates in switch statement:
             var renderChosenTemplate = function(element, template, item) {
               listView.setTemplate(template);
-              listView.setParent(element);
+              listView.setElement(element);
               listView.render(item);
             };
             // Handle passed id:

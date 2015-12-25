@@ -118,7 +118,7 @@
         route: 'chosenFruit',
         callback: function(id) {
           var renderChosenFruit = function(whichOne) {
-            chosenFruitView.setParent('#chosenFruitList');
+            chosenFruitView.setElement('#chosenFruitList');
             chosenFruitView.render(fruits[whichOne].uses);
             $('#chosenFruitTitle').text(fruits[whichOne].name);
           };
