@@ -27,7 +27,9 @@
       var propagateDataLoop = function(handle, data) {
         if ($.mediators[handle]) {
           $.mediators[handle].forEach(function(cntrl) {
-            cntrl.callback.call(cntrl.callback, data);
+            if (cntrl && cntrl.callback) {
+              cntrl.callback.call(cntrl.callback, data);
+            }
           });
         }
       };

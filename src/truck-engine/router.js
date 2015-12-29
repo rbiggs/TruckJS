@@ -17,15 +17,12 @@
             if ($.type(options) === 'array') {
               options.forEach(function(item) {
                 if (!$.mediators[item.route]) {
-                  $.mediators[item.route] = $.Stack();
+                  $.mediators[item.route] = $.MediatorStack();
                   $.mediators[item.route].push({
                     token: $.uuid(),
                     callback: item.callback,
                     exec: true,
-                    count: 0,
-                    start: 0,
-                    after: 0,
-                    time: 0
+                    count: 0
                   });
                 }
               });
