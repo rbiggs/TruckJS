@@ -40,8 +40,7 @@
 
 		// Define Mediator to handle boxing model:
 		//========================================
-		var BoxMediator = $.Mediator('box-mediator');
-		BoxMediator.init(function(data) {
+		var BoxMediator = $.Mediator('box-mediator', function(data) {
 			if (data && data.key) {
 				var key = data.key;
 				var value = data.value;
