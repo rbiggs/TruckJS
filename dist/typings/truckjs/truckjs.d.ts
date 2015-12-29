@@ -386,7 +386,7 @@ interface TruckStatic {
   /**
    * An object that holds the handles for dispatchers
    */
-  handles: Object;
+  mediators: Object;
 
   /**
    * Method to inititalize a receiver for a dispatcher. This takes two arguments: a handle to listen to and a callback to handle the dispatch, including any data received.
@@ -397,39 +397,6 @@ interface TruckStatic {
    */
   receive(handle: string, callback: (data: any) => any): string;
 
-  /** 
-   * Method to dispatch a handle and any provided data. This can be intercepted by any receivers listening to the provided handle.
-   *
-   * @param handle A string describing the handle to listen to.
-   * @param data A placeholder for any data accompanying a dispatch.
-   * @return boolean
-   */
-  dispatch(handle: string, data: any): boolean;
-
-  /**
-   * Method to cancel a receiver. Once cancel, a receiver will not long respond to any dispatches.
-   *
-   * @param token A variable to which a receiver was assigned.
-   */
-  cancelReceiver(token: any): void;
-
-  /**
-   * This method creates a Stack object, which is an abstraction for array.
-   *
-   * @param data The data to encapsulate in the stack
-   * @return Stack A new instance of Stack.
-   */
-  Stack(data: any[]): Stack;
-
-  /**
-   * This method creates a Model object.
-   *
-   * @param data The data to encapsulate in the Model.
-   * @param handle A string used to describe and identify the model to the system. This is used by Mediators and Dispatchers.
-   * @return Model A Model object.
-   */
-  Model(data: any, handle: string): Model;
-
   /**
    * This method creates a Mediator object.
    *
@@ -437,15 +404,15 @@ interface TruckStatic {
    * @return Mediator A Mediator object.
    */
   Mediator: {
-    (handle: string): {
 
-      /**
-        * This method lets you use a callback to define what the mediator does. The callback gets as its argument any data pass when the mediator is run.
-        *
-        * @param callback A callback to execute when the mediator runs.
-        * @retun void
-        */
-      init(callback: (data: any) => void): void;
+    /**
+      * This method lets you create a mediator. It takes two arguments: a handle and a callback. The callback gets as its argument any data passed when the mediator is run or a dispatch sent to its handle.
+      *
+      * @param handle A string defining a handle for the mediator.
+      * @param callback A callback to execute when the mediator runs.
+      * @retun void
+      */
+    (handle: string, callback: (data: any) => void): {
 
       /**
         * This runs the mediator. Any data provided as an argument will be consumed by the mediators callback defined in its `init` method.
@@ -475,23 +442,13 @@ interface TruckStatic {
         *
         * @return void
         */
-      restart(): void;
-
-      /**
-        * Tell a mediator that has been stopped that it can again respond to run commands after the designated time in seconds has transpired.
-        *
-        * @param seconds The number of seconds before the mediator can run again.
-        * @return void
-        */
-      restart(seconds: number): void;
+      start(): void;
 
 
       /**
-        * Get the number of times the mediator has run.
-        *
-        * @return number
+        * The number of times the mediator has run.
         */
-      getCount(): number;
+      count: number;
 
       /**
         * Reset to zero the number used by the mediator for keeping track of how many times it has run.
@@ -506,16 +463,49 @@ interface TruckStatic {
         * @return void
         */
       stopCount(): void;
-
-      /**
-        * Kill the mediator. After a mediator has been killed, it will no longer be able to respond to events. This is a final act until the next time the app launches.
-        *
-        * @return void
-        */
-      kill(): void;
     }
     dispatch(handle: string, data?: any): void;
   }
+
+  /** 
+   * Method to dispatch a handle and any provided data. This can be intercepted by any receivers listening to the provided handle.
+   *
+   * @param handle A string describing the handle to listen to.
+   * @param data A placeholder for any data accompanying a dispatch.
+   * @return boolean
+   */
+  dispatch(handle: string, data?: any): boolean;
+
+  /**
+   * Method to stop a receiver. Once stopped, a receiver will not respond to any dispatches. You can reset it with `$.startDispatch(handle)`. You can also pass a mediator as the argument. This will prevent the mediator from responding to dispatches.
+   *
+   * @param handleOrMediator A handle used by a receiver, or a mediator itself.
+   */
+  stopDispatch(handleOrMediator: any): void;
+
+  /**
+   * Method to start a stopped dispatch handle. You can also restart a stopped mediator by passing it as the argumet.
+   *
+   * @param handleOrMediator A handle used by a receiver, or a mediator itself.
+   */
+  startDispatch(handleOrMediator: any): void;
+
+  /**
+   * This method creates a Stack object, which is an abstraction for array. You can also use this with a mediator. Just pass the mediator as the argument: `$.startDispatch(MyMediator)`.
+   *
+   * @param data The data to encapsulate in the stack
+   * @return Stack A new instance of Stack.
+   */
+  Stack(data: any[]): Stack;
+
+  /**
+   * This method creates a Model object.
+   *
+   * @param data The data to encapsulate in the Model.
+   * @param handle A string used to describe and identify the model to the system. This is used by Mediators and Dispatchers.
+   * @return Model A Model object.
+   */
+  Model(data: any, handle: string): Model;
 
   /**
    * A stack to hold registered views.

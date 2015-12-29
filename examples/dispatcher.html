@@ -24,7 +24,7 @@
   <script>
     // $(function() {
       // Two methods to listen to:
-      var arrayHandler = function( data ) {
+      var arrayHandler = function(data) {
         if (data instanceof Array) {
           if (data[0] instanceof Object) {
             data.forEach(function(ctx) {
@@ -40,13 +40,13 @@
         }
       };
       
-      var stringHandler = function( string) {
+      var stringHandler = function(string) {
         if (typeof string === 'string') {
           $('.list').append('<li><div><h4>' + string + '</h3></li>');
         }
       };
 
-      var objArrayHandler = function( obj) {
+      var objArrayHandler = function(obj) {
         if (obj instanceof Array) {
           obj.forEach(function(ctx) {
             if (ctx.name && ctx.job) {
@@ -58,12 +58,12 @@
         }
       };
       var stringDispatcher = $.receive('news/update', stringHandler);
-      $.receive( 'news/update', arrayHandler );  
-      $.receive( 'users/new', objArrayHandler );
+      $.receive('news/update', arrayHandler);  
+      $.receive('users/new', objArrayHandler);
       
-      $.dispatch( 'news/update', 'This is the latest news!' );
-      $.dispatch( 'news/update', ['Somebody','did','something','funny'] );
-      $.dispatch( 'news/update', [{'news-flash':'Not much has happened yet.'},{'update':'More of the same.'}] );
+      $.dispatch('news/update', 'This is the latest news!');
+      $.dispatch('news/update', ['Somebody','did','something','funny']);
+      $.dispatch('news/update', [{'news-flash':'Not much has happened yet.'},{'update':'More of the same.'}]);
 
       var dingo = $.receive('dingo', function(msg) {
         alert('Dingo: ' + msg);
@@ -72,9 +72,9 @@
         alert('Bingo: ' + msg);
       });
       
-      $.stopDispatch( stringDispatcher );
+      $.stopDispatch(stringDispatcher);
       // This doesn't get published to stringDispatcher:
-      $.dispatch( 'news/update', 'We need piles of money now!' );
+      $.dispatch('news/update', 'We need piles of money now!');
       // This does get published:
       $.dispatch('users/new', [{'name':'Wobba', 'job':'developer'}, {'name':'Bozo the Clown', 'job':'clown'}, {'name':'Joe','job':'just a regular guy'}]);
     // });
