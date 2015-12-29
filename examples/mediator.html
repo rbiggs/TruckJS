@@ -20,22 +20,22 @@
       <h2 class='wrap normal-case'>You can use the following methods:</h2>
       <ul class='list'>
         <li>
-          <h3>fooMtor.run('Whatever')</h3>
+          <h3>FooMtor.run('Whatever')</h3>
         </li>
         <li>
-          <h3>barMtor.run('Same here')</h3>
+          <h3>BarMtor.run('Same here')</h3>
         </li>
         <li>
-          <h3>fooMtor.stop()</h3>
+          <h3>FooMtor.stop()</h3>
         </li>
         <li>
-          <h3>fooMtor.stop(3)</h3>
+          <h3>FooMtor.stop(3)</h3>
         </li>
         <li>
-          <h3>fooMtor.restart()</h3>
+          <h3>FooMtor.start()</h3>
         </li>
         <li>
-          <h3>fooMtor.restart(5)</h3>
+          <h3>FooMtor.start(5)</h3>
         </li>
       </ul>
     </section>
@@ -43,26 +43,20 @@
   <script>
 
     // Define some mediators:
-    var  fooMtor= $.Mediator('baz-handle');
-    var  barMtor= $.Mediator('baz-handle');
-
-    fooMtor.init(function(data) {
+    var  FooMtor= $.Mediator('baz-handle', function(data) {
       console.log('1. Foo here.')
       console.log(data);
       console.log('')
     });
-
-    barMtor.init(function(data){
+    var  BarMtor= $.Mediator('baz-handle', function(data){
       console.log('2. Bar here.');
       console.log(data);
       console.log('')
     });
     
-    fooMtor.run('This is Godzilla!');
+    FooMtor.run('This is Godzilla!');
 
-    var get = function() {
-      return $.mediators['baz-handle'].getData();
-    }
+    $.dispatch('baz-handle', 'This is for everyone.')
 
   </script>
 </body>

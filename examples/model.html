@@ -89,27 +89,17 @@
 
 
     // Define model:
-    var foo = $.Model(people, 'people-model');
+    var FooModel = $.Model(people, 'people-model');
 
-    var peopleView = $.View({element: '#listView', model: foo});
+    var peopleView = $.View({element: '#listView', model: FooModel});
      peopleView.render();
 
-    $('#numberOfPeople').text(foo.size());
-
-    var fooCtrl = $.Mediator('people-model');
-
-    fooCtrl.init(function(data) {
-      peopleView.render();
-      $('#numberOfPeople').text(foo.size());
-    });
-
+    $('#numberOfPeople').text(FooModel.size());
 
     // Push something to view model with this flag: 'fooAlert':
-    var fooAlert = $.Mediator('fooAlert');
-    fooAlert.init(function(data) {
+    var FooMtor = $.Mediator('fooAlert', function(data) {
       alert(data.firstName + ' ' + data.lastName);
       peopleView.render();
-      $('#numberOfPeople').text(foo.size());
     });
 
     // Submit new person:
@@ -127,35 +117,28 @@
       person.age = $('#age').val();
 
       // Push person to view model.
-      // 'true', means it gets published to subscribers.
       if ($('#fooAlert').prop('checked')) {
-        alert('woohoo')
-        foo.push(person, 'fooAlert');
+        FooModel.push(person, true);
+        $.dispatch('fooAlert', person)
       } else {
-        foo.push(person);
+        FooModel.push(person);
       }
 
-      $('#numberOfPeople').text(foo.size());
+      $('#numberOfPeople').text(FooModel.size());
     });
 
     $('#uniqueAction').on('tap', function() {
-      foo.unique();
+      FooModel.unique();
       peopleView.render();
     });
 
     // Capture any changes to  foo:
-    var dingo = $.Mediator('people-model');
-    dingo.init(function(data) {
-      console.log(data)
-    });
-
     $('#sortList').on('tap', function() {
       var firstName = 'firstName';
       if ($('input[type=radio]').eq(1).prop('checked')) {
         firstName = '-firstName';
       }
-      // alert(firstName)
-      foo.run(function(model, data) {
+      FooModel.run(function(model, data) {
         model.sortBy(firstName);
         peopleView.render();
       })

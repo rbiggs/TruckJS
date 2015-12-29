@@ -1,6 +1,6 @@
 {
   "name": "truk",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "An MVC framework for mobile Web apps",
   "main": "npm/index.js",
   "scripts": {

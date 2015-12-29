@@ -278,7 +278,7 @@
           // Biding View to Model if Model provided
           var bindModelToView = function(handle) {
             if (!handle || typeof handle !== 'string') return;
-            if (!$.mediators[handle]) $.mediators[handle] = $.Stack();
+            if (!$.mediators[handle]) $.mediators[handle] = $.MediatorStack();
             $.mediators[handle].push({
               token: $.uuid(),
               callback: function() {

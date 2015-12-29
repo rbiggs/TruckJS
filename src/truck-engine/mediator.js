@@ -1,221 +1,199 @@
-// Truck-Engine - Mediators Module:
+// Truck Engine - Mediator Module:
 (function() {
   "use strict";
   $.extend({
-    mediators: {},
-    //=================
-    // Define Mediator:
-    //=================
-    Mediator: function(handle) {
-      var __handle = handle;
-      var __token = $.uuid();
-      var __stopCount = false;
-      var __exec = true;
-      var __restartTime = 0;
-
-      // Return closure to encapsulate methods:
+    
+    MediatorStack: function(array) {
+      var __array = [];
+      if (array && Array.isArray(array)) {
+        var i = -1;
+        var len = array.length;
+        while (++i < len) {
+          __array[i] = array[i];
+        }
+      } else if (array) {
+        var arr = Array.prototype.slice.apply(arguments);
+        arr.forEach(function(ctx, idx) {
+          __array[idx] = ctx;
+        });
+      }
       return {
-        init: function(callback) {
-          if (!callback) return;
-          var subscribe = function(handle, cb) {
-            if (!$.mediators[handle]) {
-              $.mediators[handle] = $.Stack();
-            }
-            $.mediators[handle].push({
-              token: __token,
-              callback: cb,
-              exec: true,
-              count: 0,
-              startFrom: 0,
-              stopAfter: 0,
-              time: 0,
-            });
-          };
-          subscribe(__handle, callback);
+
+        size: function() {
+          return __array.length;
         },
 
-        run: function(args) {
-          if (!$.mediators[__handle]) {
-            return;
-          }
-          if (__exec === false && !__restartTime) {
-            return;
+        push: function(data) {
+          __array.push(data);
+        },
+
+        eq: function(index) {
+          if (index < 0) {
+            return __array[__array.length + index];
           } else {
-            setTimeout(function() {
-              var len = $.mediators[__handle].size();
-              for (var k = 0; k < len; k++) {
-                var item = $.mediators[__handle].eq(k);
-                if (item.exec === false && !item.time) {
-                  break;
-                } else {
-                  // Handle stop after designated number of times:
-                  if (item.stopAfter > 0 && __exec && item.exec) {
-                    if (item.startFrom < item.stopAfter) {
-                      if (!__stopCount) item.count++;
-                      item.startFrom++;
-                      item.callback(args);
-                      if (item.startFrom >= item.stopAfter) {
-                        __exec = false;
-                        item.exec = false;
-                        item.startFrom = 0;
-                        item.stopAfter = 0;
-                      }
-                      break;
-                    } else if (item.startFrom >= item.stopAfter) {
-                      item.exec = false;
-                      __exec = false;
-                      item.startFrom = 0;
-                      item.stopAfter = 0;
-                      break;
-                    }
-
-                  // Handle start after desinated time:
-                  } else if (item.time && item.time > 0) {
-                    if (item.time <= Date.now()) {
-                      item.exec = true;
-                      __exec = true;
-                      item.callback(args);
-                      if (!__stopCount) item.count++;
-                      __restartTime = 0;
-                      item.time = 0;
-                    } else {
-                      break;
-                    }
-
-                  // Otherwise just run it:
-                  } else {
-                    if (item.exec && __exec) {
-                      if (!__stopCount) item.count++;
-                      item.callback(args);
-                    }
-                  }
-                }
-              }
-            });
+            return __array[index];
           }
         },
 
-        stop: function(after) {
-          $.mediators[__handle].map(function(item) {
-            if (item.token === __token) {
-              if (!isNaN(after)) {
-                item.stopAfter = after;
-                item.startFrom = 0;
-                __exec = true;
-                item.exec = true;
-              } else {
-                item.exec = false;
-                __exec = false;
-              }
-            }
-          });
+        indexOf: function() {
+          return __array.indexOf.apply(__array, arguments);
         },
 
-        restart: function(time) {
-          __exec = true;
-          $.mediators[__handle].map(function(item) {
-            if (item.token === __token) {
-              if (!isNaN(time)) {
-                item.time = (Date.now() + (time * 1000));
-                __restartTime = item.time;
-                item.exec = false;
-                __exec = false;
-              } else {
-                item.exec = true;
-                __exec = true;
-              }
-            }
-          });
-        },
-
-        getCount: function() {
-          var temp;
-          $.mediators[__handle].map(function(item) {
-            if (item.token === __token) {
-              temp = item.count;
-            }
-          });
-          return temp;
-        },
-
-        resetCount: function() {
-          $.mediators[__handle].forEach(function(item) {
-            item.count = 0;
-          });
-        },
-
-        stopCount: function() {
-          __stopCount = true;
-        },
-
-        kill: function(token) {
-          __exec = false;
-          setTimeout(function() {
-            for (var m in $.mediators) {
-              if ($.mediators[m]) {
-                for (var i = 0, len = $.mediators[m].length; i < len; i++) {
-                  if ($.mediators[m].eq(i).token === token) {
-                    $.mediators[m].splice(i, 1);
-                    return token;
-                  }
-                }
-              }
-            }
-            return false;
-          });
-        },
-      };
-    }
-  });
-
-  //==================================
-  // Define dipatcher to run mediators
-  // using the provided handle:
-  //==================================
-  $.extend($.Mediator, {
-    dispatch: function(handle, data) {
-      var len = $.mediators[handle].size();
-      for (var k = 0; k < len; k++) {
-        var item = $.mediators[handle].eq(k);
-        if (item.exec === false && !item.time) {
-          continue;
-        } else {
-          // Handle stop after designated number of times:
-          if (item.stopAfter > 0 && item.exec) {
-            if (item.startFrom < item.stopAfter) {
-              item.count++;
-              item.startFrom++;
-              item.callback(data);
-              if (item.startFrom >= item.stopAfter) {
-                item.exec = false;
-                item.startFrom = 0;
-                item.stopAfter = 0;
-              }
+        forEach: function(callback) {
+          var value;
+          var i = -1;
+          var len = __array.length;
+          while (++i < len) {
+            value = callback.call(__array[i], __array[i], i);
+            if (value === false) {
               break;
-            } else if (item.startFrom >= item.stopAfter) {
-              item.exec = false;
-              item.startFrom = 0;
-              item.stopAfter = 0;
-              break;
-            }
-
-            // Handle start after desinated time:
-          } else if (item.time && item.time > 0) {
-            if (item.time <= Date.now()) {
-              item.exec = true;
-            } else {
-              break;
-            }
-
-            // Otherwise just run it:
-          } else {
-            if (item.exec) {
-              item.count++;
-              item.callback(data);
             }
           }
+        },
+
+        setExecutable: function(token, exec) {
+          __array.forEach(function(receiver) {
+            if (receiver.token === token) {
+              receiver.exec = exec;
+              delete receiver.stopAfter;
+            }
+          });
+        },
+
+        setStopAfter: function(token, stopAfter) {
+          __array.forEach(function(receiver) {
+            if (receiver.token === token) {
+              receiver.stopAfter = stopAfter;
+            }
+          });
+        },
+
+        splice: function() {
+          return __array.splice.apply(__array, arguments);
+        },
+
+        getData: function() {
+          return __array;
         }
       }
+    },
+
+    // Object to hold all the receivers defined.
+    mediators: {},
+
+    // Handle: string defining handle: /some/handle
+    // Data: a string, number, array or object.
+    Mediator: function(handle, callback) {
+      if (!$.mediators[handle]) {
+        $.mediators[handle] = $.MediatorStack(); // jshint ignore:line
+      }
+      var __exec = true;
+      var __stopAfter;
+      var __stopCount = false;
+      var self = this;
+      var token = ($.uuid());
+      $.mediators[handle].push({
+        token: token,
+        callback: callback,
+        exec: true
+      });
+      return {
+        token: token,
+        handle: handle,
+        count: 0,
+        exec: __exec,
+
+        run: function(data) {
+          if(!this.exec) return;
+          if (__stopAfter && __stopAfter > 0) {
+            callback.call(this, data);
+            __stopAfter--;
+            if(!this.stopCount) this.count++;
+            $.mediators[handle].setStopAfter(token, __stopAfter);
+            if (__stopAfter === 0) {
+              this.exec = false;
+              $.mediators[handle].setExecutable(token, false);
+            }
+          } else {
+            callback.call(this, data);
+            if(!this.stopCount) this.count++;
+          }
+        },
+
+        stop: function(stopAfter) {
+          if (stopAfter) {
+            __stopAfter = stopAfter;
+            $.mediators[handle].setStopAfter(token, stopAfter);
+          } else {
+            this.exec = false;
+            $.mediators[handle].setExecutable(token, false);
+          } 
+        },
+
+        start: function() {
+          __exec = true;
+          $.mediators[handle].setExecutable(token, true);
+        }
+      };
+    },
+
+    receive: function(handle, callback) {
+      return $.Mediator(handle, callback);
+    },
+
+    dispatch: function(handle, args) {
+      if (!$.mediators[handle]) {
+        return false;
+      }
+      setTimeout(function() {
+        var len = $.mediators[handle] ? $.mediators[handle].size() : 0;
+        while (len--) {
+          if (!$.mediators[handle].eq(len).exec) return;
+          var stopAfter = $.mediators[handle].eq(len).stopAfter;
+          if (stopAfter > 0) {
+            $.mediators[handle].eq(len).callback(args);
+            stopAfter--;
+            $.mediators[handle].setStopAfter($.mediators[handle].eq(len).token, stopAfter);
+            if (stopAfter === 0) $.mediators[handle].eq(len).exec = false;
+          } else if (stopAfter === 0) {
+            return;
+          } else if (stopAfter === undefined) {
+            $.mediators[handle].eq(len).callback(args);
+          }
+        }
+        return true;
+      });
+      return true;
+    },
+
+    startDispatch: function(mediator) {
+      setTimeout(function() {
+        for (var m in $.mediators) {
+          if ($.mediators[m] && $.mediators[m].size()) {
+            $.mediators[m].forEach(function(item, i) {
+              if (item.token === mediator.token) {
+                item.exec = true;
+              }
+            });
+          }
+        }
+        return false;
+      });
+    },
+
+    stopDispatch: function(mediator) {
+      setTimeout(function() {
+        for (var m in $.mediators) {
+          if ($.mediators[m] && $.mediators[m].size()) {
+            $.mediators[m].forEach(function(item, i) {
+              if (item.token === mediator.token) {
+                item.exec = false;
+              }
+            });
+          }
+        }
+        return false;
+      });
     }
   });
 })();
