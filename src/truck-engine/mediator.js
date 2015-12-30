@@ -115,8 +115,10 @@
               $.mediators[handle].setExecutable(token, false);
             }
           } else {
-            callback.call(this, data);
-            if(!this.stopCount) this.count++;
+            if (callback) {
+              callback.call(this, data);
+              if (!this.stopCount) this.count++;
+            }
           }
         },
 
