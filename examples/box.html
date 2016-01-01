@@ -25,6 +25,11 @@
 					<input type="text" name="value" id='value'>
 					<button id='boxit'>Box it!</button>
 				</li>
+				<li>
+					<label for="deleteKey">Delete Key</label>
+					<input type="text" id='deleteKey' name='deleteKey'>
+					<button id='delete'>Delete</button>
+				</li>
 			</ul>
 			<h2>What's in the Box</h2>
 			<ul class="list" id='boxList'></ul>
@@ -54,13 +59,32 @@
 			}
 		});
 
+		var DeleteKeyMtor = $.Mediator('delete-key', function(data) {
+			var key;
+			if (data) {
+				key = data;
+				$.Box.remove(key, function(err) {
+					$('#boxList').empty();
+					$.Box.each(function(value, key) {
+						$('#boxList').append('<li>Key: ' + key + ', value: ' + value + '</li>');
+					});
+				});	
+			}
+		});
+
 		// Handle event to trigger model agumentation:
 		//============================================
-		$('#boxit').on('click', function() {
+		$('#boxit').on('tap', function() {
 			var key = $('#key').val();
 			var value = $('#value').val();
 			if (!key || !value) return;
 			BoxMediator.run({key: key, value: value});
+    });
+
+    $('#delete').on('tap', function() {
+    	var key = $('#deleteKey').val();
+    	if (!key) return;
+			DeleteKeyMtor.run(key)
     });
 
 		// Output contents of Box:
