@@ -463,7 +463,7 @@
       }
       return Truck;
     };
-
+    
     Truck.fn = {
       extend: function(object) {
         return Truck.extend(DOMStack.prototype, object);
@@ -615,7 +615,7 @@
   //==================================
   if (typeof jQuery !== 'undefined') return;
   $.extend({
-    type: function(type) {
+    type: function (type) {
       switch (typeof type) {
         case 'boolean':
           return 'boolean';
@@ -1313,7 +1313,7 @@
       var parent = this.parentNode;
       if (content && content.nodeType && content.nodeType === 1) {
         $(content).off();
-      } else if (content.constructor.toString().match(/DOMStack/)) {
+      } else if(content.constructor.toString().match(/DOMStack/)) {
         content.off();
       }
       this.forEach(function(node) {
@@ -1762,7 +1762,7 @@
 
   /* jshint, evil: false, validthis:true, unused:false, loopfunc: false,
   smarttabs: true, nonew: false */
-
+  
   ////////////////////////////////////////////////////
   // Private method to set events on TruckEventCache
   ////////////////////////////////////////////////////
@@ -2118,7 +2118,7 @@
           touch.y1 = e.pageY;
           twoTouches = false;
 
-          // Detect two or more finger gestures:
+        // Detect two or more finger gestures:
         } else {
           if (e.touches.length === 1) {
             touch.el = $(parentIfText(e.touches[0].target));
@@ -2193,8 +2193,8 @@
               touch = {};
             }
           }, 0);
-
-          // Normal tap:
+        
+        // Normal tap:
         } else if ('last' in touch) {
           // Delay by one tick so we can cancel the 'tap' event if 'scroll' fires:
           tapTimeout = setTimeout(function() {
@@ -2218,7 +2218,7 @@
             }
           }, 0);
         }
-
+        
       } else {
         return;
       }
@@ -2301,7 +2301,7 @@
       return JSON.parse(str);
     },
 
-    concat: function(args) {
+    concat: function (args) {
       return (args instanceof Array) ? args.join('') : [].slice.apply(arguments).join('');
     }
   });
@@ -2448,7 +2448,7 @@
 // Truck Engine - Stack Module:
 (function() {
   "use strict";
-  $.extend({
+  $.extend({ 
     //==============
     // Define Stack:
     //==============
@@ -2561,7 +2561,7 @@
           };
           __array.sort(__orderBy.apply(null, arguments));
         },
-
+        
         filter: function() {
           return __array.filter.apply(__array, arguments);
         },
@@ -2633,7 +2633,7 @@
 (function() {
   "use strict";
   $.extend({
-
+    
     MediatorStack: function(array) {
       var __array = [];
       if (array && Array.isArray(array)) {
@@ -2735,11 +2735,11 @@
         exec: __exec,
 
         run: function(data) {
-          if (!this.exec) return;
+          if(!this.exec) return;
           if (__stopAfter && __stopAfter > 0) {
             callback.call(this, data);
             __stopAfter--;
-            if (!this.stopCount) this.count++;
+            if(!this.stopCount) this.count++;
             $.mediators[handle].setStopAfter(token, __stopAfter);
             if (__stopAfter === 0) {
               this.exec = false;
@@ -2760,7 +2760,7 @@
           } else {
             this.exec = false;
             $.mediators[handle].setExecutable(token, false);
-          }
+          } 
         },
 
         start: function() {
@@ -3045,11 +3045,11 @@
             var len = data.length;
             // The position is greater than the collection,
             // so add to end of collection:
-            if (position >= len - 1) {
+            if (position >= len -1) {
               __data.push(data);
               __lastModifiedTime = Date.now();
               propagateData(__handle, data, doNotPropogate);
-              // Otherwise insert it at the position:
+            // Otherwise insert it at the position:
             } else {
               __data.splice(position, 0, data);
               __lastModifiedTime = Date.now();
@@ -4236,7 +4236,6 @@
   };
   queue = (function() {
     var first, last, item;
-
     function Item(func, self) {
       this.func = func;
       this.self = self;
@@ -4263,7 +4262,6 @@
       }
     };
   })();
-
   function schedule(func, self) {
     queue.add(func, self);
     if (!cycle) {
@@ -4279,14 +4277,12 @@
     }
     return typeof _then === "function" ? _then : false;
   }
-
   function notify() {
     for (var i = 0; i < this.chain.length; i++) {
       notifyIsolated(this, (this.state === 1) ? this.chain[i].success : this.chain[i].failure, this.chain[i]);
     }
     this.chain.length = 0;
   }
-
   function notifyIsolated(self, callback, chain) {
     var ret, _then;
     try {
@@ -4310,7 +4306,6 @@
       chain.reject(err);
     }
   }
-
   function resolve(msg) {
     var _then, deferred, self = this;
     if (self.triggered) {
@@ -4321,15 +4316,11 @@
       self = self.deferred;
     }
     try {
-      if (_then = isThenable(msg)) { // jshint ignore:line
+      if (_then = isThenable(msg)) {  // jshint ignore:line
         schedule(function() {
           var deferred_wrapper = new MakeDeferred(self);
           try {
-            _then.call(msg, function() {
-              resolve.apply(deferred_wrapper, arguments);
-            }, function() {
-              reject.apply(deferred_wrapper, arguments);
-            });
+            _then.call(msg, function() { resolve.apply(deferred_wrapper, arguments); }, function() { reject.apply(deferred_wrapper, arguments); });
           } catch (err) {
             reject.call(deferred_wrapper, err);
           }
@@ -4345,7 +4336,6 @@
       reject.call(new MakeDeferred(self), err);
     }
   }
-
   function reject(msg) {
     var self = this;
     if (self.triggered) {
@@ -4361,23 +4351,20 @@
       schedule(notify, self);
     }
   }
-
   function iteratePromises(Constructor, arr, resolver, rejecter) {
     for (var idx = 0; idx < arr.length; idx++) {
       (function IIFE(idx) {
         Constructor.resolve(arr[idx])
           .then(function(msg) {
-            resolver(idx, msg);
-          }, rejecter);
+          resolver(idx, msg);
+        }, rejecter);
       })(idx);
     }
   }
-
   function MakeDeferred(self) {
     this.deferred = self;
     this.triggered = false;
   }
-
   function Deferred(self) {
     this.promise = self;
     this.state = 0;
@@ -4385,7 +4372,6 @@
     this.chain = [];
     this.msg = undefined;
   }
-
   function Promise(executor) {
     if (typeof executor !== "function") {
       throw new TypeError("Not a function");
@@ -4622,7 +4608,7 @@
       try {
         new Blob();
         return true;
-      } catch (e) {
+      } catch(e) {
         return false;
       }
     })(),
@@ -4807,10 +4793,7 @@
   };
 
   Response.error = function() {
-    var response = new Response(null, {
-      status: 0,
-      statusText: ''
-    });
+    var response = new Response(null, {status: 0, statusText: ''});
     response.type = 'error';
     return response;
   };
@@ -5383,398 +5366,18 @@
     customValidators: [],
 
     registerCustomValidator: function(name, regex) {
-      this.customValidators.push({
-        name: name,
-        regex: regex
-      });
+      this.customValidators.push({name: name, regex: regex});
     }
   });
 })();
 // Truck Engine - Box, Data Persistence Module:
-(function loadModules(root, factory) {
+(function() {
   "use strict";
   $.extend({
-    Box: factory()
-  });
-})(this, function() {
-  return (function(modules) {
-    var installedModules = {};
-
-    function get_module(moduleId) {
-      if (installedModules[moduleId]) {
-        return installedModules[moduleId].exports;
-      }
-      var module = installedModules[moduleId] = {
-        exports: {},
-        id: moduleId
-      };
-      modules[moduleId].call(module.exports, module, module.exports, get_module);
-      return module.exports;
-    }
-
-    return get_module(0);
-  })
-
-  ([
-    // 0 - Truck Box Module:
-    //======================
-    function(module, exports, get_module) {
-      function __classCallCheck(instance, Constructor) {
-        if (!(instance instanceof Constructor)) {
-          throw new TypeError('Cannot call a class as a function');
-        }
-      }
-
-      (function() {
-        var CustomDrivers = {};
-        var DriverType = {
-          INDEXEDDB: 'asyncStorage',
-          LOCALSTORAGE: 'localStorageWrapper',
-          WEBSQL: 'webSQLStorage'
-        };
-        var DefaultDriverOrder = [DriverType.INDEXEDDB, DriverType.WEBSQL, DriverType.LOCALSTORAGE];
-        var LibraryMethods = ['clear', 'get', 'each', 'key', 'keys', 'size', 'remove', 'set'];
-
-        var DefaultConfig = {
-          description: '',
-          driver: DefaultDriverOrder.slice(),
-          name: 'truckbox',
-          size: 4980736,
-          boxName: 'keyvaluepairs',
-          version: 1.0
-        };
-
-        var driverSupport = (function(self) {
-          var indexedDB = indexedDB || self.indexedDB || self.webkitIndexedDB || self.mozIndexedDB || self.OIndexedDB || self.msIndexedDB;
-          var result = {};
-          result[DriverType.WEBSQL] = !!self.openDatabase;
-          result[DriverType.INDEXEDDB] = !!(function() {
-            if (typeof self.openDatabase !== 'undefined' && self.navigator && self.navigator.userAgent && /Safari/.test(self.navigator.userAgent) && !/Chrome/.test(self.navigator.userAgent)) {
-              return false;
-            }
-            try {
-              return indexedDB && typeof indexedDB.open === 'function' &&
-                typeof self.IDBKeyRange !== 'undefined';
-            } catch (e) {
-              return false;
-            }
-          })();
-
-          result[DriverType.LOCALSTORAGE] = !!(function() {
-            try {
-              return self.localStorage && 'set' in self.localStorage && self.localStorage.set;
-            } catch (e) {
-              return false;
-            }
-          })();
-
-          return result;
-        })(this);
-
-        var isArray = Array.isArray || function(arg) {
-          return Object.prototype.toString.call(arg) === '[object Array]';
-        };
-
-        function callWhenReady(truckBoxInstance, libraryMethod) {
-          truckBoxInstance[libraryMethod] = function() {
-            var __args = arguments;
-            return truckBoxInstance.ready().then(function() {
-              return truckBoxInstance[libraryMethod].apply(truckBoxInstance, __args);
-            });
-          };
-        }
-
-        function extend() {
-          for (var i = 1; i < arguments.length; i++) {
-            var arg = arguments[i];
-
-            if (arg) {
-              for (var key in arg) {
-                if (arg.hasOwnProperty(key)) {
-                  if (isArray(arg[key])) {
-                    arguments[0][key] = arg[key].slice();
-                  } else {
-                    arguments[0][key] = arg[key];
-                  }
-                }
-              }
-            }
-          }
-
-          return arguments[0];
-        }
-
-        function isLibraryDriver(driverName) {
-          for (var driver in DriverType) {
-            if (DriverType.hasOwnProperty(driver) && DriverType[driver] === driverName) {
-              return true;
-            }
-          }
-
-          return false;
-        }
-
-        var TruckBox = (function() {
-          function TruckBox(options) {
-            __classCallCheck(this, TruckBox);
-
-            this.INDEXEDDB = DriverType.INDEXEDDB;
-            this.LOCALSTORAGE = DriverType.LOCALSTORAGE;
-            this.WEBSQL = DriverType.WEBSQL;
-
-            this.__defaultConfig = extend({}, DefaultConfig);
-            this.__config = extend({}, this.__defaultConfig, options);
-            this.__driverSet = null;
-            this.__initDriver = null;
-            this.__ready = false;
-            this.__dbInfo = null;
-
-            this.__wrapLibraryMethodsWithReady();
-            this.setDriver(this.__config.driver);
-          }
-
-          TruckBox.prototype.config = function(options) {
-            if (typeof options === 'object') {
-              if (this.__ready) {
-                return new Error("Can't call config() after truckbox " + 'has been used.');
-              }
-              for (var i in options) {
-                if (i === 'boxName') {
-                  options[i] = options[i].replace(/\W/g, '_');
-                }
-
-                this.__config[i] = options[i];
-              }
-              if ('driver' in options && options.driver) {
-                this.setDriver(this.__config.driver);
-              }
-
-              return true;
-            } else if (typeof options === 'string') {
-              return this.__config[options];
-            } else {
-              return this.__config;
-            }
-          };
-
-          TruckBox.prototype.defineDriver = function(driverObject, callback, errorCallback) {
-            var promise = new Promise(function(resolve, reject) {
-              try {
-                var driverName = driverObject.__driver;
-                var complianceError = new Error('Custom driver not compliant; see Truck Box documentation');
-                var namingError = new Error('Custom driver name already in use: ' + driverObject.__driver);
-                if (!driverObject.__driver) {
-                  reject(complianceError);
-                  return;
-                }
-                if (isLibraryDriver(driverObject.__driver)) {
-                  reject(namingError);
-                  return;
-                }
-
-                var customDriverMethods = LibraryMethods.concat('__initStorage');
-                for (var i = 0; i < customDriverMethods.length; i++) {
-                  var customDriverMethod = customDriverMethods[i];
-                  if (!customDriverMethod || !driverObject[customDriverMethod] || typeof driverObject[customDriverMethod] !== 'function') {
-                    reject(complianceError);
-                    return;
-                  }
-                }
-
-                var supportPromise = Promise.resolve(true);
-                if ('__support' in driverObject) {
-                  if (driverObject.__support && typeof driverObject.__support === 'function') {
-                    supportPromise = driverObject.__support();
-                  } else {
-                    supportPromise = Promise.resolve(!!driverObject.__support);
-                  }
-                }
-
-                supportPromise.then(function(supportResult) {
-                  driverSupport[driverName] = supportResult;
-                  CustomDrivers[driverName] = driverObject;
-                  resolve();
-                }, reject);
-              } catch (e) {
-                reject(e);
-              }
-            });
-
-            promise.then(callback, errorCallback);
-            return promise;
-          };
-
-          TruckBox.prototype.driver = function() {
-            return this.__driver || null;
-          };
-
-          TruckBox.prototype.getDriver = function(driverName, callback, errorCallback) {
-            var self = this;
-            var getDriverPromise = (function() {
-              if (isLibraryDriver(driverName)) {
-                switch (driverName) {
-                  case self.INDEXEDDB:
-                    return new Promise(function(resolve, reject) {
-                      resolve(get_module(1));
-                    });
-                  case self.LOCALSTORAGE:
-                    return new Promise(function(resolve, reject) {
-                      resolve(get_module(3));
-                    });
-                  case self.WEBSQL:
-                    return new Promise(function(resolve, reject) {
-                      resolve(get_module(2));
-                    });
-                }
-              } else if (CustomDrivers[driverName]) {
-                return Promise.resolve(CustomDrivers[driverName]);
-              }
-
-              return Promise.reject(new Error('Driver not found.'));
-            })();
-
-            getDriverPromise.then(callback, errorCallback);
-            return getDriverPromise;
-          };
-
-          TruckBox.prototype.getSerializer = function(callback) {
-            var serializerPromise = new Promise(function(resolve, reject) {
-              resolve(get_module(4));
-            });
-            if (callback && typeof callback === 'function') {
-              serializerPromise.then(function(result) {
-                callback(result);
-              });
-            }
-            return serializerPromise;
-          };
-
-          TruckBox.prototype.ready = function(callback) {
-            var self = this;
-
-            var promise = self.__driverSet.then(function() {
-              if (self.__ready === null) {
-                self.__ready = self.__initDriver();
-              }
-
-              return self.__ready;
-            });
-
-            promise.then(callback, callback);
-            return promise;
-          };
-
-          TruckBox.prototype.setDriver = function(drivers, callback, errorCallback) {
-            var self = this;
-
-            if (!isArray(drivers)) {
-              drivers = [drivers];
-            }
-
-            var supportedDrivers = this.__getSupportedDrivers(drivers);
-
-            function setDriverToConfig() {
-              self.__config.driver = self.driver();
-            }
-
-            function initDriver(supportedDrivers) {
-              return function() {
-                var currentDriverIndex = 0;
-
-                function driverPromiseLoop() {
-                  while (currentDriverIndex < supportedDrivers.length) {
-                    var driverName = supportedDrivers[currentDriverIndex];
-                    currentDriverIndex++;
-
-                    self.__dbInfo = null;
-                    self.__ready = null;
-
-                    return self.getDriver(driverName).then(function(driver) {
-                      self.__extend(driver);
-                      setDriverToConfig();
-
-                      self.__ready = self.__initStorage(self.__config);
-                      return self.__ready;
-                    })['catch'](driverPromiseLoop);
-                  }
-
-                  setDriverToConfig();
-                  var error = new Error('No available storage method found.');
-                  self.__driverSet = Promise.reject(error);
-                  return self.__driverSet;
-                }
-
-                return driverPromiseLoop();
-              };
-            }
-
-            var oldDriverSetDone = this.__driverSet !== null ? this.__driverSet['catch'](function() {
-              return Promise.resolve();
-            }) : Promise.resolve();
-
-            this.__driverSet = oldDriverSetDone.then(function() {
-              var driverName = supportedDrivers[0];
-              self.__dbInfo = null;
-              self.__ready = null;
-
-              return self.getDriver(driverName).then(function(driver) {
-                self.__driver = driver.__driver;
-                setDriverToConfig();
-                self.__wrapLibraryMethodsWithReady();
-                self.__initDriver = initDriver(supportedDrivers);
-              });
-            })['catch'](function() {
-              setDriverToConfig();
-              var error = new Error('No available storage method found.');
-              self.__driverSet = Promise.reject(error);
-              return self.__driverSet;
-            });
-
-            this.__driverSet.then(callback, errorCallback);
-            return this.__driverSet;
-          };
-
-          TruckBox.prototype.supports = function(driverName) {
-            return !!driverSupport[driverName];
-          };
-
-          TruckBox.prototype.__extend = function(libraryMethodsAndProperties) {
-            extend(this, libraryMethodsAndProperties);
-          };
-
-          TruckBox.prototype.__getSupportedDrivers = function(drivers) {
-            var supportedDrivers = [];
-            for (var i = 0, len = drivers.length; i < len; i++) {
-              var driverName = drivers[i];
-              if (this.supports(driverName)) {
-                supportedDrivers.push(driverName);
-              }
-            }
-            return supportedDrivers;
-          };
-
-          TruckBox.prototype.__wrapLibraryMethodsWithReady = function() {
-            for (var i = 0; i < LibraryMethods.length; i++) {
-              callWhenReady(this, LibraryMethods[i]);
-            }
-          };
-
-          TruckBox.prototype.createInstance = function(options) {
-            return new TruckBox(options);
-          };
-
-          return TruckBox;
-        })();
-
-        var truckBox = new TruckBox();
-
-        exports['default'] = truckBox;
-      }).call(typeof window !== 'undefined' ? window : self);
-      module.exports = exports['default'];
-    },
-    // 1 - Driver for IndexedDB:
-    //==========================
-    function(module, exports) {
+    Box: (function() {
+      //==================
+      // IndexedDB Driver:
+      //==================
       (function() {
         var globalObject = this;
         var indexedDB = indexedDB || this.indexedDB || this.webkitIndexedDB || this.mozIndexedDB || this.OIndexedDB || this.msIndexedDB;
@@ -5782,7 +5385,7 @@
           return;
         }
 
-        var DETECT_BLOB__support_STORE = 'local-forage-detect-blob-support';
+        var DETECT_BLOB__support_STORE = 'truck-box-detect-blob-support';
         var supportsBlobs;
         var dbContexts;
 
@@ -5887,7 +5490,7 @@
             reader.onloadend = function(e) {
               var base64 = btoa(e.target.result || '');
               resolve({
-                __local_forage_encoded_blob: true,
+                __truck_box_encoded_blob: true,
                 data: base64,
                 type: blob.type
               });
@@ -5904,7 +5507,7 @@
         }
 
         function __isEncodedBlob(value) {
-          return value && value.__local_forage_encoded_blob;
+          return value && value.__truck_box_encoded_blob;
         }
 
         function __initStorage(options) {
@@ -5942,9 +5545,9 @@
           }
 
           for (var j = 0; j < dbContext.box.length; j++) {
-            var forage = dbContext.box[j];
-            if (forage !== this) {
-              readyPromises.push(forage.ready()['catch'](ignoreErrors));
+            var truckbox = dbContext.box[j];
+            if (truckbox !== this) {
+              readyPromises.push(truckbox.ready()['catch'](ignoreErrors));
             }
           }
 
@@ -5962,10 +5565,10 @@
             dbInfo.db = dbContext.db = db;
             self.__dbInfo = dbInfo;
             for (var k in box) {
-              var forage = box[k];
-              if (forage !== self) {
-                forage.__dbInfo.db = dbInfo.db;
-                forage.__dbInfo.version = dbInfo.version;
+              var truckbox = box[k];
+              if (truckbox !== self) {
+                truckbox.__dbInfo.db = dbInfo.db;
+                truckbox.__dbInfo.version = dbInfo.version;
               }
             }
           });
@@ -6350,16 +5953,15 @@
           keys: keys
         };
 
-        exports['default'] = asyncStorage;
-      }).call(typeof window !== 'undefined' ? window : self);
-      module.exports = exports['default'];
-    },
-    // 2 - Driver for WebSQL:
-    //=======================
-    function(module, exports, get_module) {
-      exports.__esModule = true;
-      (function() {
+        // Export driver:
+        this.asyncStorage = asyncStorage;
+        window.asyncStorage = asyncStorage;
+      }).call(window);
 
+      //===============
+      // WebSQL Driver:
+      //===============
+      (function() {
         var globalObject = this;
         var openDatabase = this.openDatabase;
         if (!openDatabase) {
@@ -6398,7 +6000,7 @@
           });
 
           return new Promise(function(resolve, reject) {
-            resolve(get_module(4));
+            resolve(truckBoxSerializer);
           }).then(function(lib) {
             dbInfo.serializer = lib;
             return dbInfoPromise;
@@ -6647,18 +6249,19 @@
           keys: keys
         };
 
-        exports['default'] = webSQLStorage;
-      }).call(typeof window !== 'undefined' ? window : self);
-      module.exports = exports['default'];
-    },
-    // 3 - Driver for localStorage:
-    //=============================
-    function(module, exports, get_module) {
+        // Export driver:
+        this.webSQLStorage = webSQLStorage;
+        window.webSQLStorage = webSQLStorage;
+      }).call(window);
+
+      //=====================
+      // localStorage Driver:
+      //=====================
       (function() {
         var globalObject = this;
         var localStorage = null;
         try {
-          if (!this.localStorage || !('set' in this.localStorage)) {
+          if (!this.localStorage || !('setItem' in this.localStorage)) {
             return;
           }
           localStorage = this.localStorage;
@@ -6684,7 +6287,7 @@
           self.__dbInfo = dbInfo;
 
           return new Promise(function(resolve, reject) {
-            resolve(get_module(4));
+            resolve(truckBoxSerializer);
           }).then(function(lib) {
             dbInfo.serializer = lib;
             return Promise.resolve();
@@ -6700,7 +6303,7 @@
               var key = localStorage.key(i);
 
               if (key.indexOf(keyPrefix) === 0) {
-                localStorage.remove(key);
+                localStorage.removeItem(key);
               }
             }
           });
@@ -6718,7 +6321,7 @@
 
           var promise = self.ready().then(function() {
             var dbInfo = self.__dbInfo;
-            var result = localStorage.get(dbInfo.keyPrefix + key);
+            var result = localStorage.getItem(dbInfo.keyPrefix + key);
             if (result) {
               result = dbInfo.serializer.deserialize(result);
             }
@@ -6745,7 +6348,7 @@
               if (key.indexOf(keyPrefix) !== 0) {
                 continue;
               }
-              var value = localStorage.get(key);
+              var value = localStorage.getItem(key);
               if (value) {
                 value = dbInfo.serializer.deserialize(value);
               }
@@ -6795,7 +6398,6 @@
                 keys.push(localStorage.key(i).substring(dbInfo.keyPrefix.length));
               }
             }
-
             return keys;
           });
 
@@ -6822,7 +6424,7 @@
 
           var promise = self.ready().then(function() {
             var dbInfo = self.__dbInfo;
-            localStorage.remove(dbInfo.keyPrefix + key);
+            localStorage.removeItem(dbInfo.keyPrefix + key);
           });
 
           executeCallback(promise, callback);
@@ -6849,7 +6451,7 @@
                   reject(error);
                 } else {
                   try {
-                    localStorage.set(dbInfo.keyPrefix + key, value);
+                    localStorage.setItem(dbInfo.keyPrefix + key, value);
                     resolve(originalValue);
                   } catch (e) {
                     if (e.name === 'QuotaExceededError' || e.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
@@ -6889,20 +6491,19 @@
           keys: keys
         };
 
-        exports['default'] = localStorageWrapper;
-      }).call(typeof window !== 'undefined' ? window : self);
-      module.exports = exports['default'];
-    },
-    // 4 - Serializer:
-    //================
-    function(module, exports) {
+        // Export driver:
+        this.localStorageWrapper = localStorageWrapper;
+        window.localStorageWrapper = localStorageWrapper;
+      }).call(window);
 
-      exports.__esModule = true;
+      //=================
+      // Blob Serializer:
+      //=================
       (function() {
         var BASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
-        var BLOB_TYPE_PREFIX = '~~local_forage_type~';
-        var BLOB_TYPE_PREFIX_REGEX = /^~~local_forage_type~([^~]+)~/;
+        var BLOB_TYPE_PREFIX = '~~truck_box_type~';
+        var BLOB_TYPE_PREFIX_REGEX = /^~~truck_box_type~([^~]+)~/;
         var SERIALIZED_MARKER = '__lfsc__:';
         var SERIALIZED_MARKER_LENGTH = SERIALIZED_MARKER.length;
         var TYPE_ARRAYBUFFER = 'arbf';
@@ -7101,12 +6702,360 @@
           bufferToString: bufferToString
         };
 
-        exports['default'] = truckBoxSerializer;
-      }).call(typeof window !== 'undefined' ? window : self);
-      module.exports = exports['default'];
-    }
-  ]);
-});
+        // Export driver:
+        this.truckBoxSerializer = truckBoxSerializer;
+        window.truckBoxSerializer = truckBoxSerializer;
+      }).call(window);
+
+      //==========================
+      // Truck Box Implementation:
+      //==========================
+      var CustomDrivers = {};
+      var DriverType = {
+        INDEXEDDB: 'asyncStorage',
+        LOCALSTORAGE: 'localStorageWrapper',
+        WEBSQL: 'webSQLStorage'
+      };
+      var DefaultDriverOrder = [DriverType.INDEXEDDB, DriverType.WEBSQL, DriverType.LOCALSTORAGE];
+      var LibraryMethods = ['clear', 'get', 'each', 'key', 'keys', 'size', 'remove', 'set'];
+
+      var DefaultConfig = {
+        description: '',
+        driver: DefaultDriverOrder.slice(),
+        name: 'truckbox',
+        size: 4980736,
+        boxName: 'keyvaluepairs',
+        version: 1.0
+      };
+
+      var driverSupport = (function(self) {
+        var indexedDB = indexedDB || self.indexedDB || self.webkitIndexedDB || self.mozIndexedDB || self.OIndexedDB || self.msIndexedDB;
+        var result = {};
+        result[DriverType.WEBSQL] = !!self.openDatabase;
+        result[DriverType.INDEXEDDB] = !!(function() {
+          if (typeof self.openDatabase !== 'undefined' && self.navigator && self.navigator.userAgent && /Safari/.test(self.navigator.userAgent) && !/Chrome/.test(self.navigator.userAgent)) {
+            return false;
+          }
+          try {
+            return indexedDB && typeof indexedDB.open === 'function' &&
+              typeof self.IDBKeyRange !== 'undefined';
+          } catch (e) {
+            return false;
+          }
+        })();
+
+        result[DriverType.LOCALSTORAGE] = !!(function() {
+          try {
+            return self.localStorage && 'setItem' in self.localStorage && self.localStorage.setItem;
+          } catch (e) {
+            return false;
+          }
+        })();
+
+        return result;
+      })(window);
+
+      var isArray = Array.isArray || function(arg) {
+        return Object.prototype.toString.call(arg) === '[object Array]';
+      };
+
+      function callWhenReady(truckBoxInstance, libraryMethod) {
+        truckBoxInstance[libraryMethod] = function() {
+          var __args = arguments;
+          return truckBoxInstance.ready().then(function() {
+            return truckBoxInstance[libraryMethod].apply(truckBoxInstance, __args);
+          });
+        };
+      }
+
+      function extend() {
+        for (var i = 1; i < arguments.length; i++) {
+          var arg = arguments[i];
+
+          if (arg) {
+            for (var key in arg) {
+              if (arg.hasOwnProperty(key)) {
+                if (isArray(arg[key])) {
+                  arguments[0][key] = arg[key].slice();
+                } else {
+                  arguments[0][key] = arg[key];
+                }
+              }
+            }
+          }
+        }
+
+        return arguments[0];
+      }
+
+      function isLibraryDriver(driverName) {
+        for (var driver in DriverType) {
+          if (DriverType.hasOwnProperty(driver) && DriverType[driver] === driverName) {
+            return true;
+          }
+        }
+
+        return false;
+      }
+
+      var TruckBox = (function() {
+        function TruckBox(options) {
+
+          this.INDEXEDDB = DriverType.INDEXEDDB;
+          this.LOCALSTORAGE = DriverType.LOCALSTORAGE;
+          this.WEBSQL = DriverType.WEBSQL;
+
+          this.__defaultConfig = extend({}, DefaultConfig);
+          this.__config = extend({}, this.__defaultConfig, options);
+          this.__driverSet = null;
+          this.__initDriver = null;
+          this.__ready = false;
+          this.__dbInfo = null;
+
+          this.__wrapLibraryMethodsWithReady();
+          this.setDriver(this.__config.driver);
+        }
+
+        TruckBox.prototype.config = function(options) {
+          if (typeof options === 'object') {
+            if (this.__ready) {
+              return new Error("Can't call config() after truckbox " + 'has been used.');
+            }
+            for (var i in options) {
+              if (i === 'boxName') {
+                options[i] = options[i].replace(/\W/g, '_');
+              }
+
+              this.__config[i] = options[i];
+            }
+            if ('driver' in options && options.driver) {
+              this.setDriver(this.__config.driver);
+            }
+
+            return true;
+          } else if (typeof options === 'string') {
+            return this.__config[options];
+          } else {
+            return this.__config;
+          }
+        };
+
+        TruckBox.prototype.defineDriver = function(driverObject, callback, errorCallback) {
+          var promise = new Promise(function(resolve, reject) {
+            try {
+              var driverName = driverObject.__driver;
+              var complianceError = new Error('Custom driver not compliant; see Truck Box documentation');
+              var namingError = new Error('Custom driver name already in use: ' + driverObject.__driver);
+              if (!driverObject.__driver) {
+                reject(complianceError);
+                return;
+              }
+              if (isLibraryDriver(driverObject.__driver)) {
+                reject(namingError);
+                return;
+              }
+
+              var customDriverMethods = LibraryMethods.concat('__initStorage');
+              for (var i = 0; i < customDriverMethods.length; i++) {
+                var customDriverMethod = customDriverMethods[i];
+                if (!customDriverMethod || !driverObject[customDriverMethod] || typeof driverObject[customDriverMethod] !== 'function') {
+                  reject(complianceError);
+                  return;
+                }
+              }
+
+              var supportPromise = Promise.resolve(true);
+              if ('__support' in driverObject) {
+                if (driverObject.__support && typeof driverObject.__support === 'function') {
+                  supportPromise = driverObject.__support();
+                } else {
+                  supportPromise = Promise.resolve(!!driverObject.__support);
+                }
+              }
+
+              supportPromise.then(function(supportResult) {
+                driverSupport[driverName] = supportResult;
+                CustomDrivers[driverName] = driverObject;
+                resolve();
+              }, reject);
+            } catch (e) {
+              reject(e);
+            }
+          });
+
+          promise.then(callback, errorCallback);
+          return promise;
+        };
+
+        TruckBox.prototype.driver = function() {
+          return this.__driver || null;
+        };
+
+        TruckBox.prototype.getDriver = function(driverName, callback, errorCallback) {
+          var self = this;
+          var getDriverPromise = (function() {
+            if (isLibraryDriver(driverName)) {
+              switch (driverName) {
+                case self.INDEXEDDB:
+                  return new Promise(function(resolve, reject) {
+                    resolve(asyncStorage);
+                  });
+                case self.LOCALSTORAGE:
+                  return new Promise(function(resolve, reject) {
+                    resolve(localStorageWrapper);
+                  });
+                case self.WEBSQL:
+                  return new Promise(function(resolve, reject) {
+                    resolve(webSQLStorage);
+                  });
+              }
+            } else if (CustomDrivers[driverName]) {
+              console.log('Using: ' + driverName)
+              return Promise.resolve(CustomDrivers[driverName]);
+            }
+
+            return Promise.reject(new Error('Driver not found.'));
+          })();
+
+          getDriverPromise.then(callback, errorCallback);
+          return getDriverPromise;
+        };
+
+        TruckBox.prototype.getSerializer = function(callback) {
+          var serializerPromise = new Promise(function(resolve, reject) {
+            resolve(truckBoxSerializer)
+          });
+          if (callback && typeof callback === 'function') {
+            serializerPromise.then(function(result) {
+              callback(result);
+            });
+          }
+          return serializerPromise;
+        };
+
+        TruckBox.prototype.ready = function(callback) {
+          var self = this;
+
+          var promise = self.__driverSet.then(function() {
+            if (self.__ready === null) {
+              self.__ready = self.__initDriver();
+            }
+
+            return self.__ready;
+          });
+
+          promise.then(callback, callback);
+          return promise;
+        };
+
+        TruckBox.prototype.setDriver = function(drivers, callback, errorCallback) {
+          var self = this;
+
+          if (!isArray(drivers)) {
+            drivers = [drivers];
+          }
+
+          var supportedDrivers = this.__getSupportedDrivers(drivers);
+
+          function setDriverToConfig() {
+            self.__config.driver = self.driver();
+          }
+
+          function initDriver(supportedDrivers) {
+            return function() {
+              var currentDriverIndex = 0;
+
+              function driverPromiseLoop() {
+                while (currentDriverIndex < supportedDrivers.length) {
+                  var driverName = supportedDrivers[currentDriverIndex];
+                  currentDriverIndex++;
+
+                  self.__dbInfo = null;
+                  self.__ready = null;
+
+                  return self.getDriver(driverName).then(function(driver) {
+                    self.__extend(driver);
+                    setDriverToConfig();
+
+                    self.__ready = self.__initStorage(self.__config);
+                    return self.__ready;
+                  })['catch'](driverPromiseLoop);
+                }
+
+                setDriverToConfig();
+                var error = new Error('No available storage method found.');
+                self.__driverSet = Promise.reject(error);
+                return self.__driverSet;
+              }
+
+              return driverPromiseLoop();
+            };
+          }
+
+          var oldDriverSetDone = this.__driverSet !== null ? this.__driverSet['catch'](function() {
+            return Promise.resolve();
+          }) : Promise.resolve();
+
+          this.__driverSet = oldDriverSetDone.then(function() {
+            var driverName = supportedDrivers[0];
+            self.__dbInfo = null;
+            self.__ready = null;
+
+            return self.getDriver(driverName).then(function(driver) {
+              self.__driver = driver.__driver;
+              setDriverToConfig();
+              self.__wrapLibraryMethodsWithReady();
+              self.__initDriver = initDriver(supportedDrivers);
+            });
+          })['catch'](function() {
+            setDriverToConfig();
+            var error = new Error('No available storage method found.');
+            self.__driverSet = Promise.reject(error);
+            return self.__driverSet;
+          });
+
+          this.__driverSet.then(callback, errorCallback);
+          return this.__driverSet;
+        };
+
+        TruckBox.prototype.supports = function(driverName) {
+          return !!driverSupport[driverName];
+        };
+
+        TruckBox.prototype.__extend = function(libraryMethodsAndProperties) {
+          extend(this, libraryMethodsAndProperties);
+        };
+
+        TruckBox.prototype.__getSupportedDrivers = function(drivers) {
+          var supportedDrivers = [];
+          for (var i = 0, len = drivers.length; i < len; i++) {
+            var driverName = drivers[i];
+            if (this.supports(driverName)) {
+              supportedDrivers.push(driverName);
+            }
+          }
+          return supportedDrivers;
+        };
+
+        TruckBox.prototype.__wrapLibraryMethodsWithReady = function() {
+          for (var i = 0; i < LibraryMethods.length; i++) {
+            callWhenReady(this, LibraryMethods[i]);
+          }
+        };
+
+        TruckBox.prototype.createInstance = function(options) {
+          return new TruckBox(options);
+        };
+
+        return TruckBox;
+      })();
+
+      var truckBox = new TruckBox();
+      return truckBox;
+    })()
+  });
+})();
+
 // Truck Engine - Driver for sessionStorage:
 (function() {
   'use strict';
@@ -7116,7 +7065,7 @@
 
   function getSupport() {
     try {
-      if (globalObject.sessionStorage && ('set' in globalObject.sessionStorage)) {
+      if (globalObject.sessionStorage && ('setItem' in globalObject.sessionStorage)) {
         return true;
       }
     } catch (e) {}
@@ -7178,7 +7127,7 @@
 
     var promise = self.ready().then(function() {
       var dbInfo = self.__dbInfo;
-      var result = sessionStorage.get(dbInfo.keyPrefix + key);
+      var result = sessionStorage.getItem(dbInfo.keyPrefix + key);
       if (result) {
         result = serializer.deserialize(result);
       }
@@ -7197,7 +7146,7 @@
       var length = sessionStorage.length;
       for (var i = 0; i < length; i++) {
         var key = sessionStorage.key(i);
-        var value = sessionStorage.get(key);
+        var value = sessionStorage.getItem(key);
         if (value) {
           value = serializer.deserialize(value);
         }
@@ -7292,7 +7241,7 @@
           } else {
             try {
               var dbInfo = self.__dbInfo;
-              sessionStorage.set(dbInfo.keyPrefix + key, value);
+              sessionStorage.setItem(dbInfo.keyPrefix + key, value);
               resolve(originalValue);
             } catch (e) {
               if (e.name === 'QuotaExceededError' ||
@@ -7370,7 +7319,7 @@
         exports: exports
       };
     };
-
+    
     require.register("transformProperty", function(exports, module) {
 
       var styles = [
@@ -7525,7 +7474,6 @@
         once = require('once');
       var supported = has();
       module.exports = after;
-
       function after(el, fn) {
         if (!supported || !has(el)) return fn();
         emitter(el).bind(fn);
@@ -7543,11 +7491,9 @@
 
     require.register("emitter", function(exports, module) {
       module.exports = Emitter;
-
       function Emitter(obj) {
         if (obj) return mixin(obj);
       }
-
       function mixin(obj) {
         for (var key in Emitter.prototype) {
           obj[key] = Emitter.prototype[key];
@@ -7975,11 +7921,11 @@
 
     // Mixin one object into another:
     //===============================
-    mixin: function(sourceObj, targetObj) {
+    mixin: function( sourceObj, targetObj ) {
       for (var key in sourceObj) {
         // Do not replace property if it exists:
         if (!(key in targetObj)) {
-          targetObj[key] = sourceObj[key];
+            targetObj[key] = sourceObj[key];
         }
       }
       return targetObj;
@@ -7995,7 +7941,7 @@
           function Temp() {}
           var hasOwn = Object.prototype.hasOwnProperty;
 
-          return function(O) {
+          return function (O) {
             if (typeof O != 'object') {
               throw TypeError('Object prototype may only be an Object or null');
             }
@@ -8035,7 +7981,7 @@
         for (var i = 0; i < depLen; i++) {
           dependencies[i] = modules[dependencies[i]];
         }
-        modules[name] = implementation.apply(implementation, dependencies);
+        modules[name] = implementation.apply( implementation, dependencies );
       }
 
       // Execute the named module:
@@ -8628,7 +8574,7 @@
 
         // Toggle Slide Out button:
         slideOutBtn.toggleClass('focused');
-
+        
         $('button.back').removeClass('disabled').removeProp('disabled');
         $('button.backTo').removeClass('disabled').removeProp('disabled');
 
@@ -10219,6 +10165,11 @@
       } else if ($('body').hasClass('isAndroid')) {
         androidBusy(options);
       } else if ($('body').hasClass('isiOS')) {
+        iOSBusy(options);
+      }
+    }
+  });
+})();('isiOS')) {
         iOSBusy(options);
       }
     }

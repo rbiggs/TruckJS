@@ -12,7 +12,6 @@ var minifyCSS = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var colors = require('colors');
 var combiner = require('stream-combiner2');
-var gzip = require('gulp-gzip');
 
 var filePathStart = 'src/';
 var osTypes = ['truck-android','truck-ios','truck-windows']
@@ -216,7 +215,6 @@ gulp.task('js', function () {
 
     gulp.src(Truck_Files)
       .pipe(concat('truck.js'))
-      .pipe(gzip({append: true}))
       .pipe(gulp.dest('dist/'))
 
     cssFiles.forEach(function(file, idx) {
