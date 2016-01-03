@@ -61,6 +61,7 @@
 
   <script>
 
+
     // Plain data object:
     //===================
     var people = [
@@ -80,6 +81,16 @@
     });
     PeopleView.render();
 
+    var filterInput = $('#filterByName');
+    function filterNames() {
+      var val = filterInput.val();
+      if (val) val.toLowerCase();
+      var persons = PeopleModel.filter(function(person) {
+        var name = person.firstName.toLowerCase() + ' ' + person.lastName.toLowerCase()
+        return name.match(val);
+      });
+      PeopleView.render(persons);
+    }
     // Setup for sorting - ascendeing and descending:
     //===============================================
     var sortOrder = true;
@@ -88,7 +99,11 @@
       sortOrder = !sortOrder;
       hyphen = sortOrder ? '' : '-';
       PeopleModel.sortBy(hyphen + 'lastName', hyphen + 'firstName');
-      PeopleView.render();
+      if (filterInput.val()) {
+        filterNames();
+      } else {
+        PeopleView.render();
+      }
       $(this).toggleClass('descending', 'lastName');
     });
     $('#sortByAge').on('tap', function() {
@@ -96,7 +111,11 @@
       sortOrder = !sortOrder;
       hyphen = sortOrder ? '' : '-';
       PeopleModel.sortBy(hyphen + 'age');
-      PeopleView.render();
+      if (filterInput.val()) {
+        filterNames();
+      } else {
+        PeopleView.render();
+      }
       $(this).toggleClass('descending');
     });
 
@@ -107,14 +126,9 @@
 
     // Filter by name:
     //================
-    $('#filterByName').on('input', function() {
-      var val = this.value.toLowerCase();
-      var persons = PeopleModel.filter(function(person) {
-        var name = person.firstName.toLowerCase() + ' ' + person.lastName.toLowerCase()
-        return name.match(val);
-      });
-      PeopleView.render(persons);
-    });
+    filterInput.on('input', function() {
+      filterNames();
+    })
 
   </script>
 </body>

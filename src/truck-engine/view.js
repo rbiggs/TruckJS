@@ -172,6 +172,9 @@
           if (__element.children()[0] && __element.children().eq(0).is('script')) {
             __template = __element.children('script').html();
             __element.empty();
+          } else if (__element.children()[0] && __element.children().eq(0).is('template')) {
+            __template = __element.children('template').html();
+            __element.empty();
           } else if (!__element[0].childNodes) {
             return;
           } else {
@@ -504,22 +507,6 @@
           $(element).empty();
           handleEvents();
         },
-
-        // Old methods:
-        getParent: function() {
-          return __element;
-        },
-
-        setParent: function(element) {
-          if (!element) return;
-          __element = $(element);
-          $(element).empty();
-          handleEvents();
-        },
-
-        // Aliases for old names:
-        setParent: this.setElement,
-        getParent: this.getParent,
 
         stop: function(after) {
           // Stop after x number of times:

@@ -22,6 +22,9 @@ body * {
   -ms-user-select: none;
   user-select: none;
 }
+template {
+  display: none;
+}
 
 /*============*/
 /* Typography */

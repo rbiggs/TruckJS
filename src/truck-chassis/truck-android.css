@@ -20,7 +20,9 @@ body {
   align-items: stretch;
   justify-content: center;
 }
-
+template {
+  display: none;
+}
 /*============*/
 /* Typography */
 /*============*/
