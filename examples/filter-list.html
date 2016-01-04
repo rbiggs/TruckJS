@@ -94,7 +94,7 @@
 
     $('#sortByName').on('tap', function() {
       var hyphen = '-';
-      sortOrder = !sortOrder;
+      sortOrder = $(this).hasClass('descending');
       hyphen = sortOrder ? '' : '-';
       PeopleModel.sortBy(hyphen + 'lastName', hyphen + 'firstName');
       if (filterInput.val()) {
@@ -107,7 +107,7 @@
 
     $('#sortByAge').on('tap', function() {
       var hyphen = '-';
-      sortOrder = !sortOrder;
+      sortOrder = $(this).hasClass('descending');
       hyphen = sortOrder ? '' : '-';
       PeopleModel.sortBy(hyphen + 'age');
       if (filterInput.val()) {

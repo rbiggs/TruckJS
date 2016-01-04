@@ -13,15 +13,8 @@
     body {
       font-family: Helvetica Neue, Arial, sans-serif;
     }
-
-    polygon {
-      fill: red;
-    }
-
     circle {
       fill: transparent;
-      stroke: red;
-      stroke-width: 2;
     }
     input[type=range] {
       width: 200px;
@@ -71,9 +64,8 @@
       //=====================
       var PolygonView = $.View({
         element: '#polygon',
-        variable: 'points'
       });
-      PolygonView.render(calculatePoints(6));
+      PolygonView.render({points: calculatePoints(6), color: 'red'});
 
       // Define view to print number of points:
       //=======================================
@@ -93,11 +85,8 @@
 
       // Define dispatch receiver:
       //==========================
-      $.receive('update-polygon', function(handle, points) {
-        var hue = $('#updateHue').val();
-        PolygonView.render(points);
-        $('polygon').css('fill', 'hsl(' + hue +', 100%, 50%)');
-        $('circle').css('stroke', 'hsl(' + hue +', 100%, 50%)');
+      $.receive('update-polygon', function(obj) {
+        PolygonView.render({points: obj.points, color: obj.color});
       });
 
       // Update polygon with slider:
@@ -105,20 +94,22 @@
       $('#updatePoints').on('input', function() {
         var val = this.value;
         var points = calculatePoints(val);
-
+        var hue = $('#updateHue').val();
         // Dispatch the new points for polygon:
         //=====================================
-        $.dispatch('update-polygon', points)
+        $.dispatch('update-polygon', {points: points, color: 'hsl(' + hue +', 100%, 50%)'})
         NumberOfPointsView.render(val/2);
       });
 
       // Update the SVG's hsl hue:
       //==========================
       $('#updateHue').on('input', function() {
-        var val = this.value;
-        $('polygon').css('fill', 'hsl(' + val +', 100%, 50%)');
-        $('circle').css('stroke', 'hsl(' + val +', 100%, 50%)');
-        HueValueView.render(val);
+        // Get the hue:
+        var hue = this.value;
+        // Get points and calculate:
+        var points = $('#updatePoints').val();
+        points = calculatePoints(points);
+        $.dispatch('update-polygon', {points: points, color: 'hsl(' + hue +', 100%, 50%)'});
       });
     });
   </script>
@@ -137,8 +128,8 @@
           <script type='text/x-template'>
             <svg width="200" height="200">
                 <g>
-                <polygon points="${ points }"></polygon>
-                <circle cx="100" cy="100" r="80"></circle>
+                <polygon fill="${ data.color }" points="${ data.points }"></polygon>
+                <circle stroke-width='2' stroke="${ data.color }" cx="100" cy="100" r="80"></circle>
               </g>
             </svg>
             </script>

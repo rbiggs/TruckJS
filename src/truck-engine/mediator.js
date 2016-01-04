@@ -75,7 +75,7 @@
         getData: function() {
           return __array;
         }
-      }
+      };
     },
 
     // Object to hold all the receivers defined.

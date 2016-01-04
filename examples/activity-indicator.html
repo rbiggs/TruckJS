@@ -25,22 +25,21 @@
   <script>
     $(function() {
       $('#navBusy').Busy({color:'#007AFF', size: 28});
-      $('#navBusy').find('.busy').css('top','10px');
       
       $('#busy1').Busy({'color':'rgba(200,0,0,0.75)', 'size': 50});
-      $('#busy1').find('.busy').Center();
+      $('#busy1').find('.truck-busy').Center();
       
       $('#busy2').Busy({'color': 'gold', 'size': 100});
-      $('#busy2').find('.busy').Center();
+      $('#busy2').find('.truck-busy').css({top: '10px'}).Center();
       
       $('#busy3').Busy({'color': '#fff'});
-      $('#busy3').find('.busy').Center();
+      $('#busy3').find('.truck-busy').css({top: '20px'}).Center();
       
       $('#busy4').Busy({'color': 'blue', 'size': 36});
-      $('#busy4').find('.busy').Center();
+      $('#busy4').find('.truck-busy').Center();
       
       $('#busy5').Busy({'color': '#ddd', 'size': 150});
-      $('#busy5').find('.busy').Center();
+      $('#busy5').find('.truck-busy').Center();
 
       
     });
