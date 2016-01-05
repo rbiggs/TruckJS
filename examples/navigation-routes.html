@@ -173,7 +173,7 @@ var bums = [
           // Get current view model:
           var model = AppViews.VIPView.getModel().getData();
           // Filter model with id passed in route:
-          var whichPerson = model.filter(function(person) {
+          var whichPerson = AppViews.VIPView.getModel().filter(function(person) {
             return person.guid === id;
           })[0];
           // Output peron's name:

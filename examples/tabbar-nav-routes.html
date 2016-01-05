@@ -50,37 +50,32 @@
     }
     /* Styles for Image Grid */
     .grid {
-      /* Old Flex Box */
-      display: -webkit-flex;
-      -webkit-flex-direction: row;
       -webkit-flex-wrap: wrap;
       -webkit-justify-content: space-around;
-      /* New Flex Box */
-      display: flex;
-      flex-direction: row;
       flex-wrap: wrap;
       justify-content: space-around;
       background-color: #222;
     }
     .grid > .col {
-      height: 300px;
-      width: 300px;
-      max-height: 300px;
-      max-width: 300px;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: auto 300px;
-      background-color: #000;
-      -webkit-flex-grow: 1;
-      -webkit-flex-shrink: 0;
-      flex-grow: 1;
-      flex-shrink: 0;
+      height: 150px;
+      width: 150px;
+      max-height: 150px;
+      max-width: 150px;
     }
-    @media only screen and (max-width: 320px) {
+    @media only screen and (min-width: 481px) {
       .grid > .col {
-        height: 200px;
-        width: 200px;
-        background-size: 100% 100%;
+        height: 300px;
+        width: 300px;
+        max-height: 300px;
+        max-width: 300px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: auto 300px;
+        background-color: #000;
+        -webkit-flex-grow: 1;
+        -webkit-flex-shrink: 0;
+        flex-grow: 1;
+        flex-shrink: 0;
       }
     }
   </style>
