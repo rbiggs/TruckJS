@@ -345,21 +345,21 @@ interface TruckStatic {
    *
    * @return boolean
    */
-  isEmptyObject: boolean;
+  isEmptyObject(): boolean;
 
   /** 
    *
    *
    * @return boolean
    */
-  isInteger: boolean;
+  isInteger(): boolean;
 
   /** 
    *
    *
    * @return boolean
    */
-  isFloat: boolean;
+  isFloat(): boolean;
 
   /** 
    * Encodes any provided value.
