@@ -17,9 +17,11 @@
           $('.popup').Busy({'color':'orange', 'size': 90});
         }
         $('.popup').find('.busy').Center();
+        $('.truck-busy').css({top: '4px'}).Center();
         $('.popup').ShowPopup();
         setTimeout(function() {
           $('.popup').ClosePopup();
+          $('.popup').empty();
         },5000);
       });
     });
