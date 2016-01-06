@@ -30,17 +30,17 @@
       <h1>Filter and Sort</h1>
     </nav>
     <section>
-      <h2>Sort by Name:</h2>
+      <h2>Sortable List:</h2>
       <p><input id='filterByName' type="text" placeholder='first or last name'></p>
       <p class='sortButtons'>
         <button id='sortByName'>Last Name
           <svg width="10px" height="6px" viewBox="0 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <path id="SortOrderArrow" fill="#007aff" d="M10,3.94703249e-15 L5,6 L0,0 L10,3.94703249e-15 Z" id="Triangle"></path>
+            <path class="SortOrderArrow" fill="#007aff" d="M10,3.94703249e-15 L5,6 L0,0 L10,3.94703249e-15 Z" id="Triangle"></path>
           </svg>
         </button>
         <button id='sortByAge'>Age
           <svg width="10px" height="6px" viewBox="0 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <path id="SortOrderArrow" fill="#007aff" d="M10,3.94703249e-15 L5,6 L0,0 L10,3.94703249e-15 Z" id="Triangle"></path>
+            <path class="SortOrderArrow" fill="#007aff" d="M10,3.94703249e-15 L5,6 L0,0 L10,3.94703249e-15 Z" id="Triangle"></path>
           </svg>
         </button>
       </p>
@@ -71,6 +71,7 @@
       {firstName: "Mary", lastName: "Martin", age: 21}
     ];
     var PeopleModel = $.Model(people, 'people-model');
+
     var PeopleView = $.View({
       element: '#listView', 
       model: PeopleModel
@@ -78,9 +79,11 @@
     PeopleView.render();
 
     var filterInput = $('#filterByName');
+    // Filter the model.
+    // Make checks case insensitive:
     function filterNames() {
       var val = filterInput.val();
-      if (val) val.toLowerCase();
+      if (val) val = val.toLowerCase();
       var persons = PeopleModel.filter(function(person) {
         var name = person.firstName.toLowerCase() + ' ' + person.lastName.toLowerCase()
         return name.match(val);
@@ -92,19 +95,21 @@
     // Initial state for sort:
     var sortOrder = true;
 
+    // Sort by Last Name:
     $('#sortByName').on('tap', function() {
       var hyphen = '-';
-      sortOrder = $(this).hasClass('descending');
-      hyphen = sortOrder ? '' : '-';
+      sortOrder = $(this).hasClass('descending');hyphen = sortOrder ? '' : '-';
+      
       PeopleModel.sortBy(hyphen + 'lastName', hyphen + 'firstName');
       if (filterInput.val()) {
         filterNames();
       } else {
         PeopleView.render();
       }
-      $(this).toggleClass('descending', 'lastName');
+      $(this).toggleClass('descending');
     });
 
+    // Sort by Age:
     $('#sortByAge').on('tap', function() {
       var hyphen = '-';
       sortOrder = $(this).hasClass('descending');
@@ -127,7 +132,7 @@
     //================
     filterInput.on('input', function() {
       filterNames();
-    })
+    });
 
   </script>
 </body>
