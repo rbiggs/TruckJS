@@ -9118,10 +9118,9 @@
               });
             }
         }
-        if (item.type.match(/custom/)) {
-          customValidation = item.type.split('custom-')[1];
+        if (item.type.match(/custom/)) { 
           var cv = $.customValidators.filter(function(validator) {
-            return (validator.name) === customValidation;
+            return (validator.name) === item.type;
           });
           if (cv) {
             var result = $.validateWithRegex(item.element, cv[0].regex);
