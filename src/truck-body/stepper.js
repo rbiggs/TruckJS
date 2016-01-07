@@ -6,7 +6,7 @@
     // Create a stepper:
     //==================
     Stepper: function(options) {
-      if (!options) return $();
+      if (!options) return;
       if (!options.element) return;
       if (!options.min) return;
       if (!options.max) return;
