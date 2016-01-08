@@ -75,16 +75,42 @@
       return ret;
     },
 
-    require: function(src, callback) {
-      callback = callback || $.noop;
-      var script = document.createElement('script');
-      script.setAttribute('type', 'text/javascript');
-      script.setAttribute('src', src);
-      script.setAttribute('defer', 'defer');
-      script.onload = function() {
-        callback.apply(callback, arguments);
+    require: function(src, callback, ctx) {
+      var onerror = "onerror";
+      var insertScript = function (script) {
+        var firstScript = document.getElementsByTagName("script")[0];
+        firstScript.parentNode.insertBefore(script, firstScript);
       };
-      document.getElementsByTagName('head')[0].appendChild(script);
+      var script = document.createElement("script");
+      var done = false;
+      var err;
+      var loadScript;
+      var handleError = function () {
+        err = new Error(src || "EMPTY");
+        loadScript();
+      };
+      var setupLoad = function (fn) {
+        return function () {
+          // Only call once.
+          if (done) { return; }
+          done = true;
+          fn();
+          if (callback) {
+            callback.call(ctx, err);
+          }
+        };
+      };
+
+      loadScript = setupLoad(function () {
+        script.onload = script[onerror] = null;
+      });
+
+      script[onerror] = handleError;
+      script.onload = loadScript;
+      script.async = true;
+      script.charset = "utf-8";
+      script.src = src;
+      insertScript(script);
     },
 
     delay: function(func, milliseconds) {

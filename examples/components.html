@@ -35,80 +35,80 @@
   <script>
     $(function() {
 
-        // Define component "wobba":
-        $.Component({
-          name: 'Wobba',
-          template: '<li>${data}</li>',
-          startIndexFrom: 10,
-          events: [{
-            element: 'li',
-            event: 'tap',
-            callback: function() {
-              console.log($(this).text());
-            }
-          }]
-        });
-        var wobba1 = $.Wobba();
-        wobba1.setElement('#list1');
-        wobba1. render('Wobba');
-
-        var wobba3 = $.Wobba();
-        wobba3.setElement('#list3');
-        wobba3. render(['John Doe', 'Joe Bodoni']);
-
-        var wobba2 = $.Wobba();
-        wobba2.setElement('#list2');
-        wobba2. render('Sam');
-
-        // Define component "people":
-        $.Component({
-          name: 'People',
-          variable: 'person',
-          // Get if a start number:
-          startIndexFrom: 7,
-          template: "<li class='comp'>\
-            <img data-src='${ person.image }' alt=''>\
-            <div>\
-              <h3>\
-                ${ $.view.index }: ${ person.firstName } ${ person.lastName }\
-              </h3>\
-            </div>\
-          </li>",
-          events: [
-            {
-              event: 'tap',
-              element: 'li',
-              callback: function() {
-                console.log($(this).text())
-              }
-            }
-          ]
-        });
-
-        // Array data:
-        //=============
-        var lums = [
-          {firstName: "Stephen", lastName: "Hawking", image: 'images/Hawking.jpg'},
-          {firstName: "Albert", lastName: "Einstein", image: 'images/Einstein.jpg'},
-          {firstName: "Leonardo", lastName: "Da Vinci", image: 'images/DaVinci.jpg'},
-          {firstName: "Galileo", lastName: "Galilei", image: 'images/Galileo.jpg'},
-          {firstName: "Nicholas", lastName: "Copernicus", image: 'images/Copernicus.jpg'}  
-        ];
-
-        var bums = [
-          {firstName: 'Joe', lastName: 'Bodoni', image: 'images/apple.png'},
-          {firstName: 'Wobba', lastName: 'Bango', image: 'images/orange.png'},
-          {firstName: 'Jeff', lastName: 'Ruther', image: 'images/banana.png'},
-          {firstName: 'Pete', lastName: 'Smith', image: 'images/avocado.png'}
-        ];
-
-        var LumsView = $.People();
-        LumsView.setElement('#arrayTemplate1');
-        LumsView.render(lums);
-
-        var BumsView = $.People();
-        BumsView.setElement('#arrayTemplate2');
-        BumsView.render(bums);
+      // Define component "wobba":
+      $.Component({
+        name: 'WobbaComponent',
+        template: '<li>${data}</li>',
+        startIndexFrom: 10,
+        events: [{
+          element: 'li',
+          event: 'tap',
+          callback: function() {
+            console.log($(this).text());
+          }
+        }]
       });
+      var wobba1 = $.WobbaComponent();
+      wobba1.setElement('#list1');
+      wobba1. render('Wobba');
+
+      var wobba3 = $.WobbaComponent();
+      wobba3.setElement('#list3');
+      wobba3. render(['John Doe', 'Joe Bodoni', 'Sam Bergon']);
+
+      var wobba2 = $.WobbaComponent();
+      wobba2.setElement('#list2');
+      wobba2. render('Sam');
+
+      // Define component "people":
+      $.Component({
+        name: 'PeopleComponent',
+        variable: 'person',
+        // Get if a start number:
+        startIndexFrom: 7,
+        template: "<li class='comp'>\
+          <img data-src='${ person.image }' alt=''>\
+          <div>\
+            <h3>\
+              ${ $.view.index }: ${ person.firstName } ${ person.lastName }\
+            </h3>\
+          </div>\
+        </li>",
+        events: [
+          {
+            event: 'tap',
+            element: 'li',
+            callback: function() {
+              console.log($(this).text())
+            }
+          }
+        ]
+      });
+
+      // Array data:
+      //=============
+      var lums = [
+        {firstName: "Stephen", lastName: "Hawking", image: 'images/Hawking.jpg'},
+        {firstName: "Albert", lastName: "Einstein", image: 'images/Einstein.jpg'},
+        {firstName: "Leonardo", lastName: "Da Vinci", image: 'images/DaVinci.jpg'},
+        {firstName: "Galileo", lastName: "Galilei", image: 'images/Galileo.jpg'},
+        {firstName: "Nicholas", lastName: "Copernicus", image: 'images/Copernicus.jpg'}  
+      ];
+
+      var bums = [
+        {firstName: 'Joe', lastName: 'Bodoni', image: 'images/apple.png'},
+        {firstName: 'Wobba', lastName: 'Bango', image: 'images/orange.png'},
+        {firstName: 'Jeff', lastName: 'Ruther', image: 'images/banana.png'},
+        {firstName: 'Pete', lastName: 'Smith', image: 'images/avocado.png'}
+      ];
+
+      var LumsView = $.PeopleComponent();
+      LumsView.setElement('#arrayTemplate1');
+      LumsView.render(lums);
+
+      var BumsView = $.PeopleComponent();
+      BumsView.setElement('#arrayTemplate2');
+      BumsView.render(bums);
+    });
   </script>  
 </body>
