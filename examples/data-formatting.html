@@ -11,21 +11,6 @@
   <script src="../dist/truck.js"></script>
 <script>
  $(function() {
-    var people = [
-      {"firstName": "John", "lastName": "Doe", "age": "21"},
-      {"firstName": "Tom", "lastName": "Zombie", "age": "27"},
-      {"firstName": "Suzzy", "lastName": "Cue", "age": "25"},
-      {"firstName": "Joe", "lastName": "Bodoni", "age": "35"},
-      {"firstName": "Mike", "lastName": "Miller", "age": "26"},
-      {"firstName": "Wobba", "lastName": "Phet", "age": "30"},
-      {"firstName": "Tom", "lastName": "Smith", "age": "27"}
-    ];
-    var printArray = function (a) {
-      a.forEach(function(ctx) {
-        $('#peeps').append('<li>' + ctx.firstName + " " + ctx.lastName + ", age: " + ctx.age + "</li>");
-      });
-    };
-
     var numberData = {
       n1: { 
         description: 'Without decimals',
@@ -102,7 +87,6 @@
 
     // Create Data and Time objects:
     var date = new Date();
-    var time = date.toLocaleTimeString();
 
     // Date:
     $('#date').append('<li><div><h3>var date = new Date()</h3><h4>' + date + '</h4></div></li>');
