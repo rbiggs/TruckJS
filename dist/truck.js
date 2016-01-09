@@ -482,9 +482,6 @@
   // Define Utilities methods:
   //==========================
   if (typeof jQuery !== 'undefined') return;
-  var slice = function(elements) {
-    return [].slice.apply(elements);
-  };
   $.extend({
     lib: "TruckJS",
 
