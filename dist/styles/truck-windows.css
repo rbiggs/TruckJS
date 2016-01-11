@@ -1698,7 +1698,7 @@ html[dir=rtl] button.show-popover + button.show-popover {
 /*======*/
 /* Busy */
 /*======*/
-.busy {
+.truck-busy {
   width: 150px;
   display: block;
   margin-left: auto;
@@ -1706,7 +1706,7 @@ html[dir=rtl] button.show-popover + button.show-popover {
   position: relative;
   top: 20px;
 }
-nav > .busy {
+nav > .truck-busy {
   width: 80px;
 }
 

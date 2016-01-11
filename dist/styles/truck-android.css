@@ -2041,21 +2041,20 @@ html[dir=rtl] .stepper > button:last-of-type {
 /*======*/
 /* Busy */
 /*======*/
-.busy {
+.truck-busy {
   -webkit-animation: spin 1.77s infinite ease-out;
   -webkit-transform-origin: center center;
   display: block;
-  position: absolute;
 }
-nav > svg.busy,
-footer > svg.busy {
+nav > svg.truck-busy,
+footer > svg.truck-busy {
   position: static !important;
 }
-section > .busy {
+section > .truck-busy {
   margin: auto;
   left: calc(40%);
 }
-.busy circle {
+.truck-busy circle {
   -webkit-transform-origin: center center;
   fill: none;
   stroke: #4288ef;
@@ -2087,7 +2086,7 @@ section > .busy {
     stroke-dashoffset: -179;
   }
 }
-:not(.isNativeAndroidBrowser) .busy {
+:not(.isNativeAndroidBrowser) .truck-busy {
   -webkit-animation: spin 2s infinite linear;
 }
 

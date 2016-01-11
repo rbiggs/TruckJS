@@ -10120,12 +10120,12 @@
         var androidActivityIndicator = null;
         var position = settings.position ? (' ' + settings.position) : '';
         if ($.isNativeAndroid) {
-          androidActivityIndicator = '<svg class="busy' + position + '" version="1.1" id="' + settings.id + '" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"><g><path fill="none" stroke="' + settings.color + '" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M74.2,65c2.7-4.4,4.3-9.5,4.3-15c0-15.7-12.8-28.5-28.5-28.5S21.5,34.3,21.5,50c0,5.5,1.6,10.6,4.3,15"/></g><polyline fill="none" stroke="' + settings.color + '" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="89.4,56.1 74.3,65 65.4,49.9 "/></svg>';
+          androidActivityIndicator = '<svg class="truck-busy' + position + '" version="1.1" id="' + settings.id + '" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve"><g><path fill="none" stroke="' + settings.color + '" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M74.2,65c2.7-4.4,4.3-9.5,4.3-15c0-15.7-12.8-28.5-28.5-28.5S21.5,34.3,21.5,50c0,5.5,1.6,10.6,4.3,15"/></g><polyline fill="none" stroke="' + settings.color + '" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" points="89.4,56.1 74.3,65 65.4,49.9 "/></svg>';
 
           $this.append(androidActivityIndicator);
           return;
         } else {
-          androidActivityIndicator = '<svg id="' + settings.id + '" class="busy' + position + '" x="0px" y="0px" viewBox="0 0 100 100"><circle stroke="url(#SVGID_1_)" cx="50" cy="50" r="28.5"/></svg>';
+          androidActivityIndicator = '<svg id="' + settings.id + '" class="truck-busy' + position + '" x="0px" y="0px" viewBox="0 0 100 100"><circle stroke="url(#SVGID_1_)" cx="50" cy="50" r="28.5"/></svg>';
           $this.append(androidActivityIndicator);
           $this.addClass('hasActivityIndicator');
           if (settings.position) {
@@ -10144,7 +10144,7 @@
 
       // For Windows 8/WP8:
       var winBusy = function() {
-        var spinner = $('<progress class="busy"></progress>');
+        var spinner = $('<progress class="truck-busy"></progress>');
         $(spinner).css({
           'color': settings.color
         });
