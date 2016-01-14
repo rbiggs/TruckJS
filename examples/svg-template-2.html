@@ -83,8 +83,8 @@
       });
       HueValueView.render(0);
 
-      // Define dispatch receiver:
-      //==========================
+      // Define dispatch receiver for polygon:
+      //======================================
       $.receive('update-polygon', function(obj) {
         PolygonView.render({points: obj.points, color: obj.color});
       });
@@ -95,6 +95,7 @@
         var val = this.value;
         var points = calculatePoints(val);
         var hue = $('#updateHue').val();
+
         // Dispatch the new points for polygon:
         //=====================================
         $.dispatch('update-polygon', {points: points, color: 'hsl(' + hue +', 100%, 50%)'})
@@ -109,6 +110,9 @@
         // Get points and calculate:
         var points = $('#updatePoints').val();
         points = calculatePoints(points);
+
+        // Dispatch new color values for polygon:
+        //=======================================
         $.dispatch('update-polygon', {points: points, color: 'hsl(' + hue +', 100%, 50%)'});
       });
     });

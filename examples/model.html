@@ -36,14 +36,13 @@
     <section>
       <h2>Output from Model</h2>
       <p id='buttonContainer'>
-        <button id='sortList'>Sort List</button> 
-          <label>
-            <input type="radio" name='sortOrder' value='ascending' checked> Ascending
-          </label>
-          <label>
-            <input type="radio" name='sortOrder' value='descending'> Descending
-          </label>&nbsp; - &nbsp;
-          <button id='uniqueAction'>Eliminate Duplicates</button>
+        <label>
+          <input id='ascending' type="radio" name='sortOrder' value='ascending' checked> Ascending
+        </label>
+        <label>
+          <input id='descending' type="radio" name='sortOrder' value='descending'> Descending
+        </label>&nbsp; - &nbsp;
+        <button id='uniqueAction'>Eliminate Duplicates</button>
       </p>
       <ul id="listView" class='list cloak'>
         <li class='comp'>
@@ -53,9 +52,9 @@
           </div>
         </li>
       </ul>
-      <p>The view model has <span id='numberOfPeople'>${ data.count }</span> people.</p>
+      <p>The model has <span id='numberOfPeople'>${ data.count }</span> people.</p>
       <br>
-      <h2>Add a new person to view model</h2>
+      <h2>Add a new person to model</h2>
       <ul class="list" id="form">
         <li>
           <input type="text" id='firstName'>
@@ -71,12 +70,13 @@
         </li>
       </ul>
       <p>
-        <label for="fooAlert"><input name='fooAlert' id='fooAlert' type="checkbox"> Publish to 'fooAlert'</label><br>
+        <label for="fooAlert"><input name='fooAlert' id='fooAlert' type="checkbox"> Dispatch to 'FooMtor' mediator</label><br>
         <button id='submitForm'>Submit</button>
       </p>
     </section>
   </screen>
   <script>
+  
     // Plain data object:
     //===================
     var people = [
@@ -86,7 +86,6 @@
       {firstName: "Betty", lastName: "Bonnet", age: 26},
       {firstName: "Steve", lastName: "Martin", age: 26}
     ];
-
 
     // Define model:
     var FooModel = $.Model(people, 'people-model');
@@ -132,18 +131,19 @@
       peopleView.render();
     });
 
-    // Capture any changes to  foo:
-    $('#sortList').on('tap', function() {
-      var firstName = 'firstName';
-      if ($('input[type=radio]').eq(1).prop('checked')) {
-        firstName = '-firstName';
-      }
+    // Sort list:
+    $('#ascending').on('change', function() {
       FooModel.run(function(model, data) {
-        model.sortBy(firstName);
+        model.sortBy('firstName');
         peopleView.render();
       })
-    }); 
-    
+    });
+    $('#descending').on('change', function() {
+      FooModel.run(function(model, data) {
+        model.sortBy('-firstName');
+        peopleView.render();
+      })
+    });
 
   </script>
 </body>

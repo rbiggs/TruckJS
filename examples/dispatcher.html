@@ -16,33 +16,37 @@
       <h1>Dispatcher</h1>
     </nav>
     <section>
-      <ul class='list'>
-      </ul>
+      <ul class='list'><li><h3>${ data }</h3></li></ul>
     </section>
   </screen>
 
   <script>
-    // $(function() {
+    $(function() {
+
+      var ReceiverView = $.View({
+        element: '.list'
+      });
+
       // Two methods to listen to:
       var arrayHandler = function(data) {
         if (data instanceof Array) {
           if (data[0] instanceof Object) {
             data.forEach(function(ctx) {
               if (ctx['news-flash']) {
-                $('.list').append('<li><div><h4>' + ctx['news-flash'] + '</h4></div></li>');
+                ReceiverView.render(ctx['news-flash'], true);
               } else {
-                $('.list').append('<li><div><h4>' + ctx['update'] + '</h4></div></li>');
+                ReceiverView.render(ctx['update'], true);
               }
             });
           } else {
-            $('.list').append('<li><div><h4>' + data.join(' ') + '.</h4></div></li>');
+            ReceiverView.render(data.join(' '), true);
           }
         }
       };
       
       var stringHandler = function(string) {
         if (typeof string === 'string') {
-          $('.list').append('<li><div><h4>' + string + '</h3></li>');
+          ReceiverView.render(string, true);
         }
       };
 
@@ -50,7 +54,7 @@
         if (obj instanceof Array) {
           obj.forEach(function(ctx) {
             if (ctx.name && ctx.job) {
-              $('.list').append('<li><h3>My name is ' + ctx.name + ', and I am a ' + ctx.job + '.</h3></li>');
+              ReceiverView.render('My name is ' + ctx.name + ', and I am a ' + ctx.job + '.', true);
             } else {
               return;
             }        
@@ -64,20 +68,13 @@
       $.dispatch('news/update', 'This is the latest news!');
       $.dispatch('news/update', ['Somebody','did','something','funny']);
       $.dispatch('news/update', [{'news-flash':'Not much has happened yet.'},{'update':'More of the same.'}]);
-
-      var dingo = $.receive('dingo', function(msg) {
-        alert('Dingo: ' + msg);
-      });
-      var bingo = $.receive('dingo', function(msg) {
-        alert('Bingo: ' + msg);
-      });
       
       $.stopDispatch(stringDispatcher);
       // This doesn't get published to stringDispatcher:
       $.dispatch('news/update', 'We need piles of money now!');
       // This does get published:
       $.dispatch('users/new', [{'name':'Wobba', 'job':'developer'}, {'name':'Bozo the Clown', 'job':'clown'}, {'name':'Joe','job':'just a regular guy'}]);
-    // });
+    });
   </script>
 </body>
 </html>

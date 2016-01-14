@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,10 +47,8 @@
       </p>
       <ul id="listView" class='list cloak'>
         <li>
-          <div>
-            <h3>${ data.firstName } ${ data.lastName }</h3>
-            <h4>${ data.age }</h4>
-          </div>
+          <h3>${ data.firstName } ${ data.lastName }</h3>
+          <h4>Age: ${ data.age }</h4>
         </li>
       </ul>
     </section>
@@ -68,7 +67,10 @@
       {firstName: "Steve", lastName: "Martin", age: 25},
       {firstName: "Joe", lastName: "Carson", age: 27},
       {firstName: "Sam", lastName: "Taylor", age: 31},
-      {firstName: "Mary", lastName: "Martin", age: 21}
+      {firstName: "Mary", lastName: "Martin", age: 21},
+      {firstName: "Paul", lastName: "Quintin", age: 34},
+      {firstName: "Debbie", lastName: "Abernathy", age: 29},
+      {firstName: "William", lastName: "Gonzalez", age: 41}
     ];
     var PeopleModel = $.Model(people, 'people-model');
 

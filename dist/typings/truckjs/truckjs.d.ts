@@ -2549,7 +2549,7 @@ interface View {
   resetIndex(): void;
 
   /**
-   * This lets you set the number for the views index to start from.
+   * This lets you set the number for the view's index to start from.
    *
    * @param number The number to start the index value from.
    * @return void
@@ -2905,10 +2905,6 @@ interface Promise<T> {
 }
 
 interface PromiseConstructor {
-  /**
-   * A reference to the prototype.
-   */
-  prototype: Promise<any>;
 
   /**
    * Creates a new Promise.

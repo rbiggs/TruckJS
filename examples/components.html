@@ -37,7 +37,7 @@
 
       // Define component "wobba":
       $.Component({
-        name: 'WobbaComponent',
+        name: 'NameComponent',
         template: '<li>${data}</li>',
         startIndexFrom: 10,
         events: [{
@@ -48,17 +48,17 @@
           }
         }]
       });
-      var wobba1 = $.WobbaComponent();
-      wobba1.setElement('#list1');
-      wobba1. render('Wobba');
+      var WobbaView = $.NameComponent();
+      WobbaView.setElement('#list1');
+      WobbaView. render('Wobba');
 
-      var wobba3 = $.WobbaComponent();
-      wobba3.setElement('#list3');
-      wobba3. render(['John Doe', 'Joe Bodoni', 'Sam Bergon']);
+      var GuysView = $.NameComponent();
+      GuysView.setElement('#list3');
+      GuysView. render(['John Doe', 'Joe Bodoni', 'Sam Bergon']);
 
-      var wobba2 = $.WobbaComponent();
-      wobba2.setElement('#list2');
-      wobba2. render('Sam');
+      var SamView = $.NameComponent();
+      SamView.setElement('#list2');
+      SamView. render('Sam');
 
       // Define component "people":
       $.Component({

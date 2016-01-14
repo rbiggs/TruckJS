@@ -11,7 +11,65 @@
   <script src="../dist/truck.js"></script>
   <script type="text/javascript">
     $(function() {
-       $.Paging({element: '#paging'});
+      var pagingData = [
+        {title: 'First',
+         items: [
+          'Thing One',
+          'Thing Two',
+          'Thing Three',
+          'Thing Four',
+          'Thing Five',
+          'Thing Six',
+          'Thing Seven',
+          'Thing Eight'
+        ]},
+        {title: 'Second',
+         items: [
+          'Item One',
+          'Item Two',
+          'Item Three',
+          'Item Four',
+          'Item Five',
+          'Item Six'
+        ]},
+        {title: 'Third',
+         items: [
+          'Thing 1',
+          'Thing 2',
+          'Thing 3',
+          'Thing 4',
+          'Thing 5',
+          'Thing 6',
+          'Thing 7',
+          'Thing 8'
+        ]},
+        {title: 'Fourth',
+         items: [
+          'Item 1',
+          'Item 2',
+          'Item 3',
+          'Item 4',
+          'Item 5',
+          'Item 6'
+        ]},
+        {title: 'Fifth',
+         items: [
+          'Another Thing One',
+          'Another Thing Two',
+          'Another Thing Three',
+          'Another Thing Four',
+          'Another Thing Five',
+          'Another Thing Six',
+          'Another Thing Seven',
+          'Another Thing Eight'
+        ]}
+      ]
+      var PagingView = $.View({
+        element: '.paging'
+      });
+      PagingView.render(pagingData);
+      $('.paging').find('article').eq(0).removeClass('next').addClass('current');
+      $.Paging({element: '#paging'});
     });
   </script>
 </head>
@@ -37,162 +95,13 @@
       <h1>Paging</h1>
     </nav>
     <section class='paging'>
-      <article class='current'>
-        <h2>First Article</h2>
-        <ul class='list'>
-          <li>
-            <h3>Thing One</h3>
-          </li>
-          <li>
-            <h3>Thing Two</h3>
-          </li>
-          <li>
-            <h3>Thing Three</h3>
-          </li>
-          <li>
-            <h3>Thing Four</h3>
-          </li>
-          <li>
-            <h3>Thing Five</h3>
-          </li>  
-          <li>
-            <h3>Thing Six</h3>
-          </li>  
-          <li>
-            <h3>Thing Seven</h3>
-          </li>  
-          <li>
-            <h3>Thing Eight</h3>
-          </li>          
-         </ul>
-      </article>
-
       <article class='next'>
-        <h2>Second Article</h2>
-        <ul class='list'>
-          <li>
-            <h3>Item One</h3>
-          </li>
-          <li>
-            <h3>Item Two</h3>
-          </li>
-          <li>
-            <h3>Item Three</h3>
-          </li>
-          <li>
-            <h3>Item Four</h3>
-          </li>
-          <li>
-            <h3>Item Five</h3>
-          </li>
-          <li>
-            <h3>Item Six</h3>
-          </li>
-          <li>
-            <h3>Item Seven</h3>
-          </li>
-          <li>
-            <h3>Item Eight</h3>
-          </li>
-        </ul>
-      </article>
-
-      <article class='next'>
-        <h2>Third Article</h2>
-        <ul class='list'>
-          <li>
-            <h3>Item 1</h3>
-            <h4>Item 1 Subtitle</h4>
-          </li>
-          <li>
-            <h3>Item 2</h3>
-            <h4>Item 2 Subtitle</h4>
-          </li>
-          <li>
-            <h3>Item 3</h3>
-            <h4>Item 3 Subtitle</h4>
-          </li>
-          <li>
-            <h3>Item 4</h3>
-            <h4>Item 4 Subtitle</h4>
-          </li>
-          <li>
-            <h3>Item 5</h3>
-            <h4>Item 5 Subtitle</h4>
-          </li>
-          <li>
-            <h3>Item 6</h3>
-            <h4>Item 6 Subtitle</h4>
-          </li>
-          <li>
-            <h3>Item 7</h3>
-            <h4>Item 7 Subtitle</h4>
-          </li>
-          <li>
-            <h3>Item 8</h3>
-            <h4>Item 8 Subtitle</h4>
-          </li>
-        </ul>          
-      </article>
-
-      <article class='next'>  
-        <h2>Fourth Article</h2>
-        <ul class='list'>      
-          <li>
-            <h3>Something Here</h3>
-          </li>    
-          <li>
-            <h3>Someting Else</h3>
-          </li>    
-          <li>
-            <h3>Another Thing</h3>
-          </li>    
-          <li>
-            <h3>Yet Another</h3>
-          </li>  
-          <li>
-            <h3>Doh!</h3>
-          </li>  
-          <li>
-            <h3>Oh Well</h3>
-          </li>  
-          <li>
-            <h3>Boring!</h3>
-          </li>  
-          <li>
-            <h3>Get me out of here!</h3>
-          </li>
-        </ul>
-      </article>
-
-      <article class='next'>
-        <h2>Fifth Article</h2>
-        <ul class='list'>
-          <li>
-            <h3>Thing One</h3>
-          </li>
-          <li>
-            <h3>Thing Two</h3>
-          </li>
-          <li>
-            <h3>Thing Three</h3>
-          </li>
-          <li>
-            <h3>Thing Four</h3>
-          </li>
-          <li>
-            <h3>Thing Five</h3>
-          </li>  
-          <li>
-            <h3>Thing Six</h3>
-          </li>  
-          <li>
-            <h3>Thing Seven</h3>
-          </li>  
-          <li>
-            <h3>Thing Eight</h3>
-          </li>          
-         </ul>
+        <h2>${ data.title } Article</h2>
+          <ul class="list">
+            {{  data.items.forEach(function(item) {  }}
+            <li> ${ item }</li>
+            {{  });  }}
+          </ul>
       </article>
     </section>
   </screen>

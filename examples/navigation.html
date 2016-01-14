@@ -38,62 +38,164 @@
       
       <h2>Arrays</h2>
 
-      <ul class="list cloak" id="arrayTemplate1">
-        <li data-goto='detail:${ data.guid }'>
+      <ul class="list cloak" id="list">
+        <li data-goto='${ person.firstName }'>
           <div class='no-flex'>
-            <img data-src='${ data.image }' alt="">
+            <img data-src='${ person.image }' alt="">
           </div>
           <h3>
-            ${ $.view.index }: ${ data.firstName } ${ data.lastName }
+            ${ $.view.index }: ${ person.firstName } ${ person.lastName }
           </h3>
           <aside>
             <disclosure></disclosure>
           </aside>
         </li>
       </ul>
-      <p> The route is: <span class='fullRoute'></span></p>
     </section>
   </screen>
   
-  <screen id="detail" class="next">
+  <screen id="Stephen" class="next">
     <nav>
       <button class='back' id='back'>Back</button>
       <h1>Next Page</h1>
     </nav>
     <section>
-      <!-- centering -->
-      <div id="bingo">
-        <div></div>
-        <div></div>
-      </div>
       <h2 id='chosenPerson'>Subtitle Number Two</h2>
       <h2 class='normal-case'>Here's your information:</h2>
       <ul class="list" id='chosenPersonList'>
         <li>
-          <h3>First Name: ${ data.firstName }</h3>
+          <h3>First Name: Stephen</h3>
         </li>
         <li>
-          <h3>Last Name: ${ data.lastName }</h3>
+          <h3>Last Name: Hawking</h3>
         </li>
         <li>
           <div class='no-flex'>
-            <h3>Your picture:</h3>
+            <h3>Picture:</h3>
           </div>
-          <img data-src='${ data.image }' alt="${ data.firstName} + ' ' + ${ data.lastName}">
+          <img src='images/Hawking.jpg' alt="Stephen Hawking">
         </li>
       </ul>
-      <p> The full route is: <span class='fullRoute'></span></p>
     </section>
     <toolbar>
-      <button>Button 2</button>
+      <button>Button</button>
+    </toolbar>
+  </screen>
+  
+  <screen id="Albert" class="next">
+    <nav>
+      <button class='back' id='back'>Back</button>
+      <h1>Next Page</h1>
+    </nav>
+    <section>
+      <h2 id='chosenPerson'>Subtitle Number Two</h2>
+      <h2 class='normal-case'>Here's your information:</h2>
+      <ul class="list" id='chosenPersonList'>
+        <li>
+          <h3>First Name: Albert</h3>
+        </li>
+        <li>
+          <h3>Last Name: Einstein</h3>
+        </li>
+        <li>
+          <div class='no-flex'>
+            <h3>Picture:</h3>
+          </div>
+          <img src='images/Einstein.jpg' alt="Albert Einstein">
+        </li>
+      </ul>
+    </section>
+    <toolbar>
+      <button>Button</button>
+    </toolbar>
+  </screen>
+  
+  <screen id="Leonardo" class="next">
+    <nav>
+      <button class='back' id='back'>Back</button>
+      <h1>Next Page</h1>
+    </nav>
+    <section>
+      <h2 id='chosenPerson'>Subtitle Number Two</h2>
+      <h2 class='normal-case'>Here's your information:</h2>
+      <ul class="list" id='chosenPersonList'>
+        <li>
+          <h3>First Name: Leonardo</h3>
+        </li>
+        <li>
+          <h3>Last Name: Da Vinci</h3>
+        </li>
+        <li>
+          <div class='no-flex'>
+            <h3>Picture:</h3>
+          </div>
+          <img src='images/DaVinci.jpg' alt="Leonardo Da Vinci">
+        </li>
+      </ul>
+    </section>
+    <toolbar>
+      <button>Button</button>
+    </toolbar>
+  </screen>
+  
+  <screen id="Galileo" class="next">
+    <nav>
+      <button class='back' id='back'>Back</button>
+      <h1>Next Page</h1>
+    </nav>
+    <section>
+      <h2 id='chosenPerson'>Subtitle Number Two</h2>
+      <h2 class='normal-case'>Here's your information:</h2>
+      <ul class="list" id='chosenPersonList'>
+        <li>
+          <h3>First Name: Galileo</h3>
+        </li>
+        <li>
+          <h3>Last Name: Galilei</h3>
+        </li>
+        <li>
+          <div class='no-flex'>
+            <h3>Picture:</h3>
+          </div>
+          <img src='images/Galileo.jpg' alt="Galileo Galilei">
+        </li>
+      </ul>
+    </section>
+    <toolbar>
+      <button>Button</button>
+    </toolbar>
+  </screen>
+  
+  <screen id="Nicholas" class="next">
+    <nav>
+      <button class='back' id='back'>Back</button>
+      <h1>Next Page</h1>
+    </nav>
+    <section>
+      <h2 id='chosenPerson'>Subtitle Number Two</h2>
+      <h2 class='normal-case'>Here's your information:</h2>
+      <ul class="list" id='chosenPersonList'>
+        <li>
+          <h3>First Name: Nicholas</h3>
+        </li>
+        <li>
+          <h3>Last Name: Copernicus</h3>
+        </li>
+        <li>
+          <div class='no-flex'>
+            <h3>Picture:</h3>
+          </div>
+          <img src='images/Copernicus.jpg' alt="Nicholas Copernicus">
+        </li>
+      </ul>
+    </section>
+    <toolbar>
+      <button>Button</button>
     </toolbar>
   </screen>
 
   <script>
     $(function() {
-        $('#backToMain').on('tap', function() {
-         $.GoBackToScreen('main');
-       });
       
       // Array data:
       //=============
@@ -105,29 +207,13 @@
         {guid: 'F3b2bd1f-346b-4970-a272-11124927a6e6', firstName: "Nicholas", lastName: "Copernicus", image: 'images/Copernicus.jpg', age: 32}  
       ];
 
-      var bums = [
-        {guid: 'S7dfa6a9-0c78-46ab-8256-c85664526cd5', firstName: "Wobba", lastName: "Dingo", image: 'images/avocado.png', age: 20},
-        {guid: 'Lde2e4bd-fa74-4cc7-94bc-de5838a3085f', firstName: "Josh", lastName: "Rutherford", image: 'images/apple.png', age: 31},
-        {guid: 'Qa7d4748-cd13-40f6-a972-d9d2d83e88f2', firstName: "Joe", lastName: "Bodoni", image: 'images/banana.png', age: 100},
-        {guid: 'h3c19fe8-3c05-475f-bd01-07b68f48d4bd', firstName: "John", lastName: "Doe", image: 'images/orange.png', age: 40} 
-      ];
-
-      // Create model:
-      //==============
-      var LumsModel = $.Model(lums, 'luminaries-handle');
-      var BumsModel = $.Model(bums, 'bums-handle');
-      
-      // Call Garbage Collector:
-      lums, bums = null;
-
       // Init views:
       //=============
-      var App = {
-        VIPView: $.View({
+      var VIPView = $.View({
           name: 'VIPView1',
-          element: '#arrayTemplate1', 
-          model: LumsModel,
+          element: '#list', 
           startIndexFrom: 1,
+          variable: 'person',
           events: [{
             event: 'tap',
             element: 'li',
@@ -135,66 +221,11 @@
               console.log($(this).text());
             }
           }]
-        }),
-        
-        chosenPersonView: $.View({
-          name: 'chosenPersonView',
-          element: '#chosenPersonList'
-        })
-      };
+        });
 
       // Render views:
       //==============
-      App.VIPView.render();
-
-
-      // Setup Router:
-      //==============
-      $.AppRoutes = $.Router();
-
-      // Define Routes:
-      //===============
-      $.AppRoutes.addRoute([
-        {
-          // Route for main screen:
-          route: 'main', 
-
-          callback: function() {
-            // Get current view model, and
-            // switch the view to the other:
-            if (App.VIPView.getModel().getHandle() === 'luminaries-handle') {
-              App.VIPView.bind(BumsModel);
-            } else {
-              App.VIPView.bind(LumsModel);
-            }
-            // Output current route:
-            $('.fullRoute').text($.TruckRoutes.getFullRoute());
-          }
-        },
-        {
-          // Route for detail screen:
-          route: 'detail',
-
-          // Capture id in callback:
-          callback: function(id) {
-            // Get current view model:
-            var model = App.VIPView.getModel().getData();
-            // Filter model with id passed in route:
-            var whichPerson = model.filter(function(person) {
-              return person.guid === id;
-            })[0];
-            // Output peron's name:
-            $('#chosenPerson').text('Welcome, ' + whichPerson.firstName + '.');
-            // Output full route:
-            $('.fullRoute').text($.TruckRoutes.getFullRoute());
-            App.chosenPersonView.empty();
-            App.chosenPersonView.render(whichPerson);
-          }
-        }
-      ]);
-
-      // Output current route:
-      $('.fullRoute').text($.AppRoutes.getFullRoute());
+      VIPView.render(lums);
 
     });
   </script>  

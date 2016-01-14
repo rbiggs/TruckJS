@@ -88,13 +88,28 @@
     // Create Data and Time objects:
     var date = new Date();
 
+    var dateData = [
+      {description: 'var date = new Date()', date: date},
+      {description: 'date.toLocaleDateString()', date: date.toLocaleDateString()},
+    ];
     // Date:
-    $('#date').append('<li><div><h3>var date = new Date()</h3><h4>' + date + '</h4></div></li>');
-    $('#date').append('<li><div><h3>date.toLocaleDateString()</h3><h4><strong>' + date.toLocaleDateString() + '</strong></h4><div></li>');
+    var DateView = $.View({
+      element: '#date',
+      variable: 'date'
+    });
+
+    DateView.render(dateData);
 
     // Time:
-    $('#time').append('<li><div><h3>date.toLocaleTimeString()</h3><h4><strong>' + date.toLocaleTimeString() + '</strong></h4><div></li>');
-    $('#time').append('<li><div><h3>$.formatTime(date.toLocaleTimeString())</h3><h4><strong>' + $.formatTime(date.toLocaleTimeString()) + '</strong></h4><div></li>');
+    var TimeView = $.View({
+      element: '#time',
+      variable: 'time'
+    });
+    var timeData = [
+      {description: 'date.toLocaleTimeString()', date: date.toLocaleTimeString()},
+      {description: '$.formatTime(date.toLocaleTimeString())', date: $.formatTime(date.toLocaleTimeString())},
+    ];
+    TimeView.render(timeData);
 
 });
   </script>
@@ -169,9 +184,23 @@
       </li>
     </ul>
     <h2>Date</h2>
-    <ul id='date'class='list'></ul>
+    <ul id='date'class='list'>
+      <li>
+        <div>
+          <h3>${ date.description }</h3>
+          <h4>${ date.date }</h4>
+        </div>
+      </li>
+    </ul>
     <h2>Time</h2>
-    <ul id='time'class='list'></ul>
+    <ul id='time'class='list'>
+      <li>
+        <div>
+          <h3>${ time.description }</h3>
+          <h4>${ time.date }</h4>
+        </div>
+      </li>
+    </ul>
   </section>
 </screen>
   
