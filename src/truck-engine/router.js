@@ -10,7 +10,7 @@
 
       Router: function() {
 
-        var TruckRouteCntrl = $.Mediator('Truck-Routes');
+        $.receive('Truck-Routes', $.noop);
 
         return {
           addRoute: function(options) {

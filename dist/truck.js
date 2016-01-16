@@ -3569,6 +3569,8 @@
       // Private Functions:
       //===================
 
+      var parsedTemplate;
+
       var pluck = function(stack, property) {
         var ret = [];
         if (stack.size()) {
@@ -3624,10 +3626,6 @@
           });
         }
       };
-
-      // Shell for parsing templates.
-      // It will hold the function returned by extractTemplate:
-      var parsedTemplate = function() {};
 
       // Get template from element:
       var extractTemplate = function() {
@@ -3762,7 +3760,7 @@
           };
 
           // Check extracted template:
-          if (!parsedTemplate && __template & $.type(__template) === 'string') {
+          if (!parsedTemplate && __template && $.type(__template) === 'string') {
             parsedTemplate = parseView(__template, __variable);
           }
 
@@ -3936,7 +3934,6 @@
         },
 
         unbind: function() {
-          var whichModel = __model;
           __model = undefined;
         },
 
@@ -4124,7 +4121,7 @@
 
       Router: function() {
 
-        var TruckRouteCntrl = $.Mediator('Truck-Routes');
+        $.receive('Truck-Routes', $.noop);
 
         return {
           addRoute: function(options) {
