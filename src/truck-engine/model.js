@@ -583,8 +583,11 @@
           });
         },
 
-        setToAutobox: function() {
+        setToAutobox: function(options) {
           __autobox = true;
+          __name = options.name || $.Box.__config.name;
+          __boxName = options.boxName || 'keyvaluepairs';
+          __key = options.key || this.getHandle();
         },
 
         isBoxed: function() {

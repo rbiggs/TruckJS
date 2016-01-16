@@ -485,7 +485,7 @@
   $.extend({
     lib: "TruckJS",
 
-    version: '0.0.1',
+    version: '1.0.0-beta.5',
 
     noop: function() {},
 
@@ -3440,8 +3440,11 @@
           });
         },
 
-        setToAutobox: function() {
+        setToAutobox: function(options) {
           __autobox = true;
+          __name = options.name || $.Box.__config.name;
+          __boxName = options.boxName || 'keyvaluepairs';
+          __key = options.key || this.getHandle();
         },
 
         isBoxed: function() {

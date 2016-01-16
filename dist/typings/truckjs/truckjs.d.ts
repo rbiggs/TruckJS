@@ -766,7 +766,12 @@ interface TruckStatic {
     /**
      * This method lets you  You can handle the result using a success callback, or use a thenable instead.
      *
-     * @param 
+     * @param driver A string indicating the driver to use.
+     * @param name A name for the database.
+     * @param size The size of the database. Default is 4980736 KB.
+     * @param boxName The name of the dataStore.
+     * @param version The version of the dataStore. Default is "1.0"
+     * @param description A description of the dataStore. Default is empty.
      * @return void
      */
     createInstance(options: {
@@ -797,7 +802,12 @@ interface TruckStatic {
     /**
      * Sets the configuration values for Box to use.
      *
-     * @param options An object of key value pairs.
+     * @param driver A string indicating the driver to use.
+     * @param name A name for the database.
+     * @param size The size of the database. Default is 4980736 KB.
+     * @param boxName The name of the dataStore.
+     * @param version The version of the dataStore. Default is "1.0"
+     * @param description A description of the dataStore. Default is empty.
      * @return void
      */
     config(options: {
@@ -2489,14 +2499,25 @@ interface Stack {
    * @param options And object of the following key/value pairts to box the model.
    * @return void
    */
-   box(options: Object): void;
+   box(options: {
+      autobox: boolean;
+      boxName: string;
+      key: string;
+      name: string;
+
+   }): void;
 
    /**
    * This method tells Truck to automatically store any changes to the model in its Box for local data persistence.
    *
    * @return void
    */
-   setToAutobox(): void;
+   setToAutobox(options: {
+      autobox: boolean;
+      boxName: string;
+      key: string;
+      name: string;
+   }): void;
 
    /**
    * This method tests whether the model has been boxed or saved in Truck's local data persistence Box.

@@ -81,8 +81,10 @@
     PeopleView.render();
 
     var filterInput = $('#filterByName');
+
     // Filter the model.
-    // Make checks case insensitive:
+    // Make case insensitive:
+    //=======================
     function filterNames() {
       var val = filterInput.val();
       if (val) val = val.toLowerCase();
@@ -92,12 +94,15 @@
       });
       PeopleView.render(persons);
     }
+
     // Setup for sorting - ascendeing and descending:
     //===============================================
+
     // Initial state for sort:
     var sortOrder = true;
 
     // Sort by Last Name:
+    //===================
     $('#sortByName').on('tap', function() {
       var hyphen = '-';
       sortOrder = $(this).hasClass('descending');hyphen = sortOrder ? '' : '-';
@@ -112,6 +117,7 @@
     });
 
     // Sort by Age:
+    //=============
     $('#sortByAge').on('tap', function() {
       var hyphen = '-';
       sortOrder = $(this).hasClass('descending');
@@ -130,8 +136,8 @@
     PeopleModel.sortBy('lastName', 'firstName');
     PeopleView.render();
 
-    // Filter by name:
-    //================
+    // Filter data as user types:
+    //===========================
     filterInput.on('input', function() {
       filterNames();
     });
