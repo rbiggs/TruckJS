@@ -201,8 +201,6 @@
 
     // Define  model:
     var PeopleModel = $.Model(people, 'people-model');
-    var dingo = $.Model([1,2,3], 'my-handle');
-    dingo.push(3);
     var editListView = $.View({
       element: '#editList',
       model: PeopleModel,
@@ -219,10 +217,6 @@
       element: '#editList',
       view: editListView
     });
-
-    PeopleModel.box({key: 'editable-list-people', autobox: true});
-
-
   });
 </script>  
 </body>

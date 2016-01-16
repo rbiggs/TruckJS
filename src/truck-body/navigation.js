@@ -81,7 +81,6 @@
       // Navigate Back to Non-linear Article
       //////////////////////////////////////
       GoBackToScreen: function(destination) {
-        var currentScreen = $.screens.getCurrent();
         var position = $.TruckRoutes.index(destination);
         var destinationScreen = getScreen(destination);
         var temp;

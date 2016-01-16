@@ -19,7 +19,6 @@
       var selections = settings.selected;
       var name = settings.name;
       var list = $(settings.element);
-      var multiSelectIcon = '<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="multi-select-icon" stroke="#979797"><g id="multi-select-circle-+-mulit-select-checkmark" transform="translate(2.000000, 2.000000)"><circle id="multi-select-circle" cx="13" cy="13" r="13"></circle><path d="M4.71521456,15.9877529 L13.0000002,20.7028494 L19.977049,5.70284941" id="mulit-select-checkmark"></path></g></g></g></svg>';
       list.addClass('multi-select-list');
       list.find('li').forEach(function(ctx, idx) {
         var value = ctx.getAttribute("data-select") !== null ? ctx.getAttribute("data-select") : "";
@@ -57,7 +56,6 @@
         if (item.hasClass('selected')) {
           item.removeClass('selected').removeAttr('aria-checked');
           item.find('input').removeProp('checked');
-          var whichItem = item.index();
           var dataObj = {
             index: item.index(),
             value: item.attr('data-select')

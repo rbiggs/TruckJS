@@ -12,7 +12,6 @@
       var __passed = false;
       var __errors = [];
       var __result = [];
-      var customValidation;
 
       // Helper to validate form elements:
       //==================================

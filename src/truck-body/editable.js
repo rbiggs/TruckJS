@@ -45,11 +45,7 @@
       }
       var __view = settings.view;
 
-      var editLabel = settings.editLabel;
-      var doneLabel = settings.doneLabel;
-      var deleteLabel = settings.deleteLabel;
-      var placement = settings.placement;
-      var callback = settings.callback;
+      if (options) $.extend(settings, options);
 
       var deleteButton;
       var editButton;
@@ -60,6 +56,7 @@
       var moveUpIndicator;
       var moveDownIndicator;
       var element = settings.element;
+      var deleteLabel;
 
       var dir = $('html').attr('dir');
       dir = dir ? dir.toLowerCase() : '';
@@ -72,7 +69,7 @@
       }
 
       if (settings.deletable) {
-        deleteButton = $.concat('<button class="delete"><label>', deleteLabel, '</label><svg width="27px" height="30px" viewBox="0 0 27 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="delete-icon" fill="#3A3A3A"><g transform="translate(3.000000, 1.000000)"><path d="M1,6 L20,6 L20,24.9986131 C20,26.6562333 18.6639569,28 16.9998779,28 L4.00012207,28 C2.3432004,28 1,26.6569187 1,24.9986131 L1,6 Z M4,9 L5,9 L5,25 L4,25 L4,9 Z M8,9 L9,9 L9,25 L8,25 L8,9 Z M12,9 L13,9 L13,25 L12,25 L12,9 Z M16,9 L17,9 L17,25 L16,25 L16,9 Z" id="can"></path><path d="M0,4.96611425 L0,1.67759301 L5.1776507,1.7511163 L6.482399,0 L14.5847825,0 L15.8789491,1.7511163 L21,1.7511163 L21,4.9447157 L0,4.96611425 L0,4.96611425 Z" id="lid"></path></g></g></g></svg></button>');
+        deleteButton = $.concat('<button class="delete"><label>', settings.deleteLabel, '</label><svg width="27px" height="30px" viewBox="0 0 27 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="delete-icon" fill="#3A3A3A"><g transform="translate(3.000000, 1.000000)"><path d="M1,6 L20,6 L20,24.9986131 C20,26.6562333 18.6639569,28 16.9998779,28 L4.00012207,28 C2.3432004,28 1,26.6569187 1,24.9986131 L1,6 Z M4,9 L5,9 L5,25 L4,25 L4,9 Z M8,9 L9,9 L9,25 L8,25 L8,9 Z M12,9 L13,9 L13,25 L12,25 L12,9 Z M16,9 L17,9 L17,25 L16,25 L16,9 Z" id="can"></path><path d="M0,4.96611425 L0,1.67759301 L5.1776507,1.7511163 L6.482399,0 L14.5847825,0 L15.8789491,1.7511163 L21,1.7511163 L21,4.9447157 L0,4.96611425 L0,4.96611425 Z" id="lid"></path></g></g></g></svg></button>');
         deletionIndicator = '<span class="deletion-indicator"><svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="deletion-indicator"><g id="ios-indicator"><circle id="ios-circle" fill="#FF0000" cx="10" cy="10" r="10"></circle><path d="M3.5,10 L16.5,10" id="ios-bar" stroke="#FFFFFF" stroke-width="2" stroke-linecap="square"></path></g><path d="M2,13 L9.9294326,16.8406135 L17.1937075,1.90173332" id="checkmark" stroke="#FA0303" stroke-width="2"></path></g></g></svg></span>';
         $(element).addClass('deletable');
       }
@@ -82,7 +79,7 @@
         $(element).addClass('editable');
       }
 
-      editButton = $.concat('<button class="edit">', editLabel, '</button>');
+      editButton = $.concat('<button class="edit">', settings.editLabel, '</button>');
       var nav = $(element).closest('screen').find('nav');
       nav.append(editButton);
       nav.find('.back').hide();

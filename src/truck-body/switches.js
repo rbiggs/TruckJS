@@ -6,7 +6,6 @@
     // Create a switch control:
     //=========================
     Switch: function(options) {
-      var self = this;
       if (!options || !options.element) return;
       var __checked = false;
       var settings = {

@@ -24,7 +24,6 @@
 
         var segmented;
         var labels = (settings.labels) ? settings.labels : [];
-        var selected = settings.selected;
         var __selection;
 
         function createSegmentedButton() {

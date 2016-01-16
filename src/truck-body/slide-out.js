@@ -36,8 +36,6 @@
       });
 
       $('slideout').on('tap', 'li', function() {
-        var routes = $(this).attr('data-show').split('/');
-        var fullRoute = $.TruckRoutes.getFullRoute();
         var menuItems = slideout.find('li[data-show]');
         slideout.attr('aria-hidden', 'true')
 

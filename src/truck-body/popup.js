@@ -34,7 +34,8 @@
       var cancelButton = options.cancelButton ? '<button class="cancel" role="button">' + settings.cancelButton + '</button>' : '';
       var continueButton = settings.continueButton ? '<button class="continue" role="button">' + settings.continueButton + '</button>' : '';
       var callback = settings.callback || $.noop;
-      var panelOpen, panelClose, popup;
+      var panelClose;
+      var popup;
       if (settings.empty) {
         popup = $.concat('<div' + width + ' class="popup closed" role="alertdialog" id="', id, '"></div>');
       } else {

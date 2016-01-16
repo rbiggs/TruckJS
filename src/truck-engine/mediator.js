@@ -89,8 +89,6 @@
       }
       var __exec = true;
       var __stopAfter;
-      var __stopCount = false;
-      var self = this;
       var token = ($.uuid());
       $.mediators[handle].push({
         token: token,

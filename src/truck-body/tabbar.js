@@ -93,7 +93,6 @@
       selectedScreen = $('screen').eq(settings.selected);
       setToCurrent(selectedScreen);
 
-      var tempIdx;
       if (settings.labels.length) {
         settings.labels.forEach(function(label, idx) {
           tabbarTmpl.append(makeTab(label, settings.icons[idx], idx));

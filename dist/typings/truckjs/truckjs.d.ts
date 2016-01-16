@@ -12,7 +12,7 @@ interface TruckStatic {
    * @param context A DOM HTMLElement to use as context
    * @return DOMStack
    */
-  (selector: string | HTMLElement | Document, context?: HTMLElement | DOMStack): Truck;
+  (selector: string | HTMLElement | Element | Document, context?: HTMLElement | DOMStack): Truck;
 
   /**
    * Binds a function to be executed when the DOM has finished loading.
@@ -1060,7 +1060,7 @@ interface DOMStack extends Object {
    * @param element The element to push to the DOMStack data array.
    * @return DOMStack
    */
-  push(element: HTMLElement): void;
+  push(element: HTMLElement | Element): void;
 
   /**
    * This method pops the last item off of the DOMStack's data array.
@@ -1653,7 +1653,7 @@ interface Truck extends DOMStack {
    * @param
    * @return Truck Returns a Truck DOMStack
    */
-  attr(attribute: string, value: string | number): Truck;
+  attr(attribute: string, value: string | number | boolean): Truck;
 
   /**
    * Remove an attribute from each element in the set of matched elements.
@@ -1706,7 +1706,7 @@ interface Truck extends DOMStack {
    *
    * @return string A string representing the element value.
    */
-  val(): string;
+  val(): string | number;
 
   /**
    * Set the value of each element in the set of matched elements.
@@ -1781,7 +1781,7 @@ interface Truck extends DOMStack {
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
    * @return Truck
    */
-  on(eventType: string, handler?: (eventObject: Event) => any, capturePhase?: boolean): Truck;
+  on(eventType: string | Event, handler?: (eventObject: Event) => any, capturePhase?: boolean): Truck;
 
   /**
    * Add a handler to an event for elements. When a selector is provided as the second argument, this implements a delegated event where Truck listens on the element for events on the designated descendent element.
@@ -1792,7 +1792,7 @@ interface Truck extends DOMStack {
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
    * @return Truck
    */
-  on(eventType: string, selector: any, handler?: (eventObject: Event) => any, capturePhase?: boolean): Truck;
+  on(eventType: string | Event, selector: any, handler?: (eventObject: Event) => any, capturePhase?: boolean): Truck;
 
   /**
    * Remove a handler for an event from the elements. If the second argument is a selector, it tries to undelegate the event.
@@ -1804,7 +1804,7 @@ interface Truck extends DOMStack {
    * @param useCapture Setting the third argument to true will trigger event bubbling. The default is false.
    * @return Truck
    */
-  off(eventType?: string, selector?: any, handler?: (eventObject: Event) => any, capturePhase?: boolean): Truck;
+  off(eventType?: string | Event, selector?: any, handler?: (eventObject: Event) => any, capturePhase?: boolean): Truck;
 
   /**
   * Trigger an event on an element.
@@ -1812,7 +1812,7 @@ interface Truck extends DOMStack {
   * @param eventType The event to trigger.
   * @return void
   */
-  trigger(eventType: string): void;
+  trigger(eventType: string | Event): void;
 
   /** 
    * Returns all elements that match the provided selector.
@@ -3269,7 +3269,7 @@ interface TruckStatic {
   /**
    * This method allows you to throw up a mask covering the entire screen. You can provide an opacity value to control the mask's opacity to your liking.
    */
-  Block(opacity: number): void;
+  Block(opacity: string): void;
   
   /**
    * This removes any currently displayed mask.
@@ -3316,8 +3316,8 @@ interface TruckStatic {
   Sheet(options: {
     id?: string;
     background?: string;
-    handle?: boolean;
-    slideDown?: boolean;
+    handle?: boolean | string;
+    slideDown?: boolean | string;
   }): void;
   
   /**
