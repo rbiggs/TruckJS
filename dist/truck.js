@@ -8085,7 +8085,6 @@
         // If one sibling:
         if (siblings.length === 1) {
           handleOneSibling();
-          console.log(siblings[0].clientWidth)
 
           // If two siblings:
         } else if (siblings.length === 2) {
