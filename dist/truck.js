@@ -463,7 +463,7 @@
       }
       return Truck;
     };
-    
+
     Truck.fn = {
       extend: function(object) {
         return Truck.extend(DOMStack.prototype, object);
@@ -485,7 +485,7 @@
   $.extend({
     lib: "TruckJS",
 
-    version: '1.0.0-beta.5',
+    version: '1.0.0-beta.6',
 
     noop: function() {},
 
@@ -551,7 +551,7 @@
 
     require: function(src, callback, ctx) {
       var onerror = "onerror";
-      var insertScript = function (script) {
+      var insertScript = function(script) {
         var firstScript = document.getElementsByTagName("script")[0];
         firstScript.parentNode.insertBefore(script, firstScript);
       };
@@ -559,14 +559,16 @@
       var done = false;
       var err;
       var loadScript;
-      var handleError = function () {
+      var handleError = function() {
         err = new Error(src || "EMPTY");
         loadScript();
       };
-      var setupLoad = function (fn) {
-        return function () {
+      var setupLoad = function(fn) {
+        return function() {
           // Only call once.
-          if (done) { return; }
+          if (done) {
+            return;
+          }
           done = true;
           fn();
           if (callback) {
@@ -575,7 +577,7 @@
         };
       };
 
-      loadScript = setupLoad(function () {
+      loadScript = setupLoad(function() {
         script.onload = script[onerror] = null;
       });
 
@@ -638,7 +640,7 @@
   //==================================
   if (typeof jQuery !== 'undefined') return;
   $.extend({
-    type: function (type) {
+    type: function(type) {
       switch (typeof type) {
         case 'boolean':
           return 'boolean';
@@ -1335,7 +1337,7 @@
     replaceWith: function(content) {
       if (content && content.nodeType && content.nodeType === 1) {
         $(content).off();
-      } else if(content.constructor.toString().match(/DOMStack/)) {
+      } else if (content.constructor.toString().match(/DOMStack/)) {
         content.off();
       }
       this.forEach(function(node) {
@@ -1784,7 +1786,7 @@
 
   /* jshint, evil: false, validthis:true, unused:false, loopfunc: false,
   smarttabs: true, nonew: false */
-  
+
   ////////////////////////////////////////////////////
   // Private method to set events on TruckEventCache
   ////////////////////////////////////////////////////
@@ -2140,7 +2142,7 @@
           touch.y1 = e.pageY;
           twoTouches = false;
 
-        // Detect two or more finger gestures:
+          // Detect two or more finger gestures:
         } else {
           if (e.touches.length === 1) {
             touch.el = $(parentIfText(e.touches[0].target));
@@ -2215,8 +2217,8 @@
               touch = {};
             }
           }, 0);
-        
-        // Normal tap:
+
+          // Normal tap:
         } else if ('last' in touch) {
           // Delay by one tick so we can cancel the 'tap' event if 'scroll' fires:
           tapTimeout = setTimeout(function() {
@@ -2240,7 +2242,7 @@
             }
           }, 0);
         }
-        
+
       } else {
         return;
       }
@@ -2323,7 +2325,7 @@
       return JSON.parse(str);
     },
 
-    concat: function (args) {
+    concat: function(args) {
       return (args instanceof Array) ? args.join('') : [].slice.apply(arguments).join('');
     }
   });
@@ -2470,7 +2472,7 @@
 // Truck Engine - Stack Module:
 (function() {
   "use strict";
-  $.extend({ 
+  $.extend({
     //==============
     // Define Stack:
     //==============
@@ -2583,7 +2585,7 @@
           };
           __array.sort(__orderBy.apply(null, arguments));
         },
-        
+
         filter: function() {
           return __array.filter.apply(__array, arguments);
         },
@@ -2655,7 +2657,7 @@
 (function() {
   "use strict";
   $.extend({
-    
+
     MediatorStack: function(array) {
       var __array = [];
       if (array && Array.isArray(array)) {
@@ -2755,11 +2757,11 @@
         exec: __exec,
 
         run: function(data) {
-          if(!this.exec) return;
+          if (!this.exec) return;
           if (__stopAfter && __stopAfter > 0) {
             callback.call(this, data);
             __stopAfter--;
-            if(!this.stopCount) this.count++;
+            if (!this.stopCount) this.count++;
             $.mediators[handle].setStopAfter(token, __stopAfter);
             if (__stopAfter === 0) {
               this.exec = false;
@@ -2780,7 +2782,7 @@
           } else {
             this.exec = false;
             $.mediators[handle].setExecutable(token, false);
-          } 
+          }
         },
 
         start: function() {
@@ -3065,11 +3067,11 @@
             var len = data.length;
             // The position is greater than the collection,
             // so add to end of collection:
-            if (position >= len -1) {
+            if (position >= len - 1) {
               __data.push(data);
               __lastModifiedTime = Date.now();
               propagateData(__handle, data, doNotPropogate);
-            // Otherwise insert it at the position:
+              // Otherwise insert it at the position:
             } else {
               __data.splice(position, 0, data);
               __lastModifiedTime = Date.now();
@@ -3464,27 +3466,6 @@
   //=============
   // Define View:
   //=============
-  $.extend({
-    RegisteredViews: $.Stack([]),
-  });
-  $.extend($.RegisteredViews, {
-    getViewsByScreen: function(screen) {
-      var ret = [];
-      $.RegisteredViews.forEach(function(item) {
-        if (item.screen === screen) {
-          ret = item.views;
-        }
-      });
-      return ret;
-    },
-    getAllViews: function() {
-      var ret = [];
-      $.RegisteredViews.forEach(function(item) {
-        ret = ret.concat(item.views);
-      });
-      return ret;
-    }
-  });
 
   $.extend({
 
@@ -3535,7 +3516,6 @@
       var __template = options.template;
       var __model = options.model;
       var __mediator = options.mediator;
-      var __name = options.name || $.uuid();
       var __index = options.index || 1;
       var __rendered = false;
       var __variable = options.variable || 'data';
@@ -3566,32 +3546,8 @@
       //===================
       // Private Functions:
       //===================
-      
-      var parsedTemplate;
 
-      var pluck = function(stack, property) {
-        var ret = [];
-        if (stack.size()) {
-          var len = stack.size();
-          var data = stack.getData();
-          for (var i = 0; i < len; i++) {
-            ret.push(data[i][property]);
-          }
-          return ret;
-        }
-      };
-      if (pluck($.RegisteredViews, parentScreen)) {
-        $.RegisteredViews.forEach(function(item) {
-          if (item.screen === parentScreen) {
-            item.views.push(__name);
-          }
-        });
-      } else {
-        $.RegisteredViews.push({
-          screen: parentScreen,
-          views: [__name]
-        });
-      }
+      var parsedTemplate;
 
       var parseView = function(template, variable) {
         var interpolate = /\$\{([\s\S]+?)\}/img;
@@ -4048,10 +4004,6 @@
           return __lastRenderTime;
         },
 
-        getViewName: function() {
-          return __name;
-        },
-
         escapeHTML: function(boolean) {
           if (boolean) {
             __escapeHTML = true;
@@ -4259,6 +4211,7 @@
   };
   queue = (function() {
     var first, last, item;
+
     function Item(func, self) {
       this.func = func;
       this.self = self;
@@ -4285,6 +4238,7 @@
       }
     };
   })();
+
   function schedule(func, self) {
     queue.add(func, self);
     if (!cycle) {
@@ -4300,12 +4254,14 @@
     }
     return typeof _then === "function" ? _then : false;
   }
+
   function notify() {
     for (var i = 0; i < this.chain.length; i++) {
       notifyIsolated(this, (this.state === 1) ? this.chain[i].success : this.chain[i].failure, this.chain[i]);
     }
     this.chain.length = 0;
   }
+
   function notifyIsolated(self, callback, chain) {
     var ret, _then;
     try {
@@ -4329,6 +4285,7 @@
       chain.reject(err);
     }
   }
+
   function resolve(msg) {
     var _then, deferred, self = this;
     if (self.triggered) {
@@ -4339,11 +4296,15 @@
       self = self.deferred;
     }
     try {
-      if (_then = isThenable(msg)) {  // jshint ignore:line
+      if (_then = isThenable(msg)) { // jshint ignore:line
         schedule(function() {
           var deferred_wrapper = new MakeDeferred(self);
           try {
-            _then.call(msg, function() { resolve.apply(deferred_wrapper, arguments); }, function() { reject.apply(deferred_wrapper, arguments); });
+            _then.call(msg, function() {
+              resolve.apply(deferred_wrapper, arguments);
+            }, function() {
+              reject.apply(deferred_wrapper, arguments);
+            });
           } catch (err) {
             reject.call(deferred_wrapper, err);
           }
@@ -4359,6 +4320,7 @@
       reject.call(new MakeDeferred(self), err);
     }
   }
+
   function reject(msg) {
     var self = this;
     if (self.triggered) {
@@ -4374,20 +4336,23 @@
       schedule(notify, self);
     }
   }
+
   function iteratePromises(Constructor, arr, resolver, rejecter) {
     for (var idx = 0; idx < arr.length; idx++) {
       (function IIFE(idx) {
         Constructor.resolve(arr[idx])
           .then(function(msg) {
-          resolver(idx, msg);
-        }, rejecter);
+            resolver(idx, msg);
+          }, rejecter);
       })(idx);
     }
   }
+
   function MakeDeferred(self) {
     this.deferred = self;
     this.triggered = false;
   }
+
   function Deferred(self) {
     this.promise = self;
     this.state = 0;
@@ -4395,6 +4360,7 @@
     this.chain = [];
     this.msg = undefined;
   }
+
   function Promise(executor) {
     if (typeof executor !== "function") {
       throw new TypeError("Not a function");
@@ -4631,7 +4597,7 @@
       try {
         new Blob();
         return true;
-      } catch(e) {
+      } catch (e) {
         return false;
       }
     })(),
@@ -4816,7 +4782,10 @@
   };
 
   Response.error = function() {
-    var response = new Response(null, {status: 0, statusText: ''});
+    var response = new Response(null, {
+      status: 0,
+      statusText: ''
+    });
     response.type = 'error';
     return response;
   };
@@ -5389,7 +5358,10 @@
     customValidators: [],
 
     registerCustomValidator: function(name, regex) {
-      this.customValidators.push({name: name, regex: regex});
+      this.customValidators.push({
+        name: name,
+        regex: regex
+      });
     }
   });
 })();
@@ -7448,6 +7420,7 @@
 
         return once;
       }
+
       function after(el, fn) {
         if (!supported || !has(el)) return fn();
         emitter(el).bind(fn);
@@ -7467,6 +7440,7 @@
       function Emitter(obj) {
         if (obj) return mixin(obj);
       }
+
       function mixin(obj) {
         for (var key in Emitter.prototype) {
           obj[key] = Emitter.prototype[key];
@@ -7597,8 +7571,7 @@
       };
     }
 
-    function anim() {
-    }
+    function anim() {}
 
     $.extend({
       anim: (function() {
@@ -7892,11 +7865,11 @@
 
     // Mixin one object into another:
     //===============================
-    mixin: function( sourceObj, targetObj ) {
+    mixin: function(sourceObj, targetObj) {
       for (var key in sourceObj) {
         // Do not replace property if it exists:
         if (!(key in targetObj)) {
-            targetObj[key] = sourceObj[key];
+          targetObj[key] = sourceObj[key];
         }
       }
       return targetObj;
@@ -7912,7 +7885,7 @@
           function Temp() {}
           var hasOwn = Object.prototype.hasOwnProperty;
 
-          return function (O) {
+          return function(O) {
             if (typeof O != 'object') {
               throw TypeError('Object prototype may only be an Object or null');
             }
@@ -7952,7 +7925,7 @@
         for (var i = 0; i < depLen; i++) {
           dependencies[i] = modules[dependencies[i]];
         }
-        modules[name] = implementation.apply( implementation, dependencies );
+        modules[name] = implementation.apply(implementation, dependencies);
       }
 
       // Execute the named module:
@@ -8542,7 +8515,7 @@
 
         // Toggle Slide Out button:
         slideOutBtn.toggleClass('focused');
-        
+
         $('button.back').removeClass('disabled').removeProp('disabled');
         $('button.backTo').removeClass('disabled').removeProp('disabled');
 
@@ -9082,7 +9055,7 @@
               });
             }
         }
-        if (item.type.match(/custom/)) { 
+        if (item.type.match(/custom/)) {
           var cv = $.customValidators.filter(function(validator) {
             return (validator.name) === item.type;
           });

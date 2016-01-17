@@ -508,11 +508,6 @@ interface TruckStatic {
   Model(data: any, handle: string): Model;
 
   /**
-   * A stack to hold registered views.
-   */
-  RegisteredViews: Stack;
-
-  /**
    * This method create a View object.
    *
    * options An object of key/value pairs to initialize the view.
@@ -2674,7 +2669,7 @@ interface View {
    *
    * @return parent The parent element the view is bound to.
    */
-  getParent(): Truck;
+  getElement(): Truck;
 
   /**
    *
@@ -2682,7 +2677,7 @@ interface View {
    * @param element 
    * @return void
    */
-  setParent(element: string | Element | DOMStack): void;
+  setElement(element: string | Element | DOMStack): void;
 
   /**
    * Tell a view to stop responding to render commands. Even though the view may be bound to a model, after it has been stopped, it will not respond to changes in the model. You can make the model respond again to model changes by using the `restart` method.
@@ -2756,13 +2751,6 @@ interface View {
    * @return string A Unix timestamp
    */
   getLastRenderTime(): string;
-
-  /**
-   * Get the name for the view that was provided during initialization.
-   *
-   * @return string The name of the view.
-   */
-  getViewName(): string;
 
   /**
    * Tell the view to escape all HTML elements. By default Truck does not escpate HTML code. You can also set the view up to automatically escape HTML at initialization time with the property `escapeHTML` set to true.

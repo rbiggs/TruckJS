@@ -4,27 +4,6 @@
   //=============
   // Define View:
   //=============
-  $.extend({
-    RegisteredViews: $.Stack([]),
-  });
-  $.extend($.RegisteredViews, {
-    getViewsByScreen: function(screen) {
-      var ret = [];
-      $.RegisteredViews.forEach(function(item) {
-        if (item.screen === screen) {
-          ret = item.views;
-        }
-      });
-      return ret;
-    },
-    getAllViews: function() {
-      var ret = [];
-      $.RegisteredViews.forEach(function(item) {
-        ret = ret.concat(item.views);
-      });
-      return ret;
-    }
-  });
 
   $.extend({
 
@@ -75,7 +54,6 @@
       var __template = options.template;
       var __model = options.model;
       var __mediator = options.mediator;
-      var __name = options.name || $.uuid();
       var __index = options.index || 1;
       var __rendered = false;
       var __variable = options.variable || 'data';
@@ -108,30 +86,6 @@
       //===================
       
       var parsedTemplate;
-
-      var pluck = function(stack, property) {
-        var ret = [];
-        if (stack.size()) {
-          var len = stack.size();
-          var data = stack.getData();
-          for (var i = 0; i < len; i++) {
-            ret.push(data[i][property]);
-          }
-          return ret;
-        }
-      };
-      if (pluck($.RegisteredViews, parentScreen)) {
-        $.RegisteredViews.forEach(function(item) {
-          if (item.screen === parentScreen) {
-            item.views.push(__name);
-          }
-        });
-      } else {
-        $.RegisteredViews.push({
-          screen: parentScreen,
-          views: [__name]
-        });
-      }
 
       var parseView = function(template, variable) {
         var interpolate = /\$\{([\s\S]+?)\}/img;
@@ -586,10 +540,6 @@
 
         getLastRenderTime: function() {
           return __lastRenderTime;
-        },
-
-        getViewName: function() {
-          return __name;
         },
 
         escapeHTML: function(boolean) {
