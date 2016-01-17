@@ -94,6 +94,9 @@
       var __renderCount = 0;
 
       var parentScreen = (function() {
+        if (__element && __element.is('screen')) {
+          return __element;
+        }
         if (__element && __element.closest('screen').size()) {
           return __element.closest('screen')[0].id;
         }
