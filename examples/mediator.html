@@ -51,8 +51,10 @@
       console.log('')
     });
     
+    // Run the mediator:
     FooMtor.run('This is Godzilla!');
 
+    // Dispatch to both mediators:
     $.dispatch('baz-handle', 'This is for everyone.')
 
   </script>

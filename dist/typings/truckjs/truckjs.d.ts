@@ -3295,7 +3295,10 @@ interface TruckStatic {
   /**
    * Get the currently selected button. This reutrns a zero-based number.
    */
-    getSelection(): number;
+    getSelection(): {
+        index: number;
+        element: Truck;
+    };
   };
   
   /**

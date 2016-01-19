@@ -8,7 +8,7 @@
   $.extend({
     lib: "TruckJS",
 
-    version: '1.0.0-beta.6',
+    version: '1.0.0-beta.7',
 
     noop: function() {},
 

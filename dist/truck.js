@@ -485,7 +485,7 @@
   $.extend({
     lib: "TruckJS",
 
-    version: '1.0.0-beta.6',
+    version: '1.0.0-beta.7',
 
     noop: function() {},
 
@@ -9537,6 +9537,7 @@
         var segmented;
         var labels = (settings.labels) ? settings.labels : [];
         var __selection;
+        var __element;
 
         function createSegmentedButton() {
           var __segmented = ['<div class="segmented">'];
@@ -9554,6 +9555,7 @@
           __segmented.push('</div>');
           segmented = __segmented.join('');
           $(settings.element).append(segmented);
+          if (__selection) __element = $(settings.element).find('button').eq(__selection)
         }
         createSegmentedButton();
 
@@ -9565,13 +9567,17 @@
           $this.siblings('button').removeAttr('aria-checked');
           $this.addClass('selected');
           __selection = $this.index();
+          __element = $(this);
           $this.attr('aria-checked', true);
           callback.call(this, e);
         });
 
         return {
           getSelection: function() {
-            return __selection
+            return {
+              index: __selection,
+              element: __element
+            }
           }
         }
       }

@@ -58,7 +58,6 @@
       <ul class="list">
         <li id="results"></li>
       </ul>
-      <summary>Open the console of the browser's web inspector to examine the JSON object this form returns when it is validated. Please note that it only returns an object when the validation was successful.</summary>
     </section>
   </screen>
   <script>
@@ -118,7 +117,6 @@
         if(!$.myForm.errors()) {
           $.formData = $.myForm.get();
           ResultsView.render(JSON.stringify($.formData));
-          console.dir($.formData);
         }
       });
     });

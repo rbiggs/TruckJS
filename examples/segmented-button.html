@@ -15,7 +15,21 @@
       // Define callback for Segmented Control:
       //======================================
       var segmentedResponse = function() {
-        SegmentValueView.render(segCtrl.getSelection() + 1);
+        var selection = segCtrl.getSelection().index;
+        var choice;
+        switch(selection) {
+          case 0:
+            choice = 'one';
+            break;
+          case 1:
+            choice = 'two';
+            break;
+          case 2:
+            choice = 'three';
+            break;
+        }
+        SegmentValueView.render(choice);
+        ContentView.render(segCtrl.getSelection().element.text());
       };
 
       // View for chosen segment value:
@@ -23,7 +37,11 @@
       var SegmentValueView = $.View({
         element: '.attentionGrapper',
         variable: 'value'
-      })
+      });
+      var ContentView = $.View({
+        element: '#content',
+        variable: 'text'
+      });
 
       // Setup segmented control:
       //=========================
@@ -33,7 +51,8 @@
         selected: 2,
         callback: segmentedResponse
       });
-      SegmentValueView.render(segCtrl.getSelection() + 1);
+      SegmentValueView.render('three');
+      ContentView.render('Yeah, Yeah');
     });
   </script>
 </head>
@@ -47,7 +66,10 @@
       </div>
       <ul class='list' id='output'>
         <li>
-          <h3>You selected panel: <span class='attentionGrapper'>${ value }</span>.</h3>
+          <div>
+            <h3>You selected segment: <span class='attentionGrapper'>${ value }</span>.</h3>
+            <h4>Content: <span id="content">${ text }</span></h4>
+          </div>
         </li>
       </ul>
     </section>

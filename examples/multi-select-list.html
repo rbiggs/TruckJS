@@ -25,7 +25,7 @@
       <p>You are going to: <strong><span id="response" class='attentionGrapper'></span></strong></p>
       <p>
         <button id='done' class="action">Validate</button>
-        <p>Open the web inspector's console to see results.</p>
+        <p>Validation Results: <span id="valiationResults"></span></p>
       </p>
     </section>
   </screen>
@@ -91,7 +91,7 @@
         // If validation passed, output results:
         if(!choice.errors()) {
           var formData = choice.get();
-          console.dir(formData)
+          $('#valiationResults').text(JSON.stringify(formData));
         }
       });
       
