@@ -2542,13 +2542,13 @@ interface Stack {
 interface View {
 
   /**
-   * Render a view with the provided data. If the append true boolean is provided, the data will be rendered and appended to the view.
+   * Render a view with the provided data. If the append true boolean is provided, the data will be rendered and appended to the view. If no data is provided and the view is bound to a model, it will render with the model.
    *
    * @param data The data to render the view with.
    * @param append A boolean to determine whether to append the rendered data to the view or rerender the view with the full set of data.
    * @return void
    */
-  render(data: any, append?: boolean): void;
+  render(data?: any, append?: boolean): void;
 
   /**
    * Delete all of the view's content from the DOM.
