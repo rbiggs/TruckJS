@@ -35,19 +35,19 @@ h1, h2, h3, h4, h5 {
   transition: all .25s ease-out;
 }
 h1 {
-  font: -apple-system-headline !important;
+  font: -apple-system-headline;
   font-weight: 300;
   font-size: 1.25em;
   text-align: left;
 }
 h2 {
-  font: -apple-system-headline !important;
+  font: -apple-system-headline;
   font-size: 1em;
   font-weight: normal;
   margin-left: 5px;
 }
 h2.normal-case {
-  text-transform: none !important;
+  text-transform: none;
 }
 h2.no-wrap {
   white-space: nowrap;
@@ -55,21 +55,21 @@ h2.no-wrap {
   text-overflow: ellipsis;
 }
 h2 + ul {
-  margin-top: 5px !important;
+  margin-top: 5px;
 }
 ul + h2 {
-  margin-top: 30px !important;
+  margin-top: 30px;
 }
 h3 {
-  font: -apple-system-subheadline !important;
+  font: -apple-system-subheadline;
   font-size: 1em;
-  font-weight: 400 !important;
+  font-weight: 400;
   margin: 0;
 }
 h4 {
-  font: -apple-system-subheadline !important;
+  font: -apple-system-subheadline;
   font-size: 1em;
-  font-weight: 400 !important;
+  font-weight: 400;
   color: #7f7f7f;
 }
 
@@ -197,7 +197,7 @@ ul.list > li {
   cursor: pointer;
   border: solid 1px #333333;
   background-color: #eeeeee;
-  color: #333333 !important;
+  color: #333333;
 }
 .list > li[data-goto]:hover *,
 .list > li[data-show-article]:hover * {
@@ -286,11 +286,11 @@ aside {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   display: -webkit-flex;
-  -webkit-justify-content: center !important;
-  -webkit-align-items: center !important;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
   display: flex;
-  justify-content: center !important;
-  align-items: center !important;
+  justify-content: center;
+  align-items: center;
   width: 20px;
 }
 aside > disclosure {
@@ -308,30 +308,30 @@ aside > span + disclosure {
   margin-left: 10px;
 }
 aside.price, aside.number, aside.date, aside.time {
-  width: auto !important;
-  margin-left: 10px !important;
+  width: auto;
+  margin-left: 10px;
 }
 ul.list > li > div:only-child {
   display: -webkit-flex;
-  -webkit-flex-direction: column !important;
-  -webkit-align-items: flex-start !important;
+  -webkit-flex-direction: column;
+  -webkit-align-items: flex-start;
   display: flex;
-  flex-direction: column !important;
-  align-items: flex-start !important;
+  flex-direction: column;
+  align-items: flex-start;
 }
 li > aside:last-child > info {
   width: 20px;
   height: 20px;
   border-radius: 20px;
   border: solid 1px #007aff;
-  color: #007aff !important;
+  color: #007aff;
   font-weight: bold;
   line-height: 0;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 10px;
   float: right;
-  margin: 0 0 0 10px !important;
+  margin: 0 0 0 10px;
   position: relative;
 }
 info::after {
@@ -363,7 +363,7 @@ html[dir=rtl] .separator {
 }
 html[dir=rtl] li > aside:last-child > info {
   float: left;
-  margin: 0 10px 0 0 !important;
+  margin: 0 0 0 10px;
 }
 html[dir=rtl] info::after {
   position: absolute;
@@ -422,12 +422,12 @@ button {
   text-align: center;
 }
 button:hover {
-  border-color: #333333 !important;
+  border-color: #333333;
 }
 button.selected {
   color: #333333;
   background-color: #007aff;
-  border-color: #007aff !important;
+  border-color: #007aff;
 }
 
 /*==============*/
@@ -437,17 +437,17 @@ button.back,
 button.backTo {
   margin: 0 10px 0 0;
   text-align: left;
-  padding: 0 !important;
+  padding: 0;
   position: relative;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: inline-flex !important;
+  display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  width: 40px !important;
-  height: 40px !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
   border: none;
   overflow: hidden;
   font-size: 0;
@@ -467,8 +467,8 @@ button.backTo svg {
 }
 .isSafari button.back svg,
 .isSafari button.backTo svg {
-  height: 30px !important;
-  width: 30px !important;
+  height: 30px;
+  width: 30px;
   position: absolute;
   top: 5px;
   left: 4px;
@@ -489,7 +489,6 @@ html[dir=rtl] button.back svg,
 html[dir=rtl] button.backTo svg {
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
-  left: 20px;
 }
 
 /*================*/
@@ -539,7 +538,7 @@ tabbar {
   background-color: #f7f7f7; 
 }
 tabbar ~ screen {
-  bottom: 50px !important;
+  bottom: 50px;
 }
 tabbar > button {
   position: relative;
@@ -565,18 +564,18 @@ tabbar > button > .icon {
   display: none;     
 }
 tabbar ~ screen {
-  top: 30px !important;
+  top: 30px;
 }
 tabbar ~ screen.previous,
 footer.tabbar ~ screen.next {
   display: none;
-  -webkit-transform: none !important;
-  transform: none !important;
+  -webkit-transform: none;
+  transform: none;
 }
 tabbar ~ screen.current {
   display: block;
-  -webkit-transform: none !important;
-  transform: none !important;
+  -webkit-transform: none;
+  transform: none;
 }
 tabbar > button.more > .icon::before {
   content: '…';
@@ -649,8 +648,8 @@ slideout ~ screen:not(.show):not([DATA-GOTO]):not(.current):not(.next) {
   display: none;
 }
 slideout ~ screen.show {
-  display: -webkit-flex !important;
-  display: flex !important;
+  display: -webkit-flex;
+  display: flex;
 }
 slideout ~ screen.next,
 slideout ~ screen.current {
@@ -672,14 +671,14 @@ button.slide-out-button {
   right: 10px;
   width: 35px;
   height: 35px;
-  background-image: -webkit-linear-gradient(left, #333, #333) !important;
-  background-image: -moz-linear-gradient(left, #333, #333) !important;
-  background-image: linear-gradient(left, #333, #333) !important;
-  background-size: 26px 3px !important;
+  background-image: -webkit-linear-gradient(left, #333, #333);
+  background-image: -moz-linear-gradient(left, #333, #333);
+  background-image: linear-gradient(left, #333, #333);
+  background-size: 26px 3px;
   background-repeat: no-repeat;
   background-position: 4px center;
   box-sizing: border-box;
-  padding: 0 !important;
+  padding: 0;
   margin-left: 0;
   -webkit-transform-origin: center center;
   transform-origin: center center;
@@ -712,7 +711,7 @@ button.slide-out-button::after {
   transition: all 0.25s ease-out;
 }
 button.slide-out-button.focused {
-  background-image: none !important;
+  background-image: none;
 }
 button.slide-out-button.focused::before {
   transform: rotate(39deg);
@@ -992,7 +991,7 @@ input[type=password]:focus,
 input[type=email]:focus,
 input[type=url]:focus,
 input[type=text]:focus {
-  outline: none !important;
+  outline: none;
 }
 
 input[type=text].invalid,
@@ -1001,7 +1000,7 @@ input[type=password].invalid,
 input[type=email].invalid,
 input[type=url].invalid,
 input[type=text].invalid {
-  box-shadow: 0 0 3px 1px red !important;
+  box-shadow: 0 0 3px 1px red;
 }
 
 label + input {
@@ -1015,15 +1014,15 @@ label + input {
   cursor: pointer;
 }
 .select-list > li > h3 {
-  margin-left: 30px !important;
+  margin-left: 20px !important;
 }
 .select-list > li > span.selection-indicator {
   /*display: none;*/
   visibility: hidden;
   height: 20px;
   width: 20px;
-  -webkit-order: -1 !important;
-  order: -1 !important;
+  -webkit-order: -1;
+  order: -1;
 }
 .select-list > li > input {
   display: none;
@@ -1035,12 +1034,9 @@ label + input {
 .select-list > li.selected > span.selection-indicator {
   visibility: visible;
 }
-.select-list > li.selected > h3 {
-  margin-left: 10px !important;
-}
 html[dir=rtl] .select-list > li > h3 {
-  margin-left: 0 !important;
-  margin-right: 10px !important;
+  margin-left: 0;
+  margin-right: 10px;
 }
 
 /*===================*/
@@ -1048,8 +1044,8 @@ html[dir=rtl] .select-list > li > h3 {
 /*===================*/
 ul.multi-select-list > li {
   cursor: pointer;
-  -webkit-align-items: center !important;
-  align-items: center !important;
+  -webkit-align-items: center;
+  align-items: center;
 }
 .multi-select-list > li > span.multi-selection-indicator { 
   height: 20px;
@@ -1203,7 +1199,7 @@ html[dir=rtl] switch.checked > em {
   -webkit-direction: column;
   flex-direction: column;
   width: 50%;
-  min-width: 250px !important;
+  min-width: 250px;
   background-color: #fafafa;
   padding: 20px 10px;
   transition: all 0.25s ease-in-out;
@@ -1237,7 +1233,7 @@ html[dir=rtl] switch.checked > em {
   color: #000000;
 }
 .popup > .panel {
-  display: block !important;
+  display: block;
   color: #fff;
   font: normal 16px/22px Helvetica, Arial, Sans-serif;
   padding: 0 0 10px 0;
@@ -1253,9 +1249,9 @@ html[dir=rtl] switch.checked > em {
 .popup header,
 .popup footer {
   box-sizing: border-box;
-  display: -ms-flexbox !important;
-  display: -webkit-flex !important;
-  display: flex !important;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
   -ms-flex-direction: row;
   -webkit-direction: row;
   flex-direction: row;
@@ -1265,7 +1261,7 @@ html[dir=rtl] switch.checked > em {
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
-  height: auto !important;
+  height: auto;
 }
 .popup footer {
   height: auto;
@@ -1284,7 +1280,7 @@ html[dir=rtl] switch.checked > em {
   max-width: 100%;
   box-shadow: none;
   margin: 10px 0px;
-  height: 42px !important;
+  height: 42px;
   font-size: 18px;
   line-height: 32px;
   padding: 8px 20px;
@@ -1296,10 +1292,10 @@ html[dir=rtl] switch.checked > em {
 }
 .popup footer > button:hover {
   background-color: #cccccc;
-  border-color: #333333 !important;
+  border-color: #333333;
 }
 .popup footer + button {
-  margin-left: 10px !important;
+  margin-left: 10px;
 }
 html[dir=rtl] .popup footer > button:last-of-type {
   margin-left: 0;
@@ -1325,9 +1321,9 @@ html[dir=rtl] .popup footer > button:last-of-type {
   display: -ms-inline-flexbox;
   display: -webkit-inline-flex;
   display: inline-flex;
-  -ms-flex-direction: column !important;
-  -webkit-flex-direction: column !important;
-  flex-direction: column !important;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
@@ -1342,7 +1338,7 @@ html[dir=rtl] .popup footer > button:last-of-type {
   height: 32px;
   line-height: 30px;
   cursor: pointer;
-  margin: 0px !important;
+  margin: 0px;
   padding: 0px 10px;
   transition: none;
 }
@@ -1350,15 +1346,15 @@ html[dir=rtl] .popup footer > button:last-of-type {
   border-left: solid 2px #cccccc;
 }
 .segmented > button:hover {
-  opacity: 1 !important;
+  opacity: 1;
   box-shadow: none;
-  border-color: #333333 !important;
+  border-color: #333333;
 }
 .segmented > button.selected {
-  color: #ffffff !important;
-  opacity: 1 !important;
+  color: #ffffff;
+  opacity: 1;
   box-shadow: none;
-  border-color: #007aff !important;
+  border-color: #007aff;
   background-color: #007aff;
 }
 div.horizontal.centered > .segmented {
@@ -1375,7 +1371,7 @@ input[type="range"] {
   margin-top: 20px;
   margin-bottom: 20px;
   height: 24px;
-  overflow: visible !important;
+  overflow: visible;
   background-color: transparent;
   border: none;
 }
@@ -1419,8 +1415,8 @@ sheet {
   transform: translate3d(0, 100%, 0);
 }
 sheet.slideDown {
-  -webkit-transform: translate3d(0, -120%, 0) !important;
-  transform: translate3d(0, -120%, 0) !important;
+  -webkit-transform: translate3d(0, -120%, 0);
+  transform: translate3d(0, -120%, 0);
 }
 sheet div.handle {
   display: block;
@@ -1441,17 +1437,17 @@ sheet div.handle #sheet-handle {
 sheet.opened,
 sheet.slideDown.opened {
   visibility: visible;
-  -webkit-transform: translate3d(0, 0, 0) !important;
-  transform: translate3d(0, 0, 0) !important;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 sheet.slideDown > div.handle  svg {
-  -webkit-transform: rotate(180deg) !important;
-  transform: rotate(180deg) !important;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 .sheet button.action {
   display: block;
   margin: 0 auto;
-  padding: 10px 20px !important;
+  padding: 10px 20px;
   width: auto;
   height: auto;
 }
@@ -1468,11 +1464,11 @@ sheet > section > h2 {
 }
 sheet > section > .list {
   border: none;
-  background-color: transparent !important;
+  background-color: transparent;
 }
 sheet > section > .list > li {
   border-bottom: solid 1px #585d63;
-  background-color: transparent !important;
+  background-color: transparent;
 }
 sheet > section > .list > li::before {
   content: none;
@@ -1494,14 +1490,14 @@ screen.current.blurred.removeBlurSlow {
 /* Paging */
 /*========*/
 .pager {
-  -webkit-box-orient: horizontal !important;
-  -webkit-flex-direction: row !important;
-  flex-direction: row !important;
+  -webkit-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  flex-direction: row;
 }
 .pager > button {
   display: inline-block;
   border: solid 2px #929292;
-  background: none !important;
+  background: none;
   width: 30px;
   height: 40px;
   -webkit-box-sizing: border-box;
@@ -1512,8 +1508,8 @@ screen.current.blurred.removeBlurSlow {
 }
 .isDesktop .pager > button:hover,
 .pager > button.selected {
-  background-color: transparent !important;
-  border-color: #333 !important;
+  background-color: transparent;
+  border-color: #333;
 }
 .pager > button > svg {
   /*-webkit-transform: scale(.8);
@@ -1521,14 +1517,14 @@ screen.current.blurred.removeBlurSlow {
 }
 #pagination-icons path#page-previous,
 #pagination-icons path#page-next {
-  stroke: #929292 !important;
+  stroke: #929292;
   stroke-width: 3;
 }
 .isDesktop .pager > button:hover  #pagination-icons path#page-previous,
 .pager > button.selected  #pagination-icons path#page-previous,
 .isDesktop .pager > button:hover  #pagination-icons path#page-next,
 .pager > button.selected  #pagination-icons path#page-next {
-  stroke: #333 !important;
+  stroke: #333;
 }
 section.paging {
   position: relative;
@@ -1541,19 +1537,19 @@ section.paging > article {
   bottom: 0;
   top: 0;
   opacity: 1;
-  padding: 0 0 100px 0 !important;
+  padding: 0 0 100px 0;
   overflow-x: hidden;
   overflow-y: scroll;
   -webkit-transition: all 0.15s ease-out;
   transition: all 0.15s ease-out;
 }
 article.paging {
-  overflow: hidden !important;
-  overflow-y: scroll !important;
-  -webkit-box-orient: vertical !important;
-  -webkit-direction: column !important;
-  box-orient: vertical !important;
-  direction: column !important;
+  overflow: hidden;
+  overflow-y: scroll;
+  -webkit-box-orient: vertical;
+  -webkit-direction: column;
+  box-orient: vertical;
+  direction: column;
 }
 /* Scaling needed to fix overflow bug in mobile Safari: */
 section.paging > article.previous {
@@ -1567,6 +1563,10 @@ section.paging > article.current {
 section.paging > article.next {
   -webkit-transform: translate3d(100%, 0, 0) scale(0, 1);
   transform: translate3d(100%, 0, 0) scale(0, 1);
+}
+html[dir=rtl] .pager > button > svg {
+  -webkit-transform: rotate(180deg) !important;
+  transform: rotate(180deg) !important;
 }
 
 /*=================*/
@@ -1611,7 +1611,7 @@ section.paging > article.next {
 }
 .popover > section > ul.list,
 .popover > section > ul.list > li {
-  margin: 0 !important;
+  margin: 0;
 }
 .popover > section > ul.list > li:hover {
   background-color: #007aff;
@@ -1667,7 +1667,7 @@ html[dir=rtl] button.show-popover + button.show-popover {
   font-weight: bold;
   font-size: 12pt;
   line-height: 18pt;
-  cursor: pointer !important;
+  cursor: pointer;
   margin: 0;
   overflow: hidden;
   box-sizing: border-box;
@@ -1682,7 +1682,7 @@ html[dir=rtl] button.show-popover + button.show-popover {
   flex: 1;
 }
 .isDesktop .stepper > button:hover {
-  box-shadow: none !important;
+  box-shadow: none;
 }
 
 @media only screen and (max-device-width: 480px) {
@@ -1720,7 +1720,7 @@ nav > .truck-busy {
   padding: 20px;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
-  overflow-y: hidden !important;
+  overflow-y: hidden;
   overflow-x: scroll;
   white-space: nowrap;
   box-sizing: border-box;
@@ -1744,10 +1744,10 @@ nav > .truck-busy {
   font-size: 0;
 }
 .scroll-panel > ul li:first-of-type {
-  margin-left: 0 !important;
+  margin-left: 0;
 }
 .scroll-panel > ul li:last-of-type {
-  margin-right: 20px !important;
+  margin-right: 20px;
 }
 body.isWindows .scroll-panel {
   background-color: #333;

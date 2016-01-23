@@ -283,9 +283,6 @@
       };
     }
 
-    function anim() {
-    }
-
     $.extend({
       anim: (function() {
 

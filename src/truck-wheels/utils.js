@@ -150,6 +150,24 @@
           if (callback.call(obj[key], key, obj[key]) === false) return obj;
         }
       }
+    },
+
+    unique: function(array) {
+      if (!array || !Array.isArray(array)) return;
+      var len = array.length;
+      var obj = {};
+      var ret = [];
+      for (var i = 0; i < len; i++) {
+        var arrayItem = JSON.stringify(array[i]);
+        var arrayItemValue = array[i];
+        if (obj[arrayItem] === undefined) {
+          ret.push(arrayItemValue);
+          obj[arrayItem] = 1;
+        } else {
+          obj[arrayItem]++;
+        }
+      }
+      return ret
     }
   });
 })();

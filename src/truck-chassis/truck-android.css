@@ -142,6 +142,8 @@ nav {
   background-color: #f0f0f0;
   box-shadow: 0 3px 8px 1px rgba(0, 0, 0, 0.2);
   background-color: #eee;
+  position: relative;
+  z-index: 100;
   display: -webkit-flex;
   -webkit-flex-direction: row;
   -webkit-align-items: center;
@@ -528,6 +530,10 @@ button.backTo {
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
 }
+nav button.back > span,
+nav button.backTo > span {
+  display: none;
+}
 button.back svg {
   display: block;
   height: 30px !important;
@@ -570,7 +576,7 @@ nav > .back.selected #truck-back-arrow {
   }
 }
 html[dir=rtl] button.back svg {
-  margin: 0px 12px 0px 0px;
+  margin: 0px 6px 0px 0px;
   -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
@@ -711,6 +717,9 @@ tabbar ~ screen.current {
   display: block;
   -webkit-transform: none !important;
   transform: none !important;
+}
+tabbar > button.more > label {
+  display: none !important;
 }
 tabbar > button.more > .icon::before {
   content: '…';

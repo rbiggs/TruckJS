@@ -137,6 +137,14 @@ interface TruckStatic {
   each<T>(array: T[], callback: (idx: number, ctx: T) => any): any;
 
   /**
+   * This method removes all duplicates from an array. This works with simple arrays or collections of objects.
+   *
+   * @param array An array are to process.
+   * @return array Returns an array of unique items.
+   */
+  unique<T>(array: T[]): any[];
+
+  /**
    * Determine the internal JavaScript type of an object. 
    * 
    * @param obj Object to get the internal JavaScript type.

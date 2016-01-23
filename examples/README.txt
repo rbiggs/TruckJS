@@ -3,9 +3,9 @@ Runing these examples
 
 By default these examples are using the iOS theme. You can change the theme by changing the reference to the stylesheet the example uses. Possible choices are:
 
-  1. truck-android.css
+  1. truck-ios.css
   2. truck-ios.css
-  3. truck-windows.css
+  3. truck-ios.css
 
 You can run these examples on the following desktop browsers for testing:
 
