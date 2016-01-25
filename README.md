@@ -749,5 +749,4 @@ Editable list can be set to auto-box. This means that when the user taps the `Do
 
 Please look at `editable-auto-box.html` in examples.
 
-###To learn more about TruckJS, please visit the [TruckJS website](http://
-truckjs.io).
+###To learn more about TruckJS, please visit the [TruckJS website](http://truckjs.io).
