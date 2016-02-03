@@ -96,10 +96,10 @@
     </nav>
     <section class='paging'>
       <article class='next'>
-        <h2>${ data.title } Article</h2>
+        <h2>{= data.title } Article</h2>
           <ul class="list">
             {{  data.items.forEach(function(item) {  }}
-            <li> ${ item }</li>
+            <li> {= item }</li>
             {{  });  }}
           </ul>
       </article>

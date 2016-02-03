@@ -25,18 +25,18 @@
   <section>
     <h2>Sort Array of Names</h2>
     <ul id='names' class="list cloak">
-      <li>${ name.toUpperCase() }</li>
+      <li>{= name.toUpperCase() }</li>
     </ul>
     <h2>Sort Array of Dates</h2>
     <ul id="dates" class="list">
       <li>
-        <h3>${ new Date(date).getFullYear() }, ${ $.getMonth(new Date(date).getMonth()) }</h3>
+        <h3>{= new Date(date).getFullYear() }, {= $.getMonth(new Date(date).getMonth()) }</h3>
       </li>
     </ul>
     <h2>Sort Array of Prices</h2>
     <ul id='prices'class='list'>
       <li>
-        <h3><span>${ $.currency(price) }</span></h3>
+        <h3><span>{= $.currency(price) }</span></h3>
       </li>
     </ul>
   </section>

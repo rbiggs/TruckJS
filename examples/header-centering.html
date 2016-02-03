@@ -68,12 +68,12 @@
       <h2>Arrays</h2>
 
       <ul class="list cloak" id="arrayTemplate1">
-        <li data-goto='detail:${ data.guid }'>
+        <li data-goto='detail:{= data.guid }'>
           <div class='no-flex'>
-            <img data-src='${ data.image }' alt="">
+            <img data-src='{= data.image }' alt="">
           </div>
           <h3>
-            ${ $.view.index }: ${ data.firstName } ${ data.lastName }
+            {= $.view.index }: {= data.firstName } {= data.lastName }
           </h3>
           <aside>
             <disclosure></disclosure>
@@ -99,16 +99,16 @@
       <h2 class='normal-case'>Here's your information:</h2>
       <ul class="list" id='chosenPersonList'>
         <li>
-          <h3>First Name: ${ data.firstName }</h3>
+          <h3>First Name: {= data.firstName }</h3>
         </li>
         <li>
-          <h3>Last Name: ${ data.lastName }</h3>
+          <h3>Last Name: {= data.lastName }</h3>
         </li>
         <li>
           <div class='no-flex'>
             <h3>Your picture:</h3>
           </div>
-          <img data-src='${ data.image }' alt="${ data.firstName} + ' ' + ${ data.lastName}">
+          <img data-src='{= data.image }' alt="{= data.firstName} + ' ' + {= data.lastName}">
         </li>
       </ul>
       <p> The full route is: <span class='fullRoute'></span></p>

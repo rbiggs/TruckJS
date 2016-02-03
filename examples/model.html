@@ -47,12 +47,12 @@
       <ul id="listView" class='list cloak'>
         <li class='comp'>
           <div>
-            <h3>${ data.firstName } ${ data.lastName }</h3>
-            <h4>Age: ${ data.age }</h4>
+            <h3>{= data.firstName } {= data.lastName }</h3>
+            <h4>Age: {= data.age }</h4>
           </div>
         </li>
       </ul>
-      <p>The model has <span id='numberOfPeople'>${ data.count }</span> people.</p>
+      <p>The model has <span id='numberOfPeople'>{= data.count }</span> people.</p>
       <br>
       <h2>Add a new person to model</h2>
       <ul class="list" id="form">

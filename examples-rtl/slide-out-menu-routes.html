@@ -70,25 +70,25 @@
   <!-- Script Tag Templates -->
   <script id='music-template' type='text/x-template'>
     <li>
-      <img  data-src="${ data.image }" height="80px">
+      <img  data-src="{= data.image }" height="80px">
       <div>
-        <h3>${ data.title }</h3>
-        <h4>${ data.album }</h4>
-        <p>${ data.description }</p>
+        <h3>{= data.title }</h3>
+        <h4>{= data.album }</h4>
+        <p>{= data.description }</p>
       </div>
     </li>
   </script>
 
   <script id='pictures-template' type='text/x-template'>
-    <img class="col" data-src="${ data }">
+    <img class="col" data-src="{= data }">
   </script>
 
   <script id='documents-template' type='text/x-template'>
     <li class='center-vertical'>
-      <h3>${ data.title }</h3>
-      <h4>${ data.subtitle }</h4>
+      <h3>{= data.title }</h3>
+      <h4>{= data.subtitle }</h4>
       <aside>
-        <span class='counter'>${ data.amount }</span>
+        <span class='counter'>{= data.amount }</span>
       </aside>
     </li>
   </script>
@@ -96,11 +96,11 @@
   <script id='dictionary-template' type='text/x-template'>
     <li>
       <div>
-        <h3>${ data.term }</h3>
+        <h3>{= data.term }</h3>
         <h4>المعاني</h4>
         <ul>
           {{ data.meaning.forEach(function(ingredient) { }}
-            <li>${ ingredient }</li>
+            <li>{= ingredient }</li>
           {{ }); }}
         </ul>
       </div>
@@ -109,7 +109,7 @@
 
   <script id='favorites-template' type='text/x-template'>
     <li>
-       <h3>${ data }</h3>
+       <h3>{= data }</h3>
     </li> 
   </script>
 

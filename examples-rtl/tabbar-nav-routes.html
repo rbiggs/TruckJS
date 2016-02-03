@@ -93,11 +93,11 @@
     <section>
       <ul class='list' id='musicList'>
         <li>
-          <img  data-src="${ music.image }" height="80px">
+          <img  data-src="{= music.image }" height="80px">
           <div>
-            <h3>${ music.title }</h3>
-            <h4>${ music.album }</h4>
-            <p>${ music.description }</p>
+            <h3>{= music.title }</h3>
+            <h4>{= music.album }</h4>
+            <p>{= music.description }</p>
           </div>
         </li>
       </ul>  
@@ -110,7 +110,7 @@
     </nav>
     <section id='imageGrid'>
       <div class="grid" id='gridOfImages'>
-        <img class="col" data-src="${ image }">
+        <img class="col" data-src="{= image }">
       </div>
     </section>
   </screen>
@@ -123,10 +123,10 @@
       <ul class='list' id='docsList'>
         <script type='text/x-template'>
           <li class='center-vertical'>
-            <h3>${ doc.title }</h3>
-            <h4>${ doc.subtitle }</h4>
+            <h3>{= doc.title }</h3>
+            <h4>{= doc.subtitle }</h4>
             <aside>
-              <span class='counter'>${ doc.amount }</span>
+              <span class='counter'>{= doc.amount }</span>
             </aside>
           </li>
         </script>
@@ -144,11 +144,11 @@
         <script type='text/x-template'>
           <li>
             <div>
-              <h3>${ dictionary.term }</h3>
+              <h3>{= dictionary.term }</h3>
               <h4>المعاني</h4>
               <ul>
                 {{ dictionary.meaning.forEach(function(ingredient) { }}
-                  <li>${ ingredient }</li>
+                  <li>{= ingredient }</li>
                 {{ }); }}
               </ul>
             </div>
@@ -166,9 +166,9 @@
       <h2>ثمار</h2>
       <ul class='list' id='fruitsList'>
         <script type='text/x-template'>
-          <li class='center-vertical' data-goto='chosenFruit:${ fruit.type }'>
+          <li class='center-vertical' data-goto='chosenFruit:{= fruit.type }'>
             <div>
-              <h3>${ fruit.name }</h3>
+              <h3>{= fruit.name }</h3>
             </div>
             <aside>
               <disclosure></disclosure>
@@ -188,7 +188,7 @@
       <h2 id='chosenFruitTitle'>فاكهة</h2>
       <ul class="list" id='chosenFruitList'>
         <li>
-          <h3>${ fruit }</h3>
+          <h3>{= fruit }</h3>
         </li>
       </ul>
     </section>

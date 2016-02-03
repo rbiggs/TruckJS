@@ -124,30 +124,30 @@
     <ul id='numbers' class="list">
       <li>
         <div>
-          <h3>${ number.n1.description }</h3>
-          <h4>${ number.n1.formula }</h4>
-          <p>${ $.formatNumber(number.n1.value) }</p>
+          <h3>{= number.n1.description }</h3>
+          <h4>{= number.n1.formula }</h4>
+          <p>{= $.formatNumber(number.n1.value) }</p>
         </div>
       </li>
       <li>
         <div>
-          <h3>${ number.n2.description }</h3>
-          <h4>${ number.n2.formula }</h4>
-          <p>${ $.formatNumber(number.n2.value) }</p>
+          <h3>{= number.n2.description }</h3>
+          <h4>{= number.n2.formula }</h4>
+          <p>{= $.formatNumber(number.n2.value) }</p>
         </div>
       </li>
       <li>
         <div>
-          <h3>${ number.n3.description }</h3>
-          <h4>${ number.n3.formula }</h4>
-          <p>${ $.formatNumber(number.n3.value, ",", 2) }</p>
+          <h3>{= number.n3.description }</h3>
+          <h4>{= number.n3.formula }</h4>
+          <p>{= $.formatNumber(number.n3.value, ",", 2) }</p>
         </div>
       </li>
       <li>
         <div>
-          <h3>${ number.n4.description }</h3>
-          <h4>${ number.n4.formula }</h4>
-          <p>${ $.formatNumber(number.n4.value, ",", 0) }</p>
+          <h3>{= number.n4.description }</h3>
+          <h4>{= number.n4.formula }</h4>
+          <p>{= $.formatNumber(number.n4.value, ",", 0) }</p>
         </div>
       </li>
     </ul>
@@ -155,16 +155,16 @@
     <ul id='sum'class='list'>
       <li>
         <div>
-          <h3>${ sum.n1.description }</h3>
-          <h4>${ sum.n1.formula }</h4>
-          <p>${ $.sum(sum.n1.value) }</p>
+          <h3>{= sum.n1.description }</h3>
+          <h4>{= sum.n1.formula }</h4>
+          <p>{= $.sum(sum.n1.value) }</p>
         </div>
       </li>
       <li>
         <div>
-          <h3>${ sum.n2.description }</h3>
-          <h4>${ sum.n2.formula }</h4>
-          <p>${ $.sum(1,2,3,4,5,6,7,8,9,10,11,12.4) }</p>
+          <h3>{= sum.n2.description }</h3>
+          <h4>{= sum.n2.formula }</h4>
+          <p>{= $.sum(1,2,3,4,5,6,7,8,9,10,11,12.4) }</p>
         </div>
       </li>
     </ul>
@@ -172,14 +172,14 @@
     <ul id='currency'class='list'>
       <li>
         <div>
-          <h3>${ currency.n1.description }</h3>
-          <h4>${ $.currency(currency.n1.value, "€") }</h4>
+          <h3>{= currency.n1.description }</h3>
+          <h4>{= $.currency(currency.n1.value, "€") }</h4>
         </div>
       </li>
       <li>
         <div>
-          <h3>${ currency.n2.description }</h3>
-          <h4>${ $.currency(currency.n2.value, "$", ",", 0) }</h4>
+          <h3>{= currency.n2.description }</h3>
+          <h4>{= $.currency(currency.n2.value, "$", ",", 0) }</h4>
         </div>
       </li>
     </ul>
@@ -187,8 +187,8 @@
     <ul id='date'class='list'>
       <li>
         <div>
-          <h3>${ date.description }</h3>
-          <h4>${ date.date }</h4>
+          <h3>{= date.description }</h3>
+          <h4>{= date.date }</h4>
         </div>
       </li>
     </ul>
@@ -196,8 +196,8 @@
     <ul id='time'class='list'>
       <li>
         <div>
-          <h3>${ time.description }</h3>
-          <h4>${ time.date }</h4>
+          <h3>{= time.description }</h3>
+          <h4>{= time.date }</h4>
         </div>
       </li>
     </ul>

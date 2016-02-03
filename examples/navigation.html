@@ -39,12 +39,12 @@
       <h2>Arrays</h2>
 
       <ul class="list cloak" id="list">
-        <li data-goto='${ person.firstName }'>
+        <li data-goto='{= person.firstName }'>
           <div class='no-flex'>
-            <img data-src='${ person.image }' alt="">
+            <img data-src='{= person.image }' alt="">
           </div>
           <h3>
-            ${ $.view.index }: ${ person.firstName } ${ person.lastName }
+            {= $.view.index }: {= person.firstName } {= person.lastName }
           </h3>
           <aside>
             <disclosure></disclosure>

@@ -49,7 +49,7 @@
       <h1>Next Page</h1>
     </nav>
     <section>
-      <h2 id='chosenPerson'><span>Welcome, ${ personsName }.</span></h2>
+      <h2 id='chosenPerson'><span>Welcome, {= personsName }.</span></h2>
       <h2 class='normal-case'>Here's your information:</h2>
       <!-- Target for chosenPersonView View -->
       <ul class="list" id='chosenPersonList'></ul>
@@ -92,12 +92,12 @@ var bums = [
     VIPView: $.View({
       name: 'VIPView1',
       element: '#arrayTemplate1', 
-      template: "<li data-goto='detail:${ data.guid }'>\
+      template: "<li data-goto='detail:{= data.guid }'>\
         <div class='no-flex'>\
-          <img data-src='${ data.image }' alt=''>\
+          <img data-src='{= data.image }' alt=''>\
         </div>\
         <h3>\
-          ${ $.view.index }: ${ data.firstName } ${ data.lastName }\
+          {= $.view.index }: {= data.firstName } {= data.lastName }\
         </h3>\
         <aside>\
           <disclosure></disclosure>\
@@ -118,16 +118,16 @@ var bums = [
       name: 'chosenPersonView',
       element: '#chosenPersonList',
       template: "<li>\
-        <h3>First Name: ${ data.firstName }</h3>\
+        <h3>First Name: {= data.firstName }</h3>\
       </li>\
       <li>\
-        <h3>Last Name: ${ data.lastName }</h3>\
+        <h3>Last Name: {= data.lastName }</h3>\
       </li>\
       <li>\
         <div class='no-flex'>\
           <h3>Your picture:</h3>\
         </div>\
-        <img data-src='${ data.image }' alt=\"${ data.firstName} + ' ' + ${ data.lastName}\">\
+        <img data-src='{= data.image }' alt=\"{= data.firstName} + ' ' + {= data.lastName}\">\
       </li>"
     }),
 

@@ -303,7 +303,7 @@ myView = $.View({
 ```
 <ul class="list">
     <script type='text/x-template'>
-      <li>${ person.firstName } ${ person.lastName }, age: ${ person.age }</li>
+      <li>{= person.firstName } {= person.lastName }, age: {= person.age }</li>
     </script>
 </ul>
 ```
@@ -323,7 +323,7 @@ You can output the current index in a repeater loop using $.view.index in the te
 ```
 <ul class="list">
     <script type='text/x-template'>
-      <li>${ $.view.index }: ${ person.firstName } ${ person.lastName }, age: ${ person.age }</li>
+      <li>{= $.view.index }: {= person.firstName } {= person.lastName }, age: {= person.age }</li>
     </script>
 </ul>
 ```    
@@ -331,7 +331,7 @@ You can also put the template directly inside the parent element. In that case m
 
 ```
 <ul class="list cloak">
-  <li>${ $.view.index }: ${ person.firstName }</li>
+  <li>{= $.view.index }: {= person.firstName }</li>
 </ul>
 ```
      
@@ -386,7 +386,7 @@ With a helper defined, we can use it like this:
 
 ```
 <ul class="list cloak">
-  <li>${ $.view.index }: ${ $.helpers.capitalizeName(person) }</li>
+  <li>{= $.view.index }: {= $.helpers.capitalizeName(person) }</li>
 </ul>
 ```
      
@@ -586,7 +586,7 @@ Truck provides a set of functions to format data. You can even use them in a Vie
 ```
 <ul class="list">
     <script type='text/x-template'>
-      <li>${ item.name }, ${ item.amount }, price: ${ $.currency(item.price) }</li>
+      <li>{= item.name }, {= item.amount }, price: {= $.currency(item.price) }</li>
     </script>
 </ul>
 ```
@@ -670,11 +670,11 @@ In our document we will have a view template:
 <ul class="list cloak" id="vipView">
   <li class='comp'>
     <aside>
-      <img data-src='${ data.image }}' alt="${ data.lastName }">
+      <img data-src='{= data.image }}' alt="{= data.lastName }">
     </aside>
     <div>
       <h3>
-        ${ $.view.index }: ${ data.firstName } ${ data.lastName }
+        {= $.view.index }: {= data.firstName } {= data.lastName }
       </h3>
     </div>
   </li>
@@ -701,11 +701,11 @@ You can then use the template helper like this:
 <ul class="list cloak" id="vipView">
   <li class='comp'>
     <aside>
-      <img data-src='${ data.image }' alt="${ data.lastName }">
+      <img data-src='{= data.image }' alt="{= data.lastName }">
     </aside>
     <div>
       <h3>
-        ${ $.helpers.fullName(data) }
+        {= $.helpers.fullName(data) }
       </h3>
     </div>
   </li>

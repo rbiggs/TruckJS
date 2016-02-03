@@ -78,7 +78,7 @@
       var parsedTemplate;
 
       var parseView = function(template, variable) {
-        var interpolate = /\$\{([\s\S]+?)\}/img;
+        var interpolate = /\{=([\s\S]+?)\}/img;
         variable = variable || 'data';
         template.replace("'", "\'");
         /* jshint ignore:start */

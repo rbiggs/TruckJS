@@ -132,8 +132,8 @@
           <template>
             <svg width="200" height="200">
                 <g>
-                <polygon fill="${ data.color }" points="${ data.points }"></polygon>
-                <circle stroke-width='2' stroke="${ data.color }" cx="100" cy="100" r="80"></circle>
+                <polygon fill="{= data.color }" points="{= data.points }"></polygon>
+                <circle stroke-width='2' stroke="{= data.color }" cx="100" cy="100" r="80"></circle>
               </g>
             </svg>
           </template>
@@ -141,11 +141,11 @@
       </ul>
       <p>
         <label for="pointsRange">Drag slider to change number of points on polygon </label><input id='updatePoints' type='range' name="pointsRange" min='6' max='200' value='6' step='2'>
-        <p>Number of points: <span id='numberOfPoints'>${ points }</span></p>
+        <p>Number of points: <span id='numberOfPoints'>{= points }</span></p>
       </p>
       <p>
         <label for="hueRange">Drag slider to change the polygon's hue </label><input id='updateHue' type='range' name="hueRange" min='0' max='360' value='0'>
-        <p>HSL hue value: <span id='hueValue'>${ hue }</span></p>
+        <p>HSL hue value: <span id='hueValue'>{= hue }</span></p>
       </p>
       <summary>This SVG image is rendered by a view and mediator.</summary>
     </section>

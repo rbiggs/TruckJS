@@ -66,27 +66,27 @@
   <!-- Script Music Template -->
   <script id='music-template' type='text/x-template'>
     <li>
-      <img  data-src="${ data.image }" height="80px">
+      <img  data-src="{= data.image }" height="80px">
       <div>
-        <h3>${ data.title }</h3>
-        <h4>${ data.album }</h4>
-        <p>${ data.description }</p>
+        <h3>{= data.title }</h3>
+        <h4>{= data.album }</h4>
+        <p>{= data.description }</p>
       </div>
     </li>
   </script>
 
   <!-- Script Pictres Template -->
   <script id='pictures-template' type='text/x-template'>
-    <img class="col" data-src="${ data }">
+    <img class="col" data-src="{= data }">
   </script>
 
   <!-- Script Documents Template -->
   <script id='documents-template' type='text/x-template'>
     <li class='center-vertical'>
-      <h3>${ data.title }</h3>
-      <h4>${ data.subtitle }</h4>
+      <h3>{= data.title }</h3>
+      <h4>{= data.subtitle }</h4>
       <aside>
-        <span class='counter'>${ data.amount }</span>
+        <span class='counter'>{= data.amount }</span>
       </aside>
     </li>
   </script>
@@ -95,17 +95,17 @@
   <script id='recipes-template' type='text/x-template'>
     <li>
       <div>
-        <h3>${ data.name }</h3>
+        <h3>{= data.name }</h3>
         <h4>Ingredients</h4>
         <ul>
           {{ data.ingredients.forEach(function(ingredient) { }}
-            <li>${ ingredient }</li>
+            <li>{= ingredient }</li>
           {{ }); }}
         </ul>
         <h4>Directions</h4>
         <ol>
           {{ data.directions.forEach(function(direction) { }}
-            <li>${ direction }</li>
+            <li>{= direction }</li>
           {{ }); }}
         </ol>
       </div>
@@ -115,7 +115,7 @@
   <!-- Script Favorites Template -->
   <script id='favorites-template' type='text/x-template'>
     <li>
-       <h3>${ data }</h3>
+       <h3>{= data }</h3>
     </li> 
   </script>
 

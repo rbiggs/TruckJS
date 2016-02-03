@@ -38,7 +38,7 @@
       // Define component "wobba":
       $.Component({
         name: 'NameComponent',
-        template: '<li>${data}</li>',
+        template: '<li>{=data}</li>',
         startIndexFrom: 10,
         events: [{
           element: 'li',
@@ -67,10 +67,10 @@
         // Get if a start number:
         startIndexFrom: 7,
         template: "<li class='comp'>\
-          <img data-src='${ person.image }' alt=''>\
+          <img data-src='{= person.image }' alt=''>\
           <div>\
             <h3>\
-              ${ $.view.index }: ${ person.firstName } ${ person.lastName }\
+              {= $.view.index }: {= person.firstName } {= person.lastName }\
             </h3>\
           </div>\
         </li>",

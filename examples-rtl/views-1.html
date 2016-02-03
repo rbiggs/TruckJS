@@ -27,13 +27,13 @@
 
       <ul class="list cloak" id='objTemplate1'>
         <li>
-          <h3>${ data.firstName } ${ data.lastName }, سن: ${ data.age }</h3>
+          <h3>{= data.firstName } {= data.lastName }, سن: {= data.age }</h3>
         </li>
       </ul>
 
       <ul class="list cloak" id='objTemplate2'>
         <li>
-          <h3>${ data.firstName } ${ data.lastName }, سن: ${ data.age }</h3>
+          <h3>{= data.firstName } {= data.lastName }, سن: {= data.age }</h3>
         </li>
       </ul>
 
@@ -42,10 +42,10 @@
 
       <ul class="list cloak" id="arrayTemplate1">
         <li class='comp'>
-          <img data-src='${ data.image }' alt="">
+          <img data-src='{= data.image }' alt="">
           <div>
             <h3>
-              ${ $.view.index }: ${ data.firstName } ${ data.lastName }
+              {= $.view.index }: {= data.firstName } {= data.lastName }
             </h3>
           </div>
         </li>
@@ -54,7 +54,7 @@
       <ul class="list cloak" id="arrayTemplate2">
         <li>
           <h3>
-            ${ $.view.index }: ${ data.firstName } ${ data.lastName }
+            {= $.view.index }: {= data.firstName } {= data.lastName }
           </h3>
         </li>
       </ul>

@@ -31,13 +31,13 @@
     </nav>
     <section>
 
-      <h2 id='titles'>${ data }</h2>
+      <h2 id='titles'>{= data }</h2>
 
       <h2>Single Object Template</h2>
 
       <ul class="list" id='defaultObjectTemplateScript'>
         <script type='text/x-template'>
-          <li><h3>\{${ data.firstName }\} ${ $.helpers.bigName(data) }, age: \{${ data.age }\}</h3></li>
+          <li><h3>\{{= data.firstName }\} {= $.helpers.bigName(data) }, age: \{{= data.age }\}</h3></li>
         </script>
       </ul>
 
@@ -45,14 +45,14 @@
 
       <ul class="list cloak" id='defaultObjectTemplate'>
         <li>
-          <h3>'${ wobba.firstName }' "${ wobba.lastName }", age: ${ wobba.age }</h3>
+          <h3>'{= wobba.firstName }' "{= wobba.lastName }", age: {= wobba.age }</h3>
         </li>
       </ul>
 
       <h2>With HTML Encoding Enabled</h2>
 
       <ul class="list cloak" id="basicRepeater">
-        <li>${ $.view.index }: ${ data.firstName }, ${ $.helpers.bigName(data) }</li>
+        <li>{= $.view.index }: {= data.firstName }, {= $.helpers.bigName(data) }</li>
       </ul>
 
       <h2>Images in Templates</h2>
@@ -68,13 +68,13 @@
 
       <ul id="dataBinding" class='list cloak'>
         <li>
-          <h3>${ data.firstName }</h3>
+          <h3>{= data.firstName }</h3>
         </li>
       </ul>
 
       <ul id="beezle" class='list'>
         <script type='text/x-template'>
-          <li class="nav"><h3>${ data }</h3></li>
+          <li class="nav"><h3>{= data }</h3></li>
         </script>
       </ul>
 
@@ -82,9 +82,9 @@
       <ul class='list' id="templ8">
         <script id='tempie' type='text/x-template'>
           <li>
-            <img data-src='${ somebody.image }'>
+            <img data-src='{= somebody.image }'>
             <div>
-              <h3>${ somebody.name }</h3>
+              <h3>{= somebody.name }</h3>
             </div>
           </li>
           {{ if (somebody.friends && somebody.friends.length) { }}
@@ -95,7 +95,7 @@
             <div>
               <ol>
                 {{  somebody.friends.forEach(function(friend) {  }}
-                <li> ${ friend.name}: ${ friend.job }</li>
+                <li> {= friend.name}: {= friend.job }</li>
                 {{  });  }}
               </ol>
             </div>
@@ -227,10 +227,10 @@
         name: 'luminariesView',
         variable: 'person',
         template: "<li class='comp'>\
-          <img data-src='${ person.image }' alt=''>\
+          <img data-src='{= person.image }' alt=''>\
           <div>\
             <h3>\
-              ${ $.view.index }: ${ person.firstName } ${ person.lastName }\
+              {= $.view.index }: {= person.firstName } {= person.lastName }\
             </h3>\
           </div>\
         </li>",
