@@ -4633,6 +4633,13 @@
       } else {
         throw new Error('unsupported BodyInit type');
       }
+      if (!this.headers.get('content-type')) {
+        if (typeof body === 'string') {
+          this.headers.set('content-type', 'text/plain;charset=UTF-8');
+        } else if (this._bodyBlob && this._bodyBlob.type) {
+          this.headers.set('content-type', this._bodyBlob.type);
+        }
+      }
     };
 
     if (support.blob) {
@@ -4769,13 +4776,13 @@
       options = {};
     }
 
-    this._initBody(bodyInit);
     this.type = 'default';
     this.status = options.status;
     this.ok = this.status >= 200 && this.status < 300;
     this.statusText = options.statusText;
     this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers);
     this.url = options.url || '';
+    this._initBody(bodyInit);
   }
 
   Body.call(Response.prototype);
@@ -4810,7 +4817,7 @@
       headers: {
         location: url
       }
-    });
+    })
   };
 
   self.Headers = Headers;
@@ -4842,17 +4849,12 @@
       }
 
       xhr.onload = function() {
-        var status = (xhr.status === 1223) ? 204 : xhr.status;
-        if (status < 100 || status > 599) {
-          reject(new TypeError('Network request failed'));
-          return;
-        }
         var options = {
-          status: status,
+          status: xhr.status,
           statusText: xhr.statusText,
           headers: headers(xhr),
           url: responseURL()
-        };
+        }
         var body = 'response' in xhr ? xhr.response : xhr.responseText;
         resolve(new Response(body, options));
       };
