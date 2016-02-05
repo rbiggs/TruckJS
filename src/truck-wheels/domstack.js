@@ -189,9 +189,7 @@
         temp = [collection];
         len = 1;
       }
-      while (++i < len) {
-        this.array[this.array.length] = temp[i];
-      }
+      this.array.push.apply(this.array, temp);
       this[0] = this.array[0];
       this.length = this.array.length;
     };

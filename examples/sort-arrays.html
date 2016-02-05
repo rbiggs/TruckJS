@@ -55,6 +55,7 @@
         'Sherry',
         'Paul',
         'Betty',
+        'Étan',
         'Mark',
         'Bill',
         'Ed',
@@ -63,6 +64,9 @@
       ];
 
       var namesModel = $.Model(names, 'names-model');
+      namesModel.sort(function(a, b) {
+        return a.localeCompare(b);
+      })
       namesModel.reverse();
       var namesView = $.View({element: '#names', model: namesModel, variable: 'name'});
       namesView.render()

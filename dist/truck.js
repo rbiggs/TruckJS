@@ -215,9 +215,7 @@
         temp = [collection];
         len = 1;
       }
-      while (++i < len) {
-        this.array[this.array.length] = temp[i];
-      }
+      this.array.push.apply(this.array, temp);
       this[0] = this.array[0];
       this.length = this.array.length;
     };
@@ -2618,11 +2616,7 @@
 
         concat: function(object) {
           if (Array.isArray(object)) {
-            var i = -1;
-            var len = object.length;
-            while (++i < len) {
-              __array[__array.length] = object[i];
-            }
+            __array.push.apply(__array, object);
           }
         },
 
@@ -3065,7 +3059,7 @@
           if (!data) return;
           var self = this;
           if (Array.isArray(__data)) {
-            __data = __data.concat(data);
+            __data.push.apply(__data, data);
             __lastModifiedTime = Date.now();
             propagateData(__handle, __data, doNotPropogate);
             if (__autobox) {

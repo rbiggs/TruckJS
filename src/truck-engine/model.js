@@ -193,7 +193,7 @@
           if (!data) return;
           var self = this;
           if (Array.isArray(__data)) {
-            __data = __data.concat(data);
+            __data.push.apply(__data, data);
             __lastModifiedTime = Date.now();
             propagateData(__handle, __data, doNotPropogate);
             if (__autobox) {

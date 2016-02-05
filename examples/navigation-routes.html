@@ -148,11 +148,11 @@ var bums = [
 
     // Setup Router:
     //==============
-    $.AppRoutes = $.Router();
+    var AppRoutes = $.Router();
 
     // Define Routes:
     //===============
-    $.AppRoutes.addRoute([
+    AppRoutes.addRoute([
       {
         route: 'main', 
         callback: function() {
@@ -170,8 +170,6 @@ var bums = [
       {
         route: 'detail',
         callback: function(id) {
-          // Get current view model:
-          var model = AppViews.VIPView.getModel().getData();
           // Filter model with id passed in route:
           var whichPerson = AppViews.VIPView.getModel().filter(function(person) {
             return person.guid === id;
@@ -179,7 +177,7 @@ var bums = [
           // Output peron's name:
           AppViews.chosenPersonNameView.render(whichPerson.firstName);
           // Handle Navigation work:
-          $('.fullRoute').text($.AppRoutes.getFullRoute());
+          $('.fullRoute').text(AppRoutes.getFullRoute());
           // Output full route:
           $('.fullRoute').text($.TruckRoutes.getFullRoute());
           AppViews.chosenPersonView.empty();

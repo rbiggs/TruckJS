@@ -129,11 +129,7 @@
 
         concat: function(object) {
           if (Array.isArray(object)) {
-            var i = -1;
-            var len = object.length;
-            while (++i < len) {
-              __array[__array.length] = object[i];
-            }
+            __array.push.apply(__array, object);
           }
         },
 
