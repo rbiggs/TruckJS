@@ -3152,9 +3152,7 @@ interface TruckStatic {
        * This method lets you populate the slide out menu with navigation items. It takes an array of key value pairs: [{music: 'Music'},{food: 'Food'}].
        * The label should indicate a screen id. the label value will be displayed as the item name.
        */
-      populate(options: [{
-        label: string;
-      }]): void;
+      populate(options: Object[]): void;
     }
   }
   
