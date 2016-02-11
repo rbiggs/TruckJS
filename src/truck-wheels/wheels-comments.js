@@ -1,6 +1,6 @@
 /*
   Truck Wheels.
-  This is a light and nimble DOM library providing jQuery-compatibility in a small footprint. If jQuery is loaded first, these do not get executed. Truck Engine and Body will use jQuery instead.
+  This is a light and nimble DOM library providing jQuery-compatibility in a small footprint.
 */
 /*jshint quotmark:false */
 /*jshint nonew:false */

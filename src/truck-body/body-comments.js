@@ -1,4 +1,4 @@
 
 /*
-  Truck body parts. These modules are used by both Truck Engine and jQuery. They are a set of widgets for users to interact with.
+  Truck body parts. These modules are a set of widgets for user interaction with the UI and UI behavior.
 */
