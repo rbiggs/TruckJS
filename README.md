@@ -36,6 +36,8 @@ There are four build options:
 2. Just the selector engine
 3. Just the MVC components
 4. Everyting except the selector engine
+5. Minimum build
+6. Custom build - you pick what you want
 
 These cover four uses cases:
 
@@ -54,6 +56,84 @@ These cover four uses cases:
 
 In fact, you can load jQuery before loading the default build of jQuery and Truck will use jQuery instead of its own DOM library.
 
+##Minimum and Custom Builds
+
+You can create a minimum build of TruckJS. This gives you the DOM library, the MVC framework and the basics for a navigation app. The resulting minified file is just over 70kb, compared to 180kb for the complete build of JavaScript files. To create a minimum build, just run the following gulp task:
+
+```
+gulp --minimum
+```
+
+The files incluced in the minimum build are:
+
+**Truck Wheels Components** 
+- domstack.js 
+- selectors.js 
+- utils.js 
+- types.js 
+- strings.js 
+- domstack.js 
+- dom.js 
+- data.js 
+- serialize.js 
+- events.js 
+
+**Truck Engine Components** 
+- environment.js 
+- event-aliases.js 
+- gestures.js 
+- plugins.js 
+- stack.js 
+- mediator.js 
+- model.js 
+- view.js 
+- component.js 
+- screens.js 
+- router.js 
+
+**Truck Body Components**
+- navbar.js 
+- setup.js 
+- buttons.js 
+- navigation.js 
+- center.js
+
+###Customizing
+
+To add new features, you use the minimum flag with the extras flag and put the features you want after the extras flag in quotes with a space separating the terms:
+
+```
+gulp --minimum --extras 'select switch range popup'
+// or
+gulp --minimum --extras 'fetch box edititable slideout form'
+```
+
+**Please Note**
+When you add either `fetch` or `box` to your build, `promises` will autmomatically be included as a dependency. No need to add them unless you want promises without `fetch` or `box`. Similarly, if you include `activityIndicator`, `popup` or `popover`, the `block` module will be included automatically. Also if you add `form` then `validators` will be included.
+
+Below is the complete list of modules you can add to your custom build:
+
+- promises
+- fetch
+- validators
+- box
+- anim
+- oop
+- tabbar
+- slideout
+- editable
+- form
+- select
+- multiselect
+- switch
+- popup
+- popover
+- segmented
+- range
+- sheets
+- paging
+- stepper
+- busy or activityIndicator
 
 
 ###DOM Traversal and Modification
