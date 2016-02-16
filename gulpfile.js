@@ -8,7 +8,7 @@ var ts = require('gulp-typescript');
 var beautify = require('gulp-jsbeautifier');
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
-var minifyCSS = require('gulp-minify-css');
+var cssnano = require('gulp-cssnano');
 var rename = require('gulp-rename');
 var colors = require('colors');
 var combiner = require('stream-combiner2');
@@ -175,12 +175,6 @@ var Truck_MVC_Files = [
   return path.join(filePathStart, file);
 });
 
-var Truck_Body_Files = [
-  {os: 'android', src: 'src/js/truck-body/truck-android.css'},
-  {os: 'ios', src: 'src/js/truck-body/truck-ios.css'},
-  {os: 'windows', src: 'src/js/truck-body/truck-windows.css'}
-];
-
 
 // Concat, minify and output JavaScript:
 gulp.task('js', function () {
@@ -343,13 +337,13 @@ gulp.task('js', function () {
     console.log('Hold on tight. We\'re building your TruckJS now.');
 
     // Define CSS paths:
-    typescriptDirectory = 'src/truck-chassis/';
+    var cssDirectory = 'src/truck-chassis/';
     var cssFiles = [
       'truck-android.css',
       'truck-ios.css',
       'truck-windows.css'
     ].map(function (f) {
-      return path.join(typescriptDirectory, f);
+      return path.join(cssDirectory, f);
     });
 
     gulp.src(Truck_Files)
@@ -367,7 +361,7 @@ gulp.task('js', function () {
     cssFiles.forEach(function(file, idx) {
       gulp.src(file)
         .pipe(gulp.dest('dist/styles'))
-        .pipe(minifyCSS({}))
+        .pipe(cssnano({safe: true}))
         .pipe(rename(osTypes[idx] + '.min.css'))
         .pipe(gulp.dest('dist/styles'));
     });
