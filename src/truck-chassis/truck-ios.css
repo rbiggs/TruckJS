@@ -198,7 +198,7 @@ ul.list > li {
   display: -webkit-flex;
   -webkit-flex-direction: row;
   -webkit-align-items: stretch;
-  -webkit-justify-content: flex-start;
+  -webkit-justify-content: start;
   display: flex;
   flex-direction: row;
   align-items: stretch;
